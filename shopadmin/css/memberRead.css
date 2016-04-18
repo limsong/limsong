@@ -1,0 +1,103 @@
+#main{
+    width: 100%;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+#readContent {
+	float:left;
+	width:100%;
+	margin:0px;
+}
+#readContent dt {
+	float:left;
+	width:15%;
+	background-color:#bfc4dd;
+	font-weight:700;
+	margin-bottom:3px;
+	height:16px;
+	padding:4px 0px 0px 5px;
+}
+#readContent dd {
+	float:left;
+	margin-bottom:3px;
+	height:19px;
+	padding:1px 0px 0px 3px;
+	width:82%;
+}
+.ddTp1 {
+	width:100px;
+}
+.clrDl {
+	clear:both;
+}
+#userFile1 {
+	padding:0px 0px 5px 0px;
+}
+.memEle {
+	margin:0px;
+	height:13px;
+	border:1px solid #99cc99;
+}
+.memEle1 {
+	margin:0px;
+	height:13px;
+	border:1px solid gray;
+}
+.buttonBox {
+	width:100%;
+	float:left;
+	text-align:center;
+	padding-top:10px;
+    border-top: 1px solid gray;
+}
+.memEleB {
+	margin:0px;
+	height:20px;
+	border:1px solid gray;
+}
+.memEleB1 {
+	width:45px;
+	margin:0px;
+	height:20px;
+	border:1px solid gray;
+}
+#subject {
+	width:500px;
+}
+#signDate {
+	width:95%;
+	float:left;
+	text-align:center;
+	padding:10px 0px 0px 0px;
+}
+#readContent .inputDd {
+	height:600px;
+	padding:1px 0px 0px 3px;
+}
+.inputItem {
+	font-size:12px;
+	border:1px solid #99cc99;
+}
+#jjListBox {
+	float:left;
+	width:688px;
+	margin:10px 0px 0px 5px;
+	padding:5px;
+}
+#jjComment {
+	width:97%;
+	overflow:hidden;
+}
+#jjComment1 {
+	width:97%;
+	overflow:hidden;
+}
+#jjokInputForm {
+	width:100%;
+	float:left;
+	margin-top:15px;
+}
+.inp {
+    width: 100%;
+}

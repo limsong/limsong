@@ -1,0 +1,166 @@
+.readContent {
+	float:left;
+	width:100%;
+}
+.readContent dt {
+	float:left;
+	width:18%;
+	background-color:#bfc4dd;
+	font-size: 12px;
+	font-weight:bold;
+	height:17px;
+	padding:4px 0px 0px 5px;
+}
+.readContent dd {
+	float:left;
+	margin-bottom:3px;
+	width:970px;
+	height: 21px;
+        padding: 0px 0px 4px 0px;
+}
+.inputItem {
+        width: 50%;
+        border:1px solid gray;
+        font-size:12px;
+        outline: none;
+        padding:2px;
+        float: left;
+        margin:0px;
+}
+.inputDd {
+        height:auto;
+	padding:0px 0px 0px 3px;
+}
+.textDd {
+	line-height:23px;
+}
+.fileHeight {
+	height:18px;
+}
+#content {
+	width:95%;
+	height:60px;
+}
+.contentDd {
+	padding:0px 0px 0px 3px;
+}
+.buttonBox {
+	width:100%;
+	float:left;
+	text-align:center;
+	padding:10px 0px 20px 0px;
+    	border-top :1px solid gray;
+}
+.memEleB {
+        width:70px;
+        display: inline-block;
+        zoom: 1;
+        /* zoom and *display = ie7 hack for display:inline-block */*
+        display: inline;
+        vertical-align: baseline;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        /*font: 14px/100% Arial, Helvetica, sans-serif;*/
+        font-style: normal;
+        font-variant-caps: normal;
+        letter-spacing: normal;
+        word-spacing: normal;
+        line-height: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        /*text-shadow: 0 1px 1px rgba(0, 0, 0, .3);*/
+        -webkit-border-radius: .2em;
+        -moz-border-radius: .2em;
+        border-radius: .2em;
+        /*
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+        */
+        /*white*/
+        color: #606060;
+        border: solid 1px #b7b7b7;
+        background: #cfd1cf;
+        background-image: linear-gradient(to bottom, #f5f5f5, #cfd1cf);
+        filter: progid: DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');
+        /*medium*/
+        font: normal normal normal 12px Arial, Helvetica, Tahoma, Verdana, Sans-Serif;
+        /*small*/
+        padding: 2px 0px;
+        margin:0px 3px;
+}
+
+
+.summary {
+	width:242px;
+}
+#qtBox {
+      width:970px;
+      position:relative;
+      display:none;
+      z-index: 10000!important;
+      left:0;
+      float: left;
+}
+#qtBoxa{
+      width:970px;
+	position:relative;
+	display:none;
+	z-index: 10000!important;
+      left:0;
+      float: left;
+}
+.remove_project_file{
+    float: left;
+    padding-top:2px;
+    padding-right:3px;
+    cursor: pointer;
+}
+.DateBoxa {
+	display: none;
+}
+.goods_opt_sel_type {
+	display: none;
+}
+.option_name {
+	display: none;
+}
+.inputDd label img,.inputDd label span {
+	float: left;
+	vertical-align: middle;
+}
+.sortMidBox{
+	height: 125px;
+	overflow-y: auto;
+}
+.goods_dlv_special1 {
+      display: none;
+}
+
+.dlv_txt {
+      float: left;
+
+}
+.dlv_fee {
+      width:100px;
+      display: none;
+      float: left;
+      margin: 0px 5px;
+}
+.dlv_won {
+      display: none;
+      float: left;
+}
+.del_single_op,.option,.del_op{
+      width:100%;
+      vertical-align: middle;
+      padding: 3px 0px;
+      background-color:#4A74BC;
+      cursor: pointer;
+      color:white;
+      font-size:12px;
+      float:right;
+}

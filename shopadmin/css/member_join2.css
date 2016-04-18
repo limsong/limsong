@@ -1,0 +1,23 @@
+#main {
+	width:650px;
+	float:left;
+	margin-left:170px;
+	margin-top:40px;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+}
+span {
+	color:Red;
+}
+th {
+	font-weight:100;
+}
+#actionFrame {
+	position:absolute;
+	display:none;
+	border:2px solid #339999;
+	background-color:#ffffff;
+}
+.pp {
+	padding-top:25px;
+}

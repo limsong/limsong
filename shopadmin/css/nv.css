@@ -1,0 +1,60 @@
+
+.pageNavi {
+    width: 100%;
+    font-size: 15px;
+	margin-top:10px;
+}
+.memberBottom {
+    margin:10px 0px 0px 0px;
+    padding:0px;
+    list-style:none;
+    width:100%;
+    float:right;
+}
+.memberBottom li {
+	float:right;
+	margin:0px 3px 0px 30px;
+	padding:10px;
+}
+.border3 {
+	font-size:12px;
+}
+#memDelButton {
+	padding-left:20px;
+}
+.mBox .sBox {
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+a.clll {
+	color:Red;
+}
+.nvimg{
+	padding-top:0px;
+}
+.Dl {
+	width:100%;
+	float:left;
+	margin:0px
+}
+.Dt {
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+.Dd {
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+.Dt1 {
+	padding-top:1px;
+}
+.Dd1 {
+	padding-top:1px;
+}
+.pg a:link {
+    font-size: 15px;
+    padding:0px 5px;
+}

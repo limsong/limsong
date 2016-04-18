@@ -1,0 +1,82 @@
+.login {
+	width:624px;
+	height:280px;
+	float:left;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc;
+	padding:5px;
+	margin-left:185px;
+}
+.loginBimg {
+	width:274px;
+	padding-top:50px;
+	float:left;
+}
+.loginText {
+	width:350px;
+	float:left;
+	padding-top:25px;
+}
+#dlBox {
+	width:202px;
+	margin:0px;
+	float:left;
+}
+#dlBox dl {
+	width:202px;
+	margin:0px;
+	float:left;
+}
+#uid,#passwd {
+	width:80px;
+	border:1px solid #D5D5D5;
+	font-size:9pt;
+}
+#Dt1,#Dt2 {
+	margin:0px;
+	padding:0px;
+	width:50px;
+	float:left;
+	height:20px;
+	text-align:center;
+}
+
+#Dd1,#Dd3 {
+	margin:0px;
+	padding:0px;
+	width:100px;
+	float:left;
+	height:20px;
+	text-align:center;
+}
+ #Dd2 {
+ 	margin:0px;
+	padding:0px;
+	width:46px;
+	float:right;
+	text-align:center;
+}
+#Bul {
+	width:300px;
+	float:left;
+}
+#Sul {
+	width:150px;
+	float:lerft;
+}
+#Sul li {
+	float:left;
+}
+#Sul2 {
+	width:150px;
+	float:left;
+}
+#Sul2 li {
+	float:left;
+}
+#ulBox {
+	width:150px;
+	height:20px;
+	float:left;
+	margin:15px 0px 0px 30px;
+}

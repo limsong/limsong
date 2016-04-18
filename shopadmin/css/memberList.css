@@ -1,0 +1,47 @@
+.memberListTable {
+	margin-top:10px;
+	border-collapse:collapse;
+	border:1px solid gray;
+}
+.menuTr th {
+	background-color:#3a5795;
+	color:#ffffff;
+	padding-top:4px;
+}
+.contentTr td {
+	background-color:#ffffff;
+	border-bottom:1px solid #d4d4d4;
+}
+.pageNavi {
+	padding-top:10px;
+	text-align:center;
+	margin:0px;
+}
+.memberBottom {
+margin:10px 0px 0px 0px;
+padding:0px;
+list-style:none;
+width:713px;
+float:left;
+}
+.memberBottom li {
+	float:right;
+	margin:0px;
+	padding:0px 4px 0px 4px;
+}
+.border2 {
+	border:1px solid gray;
+	font-size:12px;
+	height:14px;
+}
+.border3 {
+	font-size:12px;
+}
+#memDelButton {
+	padding-left:20px;
+}
+.mBox .sBox {
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}

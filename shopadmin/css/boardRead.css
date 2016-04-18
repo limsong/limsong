@@ -1,0 +1,131 @@
+#readContent {
+	float:left;
+	width:671px;
+	margin:10px 0px 0px 10px;
+	border:1px solid gray;
+	padding:5px;
+}
+#readContent dt {
+	float:left;
+	width:15%;
+	background-color:#bfc4dd;
+	font-weight:700;
+	margin-bottom:3px;
+	height:16px;
+	padding:4px 0px 0px 5px;
+}
+#readContent dd {
+	float:left;
+	margin-bottom:3px;
+	height:19px;
+	padding:1px 0px 0px 3px;
+	width:82%;
+}
+.ddTp1 {
+	width:100px;
+}
+.clrDl {
+	clear:both;
+}
+
+#memName {
+	width:60px;
+}
+#memId {
+	width:100px;
+}
+#memEmail {
+	width:150px;
+}
+#memRegNum1,#memRegNum2 {
+	width:60px;
+}
+#memPhone1,#memPhone2,#memPhone3 {
+	width:30px;
+}
+#memMphone1,#memMphone2,#memMphone3 {
+	width:30px;
+}
+#memHpost1,#memHpost2,#memOpost1,#memOpost2 {
+	width:30px;
+}
+#memHaddr1,#memHaddr2,#memOaddr1,#memOaddr2 {
+	width:350px;
+}
+#memMilage {
+	width:50px;
+}
+.memEle {
+	margin:0px;
+	height:13px;
+	border:1px solid #99cc99;
+}
+.memEle1 {
+	margin:0px;
+	height:13px;
+	border:1px solid gray;
+}
+.buttonBox {
+	width:100%;
+	float:left;
+	text-align:center;
+	padding-top:10px;
+}
+.memEleB {
+	margin:0px;
+	height:20px;
+	border:1px solid gray;
+}
+#readContent .inputDate {
+	height:500px;
+}
+#jjList {
+	padding-left:30px;
+}
+.border {
+		border:1px solid #44aaf2;
+		font-size:10pt;
+}
+.comCon {
+	border:1px solid gray;
+	width:408px;
+	height:40px;
+	font-size:10pt;
+	font-family:'돋움';
+}
+.subBtn1 {
+	border:1px solid gray;
+	width:46px;
+	height:40px;
+	font-size:10pt;
+	font-family:'돋움';
+}
+.subBtn2 {
+	border:1px solid gray;
+	width:48px;
+	font-size:10pt;
+	font-family:'돋움';
+	padding-top:1px;
+	height:18px;
+}
+.jjokTbl {
+	margin:5px 0px 5px 0px; 
+}
+#jjokModiForm {
+	display:none;
+	width:610px;
+	border:1px solid #669999;
+}
+#jjokDelForm {
+	display:none;
+	border:2px solid #669999;
+	width:110px;
+	position:absolute;
+}
+.border1 {
+	color:#660000;
+}
+.jjokInputForm {
+	padding-left:32px;
+}
+
