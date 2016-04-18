@@ -239,7 +239,7 @@ try {
                 $dbbuyQuery = $db->loadRows();
                 $buy_seq = $dbbuyQuery[0]["buy_seq"];
 
-                if($bid != "") {
+                if ($bid != "") {
                     //====================================     장바구니에있는 삼품 구매     ===================================================
                     $db->query("SELECT uid,v_oid,goods_code,sbid,sbnum,opid,opnum,signdate FROM basket $basketQuery AND id='$uname'");
                     $dbdata = $db->loadRows();
@@ -311,7 +311,7 @@ try {
                             //일반옵션
                             $db->query("SELECT opName1,opName2,sellPrice,quantity FROM goods_option_single_value $sbidQuery ORDER BY id ASC");
                             $goods_value_query = $db->loadRows();
-                        } else {
+                        } elseif($goods_opt_type == "2") {
                             //가격선택옵션 opValue2 판매가
                             $db->query("SELECT opName1,opName2,opName3,opValue2,opValue3 FROM goods_option_grid_value $sbidQuery ORDER BY id ASC");
                             $goods_value_query = $db->loadRows();
@@ -472,7 +472,7 @@ try {
                         }
 
                     }
-                }else{
+                } else {
                     //====================================     장바구니에 안넣고 바로구매     ===================================================
                     $goods_code = $_SESSION["goods_code"];
                     $sbnum = $_SESSION["sbnum"];
@@ -511,7 +511,6 @@ try {
                     }
 
 
-
                     $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
                     $goods_value_query = $db->loadRows();
                     $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
@@ -536,7 +535,7 @@ try {
                         //일반옵션
                         $db->query("SELECT opName1,opName2,sellPrice,quantity FROM goods_option_single_value $sbidQuery ORDER BY id ASC");
                         $goods_value_query = $db->loadRows();
-                    } else {
+                    } elseif ($goods_opt_type == "2") {
                         //가격선택옵션 opValue2 판매가
                         $db->query("SELECT opName1,opName2,opName3,opValue2,opValue3 FROM goods_option_grid_value $sbidQuery ORDER BY id ASC");
                         $goods_value_query = $db->loadRows();
@@ -1009,86 +1008,280 @@ try {
 
 ?>
 <body class="home-1 checkout-page cart-page">
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an
-    <strong>outdated</strong>
-    browser. Please
-    <a href="http://browsehappy.com/">upgrade
-        your browser
-    </a>
-    to improve your experience.
-<![endif]-->
-<!--header area start-->
-<!--header area end-->
-<!--breadcrumb area start-->
-<div class="breadcrumb-area">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="bread-crumb">
-                    <h1 class="sin-page-title" style="text-align:left;">
-                        <a href="index.php"
-                           style="font-size:20px;">BLUE START
-                        </a>
-                        <?php
-                        if (strcmp("0000", $resultMap["resultCode"]) == 0) {
-                            echo "주문완료";
-                        } else {
-                            echo "인증실패";
-                        }
-                        ?>
-                    </h1>
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an
+        <strong>outdated</strong>
+        browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser
+        </a>
+        to improve your experience.<![endif]-->
+    <!--header area start-->
+    <!--header area end-->
+    <!--breadcrumb area start-->
+    <div class="breadcrumb-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bread-crumb">
+                        <h1 class="sin-page-title" style="text-align:left;">
+                            <a href="index.php" style="font-size:20px;">BLUE START
+                            </a>
+                            <?php
+                            if (strcmp("0000", $resultMap["resultCode"]) == 0) {
+                                echo "주문완료";
+                            } else {
+                                echo "인증실패";
+                            }
+                            ?>
+                        </h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!--breadcrumb area end-->
-<!-- checkout-area start -->
-<div class="checkout-area">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <?php
-                if (strcmp("0000", $resultMap["resultCode"]) == 0) {
-                    //print_r($resultMap);
-                    echo $str;
-                    //var_dump($_REQUEST);
-                } else {
-                    //var_dump($_REQUEST);
-                    echo "결제 실패 하였습니다.";
-                }
+    <!--breadcrumb area end-->
+    <!-- checkout-area start -->
+    <div class="checkout-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <?php
+                    if (strcmp("0000", $resultMap["resultCode"]) == 0) {
+                        //print_r($resultMap);
+                        echo $str;
+                        //var_dump($_REQUEST);
+                    } else {
+                        //var_dump($_REQUEST);
+                        echo "결제 실패 하였습니다.";
+                    }
 
 
-                ?>
-            </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="your-order">
-                    <h3 style="margin:0px;">주문상품</h3>
-                    <div class="container-fluid no-padding">
-                        <div class="row cart-top">
-                            <div class="col-md-12">
-                                <div class="table-responsive cart-area-wrapper">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <td colspan="5">상품/옵션정보</td>
-                                            <td>상품금액</td>
-                                            <td>배송비</td>
-                                        </tr>
-                                        </thead>
-                                        <?php
+                    ?>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="your-order">
+                        <h3 style="margin:0px;">주문상품</h3>
+                        <div class="container-fluid no-padding">
+                            <div class="row cart-top">
+                                <div class="col-md-12">
+                                    <div class="table-responsive cart-area-wrapper">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="5">상품/옵션정보</td>
+                                                    <td>상품금액</td>
+                                                    <td>배송비</td>
+                                                </tr>
+                                            </thead>
+                                            <?php
+
+                                            if ($bid != "") {
+                                                $db->query("SELECT uid,v_oid,goods_code,sbid,sbnum,opid,opnum,signdate FROM basket $basketQuery AND id='$uname' ORDER BY uid ASC");
+                                                $dbdata2 = $db->loadRows();
+                                                foreach ($dbdata2 as $key => $vv) {
+                                                    $sbid = $vv["sbid"];
+                                                    $sbidArr = explode(",", $sbid);
+                                                    $sbnum = $vv["sbnum"];
+                                                    $sbnumArr = explode(",", $sbnum);
+                                                    $goods_code = $vv["goods_code"];
+                                                    $pay_goods_name .= $vv["goods_name"];
+                                                    $i = 0;
+                                                    $sbidQuery == "";
+                                                    foreach ($sbidArr as $a => $b) {
+                                                        if ($i == 0) {
+                                                            $sbidQuery = "WHERE id IN (" . $b . "";
+                                                        } else {
+                                                            $sbidQuery .= "," . $b . "";
+                                                        }
+                                                        $i++;
+                                                    }
+                                                    $sbidQuery .= ")";
+                                                    $opid = $vv["opid"];
+                                                    $opidArr = explode(",", $opid);
+                                                    $opnum = $vv["opnum"];
+                                                    $opnumArr = explode(",", $opnum);
+                                                    $i = 0;
+                                                    $opidQuery = "";
+                                                    foreach ($opidArr as $c => $d) {
+                                                        if ($d != "") {
+                                                            if ($i == 0) {
+                                                                $opidQuery = "WHERE id IN (" . $d . "";
+                                                            } else {
+                                                                $opidQuery .= "," . $d . "";
+                                                            }
+                                                            $i++;
+                                                        }
+                                                    }
+                                                    if ($opidQuery != "") {
+                                                        $opidQuery .= ")";
+                                                    }
 
 
-                                        $db->query("SELECT uid,v_oid,goods_code,sbid,sbnum,opid,opnum,signdate FROM basket $basketQuery AND id='$uname' ORDER BY uid ASC");
-                                        $dbdata2 = $db->loadRows();
-                                        foreach ($dbdata2 as $key => $vv) {
-                                            $sbid = $vv["sbid"];
+                                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
+                                                    $goods_value_query = $db->loadRows();
+                                                    $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
+                                                    $goods_name = $goods_value_query[0]["goods_name"];
+                                                    $goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
+                                                    $goods_opt_type = $goods_value_query[0]["goods_opt_type"];
+                                                    $goods_opt_num = $goods_value_query[0]["goods_opt_num"];
+                                                    $goods_sellPrice = $goods_value_query[0]["sellPrice"];
+
+                                                    $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
+                                                    $dbdata = $db->loadRows();
+                                                    $imgSrc = $brandImagesWebDir . $dbdata[0]["imageName"];
+
+                                                    if ($goods_opt_type == "0") {
+                                                        // 옵션없음
+                                                        $goods_count = count($goods_value_query);
+                                                    } else if ($goods_opt_type == "1") {
+                                                        //일반옵션
+                                                        $db->query("SELECT opName1,opName2,sellPrice,quantity FROM goods_option_single_value $sbidQuery ORDER BY id ASC");
+                                                        $goods_value_query = $db->loadRows();
+                                                        $goods_count = count($goods_value_query);
+                                                    } else {
+                                                        //가격선택옵션 opValue2 판매가
+                                                        $db->query("SELECT opName1,opName2,opName3,opValue2,opValue3 FROM goods_option_grid_value $sbidQuery ORDER BY id ASC");
+                                                        $goods_value_query = $db->loadRows();
+                                                        $goods_count = count($goods_value_query);
+                                                    }
+                                                    $sum = 0;
+                                                    for ($i = 0; $i < $goods_count; $i++) {
+                                                        if ($goods_opt_type == "2") {
+                                                            $sum += $goods_value_query[$i]["opValue2"] * $sbnumArr[$i];
+                                                        } else {
+                                                            $sum += $goods_value_query[$i]["sellPrice"] * $sbnumArr[$i];
+                                                        }
+                                                    }
+                                                    $sum2 = 0;
+                                                    if ($goods_opt_type != "0") {
+                                                        if ($opidQuery != "") {
+                                                            $db->query("SELECT id,opName1,opName2,opValue2,quantity FROM goods_option $opidQuery ");
+                                                            $goods_option = $db->loadRows();
+                                                            $goods_optionCount = count($goods_option);
+                                                            $rowspan = $goods_count + $goods_optionCount + 1;
+                                                            for ($i = 0; $i < $goods_optionCount; $i++) {
+                                                                $sum += $goods_option[$i]["opValue2"] * $opnumArr[$i];
+                                                            }
+                                                        } else {
+                                                            $rowspan = $goods_count + 3;
+                                                        }
+                                                    } else {
+                                                        $rowspan = $goods_count + 3;
+                                                    }
+                                                    $total_sum += $sum;
+                                                    $total_sum2 += $sum2;
+                                                    ?>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="text-align:left;background-color:#ddd;" colspan="5">
+                                                                <span style="display: inline-block;vertical-align: middle;">
+                                                                    <img title="blandit blandit" width="50" height="50" alt="BlueStartImages" src="<?= $imgSrc ?>">
+                                                                </span>
+                                                                <span style="display: inline-block;vertical-align: middle;">
+                                                                    <a href="item_view.php?code=<?= $goods_code ?>"><?= $goods_name ?></a>
+                                                                </span>
+                                                            </td>
+
+                                                            <td class="cross Tprice" rowspan="<?= $rowspan ?>" data-price="<?= $sum * $sb_sale + $sum2 ?>">
+                                                                <?= number_format($sum * $sb_sale + $sum2) ?>
+                                                                원
+                                                            </td>
+                                                            <td class="cross shipping" data-shipping="<?php if ($goods_dlv_type == "1") {
+                                                                echo "0";
+                                                            } else {
+                                                                echo "2500";
+                                                            } ?>" rowspan="<?= $rowspan ?>">
+                                                                <?php
+                                                                if ($goods_dlv_type == "1") {
+                                                                    echo "0 원";
+                                                                    $total_dShipping = $total_dShipping + 0;
+                                                                } else {
+                                                                    echo number_format(2500) . " 원";
+                                                                    if ($total_dShipping == "") {
+                                                                        $total_dShipping = "2500";
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $i = 0;
+                                                        foreach ($goods_value_query as $e => $f) {
+                                                            if ($goods_opt_type == "1") {
+                                                                $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"];
+                                                            } elseif ($goods_opt_type == "2") {
+                                                                if ($goods_opt_num == "2") {
+                                                                    $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"];
+                                                                } else {
+                                                                    $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"] . "_" . $goods_value_query[$i]["opName3"];
+                                                                }
+                                                            }
+                                                            if ($goods_opt_type != "2") {
+                                                                $goods_sellPrice = $f["sellPrice"] * $sb_sale;
+                                                            } else {
+                                                                $goods_sellPrice = $f["opValue2"];
+                                                            }
+                                                            ?>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="col-md-7" style="text-align:left;">
+                                                                    <div class="cm7">
+                                                                        옵션명 : <?= $goods_name ?>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <?= number_format($goods_sellPrice) ?> 원
+                                                                </td>
+                                                                <td class="u-d">
+                                                                    <?= $sbnumArr[$i] . "개" ?>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="price" data-num="<?= $sbnumArr[$i] ?>" data-price="<?= $goods_sellPrice ?>" style="font-weight:bold;"><?php echo number_format($goods_sellPrice * $sbnumArr[$i]); ?>
+                                                                        원
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                        if ($goods_opt_type != "0") {
+                                                            $i = 0;
+                                                            foreach ($goods_option as $e => $f) {
+                                                                $goods_option_name = $f["opName1"] . "_" . $f["opName2"];
+                                                                ?>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td class="col-md-7" style="text-align:left;">
+                                                                        <div class="cm7">
+                                                                            추가 옵션명 : <?= $goods_option_name ?>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?= number_format($f["opValue2"]) ?>
+                                                                        원
+                                                                    </td>
+                                                                    <td class="u-d">
+                                                                        <?= $opnumArr[$i] . "개" ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="price" data-num="<?= $opnumArr[$i] ?>" data-price="<?= $f['opValue2'] ?>" style="font-weight:bold;"><?= number_format($f['opValue2'] * $opnumArr[$i]) ?>
+                                                                            원
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                                $i++;
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                    <?php
+                                                }
+                                                //$db->query("DELETE FROM basket $basketQuery");
+                                            }else{
+                                            $sbid = $_SESSION["sbid"];
                                             $sbidArr = explode(",", $sbid);
-                                            $sbnum = $vv["sbnum"];
+                                            $sbnum = $_SESSION["sbnum"];
                                             $sbnumArr = explode(",", $sbnum);
-                                            $goods_code = $vv["goods_code"];
-                                            $pay_goods_name .= $vv["goods_name"];
                                             $i = 0;
                                             $sbidQuery == "";
                                             foreach ($sbidArr as $a => $b) {
@@ -1100,9 +1293,9 @@ try {
                                                 $i++;
                                             }
                                             $sbidQuery .= ")";
-                                            $opid = $vv["opid"];
+                                            $opid = $_SESSION["opid"];
                                             $opidArr = explode(",", $opid);
-                                            $opnum = $vv["opnum"];
+                                            $opnum = $_SESSION["opnum"];
                                             $opnumArr = explode(",", $opnum);
                                             $i = 0;
                                             $opidQuery = "";
@@ -1176,300 +1369,264 @@ try {
                                             $total_sum2 += $sum2;
                                             ?>
                                             <tbody>
-                                            <tr>
-                                                <td style="text-align:left;background-color:#ddd;" colspan="5">
-                                                            <span
-                                                                style="display: inline-block;vertical-align: middle;">
-                                                                <img
-                                                                    title="blandit blandit"
-                                                                    width="50"
-                                                                    height="50"
-                                                                    alt="BlueStartImages"
-                                                                    src="<?= $imgSrc ?>">
-                                                            </span>
-                                                            <span
-                                                                style="display: inline-block;vertical-align: middle;">
-                                                                <a href="item_view.php?code=<?= $goods_code ?>"><?= $goods_name ?></a>
-                                                            </span>
-                                                </td>
+                                                <tr>
+                                                    <td style="text-align:left;background-color:#ddd;" colspan="5">
+                                                        <span style="display: inline-block;vertical-align: middle;">
+                                                            <img title="blandit blandit" width="50" height="50" alt="BlueStartImages" src="<?= $imgSrc ?>">
+                                                        </span>
+                                                        <span style="display: inline-block;vertical-align: middle;">
+                                                            <a href="item_view.php?code=<?= $goods_code ?>"><?= $goods_name ?></a>
+                                                        </span>
+                                                    </td>
 
-                                                <td class="cross Tprice"
-                                                    rowspan="<?= $rowspan ?>"
-                                                    data-price="<?= $sum * $sb_sale + $sum2 ?>">
-                                                    <?= number_format($sum * $sb_sale + $sum2) ?>
-                                                    원
-                                                </td>
-                                                <td class="cross shipping"
-                                                    data-shipping="<?php if ($goods_dlv_type == "1") {
+                                                    <td class="cross Tprice" rowspan="<?= $rowspan ?>" data-price="<?= $sum * $sb_sale + $sum2 ?>">
+                                                        <?= number_format($sum * $sb_sale + $sum2) ?>
+                                                        원
+                                                    </td>
+                                                    <td class="cross shipping" data-shipping="<?php if ($goods_dlv_type == "1") {
                                                         echo "0";
                                                     } else {
                                                         echo "2500";
-                                                    } ?>"
-                                                    rowspan="<?= $rowspan ?>">
-                                                    <?php
-                                                    if ($goods_dlv_type == "1") {
-                                                        echo "0 원";
-                                                        $total_dShipping = $total_dShipping + 0;
-                                                    } else {
-                                                        echo number_format(2500) . " 원";
-                                                        if ($total_dShipping == "") {
-                                                            $total_dShipping = "2500";
+                                                    } ?>" rowspan="<?= $rowspan ?>">
+                                                        <?php
+                                                        if ($goods_dlv_type == "1") {
+                                                            echo "0 원";
+                                                            $total_dShipping = $total_dShipping + 0;
+                                                        } else {
+                                                            echo number_format(2500) . " 원";
+                                                            if ($total_dShipping == "") {
+                                                                $total_dShipping = "2500";
+                                                            }
                                                         }
-                                                    }
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                            $i = 0;
-                                            foreach ($goods_value_query as $e => $f) {
-                                                if ($goods_opt_type == "1") {
-                                                    $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"];
-                                                } elseif ($goods_opt_type == "2") {
-                                                    if ($goods_opt_num == "2") {
-                                                        $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"];
-                                                    } else {
-                                                        $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"] . "_" . $goods_value_query[$i]["opName3"];
-                                                    }
-                                                }
-                                                if ($goods_opt_type != "2") {
-                                                    $goods_sellPrice = $f["sellPrice"] * $sb_sale;
-                                                } else {
-                                                    $goods_sellPrice = $f["opValue2"];
-                                                }
-                                                ?>
-                                                <tr>
-                                                    <td></td>
-                                                    <td class="col-md-7" style="text-align:left;">
-                                                        <div class="cm7">
-                                                            옵션명 : <?= $goods_name ?>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <?= number_format($goods_sellPrice) ?> 원
-                                                    </td>
-                                                    <td class="u-d">
-                                                        <?= $sbnumArr[$i] . "개" ?>
-                                                    </td>
-                                                    <td>
-                                                                <span
-                                                                    class="price"
-                                                                    data-num="<?= $sbnumArr[$i] ?>"
-                                                                    data-price="<?= $goods_sellPrice ?>"
-                                                                    style="font-weight:bold;"><?php echo number_format($goods_sellPrice * $sbnumArr[$i]); ?>
-                                                                    원
-                                                                </span>
+                                                        ?>
                                                     </td>
                                                 </tr>
                                                 <?php
-                                            }
-                                            if ($goods_opt_type != "0") {
                                                 $i = 0;
-                                                foreach ($goods_option as $e => $f) {
-                                                    $goods_option_name = $f["opName1"] . "_" . $f["opName2"];
+                                                foreach ($goods_value_query as $e => $f) {
+                                                    if ($goods_opt_type == "1") {
+                                                        $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"];
+                                                    } elseif ($goods_opt_type == "2") {
+                                                        if ($goods_opt_num == "2") {
+                                                            $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"];
+                                                        } else {
+                                                            $goods_name = $goods_value_query[$i]["opName1"] . "_" . $goods_value_query[$i]["opName2"] . "_" . $goods_value_query[$i]["opName3"];
+                                                        }
+                                                    }
+                                                    if ($goods_opt_type != "2") {
+                                                        $goods_sellPrice = $f["sellPrice"] * $sb_sale;
+                                                    } else {
+                                                        $goods_sellPrice = $f["opValue2"];
+                                                    }
                                                     ?>
                                                     <tr>
                                                         <td></td>
-                                                        <td class="col-md-7"
-                                                            style="text-align:left;">
+                                                        <td class="col-md-7" style="text-align:left;">
                                                             <div class="cm7">
-                                                                추가
-                                                                옵션명
-                                                                : <?= $goods_option_name ?>
+                                                                옵션명 : <?= $goods_name ?>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <?= number_format($f["opValue2"]) ?>
-                                                            원
+                                                            <?= number_format($goods_sellPrice) ?> 원
                                                         </td>
                                                         <td class="u-d">
-                                                            <?= $opnumArr[$i] . "개" ?>
+                                                            <?= $sbnumArr[$i] . "개" ?>
                                                         </td>
                                                         <td>
-                                                                    <span
-                                                                        class="price"
-                                                                        data-num="<?= $opnumArr[$i] ?>"
-                                                                        data-price="<?= $f['opValue2'] ?>"
-                                                                        style="font-weight:bold;"><?= number_format($f['opValue2'] * $opnumArr[$i]) ?>
-                                                                        원
-                                                                    </span>
+                                                            <span class="price" data-num="<?= $sbnumArr[$i] ?>" data-price="<?= $goods_sellPrice ?>" style="font-weight:bold;"><?php echo number_format($goods_sellPrice * $sbnumArr[$i]); ?>
+                                                                원
+                                                            </span>
                                                         </td>
                                                     </tr>
                                                     <?php
-                                                    $i++;
                                                 }
-                                            }
-                                            ?>
+                                                if ($goods_opt_type != "0") {
+                                                    $i = 0;
+                                                    foreach ($goods_option as $e => $f) {
+                                                        $goods_option_name = $f["opName1"] . "_" . $f["opName2"];
+                                                        ?>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="col-md-7" style="text-align:left;">
+                                                                <div class="cm7">
+                                                                    추가 옵션명 : <?= $goods_option_name ?>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <?= number_format($f["opValue2"]) ?>
+                                                                원
+                                                            </td>
+                                                            <td class="u-d">
+                                                                <?= $opnumArr[$i] . "개" ?>
+                                                            </td>
+                                                            <td>
+                                                                <span class="price" data-num="<?= $opnumArr[$i] ?>" data-price="<?= $f['opValue2'] ?>" style="font-weight:bold;"><?= number_format($f['opValue2'] * $opnumArr[$i]) ?>
+                                                                    원
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $i++;
+                                                    }
+                                                }
+                                                ?>
                                             </tbody>
                                             <?php
-                                        }
-                                        if($bid != ""){
-                                            //$db->query("DELETE FROM basket $basketQuery");
-                                        }
-                                        $db->disconnect();
-                                        ?>
-                                    </table>
+                                            }
+                                            $db->disconnect();
+                                            ?>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="checkbox-form">
-                    <h3 class="col-md-12" style="margin:0px;padding-left:0px;border-bottom:none;margin-top:20px;">
-                        받는사람
-                    </h3>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table borderless user-info">
+                <div class="col-lg-12 col-md-12">
+                    <div class="checkbox-form">
+                        <h3 class="col-md-12" style="margin:0px;padding-left:0px;border-bottom:none;margin-top:20px;">
+                            받는사람
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table borderless user-info">
+                                    <tr>
+                                        <th class="col-lg-3 col-md-3">이름</th>
+                                        <td><?php echo $_SESSION["user_id"]; ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>휴대폰</th>
+                                        <td> <?php echo $_SESSION["phone"]; ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td> <?php echo "(" . $_SESSION["zipcode"] . ")" . $_SESSION["newadd"] . $_SESSION["alladd"]; ?> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송메시지</th>
+                                        <td><?php echo $_SESSION["ship_message"]; ?></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="your-order">
+                        <h3 style="margin:0px;margin-top:20px;">결제정보</h3>
+                        <div class="your-order-table table-responsive">
+                            <table class="table checkout-table checkout" style="border-top:2px solid #666;">
+                                <thead>
+                                    <th class="cross">주문금액</th>
+                                    <th class="cross">배송비</th>
+                                    <th class="cross">할인금액</th>
+                                    <th>
+                                        <span class="checkout-price">결제 예정금액</span>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <td><?= number_format($_SESSION["buy_total_price"]) ?>
+                                        <span class="won">원</span>
+                                    </td>
+                                    <td class="cross">
+                                        <i class="fa fa-plus-square"></i> <?= number_format($_SESSION["pay_dlv_fee"]) ?>
+                                        <span class="won">원
+                                        </span>
+                                    </td>
+                                    <td class="cross">
+                                        <i class="fa fa-minus-square"></i> <?= number_format($_SESSION["buy_instant_discount"]) ?>
+                                        <span class="won">원</span>
+                                    </td>
+                                    <td>
+                                        <span class="checkout-price"><?= number_format($_SESSION["buy_total_price"] - $_SESSION["buy_instant_discount"] + $_SESSION["pay_dlv_fee"]) ?></span>
+                                        <span class="won2">원
+                                        </span>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="your-order">
+                        <div class="your-order-table table-responsive">
+                            <table class="table" style="border-top:2px solid #666;margin-bottom: 30px;">
                                 <tr>
-                                    <th class="col-lg-3 col-md-3">이름</th>
-                                    <td><?php echo $_SESSION["user_id"]; ?> </td>
-                                </tr>
-                                <tr>
-                                    <th>휴대폰</th>
-                                    <td> <?php echo $_SESSION["phone"]; ?> </td>
-                                </tr>
-                                <tr>
-                                    <th>주소</th>
-                                    <td> <?php echo "(" . $_SESSION["zipcode"] . ")" . $_SESSION["newadd"] . $_SESSION["alladd"]; ?> </td>
-                                </tr>
-                                <tr>
-                                    <th>배송메시지</th>
-                                    <td><?php echo $_SESSION["ship_message"]; ?></td>
+                                    <td>
+                                        <div class="order-button-payment">
+                                            <input type="button" onclick="location.href='/'" style="background-color:white;color:#333;border:1px solid #ccc;" value="확인">
+                                        </div>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="your-order">
-                    <h3 style="margin:0px;margin-top:20px;">결제정보</h3>
-                    <div class="your-order-table table-responsive">
-                        <table class="table checkout-table checkout" style="border-top:2px solid #666;">
-                            <thead>
-                            <th class="cross">주문금액</th>
-                            <th class="cross">배송비</th>
-                            <th class="cross">할인금액</th>
-                            <th>
-                                <span class="checkout-price">결제 예정금액</span>
-                            </th>
-                            </thead>
-                            <tbody>
-                            <td><?= number_format($_SESSION["buy_total_price"]) ?>
-                                <span class="won">원</span>
-                            </td>
-                            <td class="cross">
-                                <i
-                                    class="fa fa-plus-square"></i> <?= number_format($_SESSION["pay_dlv_fee"]) ?>
-                                <span
-                                    class="won">원
-                                        </span>
-                            </td>
-                            <td class="cross">
-                                <i
-                                    class="fa fa-minus-square"></i> <?= number_format($_SESSION["buy_instant_discount"]) ?>
-                                <span class="won">원</span>
-                            </td>
-                            <td>
-                                        <span
-                                            class="checkout-price"><?= number_format($_SESSION["buy_total_price"] - $_SESSION["buy_instant_discount"] + $_SESSION["pay_dlv_fee"]) ?></span>
-                                        <span
-                                            class="won2">원
-                                        </span>
-                            </td>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="your-order">
-                    <div class="your-order-table table-responsive">
-                        <table class="table"
-                               style="border-top:2px solid #666;margin-bottom: 30px;">
-                            <tr>
-                                <td>
-                                    <div class="order-button-payment">
-                                        <input
-                                            type="button"
-                                            onclick="location.href='/'"
-                                            style="background-color:white;color:#333;border:1px solid #ccc;"
-                                            value="확인">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-</div>
-<!-- checkout-area end -->
-<!--footer area start-->
+    <!-- checkout-area end -->
+    <!--footer area start-->
 
-<!--footer area end-->
+    <!--footer area end-->
 
-<!-- JS -->
+    <!-- JS -->
 
-<!-- jquery-1.11.3.min js
-============================================ -->
-<script src="js/vendor/jquery-1.11.3.min.js"></script>
+    <!-- jquery-1.11.3.min js
+    ============================================ -->
+    <script src="js/vendor/jquery-1.11.3.min.js"></script>
 
-<!-- price-slider js -->
-<script src="js/price-slider.js"></script>
+    <!-- price-slider js -->
+    <script src="js/price-slider.js"></script>
 
-<!-- bootstrap js
-        ============================================ -->
-<script src="js/bootstrap.min.js"></script>
+    <!-- bootstrap js
+            ============================================ -->
+    <script src="js/bootstrap.min.js"></script>
 
-<!-- nevo slider js
-============================================ -->
-<script src="js/jquery.nivo.slider.pack.js"></script>
+    <!-- nevo slider js
+    ============================================ -->
+    <script src="js/jquery.nivo.slider.pack.js"></script>
 
-<!-- owl.carousel.min js
-============================================ -->
-<script src="js/owl.carousel.min.js"></script>
+    <!-- owl.carousel.min js
+    ============================================ -->
+    <script src="js/owl.carousel.min.js"></script>
 
-<!-- count down js
-============================================ -->
-<script src="js/jquery.countdown.min.js" type="text/javascript"></script>
+    <!-- count down js
+    ============================================ -->
+    <script src="js/jquery.countdown.min.js" type="text/javascript"></script>
 
-<!--zoom plugin
-============================================ -->
-<script src='js/jquery.elevatezoom.js'></script>
+    <!--zoom plugin
+    ============================================ -->
+    <script src='js/jquery.elevatezoom.js'></script>
 
-<!-- wow js
-============================================ -->
-<script src="js/wow.js"></script>
+    <!-- wow js
+    ============================================ -->
+    <script src="js/wow.js"></script>
 
-<!--Mobile Menu Js
-============================================ -->
-<script src="js/jquery.meanmenu.js"></script>
+    <!--Mobile Menu Js
+    ============================================ -->
+    <script src="js/jquery.meanmenu.js"></script>
 
-<!-- jquery.fancybox.pack js -->
-<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <!-- jquery.fancybox.pack js -->
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
 
-<!-- jquery.scrollUp js
-============================================ -->
-<script src="js/jquery.scrollUp.min.js"></script>
+    <!-- jquery.scrollUp js
+    ============================================ -->
+    <script src="js/jquery.scrollUp.min.js"></script>
 
-<!-- jquery.collapse js
-============================================ -->
-<script src="js/jquery.collapse.js"></script>
+    <!-- jquery.collapse js
+    ============================================ -->
+    <script src="js/jquery.collapse.js"></script>
 
-<!-- mixit-up js
-        ============================================ -->
-<script src="js/jquery.mixitup.min.js"></script>
+    <!-- mixit-up js
+            ============================================ -->
+    <script src="js/jquery.mixitup.min.js"></script>
 
-<!-- plugins js
-============================================ -->
-<script src="js/plugins.js"></script>
+    <!-- plugins js
+    ============================================ -->
+    <script src="js/plugins.js"></script>
 
-<!-- main js
-============================================ -->
-<script src="js/main.js"></script>
-</body>
-</html>
+    <!-- main js
+    ============================================ -->
+    <script src="js/main.js"></script>
+</body></html>

@@ -11,7 +11,7 @@ $mod = $_POST["mod"];
 $ordernum = $_POST["ordernum"];
 if($mod == "goods"){
         //상품검색
-        $query = "SELECT goods_code FROM basket WHER ordernum = '$ordernum'";
+        $query = "select * from buy where buy_code='$ordernum'";
         $result = mysql_query($query) or die($query);
 
 }

@@ -134,15 +134,21 @@ $email = $dbshopMembers[0]["email"];
                                                     $sbidQuery = "";
                                                     foreach ($sbidArr as $a => $b) {
                                                         if ($i == 0) {
-                                                            $_SESSION["sbid"] = $b;
                                                             $sbidQuery = "WHERE id IN (" . $b . "";
                                                         } else {
-                                                            $_SESSION["sbid"] .= ",".$b;
                                                             $sbidQuery .= "," . $b . "";
                                                         }
                                                         $i++;
                                                     }
                                                     $sbidQuery .= ")";
+
+                                                    for($i=0;$i<count($sbidArr);$i++){
+                                                        if($i==0){
+                                                            $_SESSION["sbid"] = $sbidArr[$i];
+                                                        }else{
+                                                            $_SESSION["sbid"] .= ",".$sbidArr[$i];
+                                                        }
+                                                    }
 
 
                                                     for($i=0;$i<count($sbnumArr);$i++){
@@ -158,10 +164,8 @@ $email = $dbshopMembers[0]["email"];
                                                     foreach ($opidArr as $c => $d) {
                                                         if ($d != "") {
                                                             if ($i == 0) {
-                                                                $_SESSION["opid"] = $d;
                                                                 $opidQuery = "WHERE id IN (" . $d . "";
                                                             } else {
-                                                                $_SESSION["opid"] .= ",".$d;
                                                                 $opidQuery .= "," . $d . "";
                                                             }
                                                             $i++;
@@ -170,6 +174,15 @@ $email = $dbshopMembers[0]["email"];
                                                     if ($opidQuery != "") {
                                                         $opidQuery .= ")";
                                                     }
+
+                                                    for($i=0;$i<count($opnumArr);$i++){
+                                                        if($i==0){
+                                                            $_SESSION["opid"] = $opidArr[$i];
+                                                        }else{
+                                                            $_SESSION["opid"] .= ",".$opidArr[$i];
+                                                        }
+                                                    }
+
                                                     for($i=0;$i<count($opnumArr);$i++){
                                                         if($i==0){
                                                             $_SESSION["opnum"] = $opnumArr[$i];
