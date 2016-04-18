@@ -17,6 +17,7 @@ $oldadd = $_POST["oldadd"];
 $newadd = $_POST["newadd"];
 $alladd = $_POST["alladd"];
 $ship_message = $_POST["ship_message"];
+/*
 $_SESSION["bid"] = "";
 $_SESSION["user_id"] = "";
 $_SESSION["phone"] = "";
@@ -25,8 +26,9 @@ $_SESSION["newadd"] = "";
 $_SESSION["alladd"] = "";
 $_SESSION["ship_message"] = "";
 $_SESSION["zipcode"] = "";
+*/
 foreach ($_POST as $key => $value) {
-    $_SESSION[$key] = $value;
+    $_SESSION[$ordernum."_".$key] = $value;
 }
 
 $basketidArr = explode("_", $basketid);

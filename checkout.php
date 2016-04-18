@@ -125,11 +125,13 @@ $email = $dbshopMembers[0]["email"];
                                                     $opidArr = $_POST["opid"];
                                                     $opnumArr = $_POST["opnum"];
                                                     $goods_code = $_POST["goods_code"];
-                                                    $_SESSION["goods_code"] = $goods_code;
+                                                    $_SESSION[$orderNumber."_goods_code"] = $goods_code;
+                                                    /*
                                                     $_SESSION["sbnum"]="";
                                                     $_SESSION["sbid"] = "";
                                                     $_SESSION["opid"] = "";
                                                     $_SESSION["opnum"] = "";
+                                                    */
                                                     $i = 0;
                                                     $sbidQuery = "";
                                                     foreach ($sbidArr as $a => $b) {
@@ -144,18 +146,18 @@ $email = $dbshopMembers[0]["email"];
 
                                                     for($i=0;$i<count($sbidArr);$i++){
                                                         if($i==0){
-                                                            $_SESSION["sbid"] = $sbidArr[$i];
+                                                            $_SESSION[$orderNumber."_sbid"] = $sbidArr[$i];
                                                         }else{
-                                                            $_SESSION["sbid"] .= ",".$sbidArr[$i];
+                                                            $_SESSION[$orderNumber."_sbid"] .= ",".$sbidArr[$i];
                                                         }
                                                     }
 
 
                                                     for($i=0;$i<count($sbnumArr);$i++){
                                                         if($i==0){
-                                                            $_SESSION["sbnum"] = $sbnumArr[$i];
+                                                            $_SESSION[$orderNumber."_sbnum"] = $sbnumArr[$i];
                                                         }else{
-                                                            $_SESSION["sbnum"] .= ",".$sbnumArr[$i];
+                                                            $_SESSION[$orderNumber."_sbnum"] .= ",".$sbnumArr[$i];
                                                         }
                                                     }
 
@@ -177,17 +179,17 @@ $email = $dbshopMembers[0]["email"];
 
                                                     for($i=0;$i<count($opnumArr);$i++){
                                                         if($i==0){
-                                                            $_SESSION["opid"] = $opidArr[$i];
+                                                            $_SESSION[$orderNumber."_opid"] = $opidArr[$i];
                                                         }else{
-                                                            $_SESSION["opid"] .= ",".$opidArr[$i];
+                                                            $_SESSION[$orderNumber."_opid"] .= ",".$opidArr[$i];
                                                         }
                                                     }
 
                                                     for($i=0;$i<count($opnumArr);$i++){
                                                         if($i==0){
-                                                            $_SESSION["opnum"] = $opnumArr[$i];
+                                                            $_SESSION[$orderNumber."_opnum"] = $opnumArr[$i];
                                                         }else{
-                                                            $_SESSION["opnum"] .= ",".$opnumArr[$i];
+                                                            $_SESSION[$orderNumber."_opnum"] .= ",".$opnumArr[$i];
                                                         }
                                                     }
 
@@ -887,13 +889,13 @@ $email = $dbshopMembers[0]["email"];
                             <input type="hidden" name="merchantData" value="">
                             <input type="hidden" name="bid" class="bid" value="<?php echo $basketvoid; ?>">
                             <?php
-                            $_SESSION["buy_instant_discount"] = "";//상품 즉시할인 금액(총 할인금액)
-                            $_SESSION["buy_total_price"] = "";//총상품총액(할인전금액)
-                            $_SESSION["pay_dlv_fee"] = "";//결제한 배송비
+                            $_SESSION[$orderNumber."_buy_instant_discount"] = "";//상품 즉시할인 금액(총 할인금액)
+                            $_SESSION[$orderNumber."_buy_total_price"] = "";//총상품총액(할인전금액)
+                            $_SESSION[$orderNumber."_pay_dlv_fee"] = "";//결제한 배송비
 
-                            $_SESSION["buy_instant_discount"] = $total_sum - $total_sum * $sb_sale;//상품 즉시할인 금액(총 할인금액)
-                            $_SESSION["buy_total_price"] = $total_sum + $total_sum2;//총상품총액(할인전금액)
-                            $_SESSION["pay_dlv_fee"] = $total_dShipping;
+                            $_SESSION[$orderNumber."_buy_instant_discount"] = $total_sum - $total_sum * $sb_sale;//상품 즉시할인 금액(총 할인금액)
+                            $_SESSION[$orderNumber."_buy_total_price"] = $total_sum + $total_sum2;//총상품총액(할인전금액)
+                            $_SESSION[$orderNumber."_pay_dlv_fee"] = $total_dShipping;
 
                             ?>
                         </div>

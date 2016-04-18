@@ -119,14 +119,15 @@ try {
                 $app_ip = get_real_ip();
 
 
+
                 $date = date("Y-m-d H:i:s");
-                $bid = $_SESSION["bid"];
-                $zipcode = $_SESSION["zipcode"];
-                $user_id = $_SESSION["user_id"];
-                $phone = $_SESSION["phone"];
-                $oldadd = $_SESSION["oldadd"];
-                $newadd = $_SESSION["newadd"];
-                $alladd = $_SESSION["alladd"];
+                $bid = $_SESSION[$app_oid."_bid"];
+                $zipcode = $_SESSION[$app_oid."_zipcode"];
+                $user_id = $_SESSION[$app_oid."_user_id"];
+                $phone = $_SESSION[$app_oid."_phone"];
+                $oldadd = $_SESSION[$app_oid."_oldadd"];
+                $newadd = $_SESSION[$app_oid."_newadd"];
+                $alladd = $_SESSION[$app_oid."_alladd"];
 
                 $bidArr = explode("_", $bid);
                 $count = count($bidArr);
@@ -140,7 +141,7 @@ try {
                 }
 
 
-                $ship_message = $_SESSION["ship_message"];
+                $ship_message = $_SESSION[$app_oid."_ship_message"];
                 if ($app_method == "Card") {
                     $buy_status = "2";
                     $app_method = "2";
@@ -197,7 +198,7 @@ try {
                 $user_id = $uname;
                 $buy_code = $app_oid;
                 $buy_date = $date;
-                $buy_total_price = $_SESSION["buy_total_price"];//총상품총액(할인전금액);
+                $buy_total_price = $_SESSION[$app_oid."_buy_total_price"];//총상품총액(할인전금액);
                 $buy_expect_mile = "";
                 $pay_seq = $app_pay_seq;
                 $pay_method = $app_method;
@@ -221,9 +222,9 @@ try {
                 $buy_dlv_pre_date = "";
                 $coupon_data_seq = "";
                 $buy_bill_type = "";
-                $buy_instant_discount = $_SESSION["buy_instant_discount"];//상품 즉시할인 금액(총 할인금액)
+                $buy_instant_discount = $_SESSION[$app_oid."_buy_instant_discount"];//상품 즉시할인 금액(총 할인금액)
                 $buy_mile_amount = "";
-                $pay_dlv_fee = $_SESSION["pay_dlv_fee"];
+                $pay_dlv_fee = $_SESSION[$app_oid."_pay_dlv_fee"];
 
 
                 $db->query("INSERT INTO buy (
@@ -474,11 +475,11 @@ try {
                     }
                 } else {
                     //====================================     장바구니에 안넣고 바로구매     ===================================================
-                    $goods_code = $_SESSION["goods_code"];
-                    $sbnum = $_SESSION["sbnum"];
-                    $sbid = $_SESSION["sbid"];
-                    $opid = $_SESSION["opid"];
-                    $opnum = $_SESSION["opnum"];
+                    $goods_code = $_SESSION[$app_oid."_goods_code"];
+                    $sbnum = $_SESSION[$app_oid."_sbnum"];
+                    $sbid = $_SESSION[$app_oid."_sbid"];
+                    $opid = $_SESSION[$app_oid."_opid"];
+                    $opnum = $_SESSION[$app_oid."_opnum"];
                     $sbidArr = explode(",", $sbid);
                     $sbnumArr = explode(",", $sbnum);
                     $i = 0;
@@ -1138,7 +1139,7 @@ try {
                                                         $db->query("SELECT opName1,opName2,sellPrice,quantity FROM goods_option_single_value $sbidQuery ORDER BY id ASC");
                                                         $goods_value_query = $db->loadRows();
                                                         $goods_count = count($goods_value_query);
-                                                    } else {
+                                                    } else if ($goods_opt_type == "2") {
                                                         //가격선택옵션 opValue2 판매가
                                                         $db->query("SELECT opName1,opName2,opName3,opValue2,opValue3 FROM goods_option_grid_value $sbidQuery ORDER BY id ASC");
                                                         $goods_value_query = $db->loadRows();
@@ -1278,9 +1279,9 @@ try {
                                                 }
                                                 //$db->query("DELETE FROM basket $basketQuery");
                                             }else{
-                                            $sbid = $_SESSION["sbid"];
+                                            $sbid = $_SESSION[$app_oid."_sbid"];
                                             $sbidArr = explode(",", $sbid);
-                                            $sbnum = $_SESSION["sbnum"];
+                                            $sbnum = $_SESSION[$app_oid."_sbnum"];
                                             $sbnumArr = explode(",", $sbnum);
                                             $i = 0;
                                             $sbidQuery == "";
@@ -1293,9 +1294,9 @@ try {
                                                 $i++;
                                             }
                                             $sbidQuery .= ")";
-                                            $opid = $_SESSION["opid"];
+                                            $opid = $_SESSION[$app_oid."_opid"];
                                             $opidArr = explode(",", $opid);
-                                            $opnum = $_SESSION["opnum"];
+                                            $opnum = $_SESSION[$app_oid."_opnum"];
                                             $opnumArr = explode(",", $opnum);
                                             $i = 0;
                                             $opidQuery = "";
@@ -1335,7 +1336,7 @@ try {
                                                 $db->query("SELECT opName1,opName2,sellPrice,quantity FROM goods_option_single_value $sbidQuery ORDER BY id ASC");
                                                 $goods_value_query = $db->loadRows();
                                                 $goods_count = count($goods_value_query);
-                                            } else {
+                                            } else if($goods_opt_type == "2") {
                                                 //가격선택옵션 opValue2 판매가
                                                 $db->query("SELECT opName1,opName2,opName3,opValue2,opValue3 FROM goods_option_grid_value $sbidQuery ORDER BY id ASC");
                                                 $goods_value_query = $db->loadRows();
@@ -1492,19 +1493,19 @@ try {
                                 <table class="table borderless user-info">
                                     <tr>
                                         <th class="col-lg-3 col-md-3">이름</th>
-                                        <td><?php echo $_SESSION["user_id"]; ?> </td>
+                                        <td><?php echo $_SESSION[$app_oid."_user_id"]; ?> </td>
                                     </tr>
                                     <tr>
                                         <th>휴대폰</th>
-                                        <td> <?php echo $_SESSION["phone"]; ?> </td>
+                                        <td> <?php echo $_SESSION[$app_oid."_phone"]; ?> </td>
                                     </tr>
                                     <tr>
                                         <th>주소</th>
-                                        <td> <?php echo "(" . $_SESSION["zipcode"] . ")" . $_SESSION["newadd"] . $_SESSION["alladd"]; ?> </td>
+                                        <td> <?php echo "(" . $_SESSION[$app_oid."_zipcode"] . ")" . $_SESSION[$app_oid."_newadd"] . $_SESSION[$app_oid."_alladd"]; ?> </td>
                                     </tr>
                                     <tr>
                                         <th>배송메시지</th>
-                                        <td><?php echo $_SESSION["ship_message"]; ?></td>
+                                        <td><?php echo $_SESSION[$app_oid."_ship_message"]; ?></td>
                                     </tr>
                                 </table>
                             </div>
@@ -1525,20 +1526,20 @@ try {
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <td><?= number_format($_SESSION["buy_total_price"]) ?>
+                                    <td><?= number_format($_SESSION[$app_oid."_buy_total_price"]) ?>
                                         <span class="won">원</span>
                                     </td>
                                     <td class="cross">
-                                        <i class="fa fa-plus-square"></i> <?= number_format($_SESSION["pay_dlv_fee"]) ?>
+                                        <i class="fa fa-plus-square"></i> <?= number_format($_SESSION[$app_oid."_pay_dlv_fee"]) ?>
                                         <span class="won">원
                                         </span>
                                     </td>
                                     <td class="cross">
-                                        <i class="fa fa-minus-square"></i> <?= number_format($_SESSION["buy_instant_discount"]) ?>
+                                        <i class="fa fa-minus-square"></i> <?= number_format($_SESSION[$app_oid."_buy_instant_discount"]) ?>
                                         <span class="won">원</span>
                                     </td>
                                     <td>
-                                        <span class="checkout-price"><?= number_format($_SESSION["buy_total_price"] - $_SESSION["buy_instant_discount"] + $_SESSION["pay_dlv_fee"]) ?></span>
+                                        <span class="checkout-price"><?= number_format($_SESSION[$app_oid."_buy_total_price"] - $_SESSION[$app_oid."_buy_instant_discount"] + $_SESSION[$app_oid."_pay_dlv_fee"]) ?></span>
                                         <span class="won2">원
                                         </span>
                                     </td>
