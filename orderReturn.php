@@ -157,6 +157,11 @@ try {
                     $app_method = "32";
                     $pay_mesg = "결제완료금액";
                     $payMethod = "실시간계좌이체";
+                }elseif ($app_method == "HPP") {//실시간 게좌이체
+                    $buy_status = "2";
+                    $app_method = "16";
+                    $pay_mesg = "결제완료금액";
+                    $payMethod = "핸드폰 결제";
                 }
 
 

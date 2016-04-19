@@ -109,7 +109,7 @@ MM_reloadPage(true);
 				?>"style="padding:0 0 0 64">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr> 
-          <td width="3%" valign="top"><img src="img/title_01.gif" width="8" height="27" vspace="5"></td>
+          <td width="3%" valign="top"><img src="../img/title_01.gif" width="8" height="27" vspace="5"></td>
           <td width="97%" height="40" class="pl_03"><font color="#FFFFFF"><b>취소결과</b></font></td>
         </tr>
       </table></td>
@@ -120,16 +120,16 @@ MM_reloadPage(true);
           <td bgcolor="#FFFFFF" style="padding:0 0 0 56">
 		  <table width="510" border="0" cellspacing="0" cellpadding="0">
               <tr> 
-                <td width="7"><img src="img/life.gif" width="7" height="30"></td>
-                <td background="img/center.gif"><img src="img/icon03.gif" width="12" height="10"> 
+                <td width="7"><img src="../img/life.gif" width="7" height="30"></td>
+                <td background="../img/center.gif"><img src="../img/icon03.gif" width="12" height="10"> 
                   <b>고객님께서 이니페이를 통해 취소하신 내용입니다. </b></td>
-                <td width="8"><img src="img/right.gif" width="8" height="30"></td>
+                <td width="8"><img src="../img/right.gif" width="8" height="30"></td>
               </tr>
             </table>
             <br>
             <table width="510" border="0" cellspacing="0" cellpadding="0">
               <tr> 
-                <td width="407"  style="padding:0 0 0 9"><img src="img/icon.gif" width="10" height="11"> 
+                <td width="407"  style="padding:0 0 0 9"><img src="../img/icon.gif" width="10" height="11"> 
                   <strong><font color="433F37">취소내역</font></strong></td>
                 <td width="103">&nbsp;</td>
               </tr>
@@ -138,7 +138,7 @@ MM_reloadPage(true);
 		  <table width="470" border="0" cellspacing="0" cellpadding="0">
                     
                     <tr> 
-                      <td width="18" align="center"><img src="img/icon02.gif" width="7" height="7"></td>
+                      <td width="18" align="center"><img src="../img/icon02.gif" width="7" height="7"></td>
                       <td width="109" height="26">결 과 코 드</td>
                       <td width="343"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr> 
@@ -148,47 +148,47 @@ MM_reloadPage(true);
                         </table></td>
                     </tr>
                     <tr> 
-                      <td height="1" colspan="3" align="center"  background="img/line.gif"></td>
+                      <td height="1" colspan="3" align="center"  background="../img/line.gif"></td>
                     </tr>
                     <tr> 
-                      <td width="18" align="center"><img src="img/icon02.gif" width="7" height="7"></td>
+                      <td width="18" align="center"><img src="../img/icon02.gif" width="7" height="7"></td>
                       <td width="109" height="25">결 과 내 용</td>
                       <td width="343"><?php echo($inipay->getResult('ResultMsg')); ?></td>
                     </tr>
                     <tr> 
-                      <td height="1" colspan="3" align="center"  background="img/line.gif"></td>
+                      <td height="1" colspan="3" align="center"  background="../img/line.gif"></td>
                     </tr>
                     <tr> 
-                      <td width="18" align="center"><img src="img/icon02.gif" width="7" height="7"></td>
+                      <td width="18" align="center"><img src="../img/icon02.gif" width="7" height="7"></td>
                       <td width="109" height="25">거 래 번 호</td>
                       <td width="343"><?php echo($tid); ?></td>
                     </tr>
                     <tr> 
-                      <td height="1" colspan="3" align="center"  background="img/line.gif"></td>
+                      <td height="1" colspan="3" align="center"  background="../img/line.gif"></td>
                     </tr>
                     <tr> 
-                      <td width='18' align='center'><img src='img/icon02.gif' width='7' height='7'></td>
+                      <td width='18' align='center'><img src='../img/icon02.gif' width='7' height='7'></td>
                       <td width='109' height='25'>취 소 날 짜</td>
                       <td width='343'><?php echo($inipay->getResult('CancelDate')); ?></td>
                     </tr>                	    
                     <tr> 
-                      <td height='1' colspan='3' align='center'  background='img/line.gif'></td>
+                      <td height='1' colspan='3' align='center'  background='../img/line.gif'></td>
                     </tr>
                     <tr> 
-                      <td width='18' align='center'><img src='img/icon02.gif' width='7' height='7'></td>
+                      <td width='18' align='center'><img src='../img/icon02.gif' width='7' height='7'></td>
                       <td width='109' height='25'>취 소 시 각</td>
                       <td width='343'><?php echo($inipay->getResult('CancelTime')); ?></td>
                     </tr>
                     <tr> 
-                      <td height='1' colspan='3' align='center'  background='img/line.gif'></td>
+                      <td height='1' colspan='3' align='center'  background='../img/line.gif'></td>
                     </tr>                    
                     <tr> 
-                      <td width='18' align='center'><img src='img/icon02.gif' width='7' height='7'></td>
+                      <td width='18' align='center'><img src='../img/icon02.gif' width='7' height='7'></td>
                       <td width='109' height='25'>현금영수증<br>취소승인번호</td>
                       <td width='343'><?php echo($inipay->getResult('CSHR_CancelNum')); ?></td>
                     </tr>
                     <tr> 
-                      <td height='1' colspan='3' align='center'  background='img/line.gif'></td>
+                      <td height='1' colspan='3' align='center'  background='../img/line.gif'></td>
                     </tr>
                     
                     
@@ -201,7 +201,7 @@ MM_reloadPage(true);
       </table></td>
   </tr>
   <tr> 
-    <td><img src="img/bottom01.gif" width="632" height="13"></td>
+    <td><img src="../img/bottom01.gif" width="632" height="13"></td>
   </tr>
 </table>
 </center></body>

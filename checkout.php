@@ -805,16 +805,20 @@ $email = $dbshopMembers[0]["email"];
                                 <table class="table borderless user-info" style="border-top:2px solid #666;">
                                     <tbody>
                                         <tr>
-                                            <th style="width:150px !important;font-weight:bold;">
+                                            <th style="width:150px !important;font-weight:bold;" rowspan="2">
                                                 사용하실 결제수단
                                             </th>
                                             <td>
+                                                <label style="padding:0px 5px;" for="bank">무통장입금</label>
+                                                <input type="radio" name="paymethod" value="1" checked="checked" id="bank" style="margin-right:35px;">
                                                 <label style="padding:0px 5px;" for="card">카드결제</label>
-                                                <input type="radio" name="paymethod" value="Card" checked="checked" id="card" style="margin-right:35px;">
-                                                <label style="padding:0px 5px;" for="vbank">무통장입금</label>
+                                                <input type="radio" name="paymethod" value="Card" id="card" style="margin-right:35px;">
+                                                <label style="padding:0px 5px;" for="vbank">가상계좌</label>
                                                 <input type="radio" name="paymethod" value="VBank" id="vbank" style="margin-right:40px;">
                                                 <label style="padding:0px 5px;" for="dbank">실시간계좌이체</label>
                                                 <input type="radio" name="paymethod" value="DirectBank" id="dbank">
+                                                <label style="padding:0px 5px;" for="hpp">핸드폰 결제</label>
+                                                <input type="radio" name="paymethod" value="HPP" id="hpp">
                                                 <?
                                                 /*
                                                  * 결제수단코드 gopaymethod
@@ -842,6 +846,44 @@ $email = $dbshopMembers[0]["email"];
                                                 ?>
                                             </td>
                                         </tr>
+                                        <tr class="payment_option_type" style="display: block;">
+                                            <td style="display: block;">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <colgroup>
+                                                        <col width="15%">
+                                                        <col width="75%">
+                                                    </colgroup>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>입금인 성명</td>
+                                                            <td style="border-bottom:0px;">
+                                                                <div class="checkout-form-list" style="padding:0px;">
+                                                                    <div class="col-md-12" style="padding:0px;">
+                                                                        <input type="text" name="pay_online_name" class="pay_online_name">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>입금 계좌</td>
+                                                            <td>
+                                                                <select id="pay_online_account" name="pay_online_account">
+                                                                    <option value="HSBC은행|1234568768">HSBC은행 1234568768 </option>
+                                                                    <option value="HSBC은행|1234568768">HSBC은행 1234568768 </option>
+                                                                    <option value="HSBC은행|1234568768">HSBC은행 1234568768 </option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td scope="row" style="border-bottom:0px;">예상 입금일</td>
+                                                            <td style="border-bottom:0px;">
+                                                                <input id="txt_pay_pre_date" type="text" name="pay_pre_date" value="<?=date("Y-m-d",time())?>" size="10" class="input_date">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -853,7 +895,7 @@ $email = $dbshopMembers[0]["email"];
                             </div>
                             <?php
                             $price = $total_sum * $sb_sale + $total_sum2 + $total_dShipping;        // 상품가격(특수기호 제외, 가맹점에서 직접 설정)
-                            //$price = "1000";
+                            $price = "1000";
                             $params = array(
                                 "oid" => $orderNumber,
                                 "price" => $price,
@@ -1103,6 +1145,13 @@ $email = $dbshopMembers[0]["email"];
                 }
             });
         }
-
+        $("input[name=paymethod]").click(function(){
+            var attr_id = $(this).attr("id");
+            if(attr_id == "bank"){
+                $(".payment_option_type").css("display","block");
+            }else{
+                $(".payment_option_type").css("display","none");
+            }
+        });
     </script>
 </body></html>
