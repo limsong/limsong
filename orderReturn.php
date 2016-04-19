@@ -714,38 +714,38 @@ try {
             //공통 부분만
 
             $str .= "<tr>
-                        <!--
+
                         <th class='td01'>거래 번호</th>
                         <td class='td02'>" . @(in_array($resultMap["tid"], $resultMap) ? $resultMap["tid"] : "null") . "</td></tr>
-                        -->
+
                         <tr><th class='td01'>결제방법(지불수단)</th>
                         <td class='td02'>" . $payMethod . "</td></tr>
-                        <!--
+
                         <tr><th class='td01'>결과 코드</th>
                         <td class='td02'>" . @(in_array($resultMap["resultCode"], $resultMap) ? $resultMap["resultCode"] : "null") . "</td></tr>
                         
                         <tr><th class='td01'>결과 내용</th>
                         <td class='td02'>" . @(in_array($resultMap["resultMsg"], $resultMap) ? $resultMap["resultMsg"] : "null") . "</td></tr>
-                        -->
+
                         <tr><th class='td01'>" . $pay_mesg . "</th>
                         <td class='td02'>" . @(in_array($resultMap["TotPrice"], $resultMap) ? $resultMap["TotPrice"] : "null") . "원</td></tr>
                         <tr><th class='td01'>주문 번호</th>
                         <td class='td02'>" . @(in_array($resultMap["MOID"], $resultMap) ? $resultMap["MOID"] : "null") . "</td></tr>
                         <tr><th class='td01'>승인날짜</th>
                         <td class='td02'>" . date("Y-m-d", strtotime($resultMap["applDate"])) . "</td></tr>
-                        <!--
+
                         <tr><th class='td01'>승인시간</th>
                         <td class='td02'>" . @(in_array($resultMap["applTime"], $resultMap) ? $resultMap["applTime"] : "null") . "</td>
-                        -->
+
                         </tr>";
 
             if (isset($resultMap["payMethod"]) && strcmp("VBank", $resultMap["payMethod"]) == 0) { //가상계좌
                 $str .= "<tr><th class='td01'>입금 계좌번호</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_Num"], $resultMap) ? $resultMap["VACT_Num"] : "null") . "</td></tr>
-                            <!--
+
                             <tr><th class='td01'>입금 은행코드</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_BankCode"], $resultMap) ? $resultMap["VACT_BankCode"] : "null") . "</td></tr>
-                            -->
+
                             <tr><th class='td01'>입금 은행명</th>
                             <td class='td02'>" . @(in_array($resultMap["vactBankName"], $resultMap) ? $resultMap["vactBankName"] : "null") . "</td></tr>
                             <tr><th class='td01'>예금주 명</th>
@@ -754,10 +754,10 @@ try {
                             <td class='td02'>" . @(in_array($resultMap["VACT_InputName"], $resultMap) ? $resultMap["VACT_InputName"] : "null") . "</td></tr>
                             <tr><th class='td01'>송금 일자</th>
                             <td class='td02'>" . date("Y-m-d", strtotime($resultMap["VACT_Date"])) . " 까지</td></tr>
-                            <!--
+
                             <tr><th class='td01'>송금 시간</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_Time"], $resultMap) ? $resultMap["VACT_Time"] : "null") . "</td>
-                            -->
+                            
                             </tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("DirectBank", $resultMap["payMethod"]) == 0) { //실시간계좌이체
                 $str .= "<tr><th class='td01'>은행코드</th>
