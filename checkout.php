@@ -930,6 +930,14 @@ $email = $dbshopMembers[0]["email"];
                             <input type="hidden" name="vbankRegNo" value="">
                             <input type="hidden" name="merchantData" value="">
                             <input type="hidden" name="bid" class="bid" value="<?php echo $basketvoid; ?>">
+                            <input type="hidden" name="goods_code" value="<?php echo $goods_code; ?>">
+                            <input type="hidden" name="sbid" value="<?=$_SESSION[$orderNumber."_sbid"]?>">
+                            <input type="hidden" name="sbnum" value="<?=$_SESSION[$orderNumber."_sbnum"]?>">
+                            <input type="hidden" name="opid" value="<?=$_SESSION[$orderNumber."_opid"]?>">
+                            <input type="hidden" name="opnum" value="<?=$_SESSION[$orderNumber."_opnum"]?>">
+                            <input type="hidden" name="goods_dlv_type" value="<?=$goods_dlv_type?>">
+                            <input type="hidden" name="goods_opt_type" value="<?=$goods_opt_type?>">
+                            <input type="hidden" name="goods_opt_num" value="<?=$goods_opt_num?>">
                             <?php
                             $_SESSION[$orderNumber . "_buy_instant_discount"] = "";//상품 즉시할인 금액(총 할인금액)
                             $_SESSION[$orderNumber . "_buy_total_price"] = "";//총상품총액(할인전금액)
@@ -1106,6 +1114,21 @@ $email = $dbshopMembers[0]["email"];
             var user_id = $(".user_id").val();//배송받는사람
             var phone = $(".phone1").val() + "-" + $(".phone2").val() + "-" + $(".phone3").val();//배송받는사람 전화
             var ship_message = $(".ship_message").val();//배송 메세지
+            var pay_mod = $("input[name='paymethod']:checked").val();
+            if(pay_mod == "1"){
+                var pay_online_name = $(".pay_online_name").val();
+                var pay_online_account = $("#pay_online_account").val();
+                var txt_pay_pre_date = $("#txt_pay_pre_date").val();
+                if(!pay_online_name){
+                    alert("입금인 이름을 입력해주세요.");
+                    return false;
+                }
+                if(!txt_pay_pre_date){
+                    alert("예상 입금일을 입력해주세요.");
+                    return false;
+                }
+            }
+
             if (!user_id) {
                 alert("받는사람 이름을 입력해주세요.");
                 return false;
@@ -1120,6 +1143,11 @@ $email = $dbshopMembers[0]["email"];
             }
             if (!add1 || !add2 || !add3) {
                 alert("주소를 입력해주세요.");
+                return false;
+            }
+            if(pay_mod == "1"){
+                $("#SendPayForm_id").attr("action","buy_end.php");
+                $("#SendPayForm_id").submit();
                 return false;
             }
             $.ajax({
@@ -1138,7 +1166,11 @@ $email = $dbshopMembers[0]["email"];
                 },
                 success: function (response) {
                     if (response == "success") {
-                        INIStdPay.pay('SendPayForm_id');
+                        if(pay_mod != "1") {
+                            INIStdPay.pay('SendPayForm_id');
+                        }else{
+                            location.href="buy_end.php";
+                        }
                     } else {
                         alert("결제 실패 하였습니다.잠시후 다시 시도해 주세요.")
                     }

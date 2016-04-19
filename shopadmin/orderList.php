@@ -41,14 +41,14 @@ include("check.php");
                         <a href="orderList.php?delivery=8">배송중</a>
                     </li>
                     <li class="ml10">
-                        <a href="orderList.php?delivery=O">구매확정</a>
+                        <a href="orderList.php?delivery=16">구매확정</a>
                     </li>
                     <li class="ml10">
-                        <a href="orderList.php?delivery=R">주문리스트(전체)</a>
+                        <a href="orderList.php">주문리스트(전체)</a>
                     </li>
                     <li class="TitleLi1">주문취소 관리</li>
                     <li class="ml10">
-                        <a href="orderList.php?delivery=N">입금전 교환/취소 (0)</a>
+                        <a href="orderList.php?delivery=32_8192">입금전 교환/취소 (0)</a>
                     </li>
                     <li class="ml10">
                         <a href="orderList.php?delivery=D">배송전 교환/환불 (0)</a>
@@ -89,7 +89,75 @@ include("check.php");
                 </ul>
             </div>
             <div id="main">
-                
+                <?
+                $page = @$_GET["page"];
+
+                if (!@$_POST['key']) {
+                    $key = @$_GET['key'];
+                } else {
+                    $key = $_POST['key'];
+                }
+                if (!@$_POST['keyfield']) {
+                    $keyfield = @$_GET['keyfield'];
+                } else {
+                    $keyfield = $_POST['keyfield'];
+                }
+
+
+                $ou_delivery = @$_GET["delivery"];
+                $ou_payMethod = @$_GET["payMethod"];
+                if($ou_delivery == "1"){
+                    //입금대기 무통장
+                    $addQuery = " buy_status='1'";//입금대기
+                    $addQuery .= " and pay_method='1'";//무통장
+                    $addQuery .= " or pay_method='64'";//가상계좌
+                }elseif($ou_delivery == "2"){
+                    //입금완료
+                    $addQuery = " buy_status='2'";//입금완료
+                }elseif($ou_delivery == "4"){
+                    //배송 준비중
+                    $addQuery = " buy_status='4'";
+                }elseif($ou_delivery == "8"){
+                    //배송중
+                    $addQuery = " buy_status='4'";
+                }elseif($ou_delivery == "16"){
+                    //구매확정 배송완료
+                    $addQuery = " buy_status='16'";
+                }elseif($ou_delivery == "32_8192"){
+                    //입금전 교환 취소
+                    $addQuery = " buy_status='1'";
+                    $addQuery .= "and pay_date!='0000-00-00 00:00:00'";
+                }
+
+                if (!empty($key)) {
+                    if (!empty($addQuery)) {
+                        $addQuery .= " and $keyfield='$key'";
+                    } else {
+                        $addQuery = " $keyfield='$key'";
+                    }
+                }
+
+                if (!empty($addQuery)) {
+                    $addQuery = " WHERE " . $addQuery;
+                }
+
+
+                if (empty($page)) {
+                    $page = 1;
+                }
+
+
+                $query = "select count(*) from buy $addQuery";
+                echo $query;
+                $result = mysql_query($query) or die($query);
+                $total_record = mysql_result($result, 0, 0);
+                if ($total_record == 0) {
+                    $first = 1;
+                } else {
+                    $first = ($page - 1) * $bnum_per_page;
+                }
+                include_once ("buy_pay_wait.php");
+                ?>
             </div>
         </div>
     </body>

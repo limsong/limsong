@@ -1,65 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: livingroom
- * Date: 16. 4. 19
- * Time: 오후 1:09
- */
-$page = @$_GET["page"];
-
-if (!@$_POST['key']) {
-    $key = @$_GET['key'];
-} else {
-    $key = $_POST['key'];
-}
-if (!@$_POST['keyfield']) {
-    $keyfield = @$_GET['keyfield'];
-} else {
-    $keyfield = $_POST['keyfield'];
-}
-
-
-$ou_delivery = @$_GET["delivery"];
-$ou_payMethod = @$_GET["payMethod"];
-$addQuery = "";
-if (!empty($ou_delivery)) {
-    $addQuery = " buy_status='$ou_delivery'";
-}
-if (!empty($ou_payMethod)) {
-    if (!empty($addQuery)) {
-        $addQuery .= " and pay_method='$ou_payMethod'";
-    } else {
-        $addQuery = " pay_method='$ou_payMethod'";
-    }
-}
-if (!empty($key)) {
-    if (!empty($addQuery)) {
-        $addQuery .= " and $keyfield='$key'";
-    } else {
-        $addQuery = " $keyfield='$key'";
-    }
-}
-
-if (!empty($addQuery)) {
-    $addQuery = " WHERE " . $addQuery;
-}
-
-
-if (empty($page)) {
-    $page = 1;
-}
-
-
-$query = "select count(*) from buy $addQuery";
-
-$result = mysql_query($query) or die($query);
-$total_record = mysql_result($result, 0, 0);
-if ($total_record == 0) {
-    $first = 1;
-} else {
-    $first = ($page - 1) * $bnum_per_page;
-}
-?>
 <div id="maninfo">
     <form name="orderListForm" method="post" action="orderListDelPost.php?page=<?= $page ?>&keyfield=<?= $keyfield ?>&key=<?= $key ?>" target="action_frame">
         <table align="center" width="100%" class="memberListTable" border="0" cellspacing="0" ellpadding="0">
@@ -73,10 +11,10 @@ if ($total_record == 0) {
                     주문일시
                 </th>
                 <th width="7%">주문인</th>
-                <th width="7%">수령인</th>
+                <th width="7%">입금자</th>
                 <th width="12%">결제금액/결제방법</th>
-                <th width="6%">진행상태</th>
-                <th width="26%">배송정보입력</th>
+                <th width="6%">입금예정일</th>
+                <th width="26%">입금계좌</th>
                 <!--
                 <th width="18%">결제방법</th>
                 <th width="13%">결제일자</th>
@@ -101,6 +39,9 @@ if ($total_record == 0) {
                 $user_id = $row["user_id"];
                 $ou_oDate = $row["buy_date"];//주문날짜
                 $ou_name = $row["buy_user_name"];//수령인
+                $pay_online_name = $row["pay_online_name"];//입금인
+                $pay_online_account = $row["pay_online_account"];//입금계좌
+                $pay_pre_date = $row["pay_pre_date"];//입금예정일
 
                 $shopmembersQuery = "SELECT name FROM shopmembers WHERE id='$user_id'";
                 $shopmembersresult = mysql_query($shopmembersQuery) or die("error");
@@ -117,13 +58,16 @@ if ($total_record == 0) {
                         <br><?= $ou_oDate ?>
                     </td>
                     <td align="center"><?= $sname ?></td>
-                    <td align="center"><?= $ou_name ?></td>
+                    <td align="center"><?= $pay_online_name ?></td>
                     <td align="center">
                         <?= number_format($ou_payPrice - $buy_instant_discount + $pay_dlv_fee) ?>
                         <span class="dlv_txt">(
                             <?
                             //결제수단 - 1:무통장, 2:카드, 4:적립금, 8:쿠폰, 16:휴대폰결제, 32:실시간 계좌이체, 64:가상계좌 무통장, 128:에스크로, 256:전액할인, 512:다날, 1024:모빌리언스, 2048:네이버 마일리지
                             switch ($ou_payMethod) {
+                                case "1":
+                                    echo "무통장입금";
+                                    break;
                                 case "2":
                                     echo "카드결제";
                                     break;
@@ -134,7 +78,7 @@ if ($total_record == 0) {
                                     echo "실시간 계좌이체";
                                     break;
                                 case "64":
-                                    echo "무통장입금";
+                                    echo "가상계좌";
                                     break;
                                 case "128":
                                     echo "에스크로";
@@ -144,109 +88,11 @@ if ($total_record == 0) {
                             )
                         </span>
                     </td>
-                    <td align="center"><?
-                        //주문상태(bitwise) - 0:주문중, 1:입금대기, 2:입금완료, 4:배송대기, 8:배송중, 16:배소완료, 32:취소신청, 64:취소완료, 128:환불신청, 256:환불완료,
-                        // 512: 반품신청, 1024:반품배송중, 2048:반품환불, 4096:반품완료, 8192:교환신청, 16384:교환배송중, 32768:재주문처리, 65536:교환완료
-                        $ou_delivery = $row["buy_status"];
-                        switch ($ou_delivery) {
-                            case "0" :
-                                echo "주문중";
-                                break;
-                            case "1" :
-                                echo "입금대기";
-                                break;
-                            case "2" :
-                                echo "입금완료";
-                                break;
-                            case "4" :
-                                echo "배송대기";
-                                break;
-                            case "8" :
-                                echo "배송중";
-                                break;
-                            case "16" :
-                                echo "배송완료";
-                                break;
-                            case "32" :
-                                echo "취소신청";
-                                break;
-                            case "64" :
-                                echo "취소완료";
-                                break;
-                            case "128" :
-                                echo "환불신청";
-                                break;
-                            case "256" :
-                                echo "환불완료";
-                                break;
-                            case "512" :
-                                echo "반품신청";
-                                break;
-                            case "1024" :
-                                echo "반품배송중";
-                                break;
-                            case "2048" :
-                                echo "반품환불";
-                                break;
-                            case "4096" :
-                                echo "반품완료";
-                                break;
-                            case "8197" :
-                                echo "교환신청";
-                                break;
-                            case "16384" :
-                                echo "교환배송중";
-                                break;
-                            case "32768" :
-                                echo "재주문처리";
-                                break;
-                            case "65536" :
-                                echo "교환완료";
-                                break;
-                        }
-                        ?>
+                    <td align="center">
+                        <? echo date("Y-m-d", strtotime("$pay_pre_date")); ?>
                     </td>
-                    <!--
-                                    <td align="center">
-                                    <?php
-                    switch ($ou_payMethod) {
-                        case "1":
-                            echo "무통장입금";
-                            break;
-                        case "2":
-                            echo "카드결제";
-                            break;
-                        case "32":
-                            echo "실시간계좌이체";
-                            break;
-                        case "16":
-                            echo "핸드폰결제";
-                            break;
-                    }
-                    ?>
-                                    </td>
-                                    -->
-                    <!--
-                                    <td align="center" id="pDateTd">
-                                                                <?php
-                    if ($ou_delivery != 'N') {
-                        echo $ou_pDate;
-                    } else {
-                        echo '-';
-                    }
-                    ?>
-                                    </td>
-                                    -->
-                    <td>
-                        <select name="dlv_type" buy_seq="<?= $buy_seq ?>">
-                            <option value="1">우체국택배</option>
-                            <option value="5">CJ대한통운택배</option>
-                            <option value="6">현대택배</option>
-                            <option value="7">한진택배</option>
-                            <option value="8">로젠택배</option>
-                        </select>
-                        <input type="text" name="buy_good_dlv_tag_no" value="" buy_seq="<?= $buy_seq ?>" class="inputbox">
-                        <input type="button" class="memEleB" value="등록" buy_goods_code="<?= $buy_goods_code ?>" style="width:40px;">
+                    <td align="center">
+                        <? echo $pay_online_account?>
                     </td>
                 </tr>
                 <?php
@@ -254,7 +100,7 @@ if ($total_record == 0) {
             ?>
             <tr>
                 <td colspan="7" style="text-align: right;">
-                    <input type="button" class="memEleB" value="일괄등록">
+                    <input type="button" class="memEleB" value="입금완료">
                 </td>
             </tr>
         </table>
