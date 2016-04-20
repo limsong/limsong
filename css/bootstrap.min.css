@@ -2689,9 +2689,11 @@ select[multiple].input-lg,textarea.input-lg {
 	user-select:none;
 	background-image:none;
 	border:1px solid transparent;
+      /*
 	height: 42px;
 	line-height: 42px;
 	padding: 0 15px;
+      */
 	text-transform: capitalize;
 	color: #fff;
 }

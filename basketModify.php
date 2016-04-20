@@ -41,7 +41,7 @@ foreach ($in_optionid as $key => $value) {
 	}
 	$i++;
 }
-if($tmp_optionid=""){
+if($tmp_optionid==""){
         $tmp_optionid = $in_optionid;
 }
 $i=0;
