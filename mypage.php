@@ -79,21 +79,23 @@
                                                 </tr>
                                             </thead>
                                             <?php
+                                            $class_check=0;//checkbox class sb and op number maching
                                             $db->query("SELECT buy_seq,buy_code,buy_date FROM buy WHERE buy_status<=2 AND user_id='$uname'");
                                             $db_buy = $db->loadRows();
                                             $cbuy = count($db_buy);
                                             for ($i = 0; $i < $cbuy; $i++) {
                                                 $buy_seq = $db_buy[$i]["buy_seq"];
-                                                $buy_code = $db_buy[$i]["buy_code"];
                                                 $buy_date = $db_buy[$i]["buy_date"];
+                                                $buy_code = $db_buy[$i]["buy_code"];
 
-                                                $db->query("SELECT buy_goods_seq,buy_goods_code,buy_goods_name,buy_goods_prefix,buy_goods_option,buy_goods_price,buy_goods_count,buy_goods_price_total FROM buy_goods WHERE buy_seq='$buy_seq' AND buy_goods_status<=2");
-                                                //echo "SELECT buy_goods_name,buy_goods_prefix,buy_goods_option,buy_goods_price,buy_goods_count,buy_goods_price_total FROM buy_goods WHERE buy_seq='$buy_seq' AND buy_goods_status<=2";
+                                                $db->query("SELECT buy_goods_seq,buy_goods_code,buy_goods_name,buy_goods_prefix,buy_goods_option,buy_goods_price,buy_goods_count,buy_goods_price_total,buy_goods_dlv_type FROM buy_goods WHERE buy_seq='$buy_seq' AND buy_goods_status<=2");
                                                 $db_buy_goods = $db->loadRows();
                                                 $cbuy_goods = count($db_buy_goods);
+
                                             ?>
                                             <tbody>
                                             <?php
+                                                $tmp_goods_code = "0";
                                                 FOR($j=0;$j<$cbuy_goods;$j++) {
                                                     $buy_goods_seq = $db_buy_goods[$j]["buy_goods_seq"];
                                                     $buy_goods_code = $db_buy_goods[$j]["buy_goods_code"];
@@ -104,6 +106,14 @@
                                                     $buy_goods_price = $db_buy_goods[$j]["buy_goods_price"];
                                                     $buy_goods_count = $db_buy_goods[$j]["buy_goods_count"];
                                                     $buy_goods_price_total = $db_buy_goods[$j]["buy_goods_price_total"];
+                                                    $buy_goods_dlv_type = $db_buy_goods[$j]["buy_goods_dlv_type"];
+
+                                                    if($tmp_goods_code != $buy_goods_code) {
+                                                        $db->query("SELECT buy_goods_seq FROM buy_goods WHERE buy_goods_code='$buy_goods_code'");
+                                                        $db_buy_goods_code = $db->loadRows();
+                                                        $rowspan = count($db_buy_goods_code);
+                                                    }
+
                                                     if ($buy_goods_option == "0") {
                                             ?>
                                                 <tr>
@@ -115,7 +125,7 @@
                                                         <br>
                                                         (<?=$buy_code?>)
                                                         <br>
-                                                        <button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cAll" data-code="<?=$buy_code?>">주문전체취소</button>
+                                                        <button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cAll" data-code="<?=$buy_code?>" data-seq="<?=$buy_seq?>">주문전체취소</button>
                                                     </td>
                                                     <?php
                                                     }
@@ -123,7 +133,7 @@
                                                     <td>
                                                         <div style="width:100%;float: left;">
                                                             <label class="chk" style="float: left;">
-                                                                <input type="checkbox" name="sb_checkbox" class="sb_checkbox<?=$buy_goods_seq?>" value="<?=$buy_goods_seq?>">
+                                                                <input type="checkbox" name="sb_checkbox" class="sb_checkbox<?=$class_check?> citem<?=$buy_seq?>" data="<?=$class_check?>" value="<?=$buy_goods_seq?>">
                                                             </label>
                                                             <span style="float: left;margin-left:5px;">
                                                                 <img src="userFiles/images/brandImages/0201000024thumImage.jpg" width="50" height="50">
@@ -172,12 +182,25 @@
                                                         (<?=$buy_goods_count?>개)
                                                     </td>
                                                     <?php
-                                                    if($j==0) {
+                                                    if($tmp_goods_code != $buy_goods_code) {
                                                     ?>
-                                                    <td rowspan="<?= $cbuy_goods ?>">
-                                                        무료
+                                                    <td rowspan="<?= $rowspan ?>">
+                                                    <?php
+                                                    if($buy_goods_dlv_type=="1"){
+                                                        $dlv_str = "무료";
+                                                    }else{
+
+                                                        $dlv_str = "2,500원";
+                                                    }
+                                                    if($dlv_str == ""){
+                                                        echo "무료";
+                                                    }else if($dlv_str!="무료"){
+                                                        echo "2,500원";
+                                                    }
+                                                    ?>
                                                     </td>
                                                     <?php
+                                                        $tmp_goods_code = $buy_goods_code;
                                                     }
                                                     ?>
                                                     <td class="cart-total-price">입금대기중</td>
@@ -185,29 +208,30 @@
                                                     if($j==0) {
                                                     ?>
                                                     <td rowspan="<?= $cbuy_goods ?>" class="cart-total-price">
-                                                        <button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList" data-code="<?=$buy_code?>">주문취소</button>
+                                                        <button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList" data-code="<?=$buy_code?>" data-seq="<?=$buy_seq?>">주문취소</button>
                                                     </td>
                                                     <?php
                                                     }
                                                     ?>
                                                 </tr>
                                             <?php
+                                                    $class_check++;
                                             } elseif ($buy_goods_option == "1") {
                                             ?>
                                                 <tr>
                                                     <td>
                                                         <div style="width:100%;float: left;">
                                                             <label class="chk" style="float: left;">
-                                                                <input type="checkbox" class="op_checkbox<?=$buy_goods_seq?>" name="op_checkbox" value="<?=$buy_goods_seq?>">
+                                                                <input type="checkbox" class="op_checkbox<?=$class_check-1?> citem<?=$buy_seq?>" data="<?=$class_check-1?>" name="op_checkbox" value="<?=$buy_goods_seq?>">
                                                             </label>
                                                             <div style="overflow:hidden;text-align: left;padding-left:5px;">
-                                                                <p style="word-break: break-all;border-collapse: collapse;">[추가상품]F-ZS915E-블루-FREE</p>
+                                                                <p style="word-break: break-all;border-collapse: collapse;">[추가상품]<? echo $buy_goods_name."_".$buy_goods_prefix?></p>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>1,500원
+                                                    <td><?=number_format($buy_goods_price)?>원
                                                         <br>
-                                                        (1개)
+                                                        (<?=$buy_goods_count?>개)
                                                     </td>
                                                     <td>입금대기중</td>
                                                 </tr>
@@ -229,7 +253,7 @@
             </div>
         </div>
         <!-- Modal -->
-        <button type="button" class="btn btn-primary btn-lg modal" data-toggle="modal" data-target="#myModal">Launch demo modal
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal
         </button>
         <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -238,8 +262,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">선택/옵션변경</h4>
-                    </div>
+                        <h4 class="modal-title" id="myModalLabel">취소신청</h4></div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
@@ -300,16 +323,72 @@
     <script src="js/mypage.js"></script>
     <script type="text/javascript">
         $(".cancel").click(function () {
-           var mod = $(this).attr("data");
+            var seq = "";
+            var mod = $(this).attr("data");
+            var data_seq = $(this).attr("data-seq");
             if(mod=="cAll")
             {
-                
-            }else 
-            {
-                
+                $(".citem"+data_seq).each(function () {
+                    if (seq == "") {
+                        seq = $(this).val();
+                    }
+                    else {
+                        seq += ","+$(this).val();
+                    }
+                });
             }
+            else
+            {
+                $(".citem"+data_seq).each(function () {
+                    if($(this).is( ":checked" )) {
+                        if (seq == "") {
+                            seq = $(this).val();
+                        }
+                        else {
+                            seq += ","+$(this).val();
+                        }
+                    }
+                });
+
+            }
+            if(!seq){
+                alert("취소할 상품을 체크하세요.");
+                return false;
+            }
+            var url = "getcancelprodInfoajax.php";
+            var form_data = {
+                seq: seq,
+                mod: mod
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form_data,
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                success: function (response) {
+                    $(".modal-body").html("");
+                    add_goods(response);
+                }
+            });
         });
-        $(".modal").trigger("click");//버튼 클릭//추가옵션  div 보기
+        function add_goods(rep) {
+            $(".modal-body").html(rep);
+            $(".btn-lg").trigger("click");//버튼 클릭//추가옵션  div 보기
+            $(".submit").click(function () {
+                $(".cancelForm").submit();
+            })
+        }
+
+        $("input[name='sb_checkbox']").click(function () {
+            var _data = $(this).attr("data");
+            $(".op_checkbox"+_data).prop("checked", this.checked);
+        });
+        $("input[name='op_checkbox']").click(function () {
+            var _data = $(this).attr("data");
+            $(".sb_checkbox"+_data).prop("checked",false);
+        });
     </script>
 </body>
 </html>
