@@ -7,7 +7,7 @@
  */
 include_once("doctype.php");
 foreach($_POST as $key => $value){
-    echo $key." : ".$value."<br>";
+    //echo $key." : ".$value."<br>";
     ${$key}=$value;
 }
 
@@ -264,7 +264,7 @@ if ($bid != "") {
             $buy_goods_suffix = "";
             $buy_goods_price = $goods_sellPrice;//단가
             $buy_goods_count = $sbnumArr[$i];//상품수량
-            $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+            $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
             $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
             $maker_name = $manufacture;//제조사명
 
@@ -307,7 +307,7 @@ if ($bid != "") {
                 $buy_goods_suffix = $opName3;
                 $buy_goods_price = $goods_sellPrice;//단가
                 $buy_goods_count = $sbnumArr[$i];//상품수량
-                $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
                 $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                 $maker_name = $manufacture;//제조사명
 
@@ -350,7 +350,7 @@ if ($bid != "") {
                 $buy_goods_prefix = $option_opName2;
                 $buy_goods_suffix = "";
                 $buy_goods_price = $option_sellPrice;//단가
-                $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                $buy_goods_price_total = $buy_goods_price;//총상품금액
                 $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                 $maker_name = "";//제조사명
 
@@ -488,7 +488,7 @@ if ($bid != "") {
         $buy_goods_suffix = "";
         $buy_goods_price = $goods_sellPrice;//단가
         $buy_goods_count = $sbnumArr[$i];//상품수량
-        $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+        $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
         $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
         $maker_name = $manufacture;//제조사명
 
@@ -531,7 +531,7 @@ if ($bid != "") {
             $buy_goods_suffix = $opName3;
             $buy_goods_price = $goods_sellPrice;//단가
             $buy_goods_count = $sbnumArr[$i];//상품수량
-            $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+            $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
             $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
             $maker_name = $manufacture;//제조사명
 
@@ -574,7 +574,7 @@ if ($bid != "") {
             $buy_goods_prefix = $option_opName2;
             $buy_goods_suffix = "";
             $buy_goods_price = $option_sellPrice;//단가
-            $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+            $buy_goods_price_total = $buy_goods_price;//총상품금액
             $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
             $maker_name = "";//제조사명
 
@@ -615,6 +615,7 @@ $db->query("INSERT INTO buy_goods (
                                 buy_goods_dlv_ok_mileage, buy_goods_add_cancel_type, checkout_product_order_id) 
                              VALUES $buy_goods_add_query");
 
+$bank_number = explode("|",$pay_online_account);
 
 ?>
 <body class="home-1 checkout-page cart-page">
@@ -658,19 +659,19 @@ $db->query("INSERT INTO buy_goods (
                                 <table class="table borderless user-info">
                                     <tr>
                                         <th class="col-lg-3 col-md-3">입금금액</th>
-                                        <td><?php echo $_SESSION[$app_oid."_user_id"]; ?> </td>
+                                        <td><?php echo $price; ?> </td>
                                     </tr>
                                     <tr>
                                         <th>입금은행</th>
-                                        <td> <?php echo $_SESSION[$app_oid."_phone"]; ?> </td>
+                                        <td> <?php echo $bank_number[0]; ?> </td>
                                     </tr>
                                     <tr>
                                         <th>계좌번호</th>
-                                        <td> <?php echo "(" . $_SESSION[$app_oid."_zipcode"] . ")" . $_SESSION[$app_oid."_newadd"] . $_SESSION[$app_oid."_alladd"]; ?> </td>
+                                        <td> <?php echo $bank_number[1]; ?> </td>
                                     </tr>
                                     <tr>
                                         <th>입금기한</th>
-                                        <td><?php echo $_SESSION[$app_oid."_ship_message"]; ?></td>
+                                        <td><?php echo $pay_pre_date; ?></td>
                                     </tr>
                                 </table>
                             </div>

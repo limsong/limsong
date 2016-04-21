@@ -358,7 +358,7 @@ try {
                             $buy_goods_suffix = "";
                             $buy_goods_price = $goods_sellPrice;//단가
                             $buy_goods_count = $sbnumArr[$i];//상품수량
-                            $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                            $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
                             $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                             $maker_name = $manufacture;//제조사명
 
@@ -401,7 +401,7 @@ try {
                                 $buy_goods_suffix = $opName3;
                                 $buy_goods_price = $goods_sellPrice;//단가
                                 $buy_goods_count = $sbnumArr[$i];//상품수량
-                                $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                                $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
                                 $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                                 $maker_name = $manufacture;//제조사명
 
@@ -444,7 +444,7 @@ try {
                                 $buy_goods_prefix = $option_opName2;
                                 $buy_goods_suffix = "";
                                 $buy_goods_price = $option_sellPrice;//단가
-                                $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                                $buy_goods_price_total = $buy_goods_price;//총상품금액
                                 $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                                 $maker_name = "";//제조사명
 
@@ -582,7 +582,7 @@ try {
                         $buy_goods_suffix = "";
                         $buy_goods_price = $goods_sellPrice;//단가
                         $buy_goods_count = $sbnumArr[$i];//상품수량
-                        $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                        $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
                         $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                         $maker_name = $manufacture;//제조사명
 
@@ -625,7 +625,7 @@ try {
                             $buy_goods_suffix = $opName3;
                             $buy_goods_price = $goods_sellPrice;//단가
                             $buy_goods_count = $sbnumArr[$i];//상품수량
-                            $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                            $buy_goods_price_total = $buy_goods_price*$sb_sale;//총상품금액
                             $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                             $maker_name = $manufacture;//제조사명
 
@@ -668,7 +668,7 @@ try {
                             $buy_goods_prefix = $option_opName2;
                             $buy_goods_suffix = "";
                             $buy_goods_price = $option_sellPrice;//단가
-                            $buy_goods_price_total = $buy_goods_price * $buy_goods_count;//총상품금액
+                            $buy_goods_price_total = $buy_goods_price;//총상품금액
                             $buy_goods_dlv_fee = $goods_dlv_free;//배송비 선불
                             $maker_name = "";//제조사명
 

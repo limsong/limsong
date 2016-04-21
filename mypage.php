@@ -80,13 +80,14 @@
                                             </thead>
                                             <?php
                                             $class_check=0;//checkbox class sb and op number maching
-                                            $db->query("SELECT buy_seq,buy_code,buy_date FROM buy WHERE buy_status<=2 AND user_id='$uname'");
+                                            $db->query("SELECT buy_seq,buy_code,buy_date,pay_pre_date FROM buy WHERE buy_status<=2 AND user_id='$uname'");
                                             $db_buy = $db->loadRows();
                                             $cbuy = count($db_buy);
                                             for ($i = 0; $i < $cbuy; $i++) {
-                                                $buy_seq = $db_buy[$i]["buy_seq"];
-                                                $buy_date = $db_buy[$i]["buy_date"];
-                                                $buy_code = $db_buy[$i]["buy_code"];
+                                                $buy_seq = $db_buy[$i]["buy_seq"];//신청한 주문 일련번호
+                                                $buy_date = $db_buy[$i]["buy_date"];//주문일
+                                                $buy_code = $db_buy[$i]["buy_code"];//주문코드(주문번호)
+                                                $pay_pre_date = $db_buy[$i]["pay_pre_date"];//입금예정일
 
                                                 $db->query("SELECT buy_goods_seq,buy_goods_code,buy_goods_name,buy_goods_prefix,buy_goods_option,buy_goods_price,buy_goods_count,buy_goods_price_total,buy_goods_dlv_type FROM buy_goods WHERE buy_seq='$buy_seq' AND buy_goods_status<=2");
                                                 $db_buy_goods = $db->loadRows();
@@ -97,8 +98,8 @@
                                             <?php
                                                 $tmp_goods_code = "0";
                                                 FOR($j=0;$j<$cbuy_goods;$j++) {
-                                                    $buy_goods_seq = $db_buy_goods[$j]["buy_goods_seq"];
-                                                    $buy_goods_code = $db_buy_goods[$j]["buy_goods_code"];
+                                                    $buy_goods_seq = $db_buy_goods[$j]["buy_goods_seq"];//주문 상품 일련번호
+                                                    $buy_goods_code = $db_buy_goods[$j]["buy_goods_code"];//상품코드
                                                     $buy_goods_name = $db_buy_goods[$j]["buy_goods_name"];
                                                     $buy_goods_prefix = $db_buy_goods[$j]["buy_goods_prefix"];
                                                     $buy_goods_suffix = $db_buy_goods[$j]["buy_goods_suffix"];
@@ -109,7 +110,7 @@
                                                     $buy_goods_dlv_type = $db_buy_goods[$j]["buy_goods_dlv_type"];
 
                                                     if($tmp_goods_code != $buy_goods_code) {
-                                                        $db->query("SELECT buy_goods_seq FROM buy_goods WHERE buy_goods_code='$buy_goods_code'");
+                                                        $db->query("SELECT buy_goods_seq FROM buy_goods WHERE buy_goods_code='$buy_goods_code' AND buy_seq='$buy_seq'");
                                                         $db_buy_goods_code = $db->loadRows();
                                                         $rowspan = count($db_buy_goods_code);
                                                     }
@@ -146,7 +147,7 @@
                                                                 $goods_opt_num = $db_goods[0]["goods_opt_num"];
                                                                 $goods_name = $db_goods[0]["goods_name"];
                                                                 ?>
-                                                                <p style="word-break: break-all;border-collapse: collapse;"><?=$goods_name?></p>
+                                                                <p style="max-width:500px;word-break: break-all;border-collapse: collapse;"><?=$goods_name?></p>
                                                                 <p>
                                                                     <?php
 
@@ -177,7 +178,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <?=number_format($buy_goods_price)?>원
+                                                        <?=number_format($buy_goods_price_total)?>원
                                                         <br>
                                                         (<?=$buy_goods_count?>개)
                                                     </td>
@@ -203,7 +204,7 @@
                                                         $tmp_goods_code = $buy_goods_code;
                                                     }
                                                     ?>
-                                                    <td class="cart-total-price">입금대기중</td>
+                                                    <td class="cart-total-price">입금대기중<br>(<? echo date("m-d",strtotime($pay_pre_date))?>이내)</td>
                                                     <?php
                                                     if($j==0) {
                                                     ?>
@@ -233,7 +234,7 @@
                                                         <br>
                                                         (<?=$buy_goods_count?>개)
                                                     </td>
-                                                    <td>입금대기중</td>
+                                                    <td>입금대기중<br>(<? echo date("m-d",strtotime($pay_pre_date))?>이내)</td>
                                                 </tr>
                                             <?php
                                                     }
@@ -374,8 +375,36 @@
             });
         });
         function add_goods(rep) {
-            $(".modal-body").html(rep);
+            $(".modal-body").append(rep);
             $(".btn-lg").trigger("click");//버튼 클릭//추가옵션  div 보기
+            $(".sb_num,.op_num").change(function () {
+                var cancel_dlv_free = parseInt($(".cancel_dlv_free").val());
+                var ou_price=0;
+                var ou_price_total=0;
+                var ou_cancel_sb_instant_discount=0;
+                var ou_op_total_price = 0;
+                $(".sb_num").each(function () {
+                    var num = $(this).val();
+                    var price = $(this).parent().find(".cancel_sb_price").val();
+                    var price_total = $(this).parent().find(".cancel_sb_price_total").val();
+                    var cancel_sb_instant_discount =$(this).parent().find(".cancel_sb_instant_discount").val();
+                    ou_price+=parseInt(num)*parseInt(price);
+                    ou_price_total+=parseInt(num)*parseInt(price_total);
+                    ou_cancel_sb_instant_discount+=parseInt(num)*parseInt(cancel_sb_instant_discount);
+                });
+                $(".op_num").each(function () {
+                    var op_num = $(this).val();
+                    var op_price = $(this).parent().find(".cancel_op_price").val();
+                    ou_op_total_price += parseInt(op_num)*parseInt(op_price);
+
+                });
+                $(".sb_price").text(formatNumber(ou_price));
+
+                $(".price_discount").text(formatNumber(ou_cancel_sb_instant_discount));
+
+                $(".checkout-price").text(formatNumber(ou_price_total+ou_op_total_price+cancel_dlv_free));
+            });
+
             $(".submit").click(function () {
                 $(".cancelForm").submit();
             })
@@ -389,6 +418,20 @@
             var _data = $(this).attr("data");
             $(".sb_checkbox"+_data).prop("checked",false);
         });
+        $(".sb_num").on('change', function () {
+           alert("aa");;
+        });
+        function formatNumber(num, precision, separator) {
+            var parts;
+            if (!isNaN(parseFloat(num)) && isFinite(num)) {
+                num = Number(num);
+                num = (typeof precision !== "undefined" ? num.toFixed(precision) : num).toString();
+                parts = num.split('.');
+                parts[0] = parts[0].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1" + (separator || ","));
+                return parts.join('.');
+            }
+            return NaN;
+        }
     </script>
 </body>
 </html>
