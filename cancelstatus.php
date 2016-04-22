@@ -103,7 +103,7 @@
 
 
                                                                         $db->query("SELECT buy_claim_goods_seq,buy_claim_seq,buy_goods_req_seq,buy_goods_req_count,buy_goods_new_count FROM buy_claim_goods WHERE buy_claim_seq='$buy_claim_seq'");
-                                                                        echo "SELECT buy_claim_goods_seq,buy_claim_seq,buy_goods_req_seq,buy_goods_req_count,buy_goods_new_count FROM buy_claim_goods WHERE buy_claim_seq='$buy_seq'";
+                                                                        //echo "SELECT buy_claim_goods_seq,buy_claim_seq,buy_goods_req_seq,buy_goods_req_count,buy_goods_new_count FROM buy_claim_goods WHERE buy_claim_seq='$buy_seq'";
                                                                         $db_buy_claim_goods = $db->loadRows();
                                                                         /*$buy_claim_goods_seq = $db_buy_claim_goods[$i]["buy_claim_goods_seq"];//클레임 상품 일련번호
                                                                         $buy_claim_seq = $db_buy_claim_goods[$i]["buy_claim_seq"];//클레임 일련번호
