@@ -65,7 +65,7 @@ $html ='<div class="cart-area-wrapper table-responsive">
                     $buy_goods_status = $db_buy_goods[$j]["buy_goods_status"];//주문상태(bitwise) - 0:주문중, 1:입금대기, 2:입금완료, 4:배송대기, 8:배송중, 16:배소완료, 32:취소신청, 64:취소완료, 128:환불신청, 256:환불완료, 512: 반품신청, 1024:반품배송중, 2048:반품환불, 4096:반품완료, 8192:교환신청, 16384:교환배송중, 32768:재주문처리, 65536:교환완료
                     $buy_seq = $db_buy_goods[$j]["buy_seq"];
                     if($j==0){
-                        $html.='<input type="hidden"" name="cancel_sb_buy_seq[]" value="'.($buy_seq).'">';
+                        $html.='<input type="hidden"" name="cancel_sb_buy_seq" value="'.$buy_seq.'">';
                     }
                     $ou_dlv_str= "0";
                     if($buy_goods_dlv_type=="1"){

@@ -13,7 +13,7 @@ $SignatureUtil = new INIStdPayUtil();
 
 foreach ($_POST as $key => $value) {
     ${$key} = $value;
-    echo $key." : ". $value."<br>";
+    //echo $key." : ". $value."<br>";
 }
 $cancel_mod = $_POST["cancel_mod"];
 $cancel_dlv_free = $_POST["cancel_dlv_free"];
@@ -73,7 +73,68 @@ for($i=0;$i<$count;$i++){
 
 $buy_refund_price=$buy_claim_price_total+$buy_claim_price_total2+$buy_refund_ch_dlv_fee;
 IF($cancel_mod=="cAll"){
+    $db->query("INSERT INTO buy_claim (
+                              buy_claim_status,
+                              buy_claim_code,
+                              buy_claim_is_all,
+                              buy_seq,
+                              user_id,
+                              buy_claim_type,
+                              buy_claim_sdate,
+                              buy_claim_edate,
+                              buy_claim_price_total,
+                              buy_refund_price,
+                              buy_refund_ch_dlv_fee) 
+                      VALUES (
+                              '32',
+                              '$buy_claim_code',
+                              '1',
+                              '$cancel_sb_buy_seq',
+                              '$uname',
+                              '1',
+                              '$time2',
+                              '$time2',
+                              '$buy_claim_price_total_tmp',
+                              '$buy_refund_price',
+                              '$buy_refund_ch_dlv_fee')
+                      ");
 
+
+
+    $db->query("SELECT buy_claim_seq FROM buy_claim WHERE buy_claim_code='$buy_claim_code'");
+    $db_buy_claim = $db->loadRows();
+    $buy_claim_seq = $db_buy_claim[0]["buy_claim_seq"];
+    $i=0;
+    foreach ($cancel_sb_buy_goods_seq as $key2 => $value2){
+        //$buy_claim_seqa = generate_password();
+        $db->query("INSERT INTO buy_claim_goods (buy_claim_seq,
+                                                buy_goods_req_seq,
+                                                buy_goods_new_seq,
+                                                buy_goods_copy_seq,
+                                                buy_goods_req_count,
+                                                buy_goods_new_count,
+                                                buy_goods_org_count) 
+                                        VALUES ('$buy_claim_seq','$cancel_sb_buy_goods_seq[$i]','','','$sb_num[$i]','$sb_num[$i]','$sb_org_count[$i]')");
+        $db->query("UPDATE buy_goods SET buy_goods_count='0',buy_goods_status='64' WHERE buy_goods_seq='$cancel_sb_buy_goods_seq[$i]'");
+        //echo "UPDATE buy_goods SET buy_goods_count='0',buy_goods_status='64' WHERE buy_goods_seq='$cancel_sb_buy_goods_seq[$i]'"."<br>";
+        $i++;
+    }
+
+    $i=0;
+    foreach ($cancel_op_buy_goods_seq as $key3 => $value3){
+        //$buy_claim_seqb = generate_password();
+        $db->query("INSERT INTO buy_claim_goods (buy_claim_seq,
+                                                buy_goods_req_seq,
+                                                buy_goods_new_seq,
+                                                buy_goods_copy_seq,
+                                                buy_goods_req_count,
+                                                buy_goods_new_count,
+                                                buy_goods_org_count) 
+                                        VALUES ('$buy_claim_seq','$cancel_op_buy_goods_seq[$i]','','','$op_num[$i]','$op_num[$i]','$op_org_count[$i]')");
+        $db->query("UPDATE buy_goods SET buy_goods_count='0',buy_goods_status='64' WHERE buy_goods_seq='$cancel_op_buy_goods_seq[$i]'");
+        //echo "UPDATE buy_goods SET buy_goods_count='0',buy_goods_status='64' WHERE buy_goods_seq='$cancel_op_buy_goods_seq[$i]'"."<br>";
+        $i++;
+    }
 }else{
     /*`buy_claim_status` int(11) NOT NULL DEFAULT '0' COMMENT '주문 클레임 상태 - 취소/환불/반품/교환 - 32~65536',
     `buy_claim_code` varchar(30) NOT NULL DEFAULT '' COMMENT '주문 클레임 코드 - C, R, T, E (ex) C11111',
@@ -100,33 +161,32 @@ IF($cancel_mod=="cAll"){
     `buy_refund_acc_number` varchar(100) NOT NULL DEFAULT '' COMMENT '환불 신청자 계좌번호',
     `buy_refund_acc_name` varchar(100) NOT NULL DEFAULT '' COMMENT '환불 계좌의 예금주',
     `buy_exch_price` double NOT NULL DEFAULT '0' COMMENT '교환비용',*/
-    echo count($cancel_sb_buy_seq);
-    print_r($cancel_sb_buy_seq);
-    foreach ($cancel_sb_buy_seq as $key1 => $value1){
-        $db->query("INSERT INTO buy_claim (buy_claim_status,
-                                          buy_claim_code,
-                                          buy_claim_is_all,
-                                          buy_seq,
-                                          user_id,
-                                          buy_claim_type,
-                                          buy_claim_sdate,
-                                          buy_claim_edate,
-                                          buy_claim_price_total,
-                                          buy_refund_price,
-                                          buy_refund_ch_dlv_fee) 
-                          VALUES ('32',
-                                  '$buy_claim_code',
-                                  '0',
-                                  '$value1',
-                                  '$uname',
-                                  '1',
-                                  '$time2',
-                                  '$time2',
-                                  '$buy_claim_price_total_tmp',
-                                  '$buy_refund_price',
-                                  '$buy_refund_ch_dlv_fee')
-                  ");
-    }
+    //echo count($cancel_sb_buy_seq);
+    //print_r($cancel_sb_buy_seq);
+
+    $db->query("INSERT INTO buy_claim (buy_claim_status,
+                                      buy_claim_code,
+                                      buy_claim_is_all,
+                                      buy_seq,
+                                      user_id,
+                                      buy_claim_type,
+                                      buy_claim_sdate,
+                                      buy_claim_edate,
+                                      buy_claim_price_total,
+                                      buy_refund_price,
+                                      buy_refund_ch_dlv_fee) 
+                      VALUES ('32',
+                              '$buy_claim_code',
+                              '0',
+                              '$cancel_sb_buy_seq',
+                              '$uname',
+                              '1',
+                              '$time2',
+                              '$time2',
+                              '$buy_claim_price_total_tmp',
+                              '$buy_refund_price',
+                              '$buy_refund_ch_dlv_fee')
+              ");
 
     /*`buy_claim_seq` INT(11) NOT NULL DEFAULT '0' COMMENT '클레임 일련번호',
 	`buy_goods_req_seq` INT(11) NOT NULL DEFAULT '0' COMMENT '신청한 상품 일련번호',
@@ -140,7 +200,7 @@ IF($cancel_mod=="cAll"){
     $buy_claim_seq = $db_buy_claim[0]["buy_claim_seq"];
     $i=0;
     foreach ($cancel_sb_buy_goods_seq as $key2 => $value2){
-        $buy_claim_seqa = generate_password();
+        //$buy_claim_seqa = generate_password();
         $db->query("INSERT INTO buy_claim_goods (buy_claim_seq,
                                                 buy_goods_req_seq,
                                                 buy_goods_new_seq,
@@ -148,13 +208,22 @@ IF($cancel_mod=="cAll"){
                                                 buy_goods_req_count,
                                                 buy_goods_new_count,
                                                 buy_goods_org_count) 
-                                        VALUES ('$buy_claim_seq','$buy_claim_seqa','','','$sb_num[$i]','$sb_num[$i]','$sb_org_count[$i]')");
+                                        VALUES ('buy_claim_seq','$$cancel_sb_buy_goods_seq[$i]','','','$sb_num[$i]','$sb_num[$i]','$sb_org_count[$i]')");
+
+        $buy_goods_count="";
+        $buy_goods_count = $sb_org_count[$i] - $sb_num[$i];
+        if($buy_goods_count == 0){
+            $db->query("UPDATE buy_goods SET buy_goods_count='$buy_goods_count',buy_goods_status='64' WHERE buy_goods_seq='$cancel_sb_buy_goods_seq[$i]'");
+        }else{
+            $db->query("UPDATE buy_goods SET buy_goods_count='$buy_goods_count' WHERE buy_goods_seq='$cancel_sb_buy_goods_seq[$i]'");
+        }
+        //echo "UPDATE buy_goods SET buy_goods_count='$buy_goods_count' WHERE buy_goods_seq='$cancel_sb_buy_goods_seq[$i]'"."<br>";
         $i++;
     }
 
     $i=0;
     foreach ($cancel_op_buy_goods_seq as $key3 => $value3){
-        $buy_claim_seqb = generate_password();
+        //$buy_claim_seqb = generate_password();
         $db->query("INSERT INTO buy_claim_goods (buy_claim_seq,
                                                 buy_goods_req_seq,
                                                 buy_goods_new_seq,
@@ -162,10 +231,21 @@ IF($cancel_mod=="cAll"){
                                                 buy_goods_req_count,
                                                 buy_goods_new_count,
                                                 buy_goods_org_count) 
-                                        VALUES ('$buy_claim_seq','$buy_claim_seqb','','','$op_num[$i]','$op_num[$i]','$op_org_count[$i]')");
+                                        VALUES ('buy_claim_seq','$cancel_op_buy_goods_seq[$i]','','','$op_num[$i]','$op_num[$i]','$op_org_count[$i]')");
+
+        $buy_goods_count="";
+        $buy_goods_count = $op_org_count[$i] - $op_num[$i];
+        if($buy_goods_count == 0){
+            $db->query("UPDATE buy_goods SET buy_goods_count='$buy_goods_count',buy_goods_status='64' WHERE buy_goods_seq='$cancel_sb_buy_goods_seq[$i]'");
+        }else{
+            $db->query("UPDATE buy_goods SET buy_goods_count='$buy_goods_count' WHERE buy_goods_seq='$cancel_op_buy_goods_seq[$i]'");
+        }
+        //echo "UPDATE buy_goods SET buy_goods_count='$buy_goods_count' WHERE buy_goods_seq='$cancel_op_buy_goods_seq[$i]'"."<br>";
         $i++;
     }
 }
 
 $db->disconnect();
+//echo '<script language="javascript">window.top.document.location.href="/mypage.php";</script>';
+//header("Location:/mypage.php");
 ?>

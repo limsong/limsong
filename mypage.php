@@ -64,7 +64,7 @@
                     <section class="cart-area-wrapper">
                         <div class="container-fluid">
                             <div class="row cart-top">
-                                <div class="col-md-12">* 내가 주문한 상품내역 및 배송정보</div>
+                                <div class="col-md-12"><h3>* 주문 배송조회</h3></div>
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
@@ -89,7 +89,7 @@
                                                 $buy_code = $db_buy[$i]["buy_code"];//주문코드(주문번호)
                                                 $pay_pre_date = $db_buy[$i]["pay_pre_date"];//입금예정일
 
-                                                $db->query("SELECT buy_goods_seq,buy_goods_code,buy_goods_name,buy_goods_prefix,buy_goods_option,buy_goods_price,buy_goods_count,buy_goods_price_total,buy_goods_dlv_type FROM buy_goods WHERE buy_seq='$buy_seq' AND buy_goods_status<=2");
+                                                $db->query("SELECT buy_goods_seq,buy_goods_code,buy_goods_name,buy_goods_prefix,buy_goods_option,buy_goods_price,buy_goods_count,buy_goods_price_total,buy_goods_dlv_type FROM buy_goods WHERE buy_seq='$buy_seq' AND buy_goods_status<=16");
                                                 $db_buy_goods = $db->loadRows();
                                                 $cbuy_goods = count($db_buy_goods);
 
