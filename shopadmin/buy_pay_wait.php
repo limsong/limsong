@@ -93,9 +93,9 @@
                                         <select class="buy_status_chg" name="buy_status_chg">
                                                 <option value="0">선택</option>
                                                 <option value="1">입금완료</option>
-                                                <option value="2">배송준비</option>
+                                                <!--<option value="2">배송준비</option>
                                                 <option value="3">배송중</option>
-                                                <option value="4">배송완료</option>
+                                                <option value="4">배송완료</option>-->
                                         </select>
                                         <input type="button" class="memEleB btn_buy_status" value="확인">
                                 </td>

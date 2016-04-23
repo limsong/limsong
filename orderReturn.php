@@ -154,7 +154,7 @@ try {
                                         $payMethod = "가상계좌";
                                         $pay_online_name = $resultMap["VACT_InputName"];//송금자
                                         $pay_online_account = $resultMap["vactBankName"]." | ".$resultMap["VACT_Num"];//입금은행명 입금계좌
-                                        $pay_pre_date =  date("Y-m-d", strtotime($resultMap["VACT_Date"]))." ".date("H:i:s", strtotime($resultMap["VACT_Time"]));//입금예정일
+                                        $pay_pre_date =  date("Y-m-d H:i:s", strtotime($resultMap["VACT_Date"]));//입금예정일
                                         //$pay_date = date("Y-m-d H:i:s", strtotime($resultMap["applDate"]));//결제완료일
                                 } elseif ($app_method == "DirectBank") {//실시간 게좌이체
                                         $buy_status = "2";
