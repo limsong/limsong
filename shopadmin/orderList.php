@@ -1,6 +1,71 @@
 <?
 include("common/config.shop.php");
 include("check.php");
+$page = @$_GET["page"];
+if (!@$_POST['key']) {
+        $key = @$_GET['key'];
+} else {
+        $key = $_POST['key'];
+}
+if (!@$_POST['keyfield']) {
+        $keyfield = @$_GET['keyfield'];
+} else {
+        $keyfield = $_POST['keyfield'];
+}
+
+
+$ou_delivery = @$_GET["delivery"];
+$ou_payMethod = @$_GET["payMethod"];
+if($ou_delivery == ""){
+        $ou_delivery = 1;
+}
+if ($ou_delivery == "1") {
+        //입금대기 무통장
+        $addQuery = " buy_status='1'";//입금대기
+        $include_page = "buy_pay_wait.php";
+} elseif ($ou_delivery == "2") {
+        //입금완료
+        $addQuery = " buy_status='2'";//입금완료
+        $include_page = "buy_pay_ok.php";
+} elseif ($ou_delivery == "4") {
+        //배송 준비중
+        $addQuery = " buy_status='4'";
+        $include_page = "buy_dlv_wait.php";
+} elseif ($ou_delivery == "8") {
+        //배송중
+        $addQuery = " buy_status='4'";
+        $include_page = "buy_dlv_ing.php";
+} elseif ($ou_delivery == "16") {
+        //구매확정 배송완료
+        $addQuery = " buy_status='16'";
+        $include_page = "buy_dlv_ok.php";
+} elseif ($ou_delivery == "32_8192") {
+        //입금전 교환 취소
+        $addQuery = " buy_status='1'";
+        $addQuery .= "and pay_date!='0000-00-00 00:00:00'";
+}
+if (!empty($key)) {
+        if (!empty($addQuery)) {
+                $addQuery .= " and $keyfield='$key'";
+        } else {
+                $addQuery = " $keyfield='$key'";
+        }
+}
+if (!empty($addQuery)) {
+        $addQuery = " WHERE " . $addQuery;
+}
+if (empty($page)) {
+        $page = 1;
+}
+$query = "select count(*) from buy $addQuery";
+
+$result = mysql_query($query) or die($query);
+$total_record = mysql_result($result, 0, 0);
+if ($total_record == 0) {
+        $first = 1;
+} else {
+        $first = ($page - 1) * $bnum_per_page;
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -90,77 +155,15 @@ include("check.php");
                         </div>
                         <div id="main">
                                 <?
-                                $page = @$_GET["page"];
-                                if (!@$_POST['key']) {
-                                        $key = @$_GET['key'];
-                                } else {
-                                        $key = $_POST['key'];
-                                }
-                                if (!@$_POST['keyfield']) {
-                                        $keyfield = @$_GET['keyfield'];
-                                } else {
-                                        $keyfield = $_POST['keyfield'];
+                                switch($ou_delivery){
+                                        case 1:
+                                                include_once("buy_pay_wait.php");
+                                                break;
+                                        case 2:
+                                                include_once("buy_pay_ok.php");
+                                                break;
                                 }
 
-
-                                $ou_delivery = @$_GET["delivery"];
-                                $ou_payMethod = @$_GET["payMethod"];
-                                if ($ou_delivery == "1") {
-                                        //입금대기 무통장
-                                        $addQuery = " buy_status='1'";//입금대기
-                                        $addQuery .= " and pay_method='1'";//무통장
-                                        $addQuery .= " or pay_method='64'";//가상계좌
-                                        $include_page = "buy_pay_wait.php";
-                                } elseif ($ou_delivery == "2") {
-                                        //입금완료
-                                        $addQuery = " buy_status='2'";//입금완료
-                                        $include_page = "buy_pay_ok.php";
-                                } elseif ($ou_delivery == "4") {
-                                        //배송 준비중
-                                        $addQuery = " buy_status='4'";
-                                        $include_page = "buy_dlv_wait.php";
-                                } elseif ($ou_delivery == "8") {
-                                        //배송중
-                                        $addQuery = " buy_status='4'";
-                                        $include_page = "buy_dlv_ing.php";
-                                } elseif ($ou_delivery == "16") {
-                                        //구매확정 배송완료
-                                        $addQuery = " buy_status='16'";
-                                        $include_page = "buy_dlv_ok.php";
-                                } elseif ($ou_delivery == "32_8192") {
-                                        //입금전 교환 취소
-                                        $addQuery = " buy_status='1'";
-                                        $addQuery .= "and pay_date!='0000-00-00 00:00:00'";
-                                }
-
-                                if (!empty($key)) {
-                                        if (!empty($addQuery)) {
-                                                $addQuery .= " and $keyfield='$key'";
-                                        } else {
-                                                $addQuery = " $keyfield='$key'";
-                                        }
-                                }
-
-                                if (!empty($addQuery)) {
-                                        $addQuery = " WHERE " . $addQuery;
-                                }
-
-
-                                if (empty($page)) {
-                                        $page = 1;
-                                }
-
-
-                                $query = "select count(*) from buy $addQuery";
-                                echo $query;
-                                $result = mysql_query($query) or die($query);
-                                $total_record = mysql_result($result, 0, 0);
-                                if ($total_record == 0) {
-                                        $first = 1;
-                                } else {
-                                        $first = ($page - 1) * $bnum_per_page;
-                                }
-                                include_once("buy_pay_wait.php");
                                 ?>
                         </div>
                 </div>
