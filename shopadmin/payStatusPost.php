@@ -21,8 +21,11 @@ for($i=0;$i<$count;$i++){
         }
 }
 
-$query = "UPDATE buy set buy_status='2',pay_date='$pay_date' $addQuery";
-mysql_query($query) or die("paStatus");
+
+$query = "UPDATE buy set buy_status='$buy_status',pay_date='$pay_date' $addQuery";
+mysql_query($query) or die("payStatus");
+$query = "UPDATE buy_goods set buy_goods_status='$buy_status_chg' $addQuery";
+mysql_query($query) or die("payStatus");
 echo "success";
 mysql_close($db);
 ?>

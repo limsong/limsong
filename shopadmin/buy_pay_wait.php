@@ -7,7 +7,7 @@
  */
 ?>
 <div id="maninfo">
-        <form name="orderListForm" method="post" action="orderListDelPost.php?page=<?= $page ?>&keyfield=<?= $keyfield ?>&key=<?= $key ?>" target="action_frame">
+        <form name="orderListForm" action="">
                 <table align="center" width="100%" class="memberListTable" border="0" cellspacing="0" ellpadding="0">
                         <tr class="menuTr">
                                 <th width="5%" height="30">
@@ -91,11 +91,11 @@
                                 <td colspan="10" style="text-align: right;">
                                         주문상태변경
                                         <select class="buy_status_chg" name="buy_status_chg">
-                                                <option value="0">선택</option>
-                                                <option value="1">입금완료</option>
-                                                <!--<option value="2">배송준비</option>
-                                                <option value="3">배송중</option>
-                                                <option value="4">배송완료</option>-->
+                                              <option value="0">선택</option>
+                                              <option value="2">입금완료</option>
+                                              <option value="4">배송대기</option>
+                                              <option value="8">배송중</option>
+                                              <option value="16">배송완료</option>
                                         </select>
                                         <input type="button" class="memEleB btn_buy_status" value="확인">
                                 </td>

@@ -1,150 +1,167 @@
-html,body {
-	margin:0px;
-	padding:0px;
-	font-size:9pt;
-	font-family: 'Nanum Gothic', sans-serif !important;
-	font-style: normal !important;
-	background: #333;
+html, body {
+      margin: 0px;
+      padding: 0px;
+      font-size: 9pt;
+      font-family: 'Nanum Gothic', sans-serif !important;
+      font-style: normal !important;
+      background: #333;
 }
-div{
-	background: #fff;
-}
-img {
-	border:none;
-}
-form {
-	margin:0px;
-	padding:0px;
-}
-h1,h2,h3,h4,h5,h6,p {
-	margin:0px;
-	padding:0px;
-	font-family: 'Nanum Gothic', sans-serif !important;
-	font-style: normal !important;
-}
-.border {
-	border:none;
-	height:25px;
-	float: left;
-}
-select {
-	font-size:9pt;
-}
-ul,ol,dl {
-	padding:0px;
-	margin:0px;
-	list-style:none;
-}
-ul li,ol li,dl dt,dl dd {
-	margin:0px;
-	padding:0px;
-}
-input {
-	font-size:9pt;
-}
-table {
-	table-layout:fixed;
-}
-.memEleB {
-    	width:70px;
 
+div {
+      background: #fff;
 }
-.fontCol{
-    	color:#a30101;
+
+img {
+      border: none;
 }
+
+form {
+      margin: 0px;
+      padding: 0px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+      margin: 0px;
+      padding: 0px;
+      font-family: 'Nanum Gothic', sans-serif !important;
+      font-style: normal !important;
+}
+
+.border {
+      border: none;
+      height: 25px;
+      float: left;
+}
+
+select {
+      font-size: 9pt;
+}
+
+ul, ol, dl {
+      padding: 0px;
+      margin: 0px;
+      list-style: none;
+}
+
+ul li, ol li, dl dt, dl dd {
+      margin: 0px;
+      padding: 0px;
+}
+
+input {
+      font-size: 9pt;
+}
+
+table {
+      table-layout: fixed;
+}
+
+.fontCol {
+      color: #a30101;
+}
+
 .border2 {
-    	padding: 2px;
+      padding: 2px;
 }
+
 #actionFrame {
-	position:absolute;
-	display:none;
-	border:2px solid #339999;
-	background-color:#FFFFFF;
+      position: absolute;
+      display: none;
+      border: 2px solid #339999;
+      background-color: #FFFFFF;
 }
+
 a:link {
-	text-decoration:none;
-	font-size:9pt;
-	color:#646464;
-	font-family: 'Nanum Gothic', sans-serif !important;
-	font-style: normal !important;
+      text-decoration: none;
+      font-size: 9pt;
+      color: #646464;
+      font-family: 'Nanum Gothic', sans-serif !important;
+      font-style: normal !important;
 }
+
 a:visited {
-	text-decoration:none;
-	font-size:9pt;
-	color:#646464;
+      text-decoration: none;
+      font-size: 9pt;
+      color: #646464;
 }
+
 a:hover {
-	text-decoration:none;
-	font-size:9pt;
-	color:#E26A6A !important;
+      text-decoration: none;
+      font-size: 9pt;
+      color: #E26A6A !important;
 }
+
 a:active {
-	text-decoration:none;
-	font-size:9pt;
-	color:#646464;
+      text-decoration: none;
+      font-size: 9pt;
+      color: #646464;
 }
+
 a:link img {
-	text-decoration:none;
-	font-size:9pt;
-	color:black;
-	border: none;
+      text-decoration: none;
+      font-size: 9pt;
+      color: black;
+      border: none;
 }
+
 a:visited img {
-	text-decoration:none;
-	font-size:9pt;
-	color:#646464;
-	border: none;
+      text-decoration: none;
+      font-size: 9pt;
+      color: #646464;
+      border: none;
 }
+
 a:hover img {
-	text-decoration:none;
-	border: none;
-	font-size:9pt;
-	color:#646464;
+      text-decoration: none;
+      border: none;
+      font-size: 9pt;
+      color: #646464;
 }
+
 a:active img {
-	border: none;
-	text-decoration:none;
-	font-size:9pt;
-	color:#646464;
+      border: none;
+      text-decoration: none;
+      font-size: 9pt;
+      color: #646464;
 }
+
 .memEleB {
-        width:70px;
-        display: inline-block;
-        zoom: 1;
-        /* zoom and *display = ie7 hack for display:inline-block */*
-display: inline;
-        vertical-align: baseline;
-        outline: none;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        /*font: 14px/100% Arial, Helvetica, sans-serif;*/
-        font-style: normal;
-        font-variant-caps: normal;
-        letter-spacing: normal;
-        word-spacing: normal;
-        line-height: normal;
-        text-transform: none;
-        text-indent: 0px;
-        text-shadow: none;
-        /*text-shadow: 0 1px 1px rgba(0, 0, 0, .3);*/
-        -webkit-border-radius: .2em;
-        -moz-border-radius: .2em;
-        border-radius: .2em;
-        /*
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
-        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
-        */
-        /*white*/
-        color: #606060;
-        border: solid 1px #b7b7b7;
-        background: #cfd1cf;
-        background-image: linear-gradient(to bottom, #f5f5f5, #cfd1cf);
-        filter: progid: DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');
-        /*medium*/
-        font: normal normal normal 12px Arial, Helvetica, Tahoma, Verdana, Sans-Serif;
-        /*small*/
-        padding: 2px 0px;
-        margin:0px 3px;
+      display: inline-block;
+      zoom: 1;
+      /* zoom and *display = ie7 hack for display:inline-block */
+      *display: inline;
+      vertical-align: baseline;
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      /*font: 14px/100% Arial, Helvetica, sans-serif;*/
+      font-style: normal;
+      font-variant-caps: normal;
+      letter-spacing: normal;
+      word-spacing: normal;
+      line-height: normal;
+      text-transform: none;
+      text-indent: 0px;
+      text-shadow: none;
+      /*text-shadow: 0 1px 1px rgba(0, 0, 0, .3);*/
+      -webkit-border-radius: .2em;
+      -moz-border-radius: .2em;
+      border-radius: .2em;
+      /*
+      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+      -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+      */
+      /*white*/
+      color: #606060;
+      border: solid 1px #b7b7b7;
+      background: #cfd1cf;
+      background-image: linear-gradient(to bottom, #f5f5f5, #cfd1cf);
+      filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');
+      /*medium*/
+      font: normal normal normal 12px Arial, Helvetica, Tahoma, Verdana, Sans-Serif;
+      /*small*/
+      padding: 2px 8px;
+      margin: 0px 3px;
 }

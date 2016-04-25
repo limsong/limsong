@@ -19,6 +19,7 @@
                 form.method = "post";
                 form.target = "OnLine";
                 form.submit();
+
             }
         </script>
     </head>
@@ -27,23 +28,27 @@
             이니시스 표준결제 인증결과 수신 / 승인요청, 승인결과 표시 샘플
         </div>
         <?php
-        require_once('libs/INIStdPayUtil.php');
-        require_once('libs/HttpClient.php');
+        require_once('../libs/INIStdPayUtil.php');
+        require_once('../libs/HttpClient.php');
+
         $util = new INIStdPayUtil();
 
         try {
+
             //#############################
             // 인증결과 파라미터 일괄 수신
             //#############################
-//		$var = $_REQUEST["data"];
-//		System.out.println("paramMap : "+ paramMap.toString());
+            //		$var = $_REQUEST["data"];
+
             //#####################
             // 인증이 성공일 경우만
             //#####################
             if (strcmp("0000", $_REQUEST["resultCode"]) == 0) {
 
                 echo "####인증성공/승인요청####";
-                    echo "<br/>";
+                echo "<br/>";
+
+
                 //############################################
                 // 1.전문 필드 값 설정(***가맹점 개발수정***)
                 //############################################
@@ -64,7 +69,10 @@
 
                 $authUrl = $_REQUEST["authUrl"];    // 승인요청 API url(수신 받은 값으로 설정, 임의 세팅 금지)
 
-                $netCancel = $_REQUEST["netCancelUrl"];   // 망취소 API url(수신 받은f값으로 설정, 임의 세팅 금지)
+                $netCancel = $_REQUEST["netCancel"];   // 망취소 API url(수신 받은f값으로 설정, 임의 세팅 금지)
+
+                ///$mKey = $util->makeHash(signKey, "sha256"); // 가맹점 확인을 위한 signKey를 해시값으로 변경 (SHA-256방식 사용)
+                $mKey = hash("sha256", $signKey);
 
                 //#####################
                 // 2.signature 생성
@@ -74,7 +82,6 @@
                 // signature 데이터 생성 (모듈에서 자동으로 signParam을 알파벳 순으로 정렬후 NVP 방식으로 나열해 hash)
                 $signature = $util->makeSignature($signParam);
 
-                $price = ""; // 가맹점에서 최종 결제 가격 표기 (필수입력)
 
                 //#####################
                 // 3.API 요청 전문 생성
@@ -85,12 +92,9 @@
                 $authMap["timestamp"] = $timestamp; // 필수
                 $authMap["charset"] = $charset;  // default=UTF-8
                 $authMap["format"] = $format;  // default=XML
-                $authMap["price"] = $price;  //  필수 (가격위변조체크기능)
                 //if(null != notiUrl && notiUrl.length() > 0){
                 //	authMap.put("notiUrl"		,notiUrl);
                 //}
-
-
 
 
                 try {
@@ -117,11 +121,7 @@
                     echo "## 승인 API 결과 ##";
 
                     $resultMap = json_decode($authResultString, true);
-
-					echo "<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>";
-						print_r($resultMap);
-					echo "<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY";
-
+					
                     echo "<pre>";
                     echo "<table width='565' border='0' cellspacing='0' cellpadding='0'>";
 
@@ -141,101 +141,112 @@
                     }
 
                     //공통 부분만
-
                     echo
-							"<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>거래 번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["tid"] , $resultMap) ? $resultMap["tid"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결제방법(지불수단)</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["payMethod"] , $resultMap) ? $resultMap["payMethod"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결과 코드</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["resultCode"] , $resultMap) ? $resultMap["resultCode"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결과 내용</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["resultMsg"] , $resultMap) ? $resultMap["resultMsg"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결제완료금액</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["TotPrice"] , $resultMap) ? $resultMap["TotPrice"] : "null" ) . "원</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>주문 번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["MOID"] , $resultMap) ? $resultMap["MOID"] : "null" )  . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>승인날짜</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["applDate"] , $resultMap) ? $resultMap["applDate"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>승인시간</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["applTime"] , $resultMap) ? $resultMap["applTime"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>";
+                            "<tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>거래 번호</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["tid"] , $resultMap) ? $resultMap["tid"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>결제방법(지불수단)</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["payMethod"] , $resultMap) ? $resultMap["payMethod"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>결과 코드</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["resultCode"] , $resultMap) ? $resultMap["resultCode"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>결과 내용</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["resultMsg"] , $resultMap) ? $resultMap["resultMsg"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>결제완료금액</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["TotPrice"] , $resultMap) ? $resultMap["TotPrice"] : "null" ) . "원</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>주문 번호</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["MOID"] , $resultMap) ? $resultMap["MOID"] : "null" )  . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>승인날짜</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["applDate"] , $resultMap) ? $resultMap["applDate"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>승인시간</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["applTime"] , $resultMap) ? $resultMap["applTime"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>";
 
                     if (isset($resultMap["payMethod"]) && strcmp("VBank", $resultMap["payMethod"]) == 0) { //가상계좌
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>입금 계좌번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["VACT_Num"] , $resultMap) ? $resultMap["VACT_Num"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>입금 은행코드</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["VACT_BankCode"] , $resultMap) ? $resultMap["VACT_BankCode"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>입금 은행명</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["vactBankName"] , $resultMap) ? $resultMap["vactBankName"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>예금주 명</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["VACT_Name"] , $resultMap) ? $resultMap["VACT_Name"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>송금자 명</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["VACT_InputName"] , $resultMap) ? $resultMap["VACT_InputName"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>송금 일자</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["VACT_Date"] , $resultMap) ? $resultMap["VACT_Date"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>송금 시간</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["VACT_Time"] , $resultMap) ? $resultMap["VACT_Time"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>";
+                            <tr><th class='td01'><p>입금 계좌번호</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["VACT_Num"] , $resultMap) ? $resultMap["VACT_Num"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>입금 은행코드</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["VACT_BankCode"] , $resultMap) ? $resultMap["VACT_BankCode"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>입금 은행명</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["vactBankName"] , $resultMap) ? $resultMap["vactBankName"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>예금주 명</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["VACT_Name"] , $resultMap) ? $resultMap["VACT_Name"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>송금자 명</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["VACT_InputName"] , $resultMap) ? $resultMap["VACT_InputName"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>송금 일자</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["VACT_Date"] , $resultMap) ? $resultMap["VACT_Date"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>송금 시간</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["VACT_Time"] , $resultMap) ? $resultMap["VACT_Time"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("DirectBank", $resultMap["payMethod"]) == 0) { //실시간계좌이체
-                        echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>은행코드</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["ACCT_BankCode"] , $resultMap) ? $resultMap["ACCT_BankCode"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>현금영수증 발급결과코드</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["CSHR_ResultCode"] , $resultMap) ? $resultMap["CSHR_ResultCode"] : "null" ) . "</p></td></tr>
-							<tr><th class='td01'><p>현금영수증 발급구분코드</p> <font color=red><b>(0 - 소득공제용, 1 - 지출증빙용)</b></font></th>
-							<td class='td02'><p>" . @(in_array($resultMap["CSHR_Type"] , $resultMap) ? $resultMap["CSHR_Type"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>";
+                        echo "<tr><th class='line' colspan='2'><p></p></th></tr>sjgdm
+                            <tr><th class='td01'><p>은행코드</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["ACCT_BankCode"] , $resultMap) ? $resultMap["ACCT_BankCode"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>현금영수증 발급결과코드</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["CSHRResultCode"] , $resultMap) ? $resultMap["CSHR_ResultCode"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>현금영수증 발급구분코드</p> <font color=red><b>(0 - 소득공제용, 1 - 지출증빙용)</b></font></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["CSHR_Type"] , $resultMap) ? $resultMap["CSHR_Type"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("HPP", $resultMap["payMethod"]) == 0) { //휴대폰
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>통신사</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["HPP_Corp"] , $resultMap) ? $resultMap["HPP_Corp"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결제장치</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["payDevice"] , $resultMap) ? $resultMap["payDevice"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>휴대폰번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["HPP_Num"] , $resultMap) ? $resultMap["HPP_Num"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>";
+                            <tr><th class='td01'><p>통신사</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["HPP_Corp"] , $resultMap) ? $resultMap["HPP_Corp"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>결제장치</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["payDevice"] , $resultMap) ? $resultMap["payDevice"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>휴대폰번호</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["HPP_Num"] , $resultMap) ? $resultMap["HPP_Num"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("KWPY", $resultMap["payMethod"]) == 0) { //뱅크월렛 카카오
                         echo "<tr><th class='td01'><p>휴대폰번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["KWPY_CellPhone"] , $resultMap) ? $resultMap["KWPY_CellPhone"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>거래금액</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["KWPY_SalesAmount"] , $resultMap) ? $resultMap["KWPY_SalesAmount"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>공급가액</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["KWPY_Amount"] , $resultMap) ? $resultMap["KWPY_Amount"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>부가세</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["KWPY_Tax"] , $resultMap) ? $resultMap["KWPY_Tax"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>봉사료</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["KWPY_ServiceFee"] , $resultMap) ? $resultMap["KWPY_ServiceFee"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>";
-                    } else if (isset($resultMap["payMethod"]) && strcmp("DGCL", $resultMap["payMethod"]) == 0) { //게임문화상품권
-                        $sum = "0";
-                        $sum2 = "0";
-                        $sum3 = "0";
-                        $sum4 = "0";
-                        $sum5 = "0";
-                        $sum6 = "0";
+                            <td class='td02'><p>" . @(in_array($resultMap["KWPY_CellPhone"] , $resultMap) ? $resultMap["KWPY_CellPhone"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>거래금액</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["KWPY_SalesAmount"] , $resultMap) ? $resultMap["KWPY_SalesAmount"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>공급가액</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["KWPY_Amount"] , $resultMap) ? $resultMap["KWPY_Amount"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>부가세</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["KWPY_Tax"] , $resultMap) ? $resultMap["KWPY_Tax"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>봉사료</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["KWPY_ServiceFee"] , $resultMap) ? $resultMap["KWPY_ServiceFee"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>";
+                    } else if (isset($resultMap["payMethod"]) && strcmp("Culture", $resultMap["payMethod"]) == 0) { //문화상품권
+                        echo "<tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>문화상품권승인일자</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["applDate"] , $resultMap) ? $resultMap["applDate"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>문화상품권 승인시간</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["applTime"] , $resultMap) ? $resultMap["applTime"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>
+                            <tr><th class='td01'><p>문화상품권 승인번호</p></th>
+                            <td class='td02'><p>" . @(in_array($resultMap["applNum"] , $resultMap) ? $resultMap["applNum"] : "null" ) . "</p></td></tr>
+                            <tr><th class='line' colspan='2'><p></p></th></tr>";
+					} else if (isset($resultMap["payMethod"]) && strcmp("DGCL", $resultMap["payMethod"]) == 0) { //게임문화상품권
+                        //$sum = "0";
+                        //$sum2 = "0";
+                        //$sum3 = "0";
+                        //$sum4 = "0";
+                        //$sum5 = "0";
+                        //$sum6 = "0";
 
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
 							<tr><th class='td01'><p>게임문화상품권승인금액</p></th>
@@ -289,11 +300,11 @@
                         if (!strcmp("", $resultMap["GAMG_Num6"]) == 0) {
 
                             echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-								<tr><th class='td01'><p>사용한 카드번호</p></th>
-								<td class='td02'><p>" . @(in_array($resultMap["GAMG_Num6"] , $resultMap) ? $resultMap["GAMG_Num6"] : "null" ) . "</p></td></tr>
-								<tr><th class='line' colspan='2'><p></p></th></tr>
-								<tr><th class='td01'><p>카드잔액</p></th>
-								<td class='td02'><p>" . @(in_array($resultMap["GAMG_Price6"] , $resultMap) ? $resultMap["GAMG_Price6"] : "null" ) . "원</p></td></tr>";
+                        <tr><th class='td01'><p>사용한 카드번호</p></th>
+                        <td class='td02'><p>" . @(in_array($resultMap["GAMG_Num6"] , $resultMap) ? $resultMap["GAMG_Num6"] : "null" ) . "</p></td></tr>
+                        <tr><th class='line' colspan='2'><p></p></th></tr>
+                        <tr><th class='td01'><p>카드잔액</p></th>
+                        <td class='td02'><p>" . @(in_array($resultMap["GAMG_Price6"] , $resultMap) ? $resultMap["GAMG_Price6"] : "null" ) . "원</p></td></tr>";
                         }
 
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>";
@@ -313,7 +324,7 @@
 							<tr><th class='line' colspan='2'><p></p></th></tr>
 							<tr><th class='td01'><p>사용 승인번호</p></th>
 							<td class='td02'><p>" . @(in_array($resultMap["OCB_PayApplNum"] , $resultMap) ? $resultMap["OCB_PayApplNum"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>					
+							<tr><th class='line' colspan='2'><p></p></th></tr>
 							<tr><th class='td01'><p>OCB 지불 금액</p></th>
 							<td class='td02'><p>" . @(in_array($resultMap["OCB_PayPrice"] , $resultMap) ? $resultMap["OCB_PayPrice"] : "null" ) . "</p></td></tr>
 							<tr><th class='line' colspan='2'><p></p></th></tr>";
@@ -338,103 +349,106 @@
 							<tr><th class='line' colspan='2'><p></p></th></tr>
 							<tr><th class='td01'><p>가용포인트</p></th>
 							<td class='td02'><p>" . @(in_array($resultMap["UPoint_usablePoint"] , $resultMap) ? $resultMap["UPoint_usablePoint"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>			
+							<tr><th class='line' colspan='2'><p></p></th></tr>
 							<tr><th class='td01'><p>포인트지불금액</p></th>
 							<td class='td02'><p>" . @(in_array($resultMap["UPoint_ApplPrice"] , $resultMap) ? $resultMap["UPoint_ApplPrice"] : "null" ) . "</p></td></tr>
 							<tr><th class='line' colspan='2'><p></p></th></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("KWPY", $resultMap["payMethod"]) == 0) {  //뱅크월렛 카카오
                         echo "<tr><th class='td01'><p>결제방법</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["payMethod"] , $resultMap) ? $resultMap["payMethod"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결과 코드</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["resultCode"] , $resultMap) ? $resultMap["resultCode"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결과 내용</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["resultMsg"] , $resultMap) ? $resultMap["resultMsg"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>거래 번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["tid"] , $resultMap) ? $resultMap["tid"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>주문 번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["orderNumber"] , $resultMap) ? $resultMap["orderNumber"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>결제완료금액</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["price"] , $resultMap) ? $resultMap["price"] : "null" ) . "원</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>사용일자</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["applDate"] , $resultMap) ? $resultMap["applDate"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>사용시간</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["applTime"] , $resultMap) ? $resultMap["applTime"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>";
+						<td class='td02'><p>" . @(in_array($resultMap["payMethod"] , $resultMap) ? $resultMap["payMethod"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>결과 코드</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["resultCode"] , $resultMap) ? $resultMap["resultCode"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>결과 내용</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["resultMsg"] , $resultMap) ? $resultMap["resultMsg"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>거래 번호</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["tid"] , $resultMap) ? $resultMap["tid"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>주문 번호</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["MOID"] , $resultMap) ? $resultMap["MOID"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>결제완료금액</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["price"] , $resultMap) ? $resultMap["price"] : "null" ) . "원</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>사용일자</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["applDate"] , $resultMap) ? $resultMap["applDate"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>사용시간</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["applTime"] , $resultMap) ? $resultMap["applTime"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("YPAY", $resultMap["payMethod"]) == 0) { //엘로우 페이
                         //별도 응답 필드 없음
                     } else if (isset($resultMap["payMethod"]) && strcmp("TEEN", $resultMap["payMethod"]) == 0) { //틴캐시
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>틴캐시 승인번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["TEEN_ApplNum"] , $resultMap) ? $resultMap["TEEN_ApplNum"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>틴캐시아이디</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["TEEN_UserID"] , $resultMap) ? $resultMap["TEEN_UserID"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>틴캐시승인금액</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["TEEN_ApplPrice"] , $resultMap) ? $resultMap["TEEN_ApplPrice"] : "null" ) . "원</p></td></tr>";
+						<tr><th class='td01'><p>틴캐시 승인번호</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["TEEN_ApplNum"] , $resultMap) ? $resultMap["TEEN_ApplNum"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>틴캐시아이디</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["TEEN_UserID"] , $resultMap) ? $resultMap["TEEN_UserID"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>틴캐시승인금액</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["TEEN_ApplPrice"] , $resultMap) ? $resultMap["TEEN_ApplPrice"] : "null" ) . "원</p></td></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("Bookcash", $resultMap["payMethod"]) == 0) { //도서문화상품권
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>도서상품권 승인번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["BCSH_ApplNum"] , $resultMap) ? $resultMap["BCSH_ApplNum"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>도서상품권 사용자ID</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["BCSH_UserID"] , $resultMap) ? $resultMap["BCSH_UserID"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>도서상품권 승인금액</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["BCSH_ApplPrice"] , $resultMap) ? $resultMap["BCSH_ApplPrice"] : "null" ) . "원</p></td></tr>";
+						<tr><th class='td01'><p>도서상품권 승인번호</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["BCSH_ApplNum"] , $resultMap) ? $resultMap["BCSH_ApplNum"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>도서상품권 사용자ID</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["BCSH_UserID"] , $resultMap) ? $resultMap["BCSH_UserID"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>
+						<tr><th class='td01'><p>도서상품권 승인금액</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["BCSH_ApplPrice"] , $resultMap) ? $resultMap["BCSH_ApplPrice"] : "null" ) . "원</p></td></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("PhoneBill", $resultMap["payMethod"]) == 0) { //폰빌전화결제
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-							<tr><th class='td01'><p>승인전화번호</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["PHNB_Num"] , $resultMap) ? $resultMap["PHNB_Num"] : "null" ) . "</p></td></tr>
-							<tr><th class='line' colspan='2'><p></p></th></tr>";
+						<tr><th class='td01'><p>승인전화번호</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["PHNB_Num"] , $resultMap) ? $resultMap["PHNB_Num"] : "null" ) . "</p></td></tr>
+						<tr><th class='line' colspan='2'><p></p></th></tr>";
                     } else if (isset($resultMap["payMethod"]) && strcmp("Bill", $resultMap["payMethod"]) == 0) { //빌링결제
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-								<tr><th class='td01'><p>빌링키</p></th>
-								<td class='td02'><p>" . @(in_array($resultMap["CARD_BillKey"] , $resultMap) ? $resultMap["CARD_BillKey"] : "null" ) . "</p></td></tr>";
+						<tr><th class='td01'><p>빌링키</p></th>
+						<td class='td02'><p>" . @(in_array($resultMap["CARD_BillKey"] , $resultMap) ? $resultMap["CARD_BillKey"] : "null" ) . "</p></td></tr>";
                     } else { //카드
-//					int  quota=Integer.parseInt(resultMap.get("CARD_Quota"));
+						
+						$quota = @(in_array($resultMap["CARD_Quota"] , $resultMap) ? $resultMap["CARD_Quota"] : "null" );
+
                         if (isset($resultMap["EventCode"]) && !is_null($resultMap["EventCode"])) {
 
                             echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-									<tr><th class='td01'><p>이벤트 코드</p></th>					
-									<td class='td02'><p>" . @(in_array($resultMap["EventCode"] , $resultMap) ? $resultMap["EventCode"] : "null" ) . "</p></td></tr>";
+								<tr><th class='td01'><p>이벤트 코드</p></th>
+								<td class='td02'><p>" . @(in_array($resultMap["EventCode"] , $resultMap) ? $resultMap["EventCode"] : "null" ) . "</p></td></tr>";
                         }
 
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
-								<tr><th class='td01'><p>카드번호</p></th>
-								<td class='td02'><p>" . @(in_array($resultMap["CARD_Num"] , $resultMap) ? $resultMap["CARD_Num"] : "null" ) . "</p></td></tr>
-								<tr><th class='line' colspan='2'><p></p></th></tr>
-								<tr><th class='td01'><p>할부기간</p></th>
-								<td class='td02'><p>" . @(in_array($resultMap["CARD_Quota"] , $resultMap) ? $resultMap["CARD_Quota"] : "null" ) . "</p></td></tr>
-								<tr><th class='line' colspan='2'><p></p></th></tr>";
+							<tr><th class='td01'><p>카드번호</p></th>
+							<td class='td02'><p>" . @(in_array($resultMap["CARD_Num"] , $resultMap) ? $resultMap["CARD_Num"] : "null" ) . "</p></td></tr>
+							<tr><th class='line' colspan='2'><p></p></th></tr>
+							<tr><th class='td01'><p>할부기간</p></th>
+							<td class='td02'><p>" . @(in_array($resultMap["CARD_Quota"] , $resultMap) ? $resultMap["CARD_Quota"] : "null" ) . "</p></td></tr>
+							<tr><th class='line' colspan='2'><p></p></th></tr>";
 
                         if (isset($resultMap["EventCode"]) && isset($resultMap["CARD_Interest"]) && (strcmp("1", $resultMap["CARD_Interest"]) == 0 || strcmp("1", $resultMap["EventCode"]) == 0 )) {
 
                             echo "<tr><th class='td01'><p>할부 유형</p></th>
-									<td class='td02'><p>무이자</p></td></tr>";
-                        } else if (isset($resultMap["CARD_Interest"]) && !strcmp("1", $resultMap["CARD_Interest"]) == 0) {
-
+								<td class='td02'><p>무이자</p></td></tr>";
+                        //} else if (isset($resultMap["CARD_Interest"]) && $quota > 0 && !strcmp("1", $resultMap["CARD_Interest"]) == 0) {
+                        } else if ($quota > 0 && isset($resultMap["CARD_Interest"]) && !strcmp("1", $resultMap["CARD_Interest"]) == 0) {
                             echo "<tr><th class='td01'><p>할부 유형</p></th>
-									<td class='td02'><p>유이자 <font color='red'> *유이자로 표시되더라도 EventCode 및 EDI에 따라 무이자 처리가 될 수 있습니다.</font></p></td></tr>";
+								<td class='td02'><p>유이자 <font color='red'> *유이자로 표시되더라도 EventCode 및 EDI에 따라 무이자 처리가 될 수 있습니다.</font></p></td></tr>";
                         }
 
                         if (isset($resultMap["point"]) && strcmp("1", $resultMap["point"]) == 0) {
 
                             echo "<td class='td02'><p></p></td></tr>
-								<tr><th class='td01'><p>포인트 사용 여부</p></th>
-								<td class='td02'><p>사용</p></td></tr>";
+							<tr><th class='td01'><p>포인트 사용 여부</p></th>
+							<td class='td02'><p>사용</p></td></tr>";
                         } else {
 
                             echo "<td class='td02'><p></p></td></tr>
-								<tr><th class='td01'><p>포인트 사용 여부</p></th>
-								<td class='td02'><p>미사용</p></td></tr>";
+							<tr><th class='td01'><p>포인트 사용 여부</p></th>
+							<td class='td02'><p>미사용</p></td></tr>";
                         }
 
                         echo "<tr><th class='line' colspan='2'><p></p></th></tr>
@@ -442,7 +456,13 @@
 							<td class='td02'><p>" . @(in_array($resultMap["CARD_Code"] , $resultMap) ? $resultMap["CARD_Code"] : "null" ) . "</p></td></tr>
 							<tr><th class='line' colspan='2'><p></p></th></tr>
 							<tr><th class='td01'><p>카드 발급사</p></th>
-							<td class='td02'><p>" . @(in_array($resultMap["CARD_BankCode"] , $resultMap) ? $resultMap["CARD_BankCode"] : "null" ) . "</p></td></tr>";
+							<td class='td02'><p>" . @(in_array($resultMap["CARD_BankCode"] , $resultMap) ? $resultMap["CARD_BankCode"] : "null" ) . "</p></td></tr>
+
+							<tr><th class='td01'><p>부분취소 가능여부</p></th>
+							<td class='td02'><p>" . @(in_array($resultMap["CARD_PRTC_CODE"] , $resultMap) ? $resultMap["CARD_PRTC_CODE"] : "null" ) . "</p></td></tr>
+							<tr><th class='line' colspan='2'><p></p></th></tr>
+							<tr><th class='td01'><p>체크카드 여부</p></th>
+							<td class='td02'><p>" . @(in_array($resultMap["CARD_CheckFlag"] , $resultMap) ? $resultMap["CARD_CheckFlag"] : "null" ) . "</p></td></tr>";
 
                         if (isset($resultMap["OCB_Num"]) && !is_null($resultMap["OCB_Num"]) && !empty($resultMap["OCB_Num"])) {
 
@@ -465,7 +485,7 @@
 								<tr><th class='line' colspan='2'><p></p></th></tr>
 								<tr><th class='td01'><p>GS&Point 잔여한도</p></th>
 								<td class='td02'><p>" . @(in_array($resultMap["GSPT_Remains"] , $resultMap) ? $resultMap["GSPT_Remains"] : "null" ) . "</p></td></tr>
-								
+
 								<tr><th class='line' colspan='2'><p></p></th></tr>
 								<tr><th class='td01'><p>GS&Point 승인금액</p></th>
 								<td class='td02'><p>" . @(in_array($resultMap["GSPT_ApplPrice"] , $resultMap) ? $resultMap["GSPT_ApplPrice"] : "null" ) . "</p></td></tr>";
@@ -476,11 +496,11 @@
                             echo "<tr><th class='line' colspan='2'><p></p></th></tr>
 								<tr><th class='td01'><p>U-Point 카드번호</p></th>
 								<td class='td02'><p>" . @(in_array($resultMap["UNPT_CardNum"] , $resultMap) ? $resultMap["UNPT_CardNum"] : "null" ) . "</p></td></tr>
-								
+
 								<tr><th class='line' colspan='2'><p></p></th></tr>
 								<tr><th class='td01'><p>U-Point 가용포인트</p></th>
 								<td class='td02'><p>" . @(in_array($resultMap["UPNT_UsablePoint"] , $resultMap) ? $resultMap["UPNT_UsablePoint"] : "null" ) . "</p></td></tr>
-								
+
 								<tr><th class='line' colspan='2'><p></p></th></tr>
 								<tr><th class='td01'><p>U-Point 포인트지불금액</p></th>
 								<td class='td02'><p>" . @(in_array($resultMap["UPNT_PayPrice"] , $resultMap) ? $resultMap["UPNT_PayPrice"] : "null" ) . "</p></td></tr>";
@@ -488,13 +508,11 @@
                     }
 
                     echo "</table>
-				<span style='padding-left : 100px;'>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--input type='button' value='거래취소' onclick='cancelTid()' style='width : 50px ; height : 40px; font-size= 10pt; margin : 0 auto;' /-->
-				</span>
-				<form name='frm' method='post'> 
-				<input type='hidden' name='tid' value='" . @(in_array($resultMap["tid"] , $resultMap) ? $resultMap["tid"] : "null" ) . "'/>
-				</form>				
-				</pre>";
+					<span style='padding-left : 100px;'></span>
+					<form name='frm' method='post'> 
+						<input type='hidden' name='tid' value='" . @(in_array($resultMap["tid"] , $resultMap) ? $resultMap["tid"] : "null" ) . "'/>
+					</form>				
+					</pre>";
 
                     // 수신결과를 파싱후 resultCode가 "0000"이면 승인성공 이외 실패
                     // 가맹점에서 스스로 파싱후 내부 DB 처리 후 화면에 결과 표시
@@ -547,3 +565,5 @@
             echo $s;
         }
         ?>
+</body>
+</html>
