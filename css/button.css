@@ -1,0 +1,257 @@
+
+.btn-group-lg > .btn,
+.btn-lg {
+    padding: 10px 16px !important;
+    font-size: 16px;
+}
+.btn-group-sm > .btn,
+.btn-sm {
+    padding: 5px 10px !important;
+}
+.btn-group-xs > .btn,
+.btn-xs {
+    padding: 1px 5px !important;
+}
+.btn-group .btn + .btn,
+.btn-group .btn + .btn-group,
+.btn-group .btn-group + .btn,
+.btn-group .btn-group + .btn-group {
+    margin-left: 0px;
+}
+.btn-group.open .dropdown-toggle {
+    -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.1) inset;
+}
+.btn-custom,
+.btn-primary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger,
+.btn-inverse,
+.btn-purple,
+.btn-pink {
+    color: #ffffff !important;
+}
+.btn-custom {
+    background-color: #71b6f9;
+    border-color: #71b6f9;
+}
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active,
+.btn-custom.active,
+.btn-custom.focus,
+.btn-custom:active,
+.btn-custom:focus,
+.btn-custom:hover,
+.open > .dropdown-toggle.btn-custom {
+    background-color: #59a9f8 !important;
+    border: 1px solid #59a9f8 !important;
+}
+
+.btn-primary {
+    background-color: #188ae2 !important;
+    border: 1px solid #188ae2 !important;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary {
+    background-color: #167ccb !important;
+    border: 1px solid #167ccb !important;
+}
+.btn-success {
+    background-color: #10c469 !important;
+    border: 1px solid #10c469 !important;
+}
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.btn-success.focus,
+.btn-success:active,
+.btn-success:focus,
+.btn-success:hover,
+.open > .dropdown-toggle.btn-success {
+    background-color: #0eac5c !important;
+    border: 1px solid #0eac5c !important;
+}
+.btn-info {
+    background-color: #35b8e0 !important;
+    border: 1px solid #35b8e0 !important;
+}
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.btn-info.focus,
+.btn-info:active,
+.btn-info:focus,
+.btn-info:hover,
+.open > .dropdown-toggle.btn-info {
+    background-color: #21afda !important;
+    border: 1px solid #21afda !important;
+}
+.btn-warning {
+    background-color: #f9c851 !important;
+    border: 1px solid #f9c851 !important;
+}
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning.active,
+.btn-warning.focus,
+.btn-warning:active,
+.btn-warning:focus,
+.btn-warning:hover,
+.open > .dropdown-toggle.btn-warning {
+    background-color: #f8c038 !important;
+    border: 1px solid #f8c038 !important;
+}
+.btn-danger {
+    background-color: #E26A6A !important;
+    border: 1px solid #E26A6A !important;
+}
+.btn-danger:active,
+.btn-danger:focus,
+.btn-danger:hover,
+.btn-danger.active,
+.btn-danger.focus,
+.btn-danger:active,
+.btn-danger:focus,
+.btn-danger:hover,
+.open > .dropdown-toggle.btn-danger {
+    background-color: #ff4242 !important;
+    border: 1px solid #ff4242 !important;
+}
+.btn-inverse {
+    background-color: #575e6f !important;
+    border: 1px solid #575e6f !important;
+}
+.btn-inverse:hover,
+.btn-inverse:focus,
+.btn-inverse:active,
+.btn-inverse.active,
+.btn-inverse.focus,
+.btn-inverse:active,
+.btn-inverse:focus,
+.btn-inverse:hover,
+.open > .dropdown-toggle.btn-inverse {
+    background-color: #4c5261 !important;
+    border: 1px solid #4c5261 !important;
+}
+.btn-purple {
+    background-color: #5b69bc !important;
+    border: 1px solid #5b69bc !important;
+}
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active {
+    background-color: #4a59b4 !important;
+    border: 1px solid #4a59b4 !important;
+}
+.btn-pink {
+    background-color: #ff8acc !important;
+    border: 1px solid #ff8acc !important;
+}
+.btn-pink:hover,
+.btn-pink:focus,
+.btn-pink:active {
+    background-color: #ff70c1 !important;
+    border: 1px solid #ff70c1 !important;
+}
+.btn-bordred {
+    border-bottom: 3px solid transparent;
+}
+.btn-bordred.btn-default {
+    background-color: #dae6ec;
+    border-bottom: 2px solid #c2d6e0 !important;
+}
+.btn-bordred.btn-custom {
+    background-color: #71b6f9;
+    border-bottom: 2px solid #4fa4f8 !important;
+}
+.btn-bordred.btn-primary {
+    border-bottom: 2px solid #1576c2 !important;
+}
+.btn-bordred.btn-success {
+    border-bottom: 2px solid #0da357 !important;
+}
+.btn-bordred.btn-info {
+    border-bottom: 2px solid #20a8d1 !important;
+}
+.btn-bordred.btn-warning {
+    border-bottom: 2px solid #f7b820 !important;
+}
+.btn-bordred.btn-danger {
+    border-bottom: 2px solid #E26A6A !important;
+}
+.btn-bordred.btn-inverse {
+    border-bottom: 2px solid #2a2e36 !important;
+}
+.btn-bordred.btn-purple {
+    border-bottom: 2px solid #4755ad !important;
+}
+.btn-bordred.btn-pink {
+    border-bottom: 2px solid #ff66bc !important;
+}
+.btn-rounded {
+    border-radius: 2em;
+    padding: 6px 18px;
+}
+.btn-trans.btn-default {
+    border: 1px solid rgba(218, 230, 236, 0.2) !important;
+    background-color: rgba(218, 230, 236, 0.5) !important;
+    color: #ffffff !important;
+}
+.btn-trans.btn-custom {
+    border: 1px solid rgba(113, 182, 249, 0.2) !important;
+    background-color: rgba(113, 182, 249, 0.3) !important;
+    color: #71b6f9 !important;
+}
+.btn-trans.btn-primary {
+    border: 1px solid rgba(24, 138, 226, 0.2) !important;
+    background-color: rgba(24, 138, 226, 0.3) !important;
+    color: #188ae2 !important;
+}
+.btn-trans.btn-success {
+    border: 1px solid rgba(16, 196, 105, 0.2) !important;
+    background-color: rgba(16, 196, 105, 0.3) !important;
+    color: #10c469 !important;
+}
+.btn-trans.btn-info {
+    border: 1px solid rgba(53, 184, 224, 0.2) !important;
+    background-color: rgba(53, 184, 224, 0.3) !important;
+    color: #35b8e0 !important;
+}
+.btn-trans.btn-warning {
+    border: 1px solid rgba(249, 200, 81, 0.2) !important;
+    background-color: rgba(249, 200, 81, 0.3) !important;
+    color: #f9c851 !important;
+}
+.btn-trans.btn-danger {
+    border: 1px solid rgba(255, 91, 91, 0.2) !important;
+    background-color: rgba(255, 91, 91, 0.3) !important;
+    color: #E26A6A !important;
+}
+.btn-trans.btn-inverse {
+    border: 1px solid rgba(87, 94, 111, 0.2) !important;
+    background-color: rgba(87, 94, 111, 0.3) !important;
+    color: #98a6ad !important;
+}
+.btn-trans.btn-purple {
+    border: 1px solid rgba(91, 105, 188, 0.2) !important;
+    background-color: rgba(91, 105, 188, 0.3) !important;
+    color: #5b69bc !important;
+}
+.btn-trans.btn-pink {
+    border: 1px solid rgba(255, 138, 204, 0.2) !important;
+    background-color: rgba(255, 138, 204, 0.3) !important;
+    color: #ff8acc !important;
+}
