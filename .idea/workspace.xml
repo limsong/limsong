@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="806f5188-05a1-4474-808c-7c21d0c94d0b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/limsong.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/webServers.xml" afterPath="$PROJECT_DIR$/.idea/webServers.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cancelrequest.php" afterPath="$PROJECT_DIR$/cancelrequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cancelstatus.php" afterPath="$PROJECT_DIR$/cancelstatus.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopadmin/buy_dlv_ing.php" afterPath="$PROJECT_DIR$/shopadmin/buy_dlv_ing.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopadmin/buy_dlv_wait.php" afterPath="$PROJECT_DIR$/shopadmin/buy_dlv_wait.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/webServers.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopadmin/buy_pay_ok.php" afterPath="$PROJECT_DIR$/shopadmin/buy_pay_ok.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopadmin/css/orderList.css" afterPath="$PROJECT_DIR$/shopadmin/css/orderList.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopadmin/payStatusPost.php" afterPath="$PROJECT_DIR$/shopadmin/payStatusPost.php" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,104 +42,7 @@
     <favorites_list name="limsong" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cancelrequest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cancelrequest.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.057143">
-              <caret line="199" column="174" selection-start-line="199" selection-start-column="174" selection-end-line="199" selection-end-column="174" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#section#0;n#div#2;n#div#0;n#div#0;n#section#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#section#0;n#div#2;n#div#0;n#div#0;n#section#0;n#body#0;n#!!top" expanded="true" />
-                <marker date="1461589854000" expanded="true" signature="115:337" placeholder="..." />
-                <marker date="1461589854000" expanded="true" signature="6196:6296" placeholder="SELECT buy_s... buy" />
-                <marker date="1461589854000" expanded="true" signature="7332:7618" placeholder="SELECT buy_g... buy_goods" />
-                <marker date="1461589854000" expanded="true" signature="10649:10746" placeholder="SELECT buy_g... buy_goods" />
-                <marker date="1461589854000" expanded="true" signature="15733:15825" placeholder="SELECT goods... goods" />
-                <marker date="1461589854000" expanded="true" signature="17705:17841" placeholder="select * fro... goods_option_single_name" />
-                <marker date="1461589854000" expanded="true" signature="18399:18533" placeholder="select * fro... goods_option_grid_name" />
-                <marker date="1461589854000" expanded="true" signature="18903:19037" placeholder="select * fro... goods_option_grid_name" />
-                <marker date="1461589854000" expanded="true" signature="30456:30737" placeholder="..." />
-                <marker date="1461589854000" expanded="true" signature="30589:30737" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="buy_dlv_wait.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shopadmin/buy_dlv_wait.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.085714">
-              <caret line="127" column="87" selection-start-line="127" selection-start-column="82" selection-end-line="127" selection-end-column="87" />
-              <folding>
-                <marker date="1461599643000" expanded="true" signature="1463:1526" placeholder="SELECT * FRO... buy" />
-                <marker date="1461599643000" expanded="true" signature="2843:2891" placeholder="SELECT name shopmembers" />
-                <marker date="1461599643000" expanded="true" signature="4186:4290" placeholder="SELECT dlv_c... buy_goods" />
-                <marker date="1461599643000" expanded="true" signature="5300:5353" placeholder="SELECT * FRO... delivery_company" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="buy_dlv_ing.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/shopadmin/buy_dlv_ing.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43369475">
-              <caret line="125" column="88" selection-start-line="125" selection-start-column="88" selection-end-line="125" selection-end-column="88" />
-              <folding>
-                <marker date="1461599658000" expanded="true" signature="1422:1485" placeholder="SELECT * FRO... buy" />
-                <marker date="1461599658000" expanded="true" signature="2802:2850" placeholder="SELECT name shopmembers" />
-                <marker date="1461599658000" expanded="true" signature="4380:4469" placeholder="SELECT dlv_c... buy_goods" />
-                <marker date="1461599658000" expanded="true" signature="5239:5292" placeholder="SELECT * FRO... delivery_company" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cancelstatus.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cancelstatus.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.314285">
-              <caret line="270" column="147" selection-start-line="270" selection-start-column="147" selection-end-line="270" selection-end-column="147" />
-              <folding>
-                <element signature="n#style#0;n#button#0;n#section#0;n#body#0;n#!!top" expanded="true" />
-                <marker date="1461589605000" expanded="true" signature="111:315" placeholder="..." />
-                <marker date="1461589605000" expanded="true" signature="5046:5176" placeholder="SELECT buy_c... buy_claim" />
-                <marker date="1461589605000" expanded="true" signature="7389:7545" placeholder="SELECT buy_c... buy_claim_goods" />
-                <marker date="1461589605000" expanded="true" signature="9963:9987" placeholder="SELECT * FRO... buy_goods" />
-                <marker date="1461589605000" expanded="true" signature="12080:12138" placeholder="SELECT buy_c... buy" />
-                <marker date="1461589605000" expanded="true" signature="12686:12778" placeholder="SELECT goods... goods" />
-                <marker date="1461589605000" expanded="true" signature="15738:15874" placeholder="select * fro... goods_option_single_name" />
-                <marker date="1461589605000" expanded="true" signature="16288:16422" placeholder="select * fro... goods_option_grid_name" />
-                <marker date="1461589605000" expanded="true" signature="16694:16828" placeholder="select * fro... goods_option_grid_name" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="orderList.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shopadmin/orderList.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="97.97143">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <marker date="1461588544000" expanded="true" signature="1495:1520" placeholder="select count... buy" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -159,6 +55,11 @@
         <option value="$PROJECT_DIR$/cancelrequest.php" />
         <option value="$PROJECT_DIR$/shopadmin/buy_dlv_wait.php" />
         <option value="$PROJECT_DIR$/shopadmin/buy_dlv_ing.php" />
+        <option value="$PROJECT_DIR$/shopadmin/payStatusPost.php" />
+        <option value="$PROJECT_DIR$/shopadmin/buy_pay_ok.php" />
+        <option value="dbtable:/be401bae/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/sozo.buy" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/console.sql" />
+        <option value="$PROJECT_DIR$/shopadmin/css/orderList.css" />
       </list>
     </option>
   </component>
@@ -167,12 +68,18 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
   </component>
+  <component name="PhpDebugGeneral" notify_if_session_was_finished_without_being_paused="false" />
   <component name="PhpServers">
     <servers>
-      <server host="sozo.bestvpn.net" id="982b7a5e-abf9-49c7-a8b5-39eaa4c84b73" name="limsong" />
+      <server host="sozo.bestvpn.net" id="982b7a5e-abf9-49c7-a8b5-39eaa4c84b73" name="limsong" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/www/web/sozo/public_html" />
+        </path_mappings>
+      </server>
     </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="PhpXdebugProxy" ide_key="phpstorm" host="sozo.bestvpn.net" port="9000" />
   <component name="ProjectFrameBounds">
     <option name="x" value="4" />
     <option name="y" value="23" />
@@ -186,7 +93,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -237,6 +144,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="limsong" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="limsong" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shopadmin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -244,7 +169,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="settings.editor.selected.configurable" value="settings.php.debug.servers" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
@@ -287,6 +212,11 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -310,30 +240,39 @@
       <option name="number" value="Default" />
       <updated>1461588549405</updated>
     </task>
+    <task id="LOCAL-00001" summary="취소/환불/교환">
+      <created>1461599696162</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1461599696162</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="23" width="2556" height="1372" extended-state="0" />
-    <editor active="true" />
+    <frame x="4" y="23" width="2556" height="1372" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14297125" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14416933" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12899362" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32990506" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32990506" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32990506" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14297125" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32938388" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14536741" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12899362" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39889416" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -348,12 +287,18 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="취소/환불/교환" />
+    <option name="LAST_COMMIT_MESSAGE" value="취소/환불/교환" />
+  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/c8e92373-55d2-401d-b41f-3c7dd956d147/console.sql">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -361,7 +306,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/console.sql">
+    <entry file="file://$PROJECT_DIR$/cancelrequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="199" column="174" selection-start-line="199" selection-start-column="174" selection-end-line="199" selection-end-column="174" />
+          <folding>
+            <marker date="1461589854000" expanded="true" signature="115:337" placeholder="..." />
+            <marker date="1461589854000" expanded="true" signature="6196:6296" placeholder="SELECT buy_s... buy" />
+            <marker date="1461589854000" expanded="true" signature="7332:7618" placeholder="SELECT buy_g... buy_goods" />
+            <marker date="1461589854000" expanded="true" signature="10649:10746" placeholder="SELECT buy_g... buy_goods" />
+            <marker date="1461589854000" expanded="true" signature="15733:15825" placeholder="SELECT goods... goods" />
+            <marker date="1461589854000" expanded="true" signature="17705:17841" placeholder="select * fro... goods_option_single_name" />
+            <marker date="1461589854000" expanded="true" signature="18399:18533" placeholder="select * fro... goods_option_grid_name" />
+            <marker date="1461589854000" expanded="true" signature="18903:19037" placeholder="select * fro... goods_option_grid_name" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/buy_dlv_wait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="221" column="96" selection-start-line="221" selection-start-column="96" selection-end-line="221" selection-end-column="96" />
+          <folding>
+            <marker date="1461599643000" expanded="true" signature="1463:1526" placeholder="SELECT * FRO... buy" />
+            <marker date="1461599643000" expanded="true" signature="2843:2891" placeholder="SELECT name shopmembers" />
+            <marker date="1461599643000" expanded="true" signature="4186:4290" placeholder="SELECT dlv_c... buy_goods" />
+            <marker date="1461599643000" expanded="true" signature="5300:5353" placeholder="SELECT * FRO... delivery_company" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/buyDlvPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1461588544000" expanded="true" signature="853:973" placeholder="UPDATE buy_g... " />
+            <marker date="1461588544000" expanded="true" signature="1120:1248" placeholder="UPDATE buy_g... " />
+            <marker date="1461588544000" expanded="true" signature="1339:1409" placeholder="UPDATE buy S... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/buy_dlv_ing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="118" column="29" selection-start-line="118" selection-start-column="29" selection-end-line="118" selection-end-column="29" />
+          <folding>
+            <marker date="1461599658000" expanded="true" signature="1422:1485" placeholder="SELECT * FRO... buy" />
+            <marker date="1461599658000" expanded="true" signature="2802:2850" placeholder="SELECT name shopmembers" />
+            <marker date="1461599658000" expanded="true" signature="4380:4469" placeholder="SELECT dlv_c... buy_goods" />
+            <marker date="1461599658000" expanded="true" signature="5239:5292" placeholder="SELECT * FRO... delivery_company" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cancelstatus.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="270" column="147" selection-start-line="270" selection-start-column="147" selection-end-line="270" selection-end-column="147" />
+          <folding>
+            <marker date="1461589605000" expanded="true" signature="111:315" placeholder="..." />
+            <marker date="1461589605000" expanded="true" signature="5046:5176" placeholder="SELECT buy_c... buy_claim" />
+            <marker date="1461589605000" expanded="true" signature="7389:7545" placeholder="SELECT buy_c... buy_claim_goods" />
+            <marker date="1461589605000" expanded="true" signature="9963:9987" placeholder="SELECT * FRO... buy_goods" />
+            <marker date="1461589605000" expanded="true" signature="12080:12138" placeholder="SELECT buy_c... buy" />
+            <marker date="1461589605000" expanded="true" signature="12686:12778" placeholder="SELECT goods... goods" />
+            <marker date="1461589605000" expanded="true" signature="15738:15874" placeholder="select * fro... goods_option_single_name" />
+            <marker date="1461589605000" expanded="true" signature="16288:16422" placeholder="select * fro... goods_option_grid_name" />
+            <marker date="1461589605000" expanded="true" signature="16694:16828" placeholder="select * fro... goods_option_grid_name" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/c8e92373-55d2-401d-b41f-3c7dd956d147/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -377,32 +395,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cancelstatus.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.314285">
-          <caret line="270" column="147" selection-start-line="270" selection-start-column="147" selection-end-line="270" selection-end-column="147" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#section#0;n#body#0;n#!!top" expanded="true" />
-            <marker date="1461589605000" expanded="true" signature="111:315" placeholder="..." />
-            <marker date="1461589605000" expanded="true" signature="5046:5176" placeholder="SELECT buy_c... buy_claim" />
-            <marker date="1461589605000" expanded="true" signature="7389:7545" placeholder="SELECT buy_c... buy_claim_goods" />
-            <marker date="1461589605000" expanded="true" signature="9963:9987" placeholder="SELECT * FRO... buy_goods" />
-            <marker date="1461589605000" expanded="true" signature="12080:12138" placeholder="SELECT buy_c... buy" />
-            <marker date="1461589605000" expanded="true" signature="12686:12778" placeholder="SELECT goods... goods" />
-            <marker date="1461589605000" expanded="true" signature="15738:15874" placeholder="select * fro... goods_option_single_name" />
-            <marker date="1461589605000" expanded="true" signature="16288:16422" placeholder="select * fro... goods_option_grid_name" />
-            <marker date="1461589605000" expanded="true" signature="16694:16828" placeholder="select * fro... goods_option_grid_name" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cancelrequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.057143">
+        <state vertical-scroll-proportion="0.0">
           <caret line="199" column="174" selection-start-line="199" selection-start-column="174" selection-end-line="199" selection-end-column="174" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#section#0;n#div#2;n#div#0;n#div#0;n#section#0;n#body#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#section#0;n#div#2;n#div#0;n#div#0;n#section#0;n#body#0;n#!!top" expanded="true" />
             <marker date="1461589854000" expanded="true" signature="115:337" placeholder="..." />
             <marker date="1461589854000" expanded="true" signature="6196:6296" placeholder="SELECT buy_s... buy" />
             <marker date="1461589854000" expanded="true" signature="7332:7618" placeholder="SELECT buy_g... buy_goods" />
@@ -411,26 +408,79 @@
             <marker date="1461589854000" expanded="true" signature="17705:17841" placeholder="select * fro... goods_option_single_name" />
             <marker date="1461589854000" expanded="true" signature="18399:18533" placeholder="select * fro... goods_option_grid_name" />
             <marker date="1461589854000" expanded="true" signature="18903:19037" placeholder="select * fro... goods_option_grid_name" />
-            <marker date="1461589854000" expanded="true" signature="30456:30737" placeholder="..." />
-            <marker date="1461589854000" expanded="true" signature="30589:30737" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/buy_dlv_ing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="118" column="29" selection-start-line="118" selection-start-column="29" selection-end-line="118" selection-end-column="29" />
+          <folding>
+            <marker date="1461599658000" expanded="true" signature="1422:1485" placeholder="SELECT * FRO... buy" />
+            <marker date="1461599658000" expanded="true" signature="2802:2850" placeholder="SELECT name shopmembers" />
+            <marker date="1461599658000" expanded="true" signature="4380:4469" placeholder="SELECT dlv_c... buy_goods" />
+            <marker date="1461599658000" expanded="true" signature="5239:5292" placeholder="SELECT * FRO... delivery_company" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shopadmin/orderList.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="97.97143">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.037463978">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <marker date="1461588544000" expanded="true" signature="1495:1520" placeholder="select count... buy" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1666667">
+          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/be401bae/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/sozo.buy_goods">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/css/orderList.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36479592">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/be401bae/d9bdd31b-c69e-4924-8efc-5de0be99f6e7/sozo.buy">
+      <provider editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2082777">
+          <caret line="6" column="243" selection-start-line="6" selection-start-column="238" selection-end-line="6" selection-end-column="243" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/shopadmin/buy_dlv_wait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.085714">
-          <caret line="127" column="87" selection-start-line="127" selection-start-column="82" selection-end-line="127" selection-end-column="87" />
+        <state vertical-scroll-proportion="0.033163264">
+          <caret line="221" column="96" selection-start-line="221" selection-start-column="96" selection-end-line="221" selection-end-column="96" />
           <folding>
             <marker date="1461599643000" expanded="true" signature="1463:1526" placeholder="SELECT * FRO... buy" />
             <marker date="1461599643000" expanded="true" signature="2843:2891" placeholder="SELECT name shopmembers" />
@@ -440,15 +490,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shopadmin/buy_dlv_ing.php">
+    <entry file="file://$PROJECT_DIR$/shopadmin/buy_pay_wait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43369475">
-          <caret line="125" column="88" selection-start-line="125" selection-start-column="88" selection-end-line="125" selection-end-column="88" />
+        <state vertical-scroll-proportion="2.7908163">
+          <caret line="169" column="62" selection-start-line="169" selection-start-column="62" selection-end-line="169" selection-end-column="62" />
           <folding>
-            <marker date="1461599658000" expanded="true" signature="1422:1485" placeholder="SELECT * FRO... buy" />
-            <marker date="1461599658000" expanded="true" signature="2802:2850" placeholder="SELECT name shopmembers" />
-            <marker date="1461599658000" expanded="true" signature="4380:4469" placeholder="SELECT dlv_c... buy_goods" />
-            <marker date="1461599658000" expanded="true" signature="5239:5292" placeholder="SELECT * FRO... delivery_company" />
+            <marker date="1461588544000" expanded="true" signature="1367:1430" placeholder="SELECT * FRO... buy" />
+            <marker date="1461588544000" expanded="true" signature="3303:3351" placeholder="SELECT name shopmembers" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/buy_pay_ok.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72959185">
+          <caret line="79" column="65" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="65" />
+          <folding>
+            <marker date="1461600563000" expanded="true" signature="1011:1074" placeholder="SELECT * FRO... buy" />
+            <marker date="1461600563000" expanded="true" signature="2511:2559" placeholder="SELECT name shopmembers" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/buyDlvPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56377554">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <folding>
+            <marker date="1461588544000" expanded="true" signature="853:973" placeholder="UPDATE buy_g... " />
+            <marker date="1461588544000" expanded="true" signature="1120:1248" placeholder="UPDATE buy_g... " />
+            <marker date="1461588544000" expanded="true" signature="1339:1409" placeholder="UPDATE buy S... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopadmin/payStatusPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72959185">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <marker date="1461600495000" expanded="true" signature="537:591" placeholder="UPDATE buy s... " />
+            <marker date="1461600495000" expanded="true" signature="654:699" placeholder="UPDATE buy_g... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cancelstatus.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.033163264">
+          <caret line="270" column="147" selection-start-line="270" selection-start-column="147" selection-end-line="270" selection-end-column="147" />
+          <folding>
+            <marker date="1461589605000" expanded="true" signature="111:315" placeholder="..." />
+            <marker date="1461589605000" expanded="true" signature="5046:5176" placeholder="SELECT buy_c... buy_claim" />
+            <marker date="1461589605000" expanded="true" signature="7389:7545" placeholder="SELECT buy_c... buy_claim_goods" />
+            <marker date="1461589605000" expanded="true" signature="9963:9987" placeholder="SELECT * FRO... buy_goods" />
+            <marker date="1461589605000" expanded="true" signature="12080:12138" placeholder="SELECT buy_c... buy" />
+            <marker date="1461589605000" expanded="true" signature="12686:12778" placeholder="SELECT goods... goods" />
+            <marker date="1461589605000" expanded="true" signature="15738:15874" placeholder="select * fro... goods_option_single_name" />
+            <marker date="1461589605000" expanded="true" signature="16288:16422" placeholder="select * fro... goods_option_grid_name" />
+            <marker date="1461589605000" expanded="true" signature="16694:16828" placeholder="select * fro... goods_option_grid_name" />
           </folding>
         </state>
       </provider>

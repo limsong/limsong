@@ -78,7 +78,6 @@
                               주문상태변경
                               <select class="buy_status_chg" name="buy_status_chg">
                                     <option value="0">선택</option>
-                                    <option value="2">입금완료</option>
                                     <option value="4">배송대기</option>
                                     <option value="8">배송중</option>
                                     <option value="16">배송완료</option>

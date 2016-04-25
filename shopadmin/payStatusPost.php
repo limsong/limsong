@@ -17,7 +17,7 @@ for($i=0;$i<$count;$i++){
         if($addQuery == ""){
                 $addQuery = "WHERE buy_seq='".$codeArr[$i]."'";
         }else{
-                $addQuery .= " AND buy_seq='".$codeArr[$i]."'";
+                $addQuery .= " OR buy_seq='".$codeArr[$i]."'";
         }
 }
 
