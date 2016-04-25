@@ -267,8 +267,7 @@
                   </div>
             </div>
             <!-- Modal -->
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal
-            </button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="display: none;">Launch demo modal</button>
             <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                         <div class="modal-content">

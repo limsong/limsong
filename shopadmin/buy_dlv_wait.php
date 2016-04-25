@@ -33,7 +33,7 @@
                   <?php
                   $currentTime = time();
                   $query = "SELECT * FROM buy $addQuery ORDER BY buy_seq DESC limit $first,$bnum_per_page";
-                  echo $query;
+
                   $result = mysql_query($query) or die($query);
                   $index = 1;
                   while ($row = mysql_fetch_assoc($result)) {
@@ -138,7 +138,7 @@
                                     <option value="8">배송중</option>
                                     <option value="16">배송완료</option>
                               </select>
-                              <input type="button" class="memEleB btn_buy_status" value="배송시작">
+                              <input type="button" class="memEleB btn_buy_status" value="배송상태변경">
                         </td>
                   </tr>
             </table>
