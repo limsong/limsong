@@ -197,7 +197,7 @@ ul {
 /*----------------------------*/
 /*----2.1--HEADER AREA---*/
 .header-top {
-        background-image: url("img/top-bar.jpg");
+        background-image: url("../img/top-bar.jpg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
