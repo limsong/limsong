@@ -19,13 +19,12 @@
                         <th width="7%">주문인</th>
                         <th width="28%">주문번호[취소상품]</th>
                         <th width="5%">수량</th>
-                        <th width="10%">상품금액</th>
-                        <th width="15%">결제방법</th>
-                        <th width="7%">교환/환불</th>
+                        <th width="10%">취소금액</th>
+                        <th width="15%">신청유형</th>
                   </tr>
                   <?php
                   $currentTime = time();
-                  $query = "SELECT * FROM buy_claim  where buy_claim_status >='128' AND buy_claim_status <'512' OR buy_claim_status >= '8192' AND buy_claim_status_before='1' ORDER BY buy_seq DESC limit $first,$bnum_per_page";
+                  $query = "SELECT * FROM buy_claim  where buy_claim_status='32' or buy_claim_status='8192' AND buy_claim_status_before='0' ORDER BY buy_seq DESC limit $first,$bnum_per_page";
                   $result = mysql_query($query) or die($query);
                   while ($row = mysql_fetch_assoc($result)) {
                         $buy_claim_sdate = date("Y-m-d H:i",strtotime($row["buy_claim_sdate"]));
@@ -37,14 +36,6 @@
                         $buy_claim_type = $row["buy_claim_type"];//클레임 처리유형 - 1:고객, 2: 관리자, 3: 자동
                         $buy_claim_seq = $row["buy_claim_seq"];
                         $buy_claim_type = $row["buy_claim_type"];
-                        $buy_claim_status = $row["buy_claim_status"];
-                        if($buy_claim_status == "128"){
-                              $str = '<input type="button" class="memEleB" value="환불">';
-                        }elseif($buy_claim_status == "8192"){
-                              $str = '<input type="button" class="memEleB" value="교환">';
-                        }
-
-
                         $buy_claim_goods_query = "SELECT * FROM buy_claim_goods WHERE buy_claim_seq='$buy_claim_seq'";
                         $buy_claim_goods_result = mysql_query($buy_claim_goods_query) or die("buy_cancel");
                         $i = 0;
@@ -62,12 +53,11 @@
                               $buy_goods_price_total = $buy_goods_row["buy_goods_price_total"];
 
 
-                              $buy_query = "SELECT buy_date,buy_code,pay_method FROM buy WHERE buy_seq='$buy_seq'";
+                              $buy_query = "SELECT buy_date,buy_code FROM buy WHERE buy_seq='$buy_seq'";
                               $buy_result = mysql_query($buy_query) or die("buy_cancel");
                               $buy_row = mysql_fetch_array($buy_result);
                               $buy_date = $buy_row["buy_date"];//주문날짜
                               $buy_code = $buy_row["buy_code"];
-                              $pay_method = paymethod($buy_row["pay_method"]);
 
 
                               $shopmembersQuery = "SELECT name FROM shopmembers WHERE id='$user_id'";
@@ -75,6 +65,7 @@
                               $sname = mysql_result($shopmembersresult, 0, 0);//주문인
                               if($i ==0) {
                                     ?>
+
                                     <tr class="contentTr" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor=''">
                                           <td align="center" height="30"><input type="checkbox" class="check_item" value="<?= $buy_seq ?>" name="check[]"/></td>
                                           <td align="center" rowspan="<?= $rowspan ?>"><?= date("Y-m-d H:i", strtotime($buy_date)); ?></td>
@@ -83,8 +74,7 @@
                                           <td align="center" rowspan="<?= $rowspan ?>"> <?= $buy_code ?></td>
                                           <td align="center"><?=$buy_goods_new_count?></td>
                                           <td align="center"><?=number_format($buy_goods_price_total*$buy_goods_new_count)?></td>
-                                          <td align="center"><?=$pay_method?></td>
-                                          <td align="center" rowspan="<?= $rowspan ?>"><?=$str?></td>
+                                          <td align="center"><?=claim_type($buy_claim_type)?></td>
                                     </tr>
                                     <?php
                               }else{
@@ -93,7 +83,7 @@
                                           <td align="center" height="30"><input type="checkbox" class="check_item" value="<?= $buy_seq ?>" name="check[]"/></td>
                                           <td align="center"><?=$buy_goods_new_count?></td>
                                           <td align="center"><?=number_format($buy_goods_price_total*$buy_goods_new_count)?></td>
-                                          <td align="center"><?=$pay_method?></td>
+                                          <td align="center"><?=claim_type($buy_claim_type)?></td>
                                     </tr>
                                     <?php
                               }

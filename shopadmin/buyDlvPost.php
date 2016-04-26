@@ -21,6 +21,7 @@ foreach ($_POST as $key => $value) {
 
 //일괄등록
 $count = count($check);
+$sdate = date("Y-m-d H:i:s",time());
 for ($i = 0; $i < $count; $i++) {
       $buy_seq = $check[$i];
       $ou_buy_goods_dlv_tag_no = ${"buy_good_dlv_tag_no" . $buy_seq};
@@ -30,7 +31,7 @@ for ($i = 0; $i < $count; $i++) {
             mysql_query($query) or die("buyDlvPost");
       }else{
             if($ou_buy_goods_dlv_tag_no != "") {
-                  $query = "UPDATE buy_goods SET buy_goods_status='$buy_status_chg',buy_goods_dlv_tag_no='$ou_buy_goods_dlv_tag_no',dlv_com_seq='$dlv_company' WHERE buy_seq='$buy_seq'";
+                  $query = "UPDATE buy_goods SET buy_goods_status='$buy_status_chg',buy_goods_dlv_tag_no='$ou_buy_goods_dlv_tag_no',dlv_com_seq='$dlv_company',buy_goods_dlv_sdate='$sdate' WHERE buy_seq='$buy_seq'";
                   mysql_query($query) or die("buyDlvPost");
                   $query = "UPDATE buy SET buy_status='$buy_status_chg' WHERE buy_seq = '$buy_seq'";
                   mysql_query($query) or die("buyDlvPost");

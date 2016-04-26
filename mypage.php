@@ -23,9 +23,9 @@
                                           <li class="cat-menu-li">
                                                 <a class="active" href="mypage.php">주문/배송조회</a>
                                           </li>
-                                          <li class="cat-menu-li">
+                                          <!--<li class="cat-menu-li">
                                                 <a href="cancelrequest.php">취소/반품/교환 신청</a>
-                                          </li>
+                                          </li>-->
                                           <li class="cat-menu-li">
                                                 <a href="cancelstatus.php">취소/반품/교환 현황</a>
                                           </li>
@@ -131,8 +131,10 @@
                                                                                                             <br>
 
                                                                                                             <?php
-                                                                                                            if($buy_goods_status <2) {
-                                                                                                                  echo '<button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cAll" data-code="<?= $buy_code ?>" data-seq="<?= $buy_seq ?>">주문전체취소</button>';
+                                                                                                            if ($buy_goods_status < 2) {
+                                                                                                                  echo '<button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cAll" data-code="' . $buy_code . '" data-seq="' . $buy_seq . '">주문전체취소</button>';
+                                                                                                            } elseif ($buy_goods_status == 8) {
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light buy_ok" data="cList"  data-seq="' . $buy_seq . '">구매확정</button></p>';
                                                                                                             }
                                                                                                             ?>
                                                                                                       </td>
@@ -214,23 +216,37 @@
                                                                                                 ?>
                                                                                                 <td class="cart-total-price"><?php echo goods_status($buy_goods_status); ?>
                                                                                                       <br>
-                                                                                                      (<? echo date("m-d", strtotime($pay_pre_date)) ?>이내)
+                                                                                                      <?php
+                                                                                                      if ($buy_goods_status == 1) {
+                                                                                                            echo "(" . date("m-d", strtotime($pay_pre_date)) . ")이내";
+                                                                                                      }
+                                                                                                      ?>
                                                                                                 </td>
                                                                                                 <?php
                                                                                                 if ($j == 0) {
                                                                                                       ?>
                                                                                                       <td rowspan="<?= $cbuy_goods ?>" class="cart-total-price">
                                                                                                             <?
-                                                                                                            if($buy_goods_status <2) {
-                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList"  data-seq="'.$buy_seq.'">주문취소</button></p>';
-                                                                                                            }elseif($buy_goods_status >=2 && $buy_goods_status <=4){
-                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList"  data-seq="'.$buy_seq.'">환불신청</button></p>';
-                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="'.$buy_seq.'">상품문의</button></p>';
-                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="'.$buy_seq.'">1:1상담하기</button></p>';
-                                                                                                            }elseif($buy_goods_status==8){
-                                                                                                                  echo '<button type="button" class="btn btn-xs btn-default waves-effect waves-light buy_ok" data="cList"  data-seq="'.$buy_seq.'">구매확정</button>';
-                                                                                                            }elseif($buy_goods_status==16){
-                                                                                                                  echo '<button type="button" class="btn btn-xs btn-default waves-effect waves-light buy_ok" data="cList"  data-seq="'.$buy_seq.'">구매후기</button>';
+                                                                                                            if ($buy_goods_status < 2) {
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="0" data="cList"  data-seq="' . $buy_seq . '">주문취소</button></p>';
+                                                                                                            } elseif ($buy_goods_status >= 2 && $buy_goods_status < 4) {
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="1" data-status="1" data="cList"  data-seq="' . $buy_seq . '">환불신청</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="3" data-status="1" data="cList"  data-seq="' . $buy_seq . '">교환신청</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="' . $buy_seq . '">상품문의</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="' . $buy_seq . '">1:1상담하기</button></p>';
+                                                                                                            }elseif ($buy_goods_status ==4) {
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="' . $buy_seq . '">상품문의</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="' . $buy_seq . '">1:1상담하기</button></p>';
+                                                                                                            } elseif ($buy_goods_status == 8) {
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light view_dlv"  data="' . $buy_goods_seq . '">배송조회 </button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="' . $buy_seq . '">상품문의</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="' . $buy_seq . '">1:1상담하기</button></p>';
+                                                                                                            } elseif ($buy_goods_status == 16) {
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="2" data-status="2" data="cList"  data-seq="' . $buy_seq . '">반품신청</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="3" data-status="2" data="cList"  data-seq="' . $buy_seq . '">교환신청</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light buy_ok" data="cList"  data-seq="' . $buy_seq . '">구매후기</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="' . $buy_seq . '">상품문의</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="' . $buy_seq . '">1:1상담하기</button></p>';
                                                                                                             }
                                                                                                             ?>
                                                                                                       </td>
@@ -353,6 +369,11 @@
             $(".cancel").click(function () {
                   var seq = "";
                   var mod = $(this).attr("data");
+                  var data_cancel = $(this).attr("data-cancel");
+                  var data_status = $(this).attr("data-status");
+
+                  alert(data_cancel+"---"+data_status);
+
                   var data_seq = $(this).attr("data-seq");
                   if (mod == "cAll") {
                         $(".citem" + data_seq).each(function () {
@@ -363,8 +384,8 @@
                                     seq += "," + $(this).val();
                               }
                         });
-                  }
-                  else {
+
+                  } else {
                         $(".citem" + data_seq).each(function () {
                               if ($(this).is(":checked")) {
                                     if (seq == "") {
@@ -384,7 +405,9 @@
                   var url = "getcancelprodInfoajax.php";
                   var form_data = {
                         seq: seq,
-                        mod: mod
+                        mod: mod,
+                        data_cancel: data_cancel,
+                        data_status: data_status
                   };
                   $.ajax({
                         type: "POST",
@@ -401,6 +424,7 @@
             });
             function add_goods(rep) {
                   $(".modal-body").append(rep);
+                  $(".modal-footer").css("display", "block");
                   $(".btn-lg").trigger("click");//버튼 클릭//추가옵션  div 보기
                   $(".sb_num,.op_num").change(function () {
                         var cancel_dlv_free = parseInt($(".cancel_dlv_free").val());
@@ -459,6 +483,10 @@
                   return NaN;
             }
             $(".buy_ok").click(function () {
+                  var message = confirm("구매확정하시겠습니까?");
+                  if (message == false) {
+                        return false;
+                  }
                   var data_seq = $(this).attr("data-seq");
                   var url = "buy_ok.php";
                   var form_data = {
@@ -474,6 +502,27 @@
                         success: function (response) {
                               alert("구매확정 되셨습니다.감사합니다.");
                               location.reload();
+                        }
+                  });
+            });
+            $(".view_dlv").click(function () {
+                  var data_seq = $(this).attr("data");
+                  var url = "get_dlv_info.php";
+                  var form_data = {
+                        data_seq: data_seq
+                  };
+                  $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: form_data,
+                        error: function (response) {
+                              alert("mypage");
+                        },
+                        success: function (response) {
+                              $("#myModalLabel").text("배송업체 정보");
+                              $(".modal-body").html("");
+                              add_goods(response);
+                              $(".modal-footer").css("display", "none");
                         }
                   });
             });

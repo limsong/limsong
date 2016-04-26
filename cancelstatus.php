@@ -23,9 +23,9 @@
                                           <li class="cat-menu-li">
                                                 <a href="mypage.php">주문/배송조회</a>
                                           </li>
-                                          <li class="cat-menu-li">
+                                          <!--<li class="cat-menu-li">
                                                 <a href="cancelrequest.php">취소/반품/교환 신청</a>
-                                          </li>
+                                          </li>-->
                                           <li class="cat-menu-li">
                                                 <a class="active" href="cancelstatus.php">취소/반품/교환 현황</a>
                                           </li>
@@ -76,7 +76,6 @@
                                                                               <td>주문상품 정보</td>
                                                                               <td>상품금액(수량)</td>
                                                                               <td>처리</td>
-                                                                              <td>확인/취소</td>
                                                                         </tr>
                                                                   </thead>
                                                                   <?php
@@ -87,7 +86,7 @@
                                                                   $cbuy = count($db_buy_claim);
                                                                   for ($m = 0; $m < $cbuy; $m++) {
                                                                         //$buy_claim_seq = $db_buy_claim[$i]["buy_claim_seq"];//주문 클레임 일련번호
-                                                                        //$buy_claim_status = $db_buy_claim[$i]["buy_claim_status"];//주문 클레임 상태 - 취소/환불/반품/교환 - 32~65536
+                                                                        $buy_claim_status = $db_buy_claim[$m]["buy_claim_status"];//주문 클레임 상태 - 취소/환불/반품/교환 - 32~65536
                                                                         //$buy_claim_code = $db_buy_claim[$i]["buy_claim_code"];//주문 클레임 코드 - C, R, T, E (ex) C11111
                                                                         //$buy_claim_is_all = $db_buy_claim[$i]["buy_claim_is_all"];//주문 전체/부분여부 - 0:부분, 1:전체
                                                                         $buy_claim_seq = $db_buy_claim[$m]["buy_claim_seq"];//신청한 주문 일련번호
@@ -102,8 +101,8 @@
                                                                         //echo $buy_claim_goods;
 
 
-                                                                        $db->query("SELECT buy_claim_goods_seq,buy_claim_seq,buy_goods_req_seq,buy_goods_req_count,buy_goods_new_count FROM buy_claim_goods WHERE buy_claim_seq='$buy_claim_seq'");
-                                                                        //echo "SELECT buy_claim_goods_seq,buy_claim_seq,buy_goods_req_seq,buy_goods_req_count,buy_goods_new_count FROM buy_claim_goods WHERE buy_claim_seq='$buy_seq'";
+                                                                        $db->query("SELECT buy_claim_goods_seq,buy_claim_seq,buy_goods_req_seq,buy_goods_req_count,buy_goods_new_count FROM buy_claim_goods");
+                                                                        //echo "SELECT buy_claim_goods_seq,buy_claim_seq,buy_goods_req_seq,buy_goods_req_count,buy_goods_new_count FROM buy_claim_goods";
                                                                         $db_buy_claim_goods = $db->loadRows();
                                                                         /*$buy_claim_goods_seq = $db_buy_claim_goods[$i]["buy_claim_goods_seq"];//클레임 상품 일련번호
                                                                         $buy_claim_seq = $db_buy_claim_goods[$i]["buy_claim_seq"];//클레임 일련번호
@@ -204,14 +203,7 @@
                                                                                                 <br>
                                                                                                 (<?= $db_buy_claim_goods[$i]["buy_goods_new_count"] ?>개)
                                                                                           </td>
-                                                                                          <td class="cart-total-price"><?= goods_status($buy_goods_status) ?></td>
-                                                                                          <?php
-                                                                                          if ($j == 0) {
-                                                                                                ?>
-                                                                                                <td class="cart-total-price"></td>
-                                                                                                <?php
-                                                                                          }
-                                                                                          ?>
+                                                                                          <td class="cart-total-price"><?=goods_status($buy_claim_status)?></td>
                                                                                     </tr>
                                                                                     <?php
                                                                                     $class_check++;
@@ -239,14 +231,7 @@
                                                                                                 <br>
                                                                                                 (<?= $db_buy_claim_goods[$i]["buy_goods_new_count"] ?>개)
                                                                                           </td>
-                                                                                          <td class="cart-total-price"><?= goods_status($buy_goods_status) ?></td>
-                                                                                          <?php
-                                                                                          if ($j == 0) {
-                                                                                                ?>
-                                                                                                <td class="cart-total-price"></td>
-                                                                                                <?php
-                                                                                          }
-                                                                                          ?>
+                                                                                          <td class="cart-total-price"><?= goods_status($buy_claim_status) ?></td>
                                                                                     </tr>
                                                                                     <?php
                                                                                     $class_check++;

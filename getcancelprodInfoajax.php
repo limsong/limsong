@@ -11,6 +11,8 @@ include_once ("include/sqlcon.php");
  */
 $buy_seq = $_POST["seq"];
 $mod = $_POST["mod"];//부분취소 전부취소 cAll   cList
+$data_cancel = $_POST["data_cancel"];
+$data_status = $_POST["data_status"];
 $buy_seqArr = explode(",",$buy_seq);
 
 $buy_seq_query = "";
@@ -32,6 +34,8 @@ $sum=$sum2=0;
 $html ='<div class="cart-area-wrapper table-responsive">
     <form name="cancelForm" class="cancelForm" action="cancelPost.php" method="post">
         <input type="hidden" name="cancel_mod" value="'.$mod.'">
+        <input type="hidden" name="data_cancel" value="'.$data_cancel.'">
+        <input type="hidden" name="data_status" value="'.$data_status.'">
         <table class="table table-bordered">
             <thead>
                 <tr>

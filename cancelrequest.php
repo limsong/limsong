@@ -214,7 +214,11 @@
                                                                                                 ?>
                                                                                                 <td class="cart-total-price"><?php echo goods_status($buy_goods_status); ?>
                                                                                                       <br>
-                                                                                                      (<? echo date("m-d", strtotime($pay_pre_date)) ?>이내)
+                                                                                                      <?php
+                                                                                                      if($buy_goods_status==1){
+                                                                                                            echo "(".date("m-d", strtotime($pay_pre_date)).")이내";
+                                                                                                      }
+                                                                                                      ?>
                                                                                                 </td>
                                                                                                 <?php
                                                                                                 if ($j == 0) {

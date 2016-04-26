@@ -24,7 +24,7 @@
                   </tr>
                   <?php
                   $currentTime = time();
-                  $query = "SELECT * FROM buy_claim  where buy_claim_status='1' ORDER BY buy_seq DESC limit $first,$bnum_per_page";
+                  $query = "SELECT * FROM buy_claim  where buy_claim_status='32' or buy_claim_status='8192' AND buy_claim_status_before='0' ORDER BY buy_seq DESC limit $first,$bnum_per_page";
                   $result = mysql_query($query) or die($query);
                   while ($row = mysql_fetch_assoc($result)) {
                         $buy_claim_sdate = date("Y-m-d H:i",strtotime($row["buy_claim_sdate"]));
@@ -39,6 +39,7 @@
                         $buy_claim_goods_query = "SELECT * FROM buy_claim_goods WHERE buy_claim_seq='$buy_claim_seq'";
                         $buy_claim_goods_result = mysql_query($buy_claim_goods_query) or die("buy_cancel");
                         $i = 0;
+                  echo  '<tbody>';
                         while($buy_claim_goods_row=mysql_fetch_array($buy_claim_goods_result)) {
                               $rowspan =count($buy_claim_goods_row);
                               $buy_goods_new_count = $buy_claim_goods_row["buy_goods_new_count"];
@@ -64,6 +65,7 @@
                               $sname = mysql_result($shopmembersresult, 0, 0);//주문인
                               if($i ==0) {
                   ?>
+
                   <tr class="contentTr" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor=''">
                         <td align="center" height="30"><input type="checkbox" class="check_item" value="<?= $buy_seq ?>" name="check[]"/></td>
                         <td align="center" rowspan="<?= $rowspan ?>"><?= date("Y-m-d H:i", strtotime($buy_date)); ?></td>
@@ -87,6 +89,7 @@
                               }
                               $i++;
                         }
+                        echo '</tbody>';
                   }
                   ?>
 

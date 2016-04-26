@@ -21,11 +21,11 @@
                         <th width="5%">수량</th>
                         <th width="10%">상품금액</th>
                         <th width="15%">결제방법</th>
-                        <th width="7%">교환/환불</th>
+                        <th width="7%">교환/환불처리</th>
                   </tr>
                   <?php
                   $currentTime = time();
-                  $query = "SELECT * FROM buy_claim  where buy_claim_status >='128' AND buy_claim_status <'512' OR buy_claim_status >= '8192' AND buy_claim_status_before='1' ORDER BY buy_seq DESC limit $first,$bnum_per_page";
+                  $query = "SELECT * FROM buy_claim  where buy_claim_status >='8192' AND buy_claim_status_before='2' ORDER BY buy_seq DESC limit $first,$bnum_per_page";
                   $result = mysql_query($query) or die($query);
                   while ($row = mysql_fetch_assoc($result)) {
                         $buy_claim_sdate = date("Y-m-d H:i",strtotime($row["buy_claim_sdate"]));
@@ -38,12 +38,9 @@
                         $buy_claim_seq = $row["buy_claim_seq"];
                         $buy_claim_type = $row["buy_claim_type"];
                         $buy_claim_status = $row["buy_claim_status"];
-                        if($buy_claim_status == "128"){
-                              $str = '<input type="button" class="memEleB" value="환불">';
-                        }elseif($buy_claim_status == "8192"){
+                        if($buy_claim_status == "8192"){
                               $str = '<input type="button" class="memEleB" value="교환">';
                         }
-
 
                         $buy_claim_goods_query = "SELECT * FROM buy_claim_goods WHERE buy_claim_seq='$buy_claim_seq'";
                         $buy_claim_goods_result = mysql_query($buy_claim_goods_query) or die("buy_cancel");

@@ -115,16 +115,13 @@ if ($total_record == 0) {
                                     <a <?php if ($ou_delivery == "128_4") echo "class='active'"; ?> href="orderList.php?delivery=128_4">배송전 교환/환불 (0)</a>
                               </li>
                               <li class="ml10">
-                                    <a <?php if ($ou_delivery == "Y") echo "class='active'"; ?> href="orderList.php?delivery=Y">배송후 반품 (0)</a>
+                                    <a <?php if ($ou_delivery == "512") echo "class='active'"; ?> href="orderList.php?delivery=512">배송후 반품 (0)</a>
                               </li>
                               <li class="ml10">
-                                    <a href="orderList.php?delivery=Y">배송후 교환 (0)</a>
+                                    <a <?php if ($ou_delivery == "8192") echo "class='active'"; ?> href="orderList.php?delivery=8192">배송후 교환 (0)</a>
                               </li>
                               <li class="ml10">
-                                    <a href="orderList.php?delivery=O">미처리 주문 리스트 (0)</a>
-                              </li>
-                              <li class="ml10">
-                                    <a href="orderList.php?delivery=R">주문리스트(전체)</a>
+                                    <a <?php if ($ou_delivery == "order") echo "class='active'"; ?> href="orderList.php?delivery=order">미처리 주문 리스트 (0)</a>
                               </li>
                               <li class="TitleLi1">거래증빙 관리</li>
                               <li class="ml10">
@@ -175,6 +172,15 @@ if ($total_record == 0) {
                                     break;
                               case "128_4":
                                     include_once ("buy_refund.php");
+                                    break;
+                              case "512":
+                                    include_once ("buy_return.php");
+                                    break;
+                              case "8192":
+                                    include_once ("buy_exch.php");
+                                    break;
+                              case "order":
+                                    include_once ("buy_order.php");
                                     break;
                         }
 

@@ -27,7 +27,7 @@ $op_num = $_POST["op_num"];
 $time = date("Ymd", time());
 $time2 = date("Y-m-d H:i:s", time());
 
-$buy_claim_code = "C" . $SignatureUtil->getTimestamp();
+
 
 $buy_good_req_seq = $cancel_sb_buy_goods_seq;//신청한 상품 일련번호
 $sb_buy_good_req_count = $sb_num;
@@ -71,16 +71,45 @@ for ($i = 0; $i < $count; $i++) {
       $buy_goods_status = $db_buy_goods[$i]["buy_goods_status"];
 }
 //'주문상태(bitwise) - 0:주문중, 1:입금대기, 2:입금완료, 4:배송대기, 8:배송중, 16:배소완료, 32:취소신청, 64:취소완료, 128:환불신청, 256:환불완료, 512: 반품신청, 1024:반품배송중, 2048:반품환불, 4096:반품완료, 8192:교환신청, 16384:교환배송중, 32768:재주문처리, 65536:교환완료',
-if($buy_goods_status < 2){
-      $buy_status = "64";
-}elseif($buy_goods_status ==2 || $buy_goods_status ==8 || $buy_goods_status == 16){
-      $buy_status = "128";
+if($data_cancel == "0"){
+      //취소신청
+      $buy_status = "32";
+      $buy_claim_status_before = "0";//입금전 취소   0 입금전 1 배송전 2 배송후
+      $buy_claim_code = 'C'.$SignatureUtil->getTimestamp();
+}elseif($data_cancel == "1"){
+      //환불신청
+      $buy_claim_code = 'R'.$SignatureUtil->getTimestamp();
+      if($data_status=="1"){
+            $buy_status = "128";
+            $buy_claim_status_before = "1";//입금전 취소   0 입금전 1 배송전 2 배송후
+      }elseif($data_status=="2"){
+            $buy_status = "128";
+            $buy_claim_status_before = "2";//입금전 취소   0 입금전 1 배송전 2 배송후
+      }
+
+}elseif($data_cancel == "2"){
+      //반품신청
+      $buy_status = "512";
+      $buy_claim_status_before = "2";
+      $buy_claim_code = 'T'.$SignatureUtil->getTimestamp();
+}elseif($data_cancel == "3"){
+      //교환신청
+      $buy_claim_code = 'E'.$SignatureUtil->getTimestamp();
+      if($data_status=="1"){
+            $buy_status = "8192";
+            $buy_claim_status_before = "1";//입금전 취소   0 입금전 1 배송전 2 배송후
+      }elseif($data_status=="2"){
+            $buy_status = "8192";
+            $buy_claim_status_before = "2";//입금전 취소   0 입금전 1 배송전 2 배송후
+      }
 }
+
 $buy_refund_price = $buy_claim_price_total + $buy_claim_price_total2 + $buy_refund_ch_dlv_fee;
 IF ($cancel_mod == "cAll") {
       $db->query("INSERT INTO buy_claim (
                               buy_claim_status,
                               buy_claim_code,
+                              buy_claim_status_before,
                               buy_claim_is_all,
                               buy_seq,
                               user_id,
@@ -91,14 +120,15 @@ IF ($cancel_mod == "cAll") {
                               buy_refund_price,
                               buy_refund_ch_dlv_fee) 
                       VALUES (
-                              '$buy_goods_status',
+                              '$buy_status',
                               '$buy_claim_code',
+                              '$buy_claim_status_before',
                               '1',
                               '$cancel_sb_buy_seq',
                               '$uname',
                               '1',
                               '$time2',
-                              '$time2',
+                              '',
                               '$buy_claim_price_total_tmp',
                               '$buy_refund_price',
                               '$buy_refund_ch_dlv_fee')
@@ -143,6 +173,7 @@ IF ($cancel_mod == "cAll") {
 
       $db->query("INSERT INTO buy_claim (buy_claim_status,
                                       buy_claim_code,
+                                      buy_claim_status_before,
                                       buy_claim_is_all,
                                       buy_seq,
                                       user_id,
@@ -152,14 +183,15 @@ IF ($cancel_mod == "cAll") {
                                       buy_claim_price_total,
                                       buy_refund_price,
                                       buy_refund_ch_dlv_fee) 
-                      VALUES ('$buy_goods_status',
+                      VALUES ('$buy_status',
                               '$buy_claim_code',
+                              '$buy_claim_status_before',
                               '0',
                               '$cancel_sb_buy_seq',
                               '$uname',
                               '1',
                               '$time2',
-                              '$time2',
+                              '',
                               '$buy_claim_price_total_tmp',
                               '$buy_refund_price',
                               '$buy_refund_ch_dlv_fee')
