@@ -168,6 +168,9 @@ if ($total_record == 0) {
                               case 8:
                                     include_once ("buy_dlv_ing.php");
                                     break;
+                              case 16:
+                                    include_once ("buy_dlv_ok.php");
+                                    break;
                         }
 
                         ?>

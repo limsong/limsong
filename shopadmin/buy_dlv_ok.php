@@ -32,11 +32,9 @@
                   </tr>
                   <?php
                   $query = "SELECT * FROM buy $addQuery ORDER BY buy_seq DESC limit $first,$bnum_per_page";
-
                   $result = mysql_query($query) or die($query);
                   $index = 1;
                   while ($row = mysql_fetch_assoc($result)) {
-
                         $buy_seq = $row["buy_seq"];
                         $ou_name = $row["buy_user_name"];
                         $buy_goods_code = $row["buy_goods_code"];
@@ -82,62 +80,16 @@
                               $buy_goods_result = mysql_query($buy_goods_query) or die("buy_dlv_wait");
                               $ou_dlv_com_seq = mysql_result($buy_goods_result,0,0);
                               $buy_goods_dlv_tag_no = mysql_result($buy_goods_result,0,1);
-                              if($buy_goods_dlv_tag_no == ""){
-                                    $sub_str = "등록";
-                              }else{
-                                    $sub_str = "변경";
-                              }
                               ?>
                               <td>
-                                    <?php
-                                    //dlv_com_flag    택배사 사용여부 0:사용안함 1:사용함
-                                    $delivery_company_query = "SELECT * FROM delivery_company WHERE dlv_com_flag='1'";
-                                    $delivery_company_result = mysql_query($delivery_company_query) or die("delivery_company_query");
-                                    ?>
-                                    <select name="dlv_company<?= $buy_seq ?>" class="dlv_company">
-                                          <?
-                                          while ($delivery_company_row = mysql_fetch_array($delivery_company_result)) {
-                                                $dlv_com_seq = $delivery_company_row["dlv_com_seq"];//택배사 일련번호
-                                                $dlv_com_name = $delivery_company_row["dlv_com_name"];//택배사 이름
-                                                $dlv_com_is_default = $delivery_company_row["dlv_com_is_default"];//기본배송업체 0:아님 1:맞을
-                                                if($ou_dlv_com_seq == $dlv_com_seq){
-                                                      $select = "selected";
-                                                }else{
-                                                      $select = "";
-                                                }
-                                                if ($dlv_com_is_default == "1") {
-                                                      echo '<option value="' . $dlv_com_seq . '" '.$select.'>' . $dlv_com_name . '</option>';
-                                                } else {
-                                                      echo '<option value="' . $dlv_com_seq . '" '. $select .'>' . $dlv_com_name . '</option>';
-                                                }
-                                          }
-                                          ?>
-                                    </select>
-                                    <input type="text" name="buy_good_dlv_tag_no<?= $buy_seq ?>" tabindex="<?=$index?>" class="buy_good_dlv_tag_no buy_good_dlv_tag_no<?= $buy_seq ?>" value="<?php echo $buy_goods_dlv_tag_no;?>">
-                                    <input type="button" class="memEleB sub_one" data="<?= $buy_seq ?>" value="<?php echo $sub_str;?>" style="width:40px;">
+                                    <?php echo dlv_company($ou_dlv_com_seq);?>
+                                    <?php echo $buy_goods_dlv_tag_no;?>
                               </td>
                         </tr>
                         <?php
                         $index++;
                   }
                   ?>
-                  <tr>
-                        <td colspan="7" style="text-align: right;">
-                              <input type="button" class="memEleB sub_all" value="운송장번호 일괄변경">
-                        </td>
-                  </tr>
-                  <tr>
-                        <td colspan="7" style="text-align: right;">
-                              주문상태변경
-                              <select class="buy_status_chg" name="buy_status_chg">
-                                    <option value="0">선택</option>
-                                    <option value="2">입금완료</option>
-                                    <option value="4">배송대기</option>
-                                    <option value="16">배송완료</option>
-                              </select>
-                              <input type="button" class="memEleB btn_buy_status" value="배송상태변경">
-                        </td>
-                  </tr>
             </table>
       </form>
       <iframe name="action_frame" width="500" height="100" style="display:none"></iframe>
@@ -201,68 +153,3 @@
             </li>
       </ul>
 </form>
-<script>
-      $(document).ready(function(){
-            $(".btn_buy_status").click(function(){
-                  $(".pay_buy_status").val("1");
-                  var mod2 = false;
-                  if($(".check_item:checked").length>0){
-                        var mod = $(".buy_status_chg").val();
-                        if(mod =="0"){
-                              alert("주문상태변경을 선택해 주세요.");
-                              return false;
-                        }
-
-                        $(".check_item").each(function(){
-                              if (this.checked) {
-                                    var buy_seq = $(this).val();
-                                    var buy_good_dlv_tag_no = $(".buy_good_dlv_tag_no"+buy_seq).val();
-                                    if(buy_good_dlv_tag_no == ""){
-                                          mod2 = true;
-                                    }
-                              }
-                        });
-                        if(mod2 == true){
-                              alert("운송장 번호를 입력해주세요.");
-                              return false;
-                        }
-                        $("form[name='orderListForm']").submit();
-                  }else{
-                        alert("변경할 상품을 선택해 주세요.");
-                        return false;
-                  }
-            });
-
-            //
-            $(".sub_all").click(function () {
-                  $(".dlv_chg_mod").val("all");
-                  var mod = false;
-                  if($(".check_item:checked").length>0){
-                        $(".check_item").each(function () {
-                              if(this.checked){
-                                    var buy_seq = $(this).val();
-                                    var buy_good_dlv_tag_no = $(".buy_good_dlv_tag_no"+buy_seq).val();
-                                    if(buy_good_dlv_tag_no == ""){
-                                          mod = true;
-                                    }
-                              }
-                        });
-                        if(mod == true){
-                              alert("운송장 번호를 입력해주세요.");
-                              return false;
-                        }
-                        $("form[name='orderListForm']").submit();
-                  }
-            });
-            $(".sub_one").click(function () {
-                  $(".dlv_chg_mod").val("one");
-                  var tData = $(this).attr("data");
-                  $(".check_item").each(function () {
-                        if($(this).val() == tData){
-                              this.checked = true;
-                        }
-                  });
-                  $("form[name='orderListForm']").submit();
-            });
-      });
-</script>

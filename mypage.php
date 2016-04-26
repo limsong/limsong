@@ -217,9 +217,11 @@
                                                                                                       <td rowspan="<?= $cbuy_goods ?>" class="cart-total-price">
                                                                                                             <?
                                                                                                             if($buy_goods_status < 8) {
-                                                                                                            ?>
-                                                                                                            <button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList" data-code="<?= $buy_code ?>" data-seq="<?= $buy_seq ?>">주문취소</button>
-                                                                                                            <?
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList"  data-seq="'.$buy_seq.'">주문취소</button></p>';
+                                                                                                            }elseif($buy_goods_status==8){
+                                                                                                                  echo '<button type="button" class="btn btn-xs btn-default waves-effect waves-light buy_ok" data="cList"  data-seq="'.$buy_seq.'">구매확정</button>';
+                                                                                                            }elseif($buy_goods_status==16){
+                                                                                                                  echo '<button type="button" class="btn btn-xs btn-default waves-effect waves-light buy_ok" data="cList"  data-seq="'.$buy_seq.'">구매후기</button>';
                                                                                                             }
                                                                                                             ?>
                                                                                                       </td>
@@ -447,5 +449,24 @@
                   }
                   return NaN;
             }
+            $(".buy_ok").click(function () {
+                  var data_seq = $(this).attr("data-seq");
+                  var url = "buy_ok.php";
+                  var form_data = {
+                        data_seq: data_seq
+                  };
+                  $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: form_data,
+                        error: function (response) {
+                              alert("mypage");
+                        },
+                        success: function (response) {
+                              alert("구매확정 되셨습니다.감사합니다.");
+                              location.reload();
+                        }
+                  });
+            });
       </script>
 </body></html>

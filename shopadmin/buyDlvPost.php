@@ -30,7 +30,7 @@ for ($i = 0; $i < $count; $i++) {
             mysql_query($query) or die("buyDlvPost");
       }else{
             if($ou_buy_goods_dlv_tag_no != "") {
-                  $query = "UPDATE buy_goods SET buy_goods_status='$buy_status_chg',buy_goods_dlv_tag_no='$ou_buy_goods_dlv_tag_no' WHERE buy_seq='$buy_seq'";
+                  $query = "UPDATE buy_goods SET buy_goods_status='$buy_status_chg',buy_goods_dlv_tag_no='$ou_buy_goods_dlv_tag_no',dlv_com_seq='$dlv_company' WHERE buy_seq='$buy_seq'";
                   mysql_query($query) or die("buyDlvPost");
                   $query = "UPDATE buy SET buy_status='$buy_status_chg' WHERE buy_seq = '$buy_seq'";
                   mysql_query($query) or die("buyDlvPost");
@@ -40,7 +40,7 @@ for ($i = 0; $i < $count; $i++) {
 }
 
 mysql_close($db);
-if($buy_status_chg == "0"){
+if($pay_buy_status == ""){
 ?>
             <script type="text/javascript">
                   alert("송장번호가 등록되였습니다.");
