@@ -16,10 +16,10 @@ if (!@$_POST['keyfield']) {
 
 $ou_delivery = @$_GET["delivery"];
 $ou_payMethod = @$_GET["payMethod"];
-if ($ou_delivery == "") {
-      $ou_delivery = 1;
-}
-if ($ou_delivery == "1") {
+
+if($ou_delivery=="0"){
+      $addQuery = "";
+}elseif ($ou_delivery == "1") {
       //입금대기 무통장
       $addQuery = " buy_status='1'";//입금대기
       $include_page = "buy_pay_wait.php";
@@ -39,10 +39,6 @@ if ($ou_delivery == "1") {
       //구매확정 배송완료
       $addQuery = " buy_status='16'";
       $include_page = "buy_dlv_ok.php";
-} elseif ($ou_delivery == "32_8192") {
-      //입금전 교환 취소
-      $addQuery = " buy_status='1'";
-      $addQuery .= "and pay_date!='0000-00-00 00:00:00'";
 }
 if (!empty($key)) {
       if (!empty($addQuery)) {
@@ -100,7 +96,7 @@ if ($total_record == 0) {
                                     <a <?php if ($ou_delivery == "2") echo "class='active'"; ?> href="orderList.php?delivery=2">입금완료</a>
                               </li>
                               <li class="ml10">
-                                    <a <?php if ($ou_delivery == "4") echo "class='active'"; ?> href="orderList.php?delivery=4">배송준비중</a>
+                                    <a <?php if ($ou_delivery == "4") echo "class='active'"; ?> href="orderList.php?delivery=4">배송대기</a>
                               </li>
                               <li class="ml10">
                                     <a <?php if ($ou_delivery == "8") echo "class='active'"; ?> href="orderList.php?delivery=8">배송중</a>
@@ -109,14 +105,14 @@ if ($total_record == 0) {
                                     <a <?php if ($ou_delivery == "16") echo "class='active'"; ?> href="orderList.php?delivery=16">구매확정</a>
                               </li>
                               <li class="ml10">
-                                    <a<?php if ($ou_delivery == "") echo "class='active'"; ?> href="orderList.php">주문리스트(전체)</a>
+                                    <a <?php if ($ou_delivery == "0") echo "class='active'"; ?> href="orderList.php?delivery=0">주문리스트(전체)</a>
                               </li>
                               <li class="TitleLi1">주문취소 관리</li>
                               <li class="ml10">
-                                    <a <?php if ($ou_delivery == "32_8192") echo "class='active'"; ?> href="orderList.php?delivery=32_8192">입금전 교환/취소 (0)</a>
+                                    <a <?php if ($ou_delivery == "32_1") echo "class='active'"; ?> href="orderList.php?delivery=32_1">입금전 교환/취소 (0)</a>
                               </li>
                               <li class="ml10">
-                                    <a <?php if ($ou_delivery == "D") echo "class='active'"; ?> href="orderList.php?delivery=D">배송전 교환/환불 (0)</a>
+                                    <a <?php if ($ou_delivery == "128_4") echo "class='active'"; ?> href="orderList.php?delivery=128_4">배송전 교환/환불 (0)</a>
                               </li>
                               <li class="ml10">
                                     <a <?php if ($ou_delivery == "Y") echo "class='active'"; ?> href="orderList.php?delivery=Y">배송후 반품 (0)</a>
@@ -156,6 +152,9 @@ if ($total_record == 0) {
                   <div id="main">
                         <?
                         switch ($ou_delivery) {
+                              case 0:
+                                    include_once("buy.php");
+                                    break;
                               case 1:
                                     include_once("buy_pay_wait.php");
                                     break;
@@ -170,6 +169,12 @@ if ($total_record == 0) {
                                     break;
                               case 16:
                                     include_once ("buy_dlv_ok.php");
+                                    break;
+                              case "32_1":
+                                    include_once ("buy_cancel.php");
+                                    break;
+                              case "128_4":
+                                    include_once ("buy_refund.php");
                                     break;
                         }
 

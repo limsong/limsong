@@ -81,7 +81,7 @@
                               $ou_dlv_com_seq = mysql_result($buy_goods_result,0,0);
                               $buy_goods_dlv_tag_no = mysql_result($buy_goods_result,0,1);
                               ?>
-                              <td>
+                              <td style="padding:0px 5px;">
                                     <?php echo dlv_company($ou_dlv_com_seq);?>
                                     <?php echo $buy_goods_dlv_tag_no;?>
                               </td>

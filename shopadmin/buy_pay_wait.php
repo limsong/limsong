@@ -14,18 +14,15 @@
                                         <input type="checkbox" onclick="CheckAll(this.checked)" />
                                 </th>
                                 <!--<th width="23%"></th>-->
-                                <th width="22%">주문번호
+                                <th width="28%">주문번호
                                         <br>
                                         주문일시
                                 </th>
                                 <th width="7%">주문인</th>
                                 <th width="7%">입금자</th>
-                                <th width="16%">결제금액/결제방법</th>
-                                <th width="10%">입금예정일</th>
-                                <th width="21%">입금계좌</th>
-                                <th width="10%">진행상태</th>
-                                <th width="5%">1:1상담</th>
-                                <th width="5%">메모</th>
+                                <th width="18%">결제금액/결제방법</th>
+                                <th width="15%">입금예정일</th>
+                                <th width="28%">입금계좌</th>
                         </tr>
                         <?php
                         $currentTime = time();
@@ -77,12 +74,9 @@
                                         <td align="center">
                                                 <? echo date("Y-m-d", strtotime("$pay_pre_date")); ?>
                                         </td>
-                                        <td align="center">
+                                        <td style="padding:0px 10px;">
                                                 <? echo $pay_online_account ?>
                                         </td>
-                                        <td align="center"><?php echo goods_status($buy_status); ?></td>
-                                        <td align="center"><?php echo $buy_qna_count."건";  ?></td>
-                                        <td align="center"><?php echo ($buy_memo+$buy_memo+$buy_memo_admin)."건"; ?></td>
                                 </tr>
                                 <?php
                         }

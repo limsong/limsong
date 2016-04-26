@@ -128,7 +128,7 @@
                                                                                                             <br>
                                                                                                             (<?= $buy_code ?>)
                                                                                                             <?php
-                                                                                                            if($buy_goods_status <=4) {
+                                                                                                            if($buy_goods_status <2) {
                                                                                                                   ?>
                                                                                                                   <br>
                                                                                                                   <button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cAll" data-code="<?= $buy_code ?>" data-seq="<?= $buy_seq ?>">주문전체취소</button>
@@ -221,11 +221,10 @@
                                                                                                       ?>
                                                                                                       <td rowspan="<?= $cbuy_goods ?>" class="cart-total-price">
                                                                                                             <?php
-                                                                                                            if ($buy_goods_status == "16") {
-                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList" data-code="' . $buy_code . '" data-seq="' . $buy_seq . '">교환신청</button></p>';
+                                                                                                            if ($buy_goods_status >=2 && $buy_goods_status<=16) {
                                                                                                                   echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList" data-code="' . $buy_code . '" data-seq="' . $buy_seq . '">환불신청</button></p>';
-                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList"  data-seq="'.$buy_seq.'">상품문의</button></p>';
-                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList"  data-seq="'.$buy_seq.'">1:1상담하기</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="'.$buy_seq.'">상품문의</button></p>';
+                                                                                                                  echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="'.$buy_seq.'">1:1상담하기</button></p>';
                                                                                                             } else {
                                                                                                                   echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data="cList" data-code="' . $buy_code . '" data-seq="' . $buy_seq . '">주문취소</button></p>';
                                                                                                             }

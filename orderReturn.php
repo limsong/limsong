@@ -215,7 +215,7 @@ try {
                                 //$pay_date = $date;//위에있음
                                 $pay_info_no = $app_card_num;
                                 $buy_memo = $ship_message;
-                                $buy_user_name = $user_id;
+                                $buy_user_name =$_SESSION[$app_oid . "_user_id"];
                                 $buy_user_tel = $app_tel;
                                 $buy_user_mobile = $app_tel;
                                 $buy_user_email = $app_email;

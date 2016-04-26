@@ -50,7 +50,7 @@
                         $pay_dlv_fee = $row["pay_dlv_fee"];//배송비
                         $user_id = $row["user_id"];
                         $ou_oDate = $row["buy_date"];//주문날짜
-                        $ou_name = $row["buy_user_name"];//수령인
+                        $ou_name = $row["buy_user_name"];//주문인
                         $buy_status = $row["buy_status"];
 
                         $shopmembersQuery = "SELECT name FROM shopmembers WHERE id='$user_id'";
