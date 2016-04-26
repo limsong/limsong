@@ -191,15 +191,10 @@ if ($total_record == 0) {
       <script>
             ;
             !function () {
-
-//加载扩展模块
                   layer.config({
                         extend: 'extend/layer.ext.js'
                   });
 
-//页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
-
-                  //官网欢迎页
                   $(".oid").click(function () {
                         var oid = $(this).text();
                         var mod = $(this).attr("data");
@@ -216,16 +211,16 @@ if ($total_record == 0) {
                               success: function (response) {
                                     if (response == "true") {
                                           layer.tab({
-                                                area: ['600px', '300px'],
+                                                area: ['850px', '900px'],
                                                 tab: [{
-                                                      title: 'TAB1',
-                                                      content: '内容1'
+                                                      title: '주문상세정보',
+                                                      content: '<div style="padding:10px;background-color:pink;">주문상세정보</div>'
                                                 }, {
-                                                      title: 'TAB2',
-                                                      content: '内容2'
+                                                      title: '상세내역',
+                                                      content: '<div style="padding:10px;background-color:darkslateblue;">상세내역</div>'
                                                 }, {
-                                                      title: 'TAB3',
-                                                      content: '内容3'
+                                                      title: '주문변경내역',
+                                                      content: '<div style="padding:10px;background-color:indianred;">주문변경내역</div>'
                                                 }]
                                           });
                                     } else {
@@ -234,10 +229,7 @@ if ($total_record == 0) {
                               }
                         });
                   });
-//关于
-                  $('#about').on('click', function () {
-                        layer.alert(layer.v + ' - 贤心出品 sentsin.com');
-                  });
+
 
             }();
             function CheckAll(val) {

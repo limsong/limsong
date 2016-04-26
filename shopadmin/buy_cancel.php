@@ -17,10 +17,11 @@
                         <th width="12%">주문시각</th>
                         <th width="12%">신청시각</th>
                         <th width="7%">주문인</th>
-                        <th width="28%">주문번호[취소상품]</th>
+                        <th width="18%">주문번호</th>
+                          <th width="18%">취소상품</th>
                         <th width="5%">수량</th>
                         <th width="10%">취소금액</th>
-                        <th width="15%">신청유형</th>
+                        <th width="7%">신청유형</th>
                   </tr>
                   <?php
                   $currentTime = time();
@@ -47,10 +48,12 @@
 
 
 
-                              $buy_goods_query = "SELECT buy_goods_price_total FROM buy_goods WHERE buy_goods_seq='$buy_goods_req_seq'";
-                              $buy_goods_result = mysql_query($buy_goods_query) or die("buy_cancel");
-                              $buy_goods_row = mysql_fetch_array($buy_goods_result);
-                              $buy_goods_price_total = $buy_goods_row["buy_goods_price_total"];
+                                $buy_goods_query = "SELECT buy_goods_price_total,buy_goods_name,buy_goods_prefix,buy_goods_option FROM buy_goods WHERE buy_goods_seq='$buy_goods_req_seq'";
+                                $buy_goods_result = mysql_query($buy_goods_query) or die("buy_cancel");
+                                $buy_goods_row = mysql_fetch_array($buy_goods_result);
+                                $buy_goods_price_total = $buy_goods_row["buy_goods_price_total"];
+                                $godosName = $buy_goods_row["buy_goods_name"]."_".$buy_goods_row["buy_goods_prefix"];
+                                $buy_goods_option = $buy_goods_row["buy_goods_option"];
                               
                               
                               $buy_query = "SELECT buy_date,buy_code FROM buy WHERE buy_seq='$buy_seq'";
@@ -67,11 +70,12 @@
                   ?>
 
                   <tr class="contentTr" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor=''">
-                        <td align="center" height="30"><input type="checkbox" class="check_item" value="<?= $buy_seq ?>" name="check[]"/></td>
+                        <td align="center" rowspan="<?= $rowspan ?>"><input type="checkbox" class="check_item" value="<?= $buy_seq ?>" name="check[]"/></td>
                         <td align="center" rowspan="<?= $rowspan ?>"><?= date("Y-m-d H:i", strtotime($buy_date)); ?></td>
                         <td align="center" rowspan="<?= $rowspan ?>"><?= $buy_claim_sdate ?></td>
                         <td align="center" rowspan="<?= $rowspan ?>"><?= $sname ?></td>
-                        <td align="center" rowspan="<?= $rowspan ?>"> <?= $buy_code ?></td>
+                        <td align="center" rowspan="<?= $rowspan ?>"> <a href="javascript:;" class="oid" data="goods"><?= $buy_code ?></a></td>
+                          <td style="padding:0px 5px;" height="30"><? if($buy_goods_option=="0") echo "삼품명 : ";else echo "옵션명 : " ?><?=$godosName?></td>
                         <td align="center"><?=$buy_goods_new_count?></td>
                         <td align="center"><?=number_format($buy_goods_price_total*$buy_goods_new_count)?></td>
                         <td align="center"><?=claim_type($buy_claim_type)?></td>
@@ -80,7 +84,7 @@
                               }else{
                   ?>
                   <tr>
-                        <td align="center" height="30"><input type="checkbox" class="check_item" value="<?= $buy_seq ?>" name="check[]"/></td>
+                          <td style="padding:0px 5px;" height="30"><? if($buy_goods_option=="0") echo "삼품명 : ";else echo "옵션명 : " ?><?=$godosName?></td>
                         <td align="center"><?=$buy_goods_new_count?></td>
                         <td align="center"><?=number_format($buy_goods_price_total*$buy_goods_new_count)?></td>
                         <td align="center"><?=claim_type($buy_claim_type)?></td>
