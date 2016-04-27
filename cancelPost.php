@@ -89,9 +89,14 @@ if($data_cancel == "0"){
 
 }elseif($data_cancel == "2"){
       //반품신청
-      $buy_status = "512";
-      $buy_claim_status_before = "2";
       $buy_claim_code = 'T'.$SignatureUtil->getTimestamp();
+      if($data_status=="1"){
+            $buy_status = "512";
+            $buy_claim_status_before = "1";//입금전 취소   0 입금전 1 배송전 2 배송후
+      }elseif($data_status=="2"){
+            $buy_status = "512";
+            $buy_claim_status_before = "2";//입금전 취소   0 입금전 1 배송전 2 배송후
+      }
 }elseif($data_cancel == "3"){
       //교환신청
       $buy_claim_code = 'E'.$SignatureUtil->getTimestamp();
