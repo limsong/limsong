@@ -1,8 +1,12 @@
-<? include_once("doctype.php")?>
-    <body class="home-2">
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+<? include_once("doctype.php") ?>
+<body class="home-2">
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an
+        <strong>outdated</strong>
+        browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a>
+        to improve your experience.
+    </p><![endif]-->
     <? include_once("head.php") ?>
     <!--CLEAR BOTH CLASS-->
     <div class="clear"></div>
@@ -62,5 +66,13 @@
     <!-- JS START-->
     <? include_once("js.php") ?>
     <!-- JS END -->
-    </body>
-</html>
+    <script>
+        $(".search-button").click(function () {
+            if (!$(".search-key").val()) {
+                alert("검색할 키워드를 입력해 주세요");
+                return false;
+            }
+            $(".search-form").submit();
+        });
+    </script>
+</body></html>

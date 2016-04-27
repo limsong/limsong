@@ -256,28 +256,28 @@
                                 $db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
                                 $db_sortCode = $db->loadRows();
                                 $db_sortCode_count = count($db_sortCode);
-                                for($i=0;$i<$db_sortCode_count;$i++) {
+                                for ($i = 0; $i < $db_sortCode_count; $i++) {
                                     $uxName = $db_sortCode[$i]["sortName"];
                                     $uxCode = $db_sortCode[$i]["sortOrder"];
-                                ?>
-                                <li>
-                                    <a href="javascript:;"><?=$uxName?></a>
-                                    <ul class="sub-menu">
-                                        <?php
-                                        $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
-                                        $db_sortCodes = $db->loadRows();
-                                        foreach ($db_sortCodes as $key => $value) {
-                                            $umCode = $value["sortOrder"];
-                                        ?>
-                                        <li>
-                                            <a href="shop.php?code1=<?=$uxCode?>&code2=<?=$umCode?>&name1=<?=urlencode($uxName)?>&name2=<?=urlencode($value["sortName"])?>"><?=$value["sortName"]?></a>
-                                        </li>
-                                        <?php
-                                        }
-                                        ?>
-                                    </ul>
-                                </li>
-                                <?php
+                                    ?>
+                                    <li>
+                                        <a href="javascript:;"><?= $uxName ?></a>
+                                        <ul class="sub-menu">
+                                            <?php
+                                            $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
+                                            $db_sortCodes = $db->loadRows();
+                                            foreach ($db_sortCodes as $key => $value) {
+                                                $umCode = $value["sortOrder"];
+                                                ?>
+                                                <li>
+                                                    <a href="shop.php?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
+                                                </li>
+                                                <?php
+                                            }
+                                            ?>
+                                        </ul>
+                                    </li>
+                                    <?php
                                 }
                                 ?>
                                 <!--<li>
@@ -451,7 +451,7 @@
                             </div>
                             <div class="search-drop">
                                 <div class="categorys-product-search">
-                                    <form action="#" method="get" class="search-form-cat">
+                                    <form action="shop.php" method="post" class="search-form">
                                         <div class="search-product form-group">
                                             <!--<select name="catsearch" class="cat-search">
                                                 <option value="">All Categories</option>
@@ -466,9 +466,8 @@
                                                 <option value="10">--Summer</option>
                                                 <option value="11">---sports</option>
                                             </select>-->
-                                            <input type="text" class="form-control search-form"
-                                                   placeholder="Enter your search key. "/>
-                                            <button class="search-button" value="Search" name="s" type="submit">
+                                            <input type="text" name="search" class="form-control search-form search-key" placeholder="Enter your search key. "/>
+                                            <button class="search-button" value="검색" type="button">
                                                 <i class="fa fa-search"></i>
                                             </button>
                                         </div>
@@ -489,12 +488,12 @@
                 $db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
                 $db_sortCode = $db->loadRows();
                 $db_sortCode_count = count($db_sortCode);
-                for($i=0;$i<$db_sortCode_count;$i++) {
+                for ($i = 0; $i < $db_sortCode_count; $i++) {
                     $uxName = $db_sortCode[$i]["sortName"];
                     $uxCode = $db_sortCode[$i]["sortOrder"];
                     ?>
                     <li>
-                        <a href="javascript:;"><?=$uxName?></a>
+                        <a href="javascript:;"><?= $uxName ?></a>
                         <ul>
                             <?php
                             $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
@@ -503,7 +502,7 @@
                                 $umCode = $value["sortOrder"];
                                 ?>
                                 <li>
-                                    <a href="shop.php?code1=<?=$uxCode?>&code2=<?=$umCode?>&name1=<?=urlencode($uxName)?>&name2=<?=urlencode($value["sortName"])?>"><?=$value["sortName"]?></a>
+                                    <a href="shop.php?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
                                 </li>
                                 <?php
                             }
