@@ -1,4 +1,12 @@
-<?php include_once("doctype.php"); ?>
+<?php
+    include_once("doctype.php");
+    $mob = isMobile();
+    if($mob){
+        $action = "checkout_mobile.php";
+    }else{
+        $action = "checkout.php";
+    }
+?>
 <link href="css/shoppingcart.css" rel='stylesheet' type='text/css'>
 <body class="home-1 shop-page cart-page">
     <!--[if lt IE 8]>
@@ -28,7 +36,7 @@
     <!--breadcrumb area end-->
     <!--CART AREA START-->
     <section class="cart-area-wrapper">
-        <form name="cart_form" method="post" action="checkout.php" class="cart_form">
+        <form name="cart_form" method="post" action="<?=$action?>" class="cart_form">
             <div class="container-fluid">
                 <div class="row cart-top">
                     <div class="col-md-12">

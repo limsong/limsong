@@ -1,8 +1,16 @@
 <?
+
 include_once("doctype.php");
 
 /*이니시스 설정 시작*/
 require_once('libs/INIStdPayUtil.php');
+$mob = isMobile();
+if($mob){
+    echo "mob";
+    exit;
+}else{
+    echo "pc";
+}
 $SignatureUtil = new INIStdPayUtil();
 /*
   //*** 위변조 방지체크를 signature 생성 ***
@@ -629,7 +637,7 @@ $email = $dbshopMembers[0]["email"];
                                             <input type="hidden" name="oname" value="<?= $name ?>">
                                             <input type="hidden" name="ophone" value="<?= $phone ?>">
                                             <input type="hidden" name="oemail" value="<?= $email ?>">
-                                            <th class="col-md-3">주문자</th>
+                                            <th class="col-md-3" style="width:122px;">주문자</th>
                                             <td><?= $name ?></td>
                                         </tr>
                                         <tr>
@@ -661,7 +669,7 @@ $email = $dbshopMembers[0]["email"];
                                 <div class="col-md-12">
                                     <table class="table borderless user-info">
                                         <tr>
-                                            <th class="col-lg-3 col-md-3">이름</th>
+                                            <th class="col-lg-3 col-md-3" style="width:122px;">이름</th>
                                             <td>
                                                 <div class="checkout-form-list">
                                                     <div class="col-md-12">

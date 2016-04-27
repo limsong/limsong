@@ -3,8 +3,6 @@
 
 
 }
-    
-}
 
 
 /* Normal desktop :992px. */
@@ -74,7 +72,7 @@ width: 70%;
 .search-two {width: 23%;}
 .lang-currency {width: 31%;}
 .cat-search {width: 25%;}
-.form-control {width: 65%;}
+.form-control {width: 90%;}
 .search-button {width: 10%;}
 .header-shipping ul li i {
 font-size: 14px;
@@ -186,17 +184,17 @@ h2.slider-tiile-middle span.bg-text {
 
 }
 
- 
+
 /* Tablet desktop :768px. */
 @media (min-width: 768px) and (max-width: 991px) {
- 
-.mobile-menu {display: block;}   
-.header-top,.plus-account,.lang-currency,.search-two {display: none;}
+
+.mobile-menu {display: block;}
+.header-top,/*.plus-account,*/.lang-currency,.search-two {display: none;}
 .contact-page .contact-form {margin-top: 40px;}
 .cart {
 height: 55px;
 line-height: 58px;
-border: 1px solid #4a4a4a;
+border: none;
 }
 .cart-wrapper {
 margin-right: 5px;
@@ -254,7 +252,7 @@ margin-top: 28px;
 margin-right: 0px;
 margin-left: 0px;
 }
-.cart-carousel-area {margin-top: 3px;} 
+.cart-carousel-area {margin-top: 3px;}
 .rance-wrapper input[type="submit"] {
 display: block;
 width: 20%;
@@ -271,7 +269,7 @@ width: 20%;
 height: 330px !important;
 width: 330px !important;
 }
-.about-page .sin-team {margin-bottom: 26px;}   
+.about-page .sin-team {margin-bottom: 26px;}
 .blog .sin-blog-img img { width: 100%;}
 .blog-sidebar-wrapper {border-right: 0px solid #ccc }
 .blog.right-sidebar .blog-sidebar-wrapper { border-left: 0px solid #ccc;}
@@ -289,19 +287,19 @@ width: 330px !important;
 /*----------------------------------------------*/
 }
 
- 
+
 /* small mobile :320px. */
 @media (max-width: 767px) {
-.blog.sin-post blockquote {padding: 23px 20px;}    
+.blog.sin-post blockquote {padding: 23px 20px;}
 .blog.sin-post .sin-page-title {margin-bottom: 30px;}
-.categorys-product-search {margin: 16px 0 39px;}
-.border-right {border-right:none;}  
- .mobile-menu {display: block;}   
-.header-top,.search-two,.plus-account,.lang-currency {display: none;}
+.categorys-product-search {margin: 16px 0 0px;}
+.border-right {border-right:none;}
+ .mobile-menu {display: block;}
+.header-top,.search-two,/*.plus-account,*/.lang-currency {display: none;}
 .cart {
 height: 55px;
 line-height: 58px;
-border: 1px solid #4a4a4a;
+border: none;
 }
 .cart-wrapper {
 z-index: 2147483647;
@@ -330,7 +328,7 @@ float: right;
 margin-right: 8px;
 }
 .header-shipping {
-margin-top: 37px;
+margin-top: 10px;
 display: inline-block;
 }
 .cat-search {
@@ -454,11 +452,11 @@ width: 100%;
 }
 .cart-carousel-area {
 margin-top: 3px;
-} 
+}
 .subscribe-inner input {
   width: 73%;
 }
- /*contacr*/ 
+ /*contacr*/
     /*shop page*/
 .orderby-wrapper {
 display: none;
@@ -479,12 +477,12 @@ float: left;
 width: 37%;
 }
     /*single product*/
-    .zoomContainer{display: none}  
+    .zoomContainer{display: none}
 .single-product-area .owl-theme .owl-controls .owl-buttons div {
   padding: 0px 6px;
   width: 19px;
 top: 35%;
-}   
+}
 .product-review-area .review-menu {width: 100%;}
 .single-product-area .prod-list-detail {padding-left: 0px; }
 .single-product-area .cart-plus-minus-button {margin-bottom: 14px;}
@@ -495,9 +493,9 @@ top: 35%;
 padding:70px 24px !important;
 }
 /*about us page*/
-.about-page .sin-team {margin-bottom: 26px;} 
-    
-    
+.about-page .sin-team {margin-bottom: 26px;}
+
+
 /*sin project */
 
 .g-single-img {
@@ -530,7 +528,7 @@ width: 24%;
 .blog .single-blog {margin: 0 15px 60px;}
 .blog.left-sidebar .single-blog {margin-left: 0px;}
 .blog.right-sidebar .single-blog {margin-right: 0px;}
-    
+
 .contact-page .contact-top-area .page-heading, .contact-info-area {padding: 0;}
 .contact-page .contact-top-area h2 {font-size: 43px;}
 .contact-page .contact-form {margin-top: 40px;}
@@ -549,11 +547,11 @@ width: 24%;
 /*--------------------------------------------------------*/
 }
 
- 
+
 /* Large Mobile :480px. */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 
- 
+
 .product-carousel .col-md-12 {padding: 0 15px;}
 .form-control {
 width: 211px;
@@ -584,10 +582,10 @@ margin-top: 7px;
 .single-bestseller {
 float: left;
 width: 50%;
-}  
+}
 .orderby-wrapper {display: block}
     /*product single*/
-.single-product-area .owl-theme .owl-controls .owl-buttons div {top: 40%;} 
+.single-product-area .owl-theme .owl-controls .owl-buttons div {top: 40%;}
 .single-product-area .single-bestseller:last-child {border-bottom: 1px solid #ccc;padding-bottom: 20px}
 .g-single-img {
 float: left;
@@ -602,4 +600,3 @@ width: 94px;
 
 
 }
- 

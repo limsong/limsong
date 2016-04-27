@@ -1,14 +1,34 @@
 <? 
 include_once("doctype.php");
 $name1=$_GET["name1"];
+if($name==""){
+	$name1=$_POST["name1"];
+}
 $name2=@$_GET["name2"];
+if($name2==""){
+	$name2=$_POST["name2"];
+}
 $code1 = $_GET["code1"];
+if($code1==""){
+	$code1=$_POST["code1"];
+}
 $code2 = @$_GET["code2"];
+if($code2==""){
+	$code2=$_POST["code2"];
+}
 $code= $code1.$code2;
+
+$serch_key = $_POST["search"];
+
 $page=@$_GET["page"];
 if(empty($page))
 	$page=1;
-$db->query("SELECT goods_code  FROM goods WHERE goods_code LIKE '$code%' ");
+if($serch_key != ""){
+	$db->query("SELECT goods_code  FROM goods WHERE goods_tag LIKE '$serch_key%'");
+}else{
+	$db->query("SELECT goods_code  FROM goods WHERE goods_code LIKE '$code%' $addQuery");
+}
+$db->query("SELECT goods_code  FROM goods WHERE goods_code LIKE '$code%' $addQuery");
 $total_record=$db->countRows();
 
 if($total_record==0) {
@@ -17,6 +37,11 @@ if($total_record==0) {
 	$first=($page-1)*$gnum_per_page;
 }
 ?>
+<style type="text/css">
+	.row{
+		margin:0px;
+	}
+</style>
 	<body class="home-1 shop-page">
 		<!--[if lt IE 8]>
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -81,7 +106,17 @@ if($total_record==0) {
 										<div class="row">
 											<?
 											$db->connect();
-											$db->query("SELECT goods_code,goods_name,commonPrice,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '$code%' ORDER BY id ASC LIMIT $first,$gnum_per_page");
+											if($first == "1"){
+												$tFirst = 0;
+											}else{
+												$tFirst = $first;
+											}
+											if($serch_key != ""){
+												$db->query("SELECT goods_code,goods_name,commonPrice,sellPrice,sb_sale,shipping FROM goods WHERE goods_tag LIKE '$serch_key%' ORDER BY id ASC LIMIT $tFirst,$gnum_per_page");
+											}else{
+												$db->query("SELECT goods_code,goods_name,commonPrice,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '$code%' ORDER BY id ASC LIMIT $tFirst,$gnum_per_page");
+											}
+
 											$db_shop = $db->loadRows();
 											foreach ($db_shop as $key => $value) {
 											?>
@@ -171,8 +206,10 @@ if($total_record==0) {
 												<div class="single-list-product">
 													<div class="col-sm-4 col-md-4 product-image">
 														<?
-														if($value[sb_sale] >0) echo '<span class="sale-on">sale '.$value[sb_sale] .'%</span> ';
-														$db->query("SELECT imageName FROM upload_mimages WHERE goods_code='$value[goods_code]' ORDER BY id ASC");
+														if($value["sb_sale"] >0) echo '<span class="sale-on">sale '.$value["sb_sale"] .'%</span> ';
+														$goods_code = $value["goods_code"];
+														$db->query("SELECT imageName FROM upload_mimages WHERE goods_code='$goods_code' ORDER BY id ASC");
+
 														$db_upload_mimages = $db->loadRows();
 														?>
 														<div class="show-img">
@@ -182,7 +219,7 @@ if($total_record==0) {
 														if($db_upload_mimages[1]["imageName"] != ""){
 														?>
 														<div class="hide-img">
-															 <a href="item_view.php?code=<?=$value[goods_code]?>&name1=<?=$name1?>&name2=<?=$name2?>"><img src="<? echo $brandImagesWebDir.$db_upload_mimages[0]["imageName"]; ?>" alt=""></a>
+															 <a href="item_view.php?code=<?=$goods_code?>&name1=<?=$name1?>&name2=<?=$name2?>"><img src="<? echo $brandImagesWebDir.$db_upload_mimages[0]["imageName"]; ?>" alt=""></a>
 														</div>
 														<?
 														}
@@ -289,5 +326,14 @@ if($total_record==0) {
 	<!-- JS START-->
 	<? include_once("js.php") ?>
 	<!-- JS END -->
+	<script>
+		$(".search-button").click(function () {
+			if(!$(".search-key").val()){
+				alert("검색할 키워드를 입력해 주세요");
+				return false;
+			}
+			$(".search-form").submit();
+		});
+	</script>
 	</body>
 </html>

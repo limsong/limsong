@@ -18,8 +18,9 @@
 			</div>   
 		</div>
 	</div>
-	<div class="header-middle hidden-sm hidden-xs hidden-md">
-		<div class="container-fluid ">
+	<!--<div class="header-middle hidden-sm hidden-xs hidden-md">-->
+	<div class="header-middle">
+		<div class="container-fluid no-padding">
 			<div class="row">
 				<?
 				/*
@@ -249,7 +250,35 @@
 					<div class="main-menu hidden-sm hidden-xs hidden-md">
 						<nav>
 							<ul>
-								<li><a href="index.html">Home</a>
+								<?php
+								$db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
+								$db_sortCode = $db->loadRows();
+								$db_sortCode_count = count($db_sortCode);
+								for($i=0;$i<$db_sortCode_count;$i++) {
+									$uxName = $db_sortCode[$i]["sortName"];
+									$uxCode = $db_sortCode[$i]["sortOrder"];
+									?>
+									<li>
+										<a href="javascript:;"><?=$uxName?></a>
+										<ul class="sub-menu">
+											<?php
+											$db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
+											$db_sortCodes = $db->loadRows();
+											foreach ($db_sortCodes as $key => $value) {
+												$umCode = $value["sortOrder"];
+												?>
+												<li>
+													<a href="shop.php?code1=<?=$uxCode?>&code2=<?=$umCode?>&name1=<?=urlencode($uxName)?>&name2=<?=urlencode($value["sortName"])?>"><?=$value["sortName"]?></a>
+												</li>
+												<?php
+											}
+											?>
+										</ul>
+									</li>
+									<?php
+								}
+								?>
+								<!--<li><a href="index.html">Home</a>
 									<ul class="sub-menu">
 										<li><a href="index-box.html">Homepage 1 Box</a></li>
 										<li><a href="index-2.html">Homepage 2</a></li>
@@ -328,13 +357,13 @@
 									<ul class="sub-menu">
 										<li><a href="Contact-box.html">contact us box</a></li>   
 									</ul>
-								</li>
+								</li>-->
 							</ul>
 				</nav>
 					</div>
 					<!--MAIN MENU END-->
 				</div>
-				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 no-padding-left">
+				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3" style="padding:0px;">
 					<div class="top-right-menu-wrapper">
 						<div class="plus-account">
 							<div class="plus-icon">
@@ -379,14 +408,43 @@
 			</div> 
 		</div>
 	</div>
+
 	<!--MOBILE MENU START-->
-	<div class="container-fluid">
+	<div class="container-fluid no-padding">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 no-padding">
 					<div class="mobile-menu ">
 						<nav class="mobile-menu-start">
 							<ul>
-								<li><a href="index.html">Home</a>
+								<?php
+								$db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
+								$db_sortCode = $db->loadRows();
+								$db_sortCode_count = count($db_sortCode);
+								for($i=0;$i<$db_sortCode_count;$i++) {
+									$uxName = $db_sortCode[$i]["sortName"];
+									$uxCode = $db_sortCode[$i]["sortOrder"];
+									?>
+									<li>
+										<a href="javascript:;"><?=$uxName?></a>
+										<ul>
+											<?php
+											$db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
+											$db_sortCodes = $db->loadRows();
+											foreach ($db_sortCodes as $key => $value) {
+												$umCode = $value["sortOrder"];
+												?>
+												<li>
+													<a href="shop.php?code1=<?=$uxCode?>&code2=<?=$umCode?>&name1=<?=urlencode($uxName)?>&name2=<?=urlencode($value["sortName"])?>"><?=$value["sortName"]?></a>
+												</li>
+												<?php
+											}
+											?>
+										</ul>
+									</li>
+									<?php
+								}
+								?>
+								<!--<li><a href="index.html">Home</a>
 									<ul>
 										<li><a href="index-box.html">Homepage 1 Box</a></li>
 										<li><a href="index-2.html">Homepage 2</a></li>
@@ -470,7 +528,7 @@
 									<ul>
 										<li><a href="Contact-box.html">contact us box</a></li>
 									</ul>
-								</li>
+								</li>-->
 							</ul>
 						</nav>
 					</div>
@@ -483,9 +541,11 @@
 			<div class="row">
 				<div class=" col-xs-12 col-sm-12 col-lg-offset-2 col-md-6 col-lg-6">
 					<div class="categorys-product-search">
-						<form action="#" method="get" class="search-form-cat">
+						<form action="shop.php" method="post" class="search-form">
+							<input type="hidden" name="code1" value="<?=$code1?>">
+							<input type="hidden" name="code2" value="<?=$code2?>">
 							<div class="search-product form-group">
-								<select name="catsearch" class="cat-search ">
+								<!--<select name="catsearch" class="cat-search ">
 									<option value="">All Categories</option>
 									<option value="2">--Women</option>
 									<option value="3">---T-Shirts</option>
@@ -497,9 +557,9 @@
 									<option value="9">--Evening</option>
 									<option value="10">--Summer</option>
 									<option value="11">---sports</option>
-								</select>
-								<input type="text" class="form-control search-form " placeholder="Enter your search key. "/>
-								<button class="search-button" value="Search" name="s" type="submit">
+								</select>-->
+								<input type="text" name="search" class="form-control search-form search-key" style="width:70%;" placeholder="Enter your search key. "/>
+								<button class="search-button" value="검색" type="button">
 									<i class="fa fa-search"></i>
 								</button>
 							</div>
