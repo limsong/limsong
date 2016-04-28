@@ -17,7 +17,7 @@
                         account
                     </h4>
                 </div>
-                <? include_once "mypage_side.php";?>
+                <? include_once "mypage_side.php"; ?>
                 <style type="text/css">
                     .active {
                         background: #76caf1 none repeat scroll 0 0 !important;
@@ -89,10 +89,19 @@
                                                         $buy_goods_dlv_type = $db_buy_goods[$j]["buy_goods_dlv_type"];//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
                                                         $buy_goods_status = $db_buy_goods[$j]["buy_goods_status"];//입금대기,입금완료,배송중....
 
+                                                        $db->query("SELECT ImageName FROM upload_timages WHERE goods_code='$buy_goods_code'");
+                                                        $db_upload_timages = $db->loadRows();
+                                                        $tImageName = $db_upload_timages[0]["ImageName"];
+
                                                         if ($tmp_goods_code != $buy_goods_code) {
                                                             $db->query("SELECT buy_goods_seq FROM buy_goods WHERE buy_goods_code='$buy_goods_code' AND buy_seq='$buy_seq'");
                                                             $db_buy_goods_code = $db->loadRows();
                                                             $rowspan = count($db_buy_goods_code);
+                                                        }
+                                                        if($buy_goods_option=="0"){
+                                                            $mod = "buy_goods";
+                                                        }else{
+                                                            $mod = "buy_option";
                                                         }
 
                                                         if ($buy_goods_option == "0") {
@@ -128,17 +137,18 @@
                                                                         </label>
                                                                         <span style="float: left;margin-left:5px;">
                                                                             <img
-                                                                                src="userFiles/images/brandImages/0201000024thumImage.jpg"
+                                                                                src="userFiles/images/brandImages/<?=$tImageName?>"
                                                                                 width="50" height="50">
                                                                         </span>
                                                                         <div
                                                                             style="overflow:hidden;text-align: left;padding-left:5px;">
                                                                             <?php
-                                                                            $db->query("SELECT goods_name,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$buy_goods_code'");
+                                                                            $db->query("SELECT id,goods_name,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$buy_goods_code'");
                                                                             $db_goods = $db->loadRows();
                                                                             $goods_opt_type = $db_goods[0]["goods_opt_type"];
                                                                             $goods_opt_num = $db_goods[0]["goods_opt_num"];
                                                                             $goods_name = $db_goods[0]["goods_name"];
+                                                                            $goods_id = $db_goods[0]["id"];
                                                                             ?>
                                                                             <p style="max-width:500px;word-break: break-all;border-collapse: collapse;"><?= $goods_name ?></p>
                                                                             <p>
@@ -221,18 +231,18 @@
                                                                         } elseif ($buy_goods_status == 4) {
                                                                             echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="2" data-status="1" data="cList"  data-seq="' . $buy_seq . '">반품신청</button></p>';
                                                                             echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="3" data-status="1" data="cList"  data-seq="' . $buy_seq . '">교환신청</button></p>';
-                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="' . $buy_seq . '">상품문의</button></p>';
-                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="' . $buy_seq . '">1:1상담하기</button></p>';
+                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light bbs" mod="'.$mod.'" data="goods_qna" goods-seq="'.$goods_id.'" buy-goods-seq="' . $buy_goods_seq . '">상품문의</button></p>';
+                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light bbs" mod="'.$mod.'" data="onetoone" goods-seq="'.$goods_id.'" buy-goods-seq="' . $buy_goods_seq . '">1:1상담하기</button></p>';
                                                                         } elseif ($buy_goods_status == 8) {
                                                                             echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light view_dlv"  data="' . $buy_goods_seq . '">배송조회 </button></p>';
-                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="' . $buy_seq . '">상품문의</button></p>';
-                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="' . $buy_seq . '">1:1상담하기</button></p>';
+                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light bbs" mod="'.$mod.'" data="goods_qna"  goods-seq="'.$goods_id.'" buy-goods-seq="' . $buy_goods_seq . '">상품문의</button></p>';
+                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light bbs" mod="'.$mod.'" data="onetoone"  goods-seq="'.$goods_id.'" buy-goods-seq="' . $buy_goods_seq . '">1:1상담하기</button></p>';
                                                                         } elseif ($buy_goods_status == 16) {
                                                                             echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="2" data-status="2" data="cList"  data-seq="' . $buy_seq . '">반품신청</button></p>';
                                                                             echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light cancel" data-cancel="3" data-status="2" data="cList"  data-seq="' . $buy_seq . '">교환신청</button></p>';
                                                                             echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light buy_ok" data="cList"  data-seq="' . $buy_seq . '">구매후기</button></p>';
-                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light confirm_goods_qna" data="cList"  data-seq="' . $buy_seq . '">상품문의</button></p>';
-                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light goods_qna" data="cList"  data-seq="' . $buy_seq . '">1:1상담하기</button></p>';
+                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light bbs" data="cList" mod="'.$mod.'" goods-seq="'.$goods_id.'" buy-data="goods_qna" buy-goods-seq="' . $buy_goods_seq . '">상품문의</button></p>';
+                                                                            echo '<p><button type="button" class="btn btn-xs btn-default waves-effect waves-light bbs" data="cList" mod="'.$mod.'" goods-seq="'.$goods_id.'" buy-data="onetoone" buy-goods-seq="' . $buy_goods_seq . '">1:1상담하기</button></p>';
                                                                         }
                                                                         ?>
                                                                     </td>
@@ -357,7 +367,7 @@
     <!-- main js
     ============================================ -->
     <script src="js/main.js"></script>
-    <script src="js/mypage.js"></script>
+
     <script type="text/javascript">
         $(".cancel").click(function () {
             var seq = "";
@@ -516,6 +526,38 @@
                     $(".modal-body").html("");
                     add_goods(response);
                     $(".modal-footer").css("display", "none");
+                }
+            });
+        });
+        $(".bbs").click(function () {
+            var tdata = $(this).attr("data");//goods_qna onetoone
+            var goods_seq = $(this).attr("goods-seq");
+            var buy_goods_seq = $(this).attr("buy-goods-seq");
+            var mod = $(this).attr("mod");//buy_goods ,buy_option
+            if(tdata=="goods_qna"){
+                var str = "상품문의";
+            }else{
+                var str = "1:1상담";
+            }
+            var form_data = {
+                tdata : tdata,
+                goods_seq : goods_seq,
+                buy_goods_seq : buy_goods_seq,
+                mod : mod
+            };
+            var url = "getbbs.php";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form_data,
+                error: function (response) {
+                    alert("mypage");
+                },
+                success: function (response) {
+                    $("#myModalLabel").text(str);
+                    $(".modal-body").html("");
+                    add_goods(response);
+                    //$(".modal-footer").css("display", "none");
                 }
             });
         });

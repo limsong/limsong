@@ -1,205 +1,220 @@
 <?
+include_once ("check.php");
 include("common/config.shop.php");
 include("fckeditor/fckeditor.php");
-$code=$_GET['code'];
-$page=$_GET['page'];
-$key=$_GET['key'];
-$keyfield=$_GET['keyfield'];
-$number=$_GET['number'];
-$query="select * from $code where uid='$number'";
-$result=mysql_query($query) or die($query);
-$row=mysql_fetch_assoc($result);
-$ou_name=stripslashes($row['name']);
-$ou_subject=stripslashes($row['subject']);
-$ou_passwd=$row['passwd'];
-$ou_notify=$row['notify'];
-$ou_signdate=date("Y-m-d",$row['signdate']);
-$ou_ipInfo=$row['ipInfo'];
-$ou_ref=$row['ref'];
-$ou_userFile1Name=$row['userFile1Name'];
-$ou_userFile2Name=$row['userFile2Name'];
-$ou_comment=stripslashes($row['comment']);
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>boardRead</title>
-<link rel="stylesheet" type="text/css" href="css/common1.css" />
-<link rel="stylesheet" type="text/css" href="css/layout.css" />
-<link rel="stylesheet" type="text/css" href="css/boardRead.css" />
-<script type="text/javascript" src="common/jslb_ajax.js"></script>
-<script type="text/javascript" src="common/common2.js"></script>
-<script type="text/javascript">
-window.onload=function() {
-	var obj=document.getElementById("jjList").getElementsByTagName("a");
-	for(var i=0; i < obj.length;i++) {
-		if(obj[i].addEventListener) {
-			obj[i].addEventListener("click",showChBox,false);
-		} else {
-			obj[i].attachEvent("onclick",showChBox);
-		}
-	}
+$code = $_GET['code'];
+$page = $_GET['page'];
+$key = $_GET['key'];
+$keyfield = $_GET['keyfield'];
+$number = $_GET['number'];
+$query = "select * from $code where uid='$number'";
+$result = mysql_query($query) or die($query);
+$row = mysql_fetch_assoc($result);
+$ou_name = stripslashes($row['user_id']);
+$ou_subject = stripslashes($row['title']);
+$ou_signdate = $row['qna_reg_date'];
+$ou_ipInfo = $row['ipinfo'];
+$ou_userFile1Name = $row['userFile1Name'];
+$ou_userFile2Name = $row['userFile2Name'];
+$ou_comment = stripslashes($row['comment']);
+$goods_seq = $row["goods_seq"];
+$buy_goods_seq = $row["buy_goods_seq"];
+$goods_query = "SELECT * FROM goods WHERE id='$goods_seq'";
+$goods_result = mysql_query($goods_query) or dir("boardRead");
+$goods_row = mysql_fetch_array($goods_result);
+$goods_name = $goods_row["goods_name"];
+$goods_code = $goods_row["goods_code"];
+$upload_timage_query = "SELECT ImageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id asc limit 0,1";
+
+$upload_timage_result = mysql_query($upload_timage_query) or die("boardRead");
+$upload_timage_row = mysql_fetch_array($upload_timage_result);
+$imagename = $upload_timage_row["ImageName"];
+$imgsrc = "../userFiles/images/brandImages/$imagename";
+
+$qna_data = $_POST["qna_data"];
+if($qna_data != ""){
+    $in_uid = $_POST["uid"];
+    $in_qna_reg_date = date("Y-m-d H:i:s",time());
+    $in_ipInfo = get_real_ip();
+    $in_qna_data = $_POST["qna_data"];
+    $query = "INSERT INTO tbl_bbs_comment (puid,user_id,comment,qna_reg_date,ipInfo) VALUES ('$in_uid','$uname','$in_qna_data','$in_qna_reg_date','$in_ipInfo')";
+    mysql_query($query) or die("boardRead");
 }
-</script>
-</head>
-<body>
-<div id="total">
-    <? include("include/include.header.php"); ?>
+$del_data = $_POST["del_data"];
+if($del_data != ""){
+    mysql_query("DELETE FROM tbl_bbs_comment WHERE uid='$del_data'");
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>boardRead</title>
+        <link rel="stylesheet" type="text/css" href="css/common1.css"/>
+        <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+        <link rel="stylesheet" type="text/css" href="css/boardRead.css"/>
+        <link rel="stylesheet" type="text/css" href="layer/skin/layer.css"/>
+        <script type="text/javascript" src="common/jslb_ajax.js"></script>
+        <script type="text/javascript" src="common/common2.js"></script>
+        <script src="assets/plugins/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                var obj = document.getElementById("jjList").getElementsByTagName("a");
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].addEventListener) {
+                        obj[i].addEventListener("click", showChBox, false);
+                    } else {
+                        obj[i].attachEvent("onclick", showChBox);
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="total">
+            <style type="text/css">
+                #total{
+                    width:100%;
+                }
+                .qna_border {
+                    width:100%;
+                    border-collapse: collapse;
+                }
+                .qna_border th{
+                    border-top:1px solid #ccc;
+                    border-bottom:1px solid #ccc;
+                    padding: 0px 10px;
+                    height:35px;
+                    line-height:35px;
+                    text-align: left;
+                    background-color:#ddd;
+                }
+                .qna_border td {
+                    border-top:1px solid #ccc;
+                    border-bottom:1px solid #ccc;
+                    padding:10px;
+                }
+            </style>
+            <div id="main" style="width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" class="qna_border">
+                    <tr>
+                        <th style="width:120px;">작성일</th>
+                        <td><?= $ou_signdate ?></td>
+                    </tr>
+                    <tr>
+                        <th style="width:120px;">제목</th>
+                        <td><?= $ou_subject ?></td>
+                    </tr>
+                    <tr>
+                        <th style="width:120px;">이름</th>
+                        <td><?= $ou_name ?></td>
+                    </tr>
+                    <tr>
+                        <th style="width:120px;">상품정보</th>
+                        <td>
+                            <a href="http://sozo.bestvpn.net/item_view.php?code=<?=$goods_code?>" target="_blank" style="line-height: 50px;height:50px;vertical-align:top;">
+                                <img src="<?= $imgsrc ?>" width="50" height="50"><?= $goods_name ?>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:120px;">이름</th>
+                        <td><?= $ou_name ?></td>
+                    </tr>
+                    <tr>
+                        <th style="width:120px;">내용</th>
+                        <td><?= $ou_comment ?></td>
+                    </tr>
+                </table>
 
-	<div id="main" style="width:99%;">
-		<dl id="readContent" style="width: 97%;">
-			<dt>작성일</dt>
-			<dd><?=$ou_signdate?></dd>
-			<dt>조회수</dt>
-			<dd><?=$ou_ref?></dd>
-			<dt>제목</dt>
-			<dd><?=$ou_subject?></dd>
-			<dt>이름</dt>
-			<dd><?=$ou_name?></dd>
-			<dt>파일1</dt>
-			<dd><a href="downFile.php?code=<?=$code?>&number=<?=$number?>&fileNum=1"><?=$ou_userFile1Name?></a></dd>
-			<dt>파일2</dt>
-			<dd><a href="downFile.php?code=<?=$code?>&number=<?=$number?>&fileNum=2"><?=$ou_userFile2Name?></a></dd>
-			<dt>공지사항</dt>
-			<dd><input type="checkbox" name="notify" value="Y" <?if($ou_notify=='Y'){echo "checked='checked'";}?> />(공지글일 경우 체크합니다.)</dd>
-			<dt>내용</dt>
-			<dd class="inputDate">
-				<?php
-					$sBasePath ="fckeditor/";
 
-					$oFCKeditor = new FCKeditor('comment');
-					$oFCKeditor->BasePath	= $sBasePath;
-					$oFCKeditor->Width='90%';
-					$oFCKeditor->Height=500;
-					$oFCKeditor->Value=$ou_comment;
-					$oFCKeditor->ToolbarSet='BoardSet'; 					//fckconfig.js P99
-					$oFCKeditor->Create();
-				?>
-			</dd>
-		</dl>
-		<div class="buttonBox">
-			<?
-				if($ou_notify=='N') {
-			?>
-			<input type="Image" src="img/btn_opinion1.gif" alt="답변" width="59" height="25"	onclick="location.href='boardReply.php?code=<?=$code?>&number=<?=$number?>'" />
-			<?
-			}
-			?>
-			<input type="Image" src="img/btn_modify2.gif" alt="수정" width="63" height="25" onclick="checkPasswd('modify')" />
-			<input type="Image" src="img/btn_delete2.gif" alt="삭제" onclick="checkPasswd('delete')" id="Delete" tUrl="chPasswd.php?code=<?=$code?>&number=<?=$number?>&key=<?=$key?>&keyfield=<?=$keyfield?>&page=<?=$page?>" />
-			<input type="Image" src="img/netpop_btnall.gif" alt="목록" onclick="location.href='boardList.php?code=<?=$code?>&key=<?=$key?>&keyfield=<?=$keyfield?>'"/>
-		</div>
-		<div id="jjList">
-			<?php
-			$jjCode=$code."_comment";
-			$query="select uid,name,comment,signdate,ipInfo from $jjCode where puid='$number' order by uid asc";
-			$result=mysql_query($query) or die($query);
-			while($row=mysql_fetch_assoc($result)) {
-				$ou_uid=$row["uid"];
-				$ou_name=stripslashes($row["name"]);
-				$ou_comment=nl2br(stripslashes($row["comment"]));
-				$ou_signdate=date("Y-m-d: H:i:s",$row["signdate"]);
-				$ou_ipInfo=$row["ipInfo"];
-			?>
-			<table cellpadding="1" cellspacing="1" bgcolor="#333333" border="0" width="90%" id="jjokUnit<?=$ou_uid?>" class="jjokTbl">
-				<colgroup>
-					<col width="10%" align="center"  valign="center"/>
-					<col width="50%" align="center"  valign="center"/>
-					<col width="20%" align="center"  valign="center"/>
-					<col width="15%" align="center"  valign="center"/>
-				</colgroup>
-				<tr bgcolor="#ffffff">
-					<td valign="center"><?=$ou_name?></td>
-					<td valign="center"><?=$ou_comment?></td>
-					<td valign="center"><?=$ou_signdate?><br /><?=$ou_ipInfo?></td>
-					<td valign="center"><a href="#A" type="x" jjuid="<?=$ou_uid?>" tQuery="<?=$_SERVER['QUERY_STRING']?>">
-									<img src="img/reply_delete.gif" alt="" /></a>
-						  <a href="#A" type="e" jjuid="<?=$ou_uid?>" tQuery="<?=$_SERVER['QUERY_STRING']?>">
-							 		<img src="img/reply_check.gif" alt="" /></a>
-					</td>
-				</tr>
-			</table>
-			<?
-			}
-			?>
-		</div>
-		<div class="jjokInputForm">
-		<?
-		if($ou_notify=='N') {
-		?>
-		<form name="jjokInputForm">
-			<table cellpadding="0" cellspacing="1" border="0" width="610" bgcolor="#163973">
-				<colgroup bgcolor="#f4f4f4">
-					<col width="15%" align="center" />
-					<col width="30%" />
-					<col width="15%" align="center" />
-					<col width="30%" />
-					<col width="10%" />
-				</colgroup>
-				<tr bgcolor="#eaebea">
-					<td>Name:</td>
-					<td class="Whrmf"><input type="text" name="jjName" id="jjName" size="18" class="border" /></td>
-					<td>Password:</td>
-					<td><input type="Password" name="jjPasswd" id="jjPasswd" size="18" class="border" /></td>
-					<td rowspan="2" bgcolor="#ffffff">
-					<a href="#A">
-						<img src="img/tgs14_tmp.gif" id="jjBtn" onclick="checkJJForm()" tQuery="<?=$_SERVER['QUERY_STRING']?>" />
-					</a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" bgcolor="#eaebea">
-					<textarea name="jjComment" id="jjComment" cols="75%" rows="3"></textarea>
-					</td>
-				</tr>
-			</table>
-		</form>
-		<?
-		}
-		?>
-		<!------jjokModiForm------>
-		<form name="jjokModiForm" id="jjokModiForm">
-			<input type="hidden" name="jjuid" />
-			<table width="610" border="0" cellpadding="3" cellspacing="1">
-				<colgroup>
-					<col width="10%" align="center" />
-					<col width="40%" />
-					<col width="10%" align="center" />
-					<col width="22%" />
-					<col width="18%" />
-				</colgroup>
-				<tr>
-					<td>작성자</td>
-					<td>
-							<input type="text" name="jjName" size="18" class="border" />
-					</td>
-				</tr>
-				<tr>
-				<td>내용</td>
-				<td colspan="3"><textarea name="jjComment" class="comCon"></textarea></td>
-				<td>
-					<input type="button" value="확인" class="memEleB" onclick="checkJJMForm(this)" tQuery="<?=$_SERVER['QUERY_STRING']?>&type=modify" />				
-					<input type="button" value="취소" class="memEleB" onclick="this.form.reset();this.form.style.display='none'" />
-				</td>
-				</tr>
-			</table>
-		</form>
-		<!-------jjokDelForm------->
-		<form name="jjokDelForm" id="jjokDelForm">
-			<input type="hidden" name="jjuid" />
-			<table border="0" cellpadding="3" cellspacing="0">
-				<tr>
-					<td>
-						<input type="button" value="삭제" class="memEleB" tQuery="<?=$_SERVER['QUERY_STRING']?>&type=delete" onclick="checkJJDForm(this)" />
-						<input type="button" value="취소" class="memEleB" onclick="this.form.reset();this.form.style.display='none'" />
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	</div>
-	<iframe name="action_frame" width="610"  height="100" style="display:none"></iframe>
-</div>
-</body>
+                <table border="0" cellpadding="0" cellspacing="0" class="qna_border">
+                    <form name="dataForm" id="dataForm" action="" method="post">
+                        <input type="hidden" name="uid" value="<?=$number?>" />
+                    <tr>
+                        <td>
+                            <textarea name="qna_data" style="width:100%;height: 66px;border:1px solid #ccc;padding:5px;"></textarea>
+                        </td>
+                        <td style="width:80px;text-align: center;">
+                            <input type="submit" class="memEleB" value="답변" style="width:100%;height:80px;">
+                        </td>
+                    </tr>
+                    </form>
+                </table>
+
+
+                <table border="0" cellpadding="0" cellspacing="0" class="qna_border">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="*">
+                        <col width="20%">
+                        <col width="8%">
+                    </colgroup>
+                    <thead>
+                        <?php
+                        $jjCode = $code . "_comment";
+                        $query = "SELECT count(uid) FROM $jjCode WHERE puid='$number'";
+                        $result = mysql_query($query) or die("borderRead");
+                        $count = mysql_result($result,0,0);
+                        if($count > 0){
+                            $query = "select * from $jjCode where puid='$number' order by uid asc";
+                            $result = mysql_query($query) or die($query);
+
+                            while ($row = mysql_fetch_assoc($result)) {
+                                $ou_uid = $row["uid"];
+                                $ou_name = stripslashes($row["user_id"]);
+                                $ou_comment = nl2br(stripslashes($row["comment"]));
+                                $ou_signdate = $row["qna_reg_date"];
+                                $ou_ipInfo = $row["ipInfo"];
+                        ?>
+                        <tr>
+                            <form name="del_form" action="" method="post">
+                                <input type="hidden" name="del_data" value="<?=$ou_uid?>"/>
+                            <td><?=$ou_name?></td>
+                            <td><?=$ou_comment?></td>
+                            <td><?=$ou_signdate?></th>
+                            <td><input type="submit" class="memEleB" value="삭제""></td>
+                            </form>
+                        </tr>
+                        <?
+                            }
+                        }else{
+                        ?>
+                        <tr>
+                            <th colspan="4">등록된 댓글이 없습니다.</th>
+                        </tr>
+                        <?
+                        }
+                        ?>
+                    </thead>
+                </table>
+            </div>
+            <script>
+                tinymce.init({
+                    selector: "textarea#elm1",
+                    language : "ko_KR",
+                    theme: "modern",
+                    menubar: false,
+                    height:300,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                        "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | preview",
+                    style_formats: [
+                        {title: 'Bold text', inline: 'b'},
+                        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                        {title: 'Example 1', inline: 'span', classes: 'example1'},
+                        {title: 'Example 2', inline: 'span', classes: 'example2'},
+                        {title: 'Table styles'},
+                        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                    ]
+                });
+            </script>
+            <iframe name="action_frame" width="610" height="100" style="display:none"></iframe>
+        </div>
+    </body>
 </html>
