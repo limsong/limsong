@@ -34,6 +34,7 @@
                   $query = "SELECT * FROM buy $addQuery ORDER BY buy_seq DESC limit $first,$bnum_per_page";
                   $result = mysql_query($query) or die($query);
                   $index = 1;
+                  $count = count($result);
                   while ($row = mysql_fetch_assoc($result)) {
                         $buy_seq = $row["buy_seq"];
                         $ou_name = $row["buy_user_name"];

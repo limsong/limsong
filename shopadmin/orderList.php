@@ -81,7 +81,48 @@ if ($total_record == 0) {
     <body>
         <div id="total">
             <? include("include/include.header.php"); ?>
-            <div id="left">
+
+            <div id="main" style="float: right;">
+                <?
+                switch ($ou_delivery) {
+                    case 0:
+                        include_once("buy.php");
+                        break;
+                    case 1:
+                        include_once("buy_pay_wait.php");
+                        break;
+                    case 2:
+                        include_once("buy_pay_ok.php");
+                        break;
+                    case 4:
+                        include_once("buy_dlv_wait.php");
+                        break;
+                    case 8:
+                        include_once("buy_dlv_ing.php");
+                        break;
+                    case 16:
+                        include_once("buy_dlv_ok.php");
+                        break;
+                    case "32_1":
+                        include_once("buy_cancel.php");
+                        break;
+                    case "128_4":
+                        include_once("buy_refund.php");
+                        break;
+                    case "512":
+                        include_once("buy_return.php");
+                        break;
+                    case "8192":
+                        include_once("buy_exch.php");
+                        break;
+                    case "order":
+                        include_once("buy_order.php");
+                        break;
+                }
+
+                ?>
+            </div>
+            <div id="left" style="float:left;">
                 <ul id="x">
                     <?
                     //주문상태(bitwise) - 0:주문중, 1:입금대기, 2:입금완료, 4:배송대기, 8:배송중, 16:배소완료, 32:취소신청, 64:취소완료, 128:환불신청, 256:환불완료,
@@ -91,7 +132,7 @@ if ($total_record == 0) {
                     <li class="TitleLi1">주문관리</li>
                     <li class="ml10">
                         <a <?php if ($ou_delivery == "1") echo "class='active'"; ?>
-                            href="orderList.php?delivery=1">입금대기중
+                            href="orderList.php?delivery=1">입금대기중(<?=$count_pay_wait?>)
                         </a>
                     </li>
                     <li class="ml10">
@@ -167,46 +208,6 @@ if ($total_record == 0) {
                         <a href="#">주문관련 설정</a>
                     </li>
                 </ul>
-            </div>
-            <div id="main">
-                <?
-                switch ($ou_delivery) {
-                    case 0:
-                        include_once("buy.php");
-                        break;
-                    case 1:
-                        include_once("buy_pay_wait.php");
-                        break;
-                    case 2:
-                        include_once("buy_pay_ok.php");
-                        break;
-                    case 4:
-                        include_once("buy_dlv_wait.php");
-                        break;
-                    case 8:
-                        include_once("buy_dlv_ing.php");
-                        break;
-                    case 16:
-                        include_once("buy_dlv_ok.php");
-                        break;
-                    case "32_1":
-                        include_once("buy_cancel.php");
-                        break;
-                    case "128_4":
-                        include_once("buy_refund.php");
-                        break;
-                    case "512":
-                        include_once("buy_return.php");
-                        break;
-                    case "8192":
-                        include_once("buy_exch.php");
-                        break;
-                    case "order":
-                        include_once("buy_order.php");
-                        break;
-                }
-
-                ?>
             </div>
         </div>
     </body>
