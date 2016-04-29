@@ -326,47 +326,7 @@
 
 
     <!-- JS -->
-
-    <!-- jquery-1.11.3.min js
-    ============================================ -->
-    <script src="js/vendor/jquery-1.11.3.min.js"></script>
-    <!-- price-slider js -->
-    <script src="js/price-slider.js"></script>
-    <!-- bootstrap js
-    ============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- nevo slider js
-    ============================================ -->
-    <script src="js/jquery.nivo.slider.pack.js"></script>
-    <!-- owl.carousel.min js
-    ============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- count down js
-    ============================================ -->
-    <script src="js/jquery.countdown.min.js" type="text/javascript"></script>
-    <!--zoom plugin
-    ============================================ -->
-    <script src='js/jquery.elevatezoom.js'></script>
-    <!-- wow js
-    ============================================ -->
-    <script src="js/wow.js"></script>
-    <!--Mobile Menu Js
-    ============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-    <!-- jquery.fancybox.pack js -->
-    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
-    <!-- jquery.scrollUp js
-    ============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <!-- mixit-up js
-    ============================================ -->
-    <script src="js/jquery.mixitup.min.js"></script>
-    <!-- plugins js
-    ============================================ -->
-    <script src="js/plugins.js"></script>
-    <!-- main js
-    ============================================ -->
-    <script src="js/main.js"></script>
+    <? include_once("js.php") ?>
 
     <script type="text/javascript">
         $(".cancel").click(function () {

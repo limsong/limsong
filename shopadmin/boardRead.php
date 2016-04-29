@@ -19,24 +19,31 @@ $ou_userFile2Name = $row['userFile2Name'];
 $ou_comment = stripslashes($row['comment']);
 $goods_seq = $row["goods_seq"];
 $buy_goods_seq = $row["buy_goods_seq"];
-$goods_query = "SELECT * FROM goods WHERE id='$goods_seq'";
-$goods_result = mysql_query($goods_query) or dir("boardRead");
-$goods_row = mysql_fetch_array($goods_result);
-$goods_name = $goods_row["goods_name"];
-$goods_code = $goods_row["goods_code"];
-$upload_timage_query = "SELECT ImageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id asc limit 0,1";
+$qna_mod = $row["qna_mod"];
+$cate_code = $row["cate_code"];
+if($qna_mod == "0") {
+    $goods_query = "SELECT * FROM goods WHERE id='$goods_seq'";
+    $goods_result = mysql_query($goods_query) or dir("boardRead");
+    $goods_row = mysql_fetch_array($goods_result);
+    $goods_name = $goods_row["goods_name"];
+    $goods_code = $goods_row["g$oods_code"];
+    $upload_timage_query = "SELECT ImageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id asc limit 0,1";
 
-$upload_timage_result = mysql_query($upload_timage_query) or die("boardRead");
-$upload_timage_row = mysql_fetch_array($upload_timage_result);
-$imagename = $upload_timage_row["ImageName"];
-$imgsrc = "../userFiles/images/brandImages/$imagename";
+    $upload_timage_result = mysql_query($upload_timage_query) or die("boardRead");
+    $upload_timage_row = mysql_fetch_array($upload_timage_result);
+    $imagename = $upload_timage_row["ImageName"];
+    $imgsrc = "../userFiles/images/brandImages/$imagename";
+}
 
 $qna_data = $_POST["qna_data"];
+$mod = $_POST["mod"];//onetoone or goods_qna
 if($qna_data != ""){
     $in_uid = $_POST["uid"];
     $in_qna_reg_date = date("Y-m-d H:i:s",time());
     $in_ipInfo = get_real_ip();
     $in_qna_data = $_POST["qna_data"];
+    $query = "UPDATE tbl_bbs set qna_status='$qna_status' WHERE uid='$in_uid'";
+    mysql_query($query) or die("boardRead");
     $query = "INSERT INTO tbl_bbs_comment (puid,user_id,comment,qna_reg_date,ipInfo) VALUES ('$in_uid','$uname','$in_qna_data','$in_qna_reg_date','$in_ipInfo')";
     mysql_query($query) or die("boardRead");
 }
@@ -98,6 +105,16 @@ if($del_data != ""){
             </style>
             <div id="main" style="width:100%;">
                 <table border="0" cellpadding="0" cellspacing="0" class="qna_border">
+                    <?php
+                    if($qna_mod=="1") {
+                    ?>
+                    <tr>
+                        <th style="width:120px;">분류</th>
+                        <td><?= $cate_code ?></td>
+                    </tr>
+                    <?php
+                    }
+                    ?>
                     <tr>
                         <th style="width:120px;">작성일</th>
                         <td><?= $ou_signdate ?></td>
@@ -110,20 +127,23 @@ if($del_data != ""){
                         <th style="width:120px;">이름</th>
                         <td><?= $ou_name ?></td>
                     </tr>
+                    <?
+                    if($qna_mod == "0") {
+                    ?>
                     <tr>
                         <th style="width:120px;">상품정보</th>
                         <td>
-                            <a href="http://sozo.bestvpn.net/item_view.php?code=<?=$goods_code?>" target="_blank" style="line-height: 50px;height:50px;vertical-align:top;">
+                            <a href="http://sozo.bestvpn.net/item_view.php?code=<?= $goods_code ?>" target="_blank"
+                               style="line-height: 50px;height:50px;vertical-align:top;">
                                 <img src="<?= $imgsrc ?>" width="50" height="50"><?= $goods_name ?>
                             </a>
                         </td>
                     </tr>
+                    <?
+                    }
+                    ?>
                     <tr>
-                        <th style="width:120px;">이름</th>
-                        <td><?= $ou_name ?></td>
-                    </tr>
-                    <tr>
-                        <th style="width:120px;">내용</th>
+                        <th style="width:120px;">내용</th> 
                         <td><?= $ou_comment ?></td>
                     </tr>
                 </table>
@@ -132,6 +152,7 @@ if($del_data != ""){
                 <table border="0" cellpadding="0" cellspacing="0" class="qna_border">
                     <form name="dataForm" id="dataForm" action="" method="post">
                         <input type="hidden" name="uid" value="<?=$number?>" />
+                        <input type="hidden" name="mod" value="<?=$qna_mod?>" />
                     <tr>
                         <td>
                             <textarea name="qna_data" style="width:100%;height: 66px;border:1px solid #ccc;padding:5px;"></textarea>

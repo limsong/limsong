@@ -86,6 +86,7 @@ $bbs_code = $_GET["bbs_code"];
                         include_once ("faq.php");
                         break;
                     case "user_onetoone":
+                        $title = "QNA";
                         $addQuery .= " qna_mod='1'";
                         $query = "select count(*) from $code ";
                         $result = mysql_query($query) or die($query);
@@ -136,7 +137,7 @@ $bbs_code = $_GET["bbs_code"];
                     </li>
                     <li class="ml10">
                         <a <?php if ($bbs_code == "user_onetoone") echo "class='active'"; ?>
-                            href="boardList.php?bbs_code=user_onetoone">1:1 상담 관리
+                            href="boardList.php?bbs_code=user_onetoone">QNA
                         </a>
                     </li>
 
@@ -167,7 +168,7 @@ $bbs_code = $_GET["bbs_code"];
                     var url = 'http://sozo.bestvpn.net/shopadmin/boardRead.php?'+code;
                     layer.open({
                         type: 2,
-                        title: '상품문의',
+                        title: '',
                         shadeClose: true,
                         shade: 0.8,
                         area: ['70%', '90%'],
