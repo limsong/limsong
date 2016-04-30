@@ -17,7 +17,7 @@ $tbl_bbs_comment = $db_query[0]["comment"];
 $qna_status = $db_query[0]["qna_status"];
 
 
-$db->query("SELECT * FROM tbl_bbs_comment WHERE puid='$tdata' AND user_id='$uname'");
+$db->query("SELECT * FROM tbl_bbs_comment WHERE puid='$tdata'");
 $db_bbs_comment_query = $db->loadRows();
 $user_id = $db_bbs_comment_query[0]["user_id"];
 $tbl_bbs_comment_comment = $db_bbs_comment_query[0]["comment"];

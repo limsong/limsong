@@ -56,10 +56,21 @@ if($del_qna != ""){
                                     $db->query("SELECT * FROM tbl_bbs WHERE user_id='$uname' AND qna_mod='1'");
                                     $dbdata = $db->loadRows();
                                     $count = count($dbdata);
+                                    $qna_mod0=0;$qna_mod1=0;$qna_mod2=0;
+                                    for($i=0;$i<$count;$i++){
+                                            $qna_mod = $dbdata[$i]["qna_mod"];
+                                            if($qna_mod=="0"){
+                                                    $qna_mod0++;
+                                            }elseif($qna_mod=="1"){
+                                                    $qna_mod1++;
+                                            }else{
+                                                    $qna_mod2++;
+                                            }
+                                    }
                                     ?>
                                     <div class="col-md-12 no-padding">
                                         <ul style="width:100%;margin:10px 0px;float:left;">
-                                            <li style="float: left;">총 상담문의 <b><?=$count?></b>건&nbsp;&nbsp;&nbsp;&nbsp;완료 <b>2</b>건&nbsp;&nbsp;&nbsp;&nbsp;대기 <b>2</b>건&nbsp;&nbsp;&nbsp;&nbsp;보류 <b>2</b>건</li>
+                                            <li style="float: left;">총 상담문의 <b><?=$count?></b>건&nbsp;&nbsp;&nbsp;&nbsp;완료 <b><?=$qna_mod0?></b>건&nbsp;&nbsp;&nbsp;&nbsp;대기 <b><?=$qna_mod1?></b>건&nbsp;&nbsp;&nbsp;&nbsp;보류 <b><?=$qna_mod2?></b>건</li>
                                             <li style="float: right;">
                                                 <button type="button" class="buynow btn btn-purple btn-xs waves-effect waves-light my_qna" data-mod="my_qna">상담등록</button>
                                             </li>
@@ -92,6 +103,8 @@ if($del_qna != ""){
                                             if($qna_status == 0){
                                                 $btn = '<button type="button" class="buynow btn btn-default btn-xs waves-effect waves-light">미답변</button>
                                                         <button type="submit" class="buynow btn btn-default btn-xs waves-effect waves-light">답변취소</button>';
+                                            }else{
+                                                    $btn = '답변완료';
                                             }
                                             $db->query("SELECT goods_code,goods_name FROM goods WHERE id='$goods_seq'");
                                             $db_goods = $db->loadRows();
@@ -175,7 +188,7 @@ if($del_qna != ""){
                     $("#myModalLabel").text("qna");
                     $(".modal-body").html("");
                     add_goods(response);
-                    //$(".modal-footer").css("display", "none");
+                    $(".modal-footer").css("display", "block");
                 }
             });
         });
