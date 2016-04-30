@@ -476,14 +476,16 @@
                         });
                 });
                 $(".bbs").click(function () {
-                        var tdata = $(this).attr("data");//goods_qna onetoone
+                        var tdata = $(this).attr("data");//goods_qna onetoone goods_review
                         var goods_seq = $(this).attr("goods-seq");
                         var buy_goods_seq = $(this).attr("buy-goods-seq");
                         var mod = $(this).attr("mod");//buy_goods ,buy_option
                         if (tdata == "goods_qna") {
                                 var str = "상품문의";
-                        } else {
+                        } else if(tdata=="onetoone"){
                                 var str = "1:1상담";
+                        }else{
+                                var str = "구매후기";
                         }
                         var form_data = {
                                 tdata: tdata,
