@@ -37,7 +37,6 @@ if($del_qna != ""){
                     }
 
                     .table-bordered {
-                        border: none;
                         border-bottom: 1px solid #ddd;
                     }
 
@@ -47,7 +46,7 @@ if($del_qna != ""){
                     }
                 </style>
 
-                <div class="col-md-9 col-lg-10 no-padding">
+                <div class="col-md-9 col-lg-10">
                     <section class="cart-area-wrapper">
                         <div class="container-fluid">
                             <div class="row cart-top">
@@ -68,7 +67,7 @@ if($del_qna != ""){
                                             }
                                     }
                                     ?>
-                                    <div class="col-md-12 no-padding">
+                                    <div class="col-md-12">
                                         <ul style="width:100%;margin:10px 0px;float:left;">
                                             <li style="float: left;">총 상담문의 <b><?=$count?></b>건&nbsp;&nbsp;&nbsp;&nbsp;완료 <b><?=$qna_mod0?></b>건&nbsp;&nbsp;&nbsp;&nbsp;대기 <b><?=$qna_mod1?></b>건&nbsp;&nbsp;&nbsp;&nbsp;보류 <b><?=$qna_mod2?></b>건</li>
                                             <li style="float: right;">

@@ -29,7 +29,7 @@ if ($qna_mod == "0") {
         $goods_result = mysql_query($goods_query) or dir("boardRead");
         $goods_row = mysql_fetch_array($goods_result);
         $goods_name = $goods_row["goods_name"];
-        $goods_code = $goods_row["g$oods_code"];
+        $goods_code = $goods_row["goods_code"];
         $upload_timage_query = "SELECT ImageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id asc limit 0,1";
 
         $upload_timage_result = mysql_query($upload_timage_query) or die("boardRead");

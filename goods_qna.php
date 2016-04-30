@@ -45,7 +45,6 @@ if($del_data != ""){
                     }
 
                     .table-bordered {
-                        border: none;
                         border-bottom: 1px solid #ddd;
                     }
 
@@ -55,7 +54,7 @@ if($del_data != ""){
                     }
                 </style>
 
-                <div class="col-md-9 col-lg-10 no-padding">
+                <div class="col-md-9 col-lg-10">
                     <section class="cart-area-wrapper">
                         <div class="container-fluid">
                             <div class="row cart-top">
