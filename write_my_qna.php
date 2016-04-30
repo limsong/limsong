@@ -12,8 +12,8 @@ include_once ("include/sqlcon.php");
 $mod = $_POST["mod"];//qna_goods my_qna
 $date = date("Y.m.d",time());
 $ipinfo = get_real_ip();
-
-$html = '<script src="js/tinymce/tinymce.min.js"></script>
+//<script src="js/tinymce/tinymce.min.js"></script>
+$html = '
     <div class="cart-area-wrapper table-responsive">
     <form name="cancelForm" class="cancelForm" action="bbsPost.php" method="post">
         <input type="hidden" name="mod" value="' . $mod . '">
@@ -83,7 +83,7 @@ $html = '<script src="js/tinymce/tinymce.min.js"></script>
         </table>
     </form>
     ';
-$html .= "
+/*$html .= "
 <script>
         tinymce.init({
             selector: \"textarea#elm1\",
@@ -108,7 +108,7 @@ $html .= "
             ]
     });
     </script>
-";
+";*/
 echo $html;
 $db->disconnect();
 ?>

@@ -18,8 +18,9 @@ if($code2==""){
 }
 $code= $code1.$code2;
 
-$serch_key = $_POST["search"];
+$serch_key =$_POST["search"];
 
+$serch_key = str_replace(' ', '', $serch_key);
 $page=@$_GET["page"];
 if(empty($page))
 	$page=1;

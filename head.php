@@ -451,8 +451,8 @@
                             </div>
                             <div class="search-drop">
                                 <div class="categorys-product-search">
-                                    <form action="shop.php" method="post" class="search-form">
-                                        <div class="search-product form-group">
+                                    <form action="shop.php" method="POST" class="search-form">
+
                                             <!--<select name="catsearch" class="cat-search">
                                                 <option value="">All Categories</option>
                                                 <option value="2">--Women</option>
@@ -467,10 +467,9 @@
                                                 <option value="11">---sports</option>
                                             </select>-->
                                             <input type="text" name="search" class="form-control search-form search-key" placeholder="Enter your search key. "/>
-                                            <button class="search-button" value="검색" type="button">
+                                            <button class="search-button" type="submit">
                                                 <i class="fa fa-search"></i>
                                             </button>
-                                        </div>
                                     </form>
                                 </div>
                             </div>

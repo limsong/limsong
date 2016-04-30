@@ -69,7 +69,7 @@ if($del_qna != ""){
                                     ?>
                                     <div class="col-md-12">
                                         <ul style="width:100%;margin:10px 0px;float:left;">
-                                            <li style="float: left;">총 상담문의 <b><?=$count?></b>건&nbsp;&nbsp;&nbsp;&nbsp;완료 <b><?=$qna_mod0?></b>건&nbsp;&nbsp;&nbsp;&nbsp;대기 <b><?=$qna_mod1?></b>건&nbsp;&nbsp;&nbsp;&nbsp;보류 <b><?=$qna_mod2?></b>건</li>
+                                            <li style="float: left;">총 상담문의 <b><?=$count?></b>건&nbsp;&nbsp;&nbsp;&nbsp;완료 <b><?=$qna_mod1?></b>건&nbsp;&nbsp;&nbsp;&nbsp;대기 <b><?=$qna_mod0?></b>건&nbsp;&nbsp;&nbsp;&nbsp;보류 <b><?=$qna_mod2?></b>건</li>
                                             <li style="float: right;">
                                                 <button type="button" class="buynow btn btn-purple btn-xs waves-effect waves-light my_qna" data-mod="my_qna">상담등록</button>
                                             </li>
