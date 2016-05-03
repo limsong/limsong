@@ -16,6 +16,11 @@ if ($uname != "") {
     </p><![endif]-->
     <!--HEADER AREA SART-->
     <? include_once("sub_head.php"); ?>
+        <style>
+                .row{
+                        margin:0px;
+                }
+        </style>
     <!--HEADER AREA END-->
     <!--BREADCRUMB AREA START-->
     <div class="breadcrumb-area">

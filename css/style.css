@@ -2874,7 +2874,7 @@ padding-right: 15px;
 }
 
 .product-review-area .rating i {
-      color: #6e6e6e;
+      color: #e26a6a;
       font-size: 14px;
 }
 
@@ -2924,7 +2924,7 @@ padding-right: 15px;
 .product-review-area textarea {
       border: 1px solid #ccc;
       border-radius: 3px;
-      height: 80px;
+      height: 180px;
       padding: 10px;
       width: 100%;
       background: #fff;
@@ -4793,7 +4793,7 @@ p.checkout-coupon input[type=submit] {
 }
 
 .rating > input:checked ~ label {
-      color: #6e6e6e;
+      color: #e26a6a;
 }
 
 .rating:not(:checked) > label:hover,
@@ -4806,7 +4806,7 @@ p.checkout-coupon input[type=submit] {
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,
 .rating > label:hover ~ input:checked ~ label {
-      color: #6e6e6e;
+      color: #e26a6a;
 }
 
 .rating > label:active {

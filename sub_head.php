@@ -376,7 +376,6 @@
 									?>
 									<li><a href="mypage.php">my account</a></li>
 									<li><a href="shopping_cart.php">shopping cart</a></li>
-									<li><a href="checkout.php">checkout</a></li>
 									<li><a href="logout.php">logout</a></li>
 									<?
 									}else{

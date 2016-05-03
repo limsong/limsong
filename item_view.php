@@ -470,7 +470,12 @@ $name2 = $_GET["name2"];
                                                                 <a data-toggle="tab" href="#pr-description">상품상세정보</a>
                                                         </li>
                                                         <li>
-                                                                <a data-toggle="tab" href="#pr-reviews">리뷰어(1)</a>
+                                                                <?php
+                                                                $db->query("SElECT * FROM tbl_bbs WHERE qna_mod='2' AND goods_code='$goods_code'");
+                                                                $db_tbl_qna_query = $db->loadRows();
+                                                                $count = count($db_tbl_qna_query);
+                                                                ?>
+                                                                <a data-toggle="tab" href="#pr-reviews">리뷰어(<?=$count?>)</a>
                                                         </li>
                                                 </ul>
                                                 <div class="con tab-content">
@@ -481,30 +486,40 @@ $name2 = $_GET["name2"];
                                                         <div id="pr-reviews" class="tab-pane fade">
                                                                 <!-- 유저 리뷰어 -->
                                                                 <div class="product-comment">
+                                                                        <?php
+                                                                        for($i=0;$i<$count;$i++){
+                                                                                $bbs_ext1 = $db_tbl_qna_query[$i]["bbs_ext1"];
+                                                                                $user_id = $db_tbl_qna_query[$i]["user_id"];
+                                                                                $comment = $db_tbl_qna_query[$i]["comment"];
+                                                                                $qna_reg_date = date("Y.m.d",strtotime($db_tbl_qna_query[$i]["qna_reg_date"]));
+                                                                        ?>
                                                                         <div class="comment-a">
                                                                                 <img src="img/user-1.jpg" alt="">
                                                                                 <div class="comment-text">
                                                                                         <div class="rating">
-                                                                                                <i class="fa fa-star"></i>
-                                                                                                <i class="fa fa-star"></i>
-                                                                                                <i class="fa fa-star"></i>
-                                                                                                <i class="fa fa-star"></i>
-                                                                                                <i class="fa fa-star"></i>
+                                                                                                <?php
+                                                                                                for($j=0;$j<$bbs_ext1;$j++){
+                                                                                                        echo '<i class="fa fa-star"></i>';
+                                                                                                }
+                                                                                                ?>
                                                                                         </div>
                                                                                         <p class="meta">
-                                                                                                <strong>admin</strong> &ndash; 15.08.29
+                                                                                                <strong><?=$user_id?></strong> &ndash; <?=$qna_reg_date?>
                                                                                         </p>
                                                                                         <div class="pro-com-des">
                                                                                                 <p>
-                                                                                                        Lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. in accumsan elit odio quis mi.
+                                                                                                        <?=nl2br($comment)?>
                                                                                                 </p>
                                                                                         </div>
                                                                                 </div>
                                                                         </div>
+                                                                        <?
+                                                                        }
+                                                                        ?>
                                                                         <div class="add-review">
-                                                                                <form name="form-review" method="post" class="form-review">
+                                                                                <form name="form-review" method="post" class="form-review" action="goodsReview.php" target="action_frame">
+                                                                                        <input type="hidden" name="goods_code" value="<?=$goods_code?>">
                                                                                         <p class="comment-form-rating">
-                                                                                        <label>평점</label>
                                                                                         <fieldset class="rating">
                                                                                                 <input type="radio" id="star5" name="rating" value="5" />
                                                                                                 <label for="star5" title="Rocks!"></label>
@@ -514,15 +529,15 @@ $name2 = $_GET["name2"];
                                                                                                 <label for="star3" title="Meh"></label>
                                                                                                 <input type="radio" id="star2" name="rating" value="2" />
                                                                                                 <label for="star2" title="Kinda bad"></label>
-                                                                                                <input type="radio" id="star1" name="rating" value="1" />
+                                                                                                <input type="radio" id="star1" name="rating" value="1" checked />
                                                                                                 <label for="star1" title="Sucks big time"></label>
                                                                                         </fieldset>
                                                                                         </p>
                                                                                         <p class="product-form-comment">
-                                                                                                <textarea aria-required="true" rows="8" cols="45" name="review_data" class="review_data"></textarea>
+                                                                                                <textarea aria-required="true"  name="review_com" class="review_com"></textarea>
                                                                                         </p>
                                                                                         <p class="form-submit">
-                                                                                                <input value="등록 " type="button" class="btn_review">
+                                                                                                <input value="등록 " type="button" class="submit btn_review">
                                                                                         </p>
                                                                                 </form>
                                                                         </div>
@@ -534,6 +549,7 @@ $name2 = $_GET["name2"];
                         </div>
                 </div>
         </div>
+        <iframe name="action_frame" width="600" height="300" style="display: none;" ></iframe>
         <!--PRODUCT REVIEW AREA END-->
         <!--FOOTER AREA START-->
         <? include_once("footer.php") ?>
@@ -1015,6 +1031,14 @@ $name2 = $_GET["name2"];
                                 }
                                 return NaN;
                         }
+
+                        $(".btn_review").click(function () {
+                                if ($(".review_com").val().trim() == "") {
+                                        alert("리뷰어 내용이 비였습니다.");
+                                        return false;
+                                }
+                                $(".form-review").submit();
+                        });
                 });
         </script>
 </body></html>
