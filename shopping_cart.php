@@ -6,7 +6,7 @@
     }else{
         $action = "checkout.php";
     }
-$action = "checkout_mobile.php";
+//$action = "checkout_mobile.php";
 ?>
 <link href="css/shoppingcart.css" rel='stylesheet' type='text/css'>
 <body class="home-1 shop-page cart-page">

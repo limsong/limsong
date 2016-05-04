@@ -936,17 +936,13 @@ $email = $dbshopMembers[0]["email"];
                                                         <tr>
                                                             <td>입금 계좌</td>
                                                             <td>
-                                                                <select id="pay_online_account"
-                                                                        name="pay_online_account">
-                                                                    <option
-                                                                        value="HSBC은행|1234568768">HSBC은행 1234568768
-                                                                    </option>
-                                                                    <option
-                                                                        value="HSBC은행|1234568768">HSBC은행 1234568768
-                                                                    </option>
-                                                                    <option
-                                                                        value="HSBC은행|1234568768">HSBC은행 1234568768
-                                                                    </option>
+                                                                <select id="pay_online_account" name="pay_online_account">
+                                                                    <option value="신한은행|110-450-713612"> 신한은행 110-450-713612 </option>
+                                                                    <option value="NH농협은행|302-9691-9190-81"> NH농협은행 302-9691-9190-81 </option>
+                                                                    <option value="우리은행|1005-802-973145"> 우리은행 1005-802-973145 </option>
+                                                                    <option value="하나은행|1005-802-973145"> 하나은행 810-810810-88607 </option>
+                                                                    <option value="외환은행|1005-802-973145"> 외환은행 630-010490-258 </option>
+                                                                    <option value="KB국민은행|1005-802-973145"> KB국민은행 996-919190-49 </option>
                                                                 </select>
                                                             </td>
                                                         </tr>
