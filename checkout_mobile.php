@@ -6,9 +6,9 @@ include_once("doctype.php");
 require_once('libs/INIStdPayUtil.php');
 $mob = isMobile();
 if ($mob) {
-    echo "mob";
+    //echo "mob";
 } else {
-    echo "pc";
+    //echo "pc";
 }
 $SignatureUtil = new INIStdPayUtil();
 $mid = "INIpayTest";  // 가맹점 ID(가맹점 수정후 고정)

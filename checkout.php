@@ -6,10 +6,9 @@ include_once("doctype.php");
 require_once('libs/INIStdPayUtil.php');
 $mob = isMobile();
 if($mob){
-    echo "mob";
-    exit;
+    //echo "mob";
 }else{
-    echo "pc";
+    //echo "pc";
 }
 $SignatureUtil = new INIStdPayUtil();
 /*
