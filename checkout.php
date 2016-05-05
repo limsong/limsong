@@ -1,16 +1,7 @@
-<?
-
+<?php
 include_once("doctype.php");
-
 /*이니시스 설정 시작*/
 require_once('libs/INIStdPayUtil.php');
-$mob = isMobile();
-if ($mob) {
-        //echo "mob";
-        exit;
-} else {
-        //echo "pc";
-}
 $SignatureUtil = new INIStdPayUtil();
 /*
   //*** 위변조 방지체크를 signature 생성 ***

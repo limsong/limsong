@@ -119,6 +119,17 @@ include_once("session.php");
                 if (( paymethod == "bank")||(paymethod == "wcard")){
                     order_form.P_APP_BASE.value = "ON";
                 }
+                if((paymethod == "vbank")){
+                    //실시간 계좌이체
+                    order_form.P_RESERVED.value = "vbank_receipt=Y";
+                }
+                if((paymethod == "bank")){
+                    order_form.P_RESERVED.value = "bank_receipt=N";
+                }
+                if((paymethod == "wcard")){
+                    order_form.P_RESERVED.value = "twotrs_isp=Y&block_isp=Y&twotrs_isp_noti=N";
+                }
+
 
                 order_form.target = "BTPG_WALLET";
                 order_form.target = "_self";
@@ -162,6 +173,17 @@ include_once("session.php");
             $P_MID = "INIpayTest";    //상점ID  ,  테스트: INIpayTest
             $P_MNAME = iconv("UTF-8", "EUC-KR", "해피정닷컴");  // 상점이름
 
+
+            /* *******************************************************************************
+            *
+            *   계좌이체 P_RETURN_URL(송신정보없음) P_NOTI_URL(입금완료송신
+            *   가상계좌 P_NEXT_URL(인증결과송신) P_NOTI_URL(,채번정보송신, 입금완료송신)
+            *
+             ******************************************************************************* */
+
+
+
+
             // $P_NEXT_URL : VISA3D (가상계좌를 제외한 기타지불수단) , 인증결과를 브라우저에서 해당 URL로 POST 합니다.
             // $P_NEXT_URL ="https://mobile.inicis.com/smart/testmall/next_url_test.php";
             //결제창이 끝난 후 이동할 페이지의 URL입니다. 실험해보진 않았으나 전체 경로를 적어야할 것으로 보입니다
@@ -170,12 +192,13 @@ include_once("session.php");
             // $P_NOTI_URL : 가상계좌, ISP 인증 및 결제 후 상점의 결제 수신 서버URL로 결제 결과를 통보합니다.
             // $P_NOTI_URL = "http://ts.inicis.com/~esjeong/mobile_rnoti/rnoti.php";
             //카드 결제 진행시 결과를 저장할 때 쓰이는 URL입니다. 실험해보진 않았으나 전체 경로를 적어야할 것으로 보입니다.
+            // P_NOTI_URL(입금완료송신)
             $P_NOTI_URL = "http://sozo.bestvpn.net/m/rnoti.php";
 
             // $P_RETURN_URL : ISP 인증 및 결제 완료 후 상점으로 이동하기 위한 APP URL 또는 상점 홈페이지 URL
             // $P_RETURN_URL = "http://ts.inicis.com/~esjeong/mobile_rnoti/rnoti.php";
             //카드 결제 진행 완료시 넘어가는 페이지입니다. 아무런 정보도 받을 수 없는 페이지 입니다. 실험해보진 않았으나 전체 경로를 적어야할 것으로 보입니다.
-            //실시간 계좌이체
+            //P_RETURN_URL(송신정보없음)
             $P_RETURN_URL = "http://sozo.bestvpn.net/mypage.php";
 
             $paymethod = $_POST["paymethod"];
@@ -190,6 +213,8 @@ include_once("session.php");
             <input type="hidden" name="P_EMAIL" value="<?php echo $email;?>"/>
             <input type="hidden" name="P_APP_BASE" value="">
             <input type="hidden" name="paymethod" class="paymethod" value="<?php echo $paymethod;?>">
+            <input type="hidden" name="P_RESERVED" value="">
+            <input type="hidden" name="P_CHARSET" value="utf8">
 
             <input type="hidden" name="P_MID" value="<?php echo $P_MID; ?>"/>
             <input type="hidden" name="P_NEXT_URL" value="<?php echo $P_NEXT_URL; ?>"/>

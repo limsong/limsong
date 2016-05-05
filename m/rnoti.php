@@ -6,26 +6,28 @@
  * Time: 오후 12:34
  */
 header("Content-Type: text/html; charset=euc-kr");
+require_once("../include/config.php");
+require_once ("../include/sqlcon.php");
 $PGIP = $_SERVER['REMOTE_ADDR'];
-include_once("doctype.php");
 if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈는지 IP로 체크
 {
     // 이니시스 NOTI 서버에서 받은 Value
     $P_TID;                // 1 거래번호
     $P_MID;                // 2 상점아이디
     $P_AUTH_DT;            // 3 승인일자
-    $P_STATUS;            // 4 거래상태 (00:성공, 01:실패)
-    $P_TYPE;            // 5 지불수단
+    $P_STATUS;             // 4 거래상태 (00:성공, 01:실패)
+    $P_TYPE;               // 5 지불수단
     $P_OID;                // 6 상점주문번호
-    $P_FN_CD1;            // 7 금융사코드1
-    $P_FN_CD2;            // 8 금융사코드2
-    $P_FN_NM;            // 9 금융사명 (은행명, 카드사명, 이통사명)
+    $P_FN_CD1;             // 7 금융사코드1
+    $P_FN_CD2;             // 8 금융사코드2
+    $P_FN_NM;              // 9 금융사명 (은행명, 카드사명, 이통사명)
     $P_AMT;                // 10 거래금액
-    $P_UNAME;            // 11 결제고객성명
-    $P_RMESG1;            // 12 결과코드
-    $P_RMESG2;            // 13 결과메시지
-    $P_NOTI;            // 14 노티메시지(상점에서 올린 메시지)
+    $P_UNAME;              // 11 결제고객성명
+    $P_RMESG1;             // 12 결과코드('P_VACCT_NO=79010590891926|P_EXP_DT=20160515235900')
+    $P_RMESG2;             // 13 결과메시지
+    $P_NOTI;               // 14 노티메시지(상점에서 올린 메시지)
     $P_AUTH_NO;            // 15 승인번호
+
 
     $P_TID = $_REQUEST[P_TID];
     $P_MID = $_REQUEST[P_MID];
@@ -36,55 +38,73 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
     $P_FN_CD1 = $_REQUEST[P_FN_CD1];
     $P_FN_CD2 = $_REQUEST[P_FN_CD2];
     $P_FN_NM = $_REQUEST[P_FN_NM];
-    $P_FN_NM = $P_FN_NM;
+    $P_FN_NM = iconv("EUC-KR","UTF-8",$P_FN_NM);
     $P_AMT = $_REQUEST[P_AMT];
     $P_UNAME = $_REQUEST[P_UNAME];
-    $P_UNAME = $P_UNAME;
-    $P_RMESG1 = $_REQUEST[P_RMESG1];
+    $P_UNAME = iconv("EUC-KR","UTF-8",$P_UNAME);
+    $P_RMESG1 = iconv("EUC-KR","UTF-8",$_REQUEST["P_RMESG1"]);
     $P_RMESG2 = $_REQUEST[P_RMESG2];
     $P_NOTI = $_REQUEST[P_NOTI];
     $P_AUTH_NO = $_REQUEST[P_AUTH_NO];
-    if($P_TYPE == "VBANK")    //결제수단이 가상계좌이며 실시간 계조이체 BANK 가상계좌 VBANK  카드결제 CARD 
+    if($P_TYPE == "VBANK")    //결제수단이 가상계좌이며 실시간 계조이체 BANK 가상계좌 VBANK  카드결제 CARD
     {
-        if($P_STATUS != "02") //입금통보 "02" 가 아니면(가상계좌 채번 : 00 또는 01 경우)
+        if($P_STATUS == "02") //입금통보 "02" 가 아니면(가상계좌 채번 : 00 또는 01 경우)
         {
+            $pay_date =date("Y-m-d H:i:s",strtotime($P_AUTH_DT));
+            $db->query("UPDATE buy SET pay_date='$pay_date',buy_status='2'");
             echo "OK";
             return;
         }
     }
-    exit;
+    $db->query("SELECT pay_seq FROM buy WHERE pay_seq='$P_TID'");
+    $db_buy_query = $db->loadRows();
+    $count = count($db_buy_query);
+    if($count>0){
+        echo "OK";
+        return;
+    }
 
-    /*                         * ***************************************************************************
-     * 여기에 가맹점 내부 DB에 결제 결과를 반영하는 관련 프로그램 코드를 구현한다.
 
-      [중요!] 승인내용에 이상이 없음을 확인한 뒤 가맹점 DB에 해당건이 정상처리 되었음을 반영함
-      처리중 에러 발생시 망취소를 한다.
-     * **************************************************************************** */
-    $app_time = '';//승인시간 131805
-    $app_date = $P_AUTH_DT;//2016411
-    $app_method = $resultMap["payMethod"];//Card
-    $app_device = $resultMap["payDevice"];//pc
-    $app_card_code = $resultMap["CARD_Code"];//01  카드 종류
-    $app_email = $resultMap["buyerEmail"];//email
-    $app_card_num = $resultMap["CARD_Num"];//411904*********3
-    $app_price = $resultMap["applPrice"];//1000결제금액
-    $app_purchaseName = $resultMap["CARD_PurchaseName"];//외환계열
-    $app_tel = $resultMap["buyerTel"];//010-5387-4806 주문인 전화번호
-    $app_card_bankcode = $resultMap["CARD_BankCode"];//05 카드 발급사
-    $app_pay_seq = $resultMap["tid"];
-    $app_oid = $resultMap["MOID"];
-    $pay_price_mile = 0;//결제금액 적립금
-    $app_ip = get_real_ip();
 
+    $db->query("SELECT * FROM basket WHERE ordernum='$P_OID'");
+    $db_basket_query = $db->loadRows();
 
     $date = date("Y-m-d H:i:s");
-    $bid = $_SESSION[$app_oid . "_bid"];
-    $zipcode = $_SESSION[$app_oid . "_zipcode"];
-    $user_id = $_SESSION[$app_oid . "_user_id"];
-    $phone = $_SESSION[$app_oid . "_phone"];
-    $oldadd = $_SESSION[$app_oid . "_oldadd"];
-    $newadd = $_SESSION[$app_oid . "_newadd"];
-    $alladd = $_SESSION[$app_oid . "_alladd"];
+    $bid = $db_basket_query[0]["v_oid"];
+    $zipcode = $db_basket_query[0]["zipcode"];
+    $user_id = $db_basket_query[0]["user_id"];
+    $phone = $db_basket_query[0]["phone"];
+    $oldadd = $db_basket_query[0]["add1"];
+    $newadd = $db_basket_query[0]["add2"];
+    $alladd = $db_basket_query[0]["add3"];
+    $app_ip = $db_basket_query[0]["ipadd"];
+    $ship_message = $db_basket_query[0]["ship_message"];
+    $pay_dlv_fee = $db_basket_query[0]["pay_dlv_fee"];
+    $buy_total_price = $db_basket_query[0]["buy_total_price"];//총상품총액(할인전금액);
+    $buy_instant_discount = $db_basket_query[0]["buy_instant_discount"];//상품 즉시할인 금액(총 할인금액)
+    $buy_user_tel = $db_basket_query[0]["buy_user_tel"];
+    $buy_user_mobile = $db_basket_query[0]["buy_user_mobile"];
+    $buy_user_email = $db_basket_query[0]["buy_user_email"];
+    $uname = $db_basket_query[0]["id"];//id
+
+
+
+    $app_time = '';//승인시간 131805
+    $app_date = $P_AUTH_DT;//2016411
+    $app_method = $P_TYPE;//Card
+    $app_device = "1";//pc
+    $app_card_code = $P_FN_CD1;//01  카드 종류
+    $app_email = "";//$resultMap["buyerEmail"];//email
+    $app_card_num = "";//$resultMap["CARD_Num"];//411904*********3
+    $app_price = $P_AMT;//1000결제금액
+    $app_purchaseName = "";//$resultMap["CARD_PurchaseName"];//외환계열
+    $app_tel = "";//$resultMap["buyerTel"];//010-5387-4806 주문인 전화번호
+    $app_card_bankcode = "";//$resultMap["CARD_BankCode"];//05 카드 발급사
+    $app_pay_seq = $P_TID;
+    $app_oid = $P_OID;
+    $pay_price_mile = 0;//결제금액 적립금
+
+
 
     $bidArr = explode("_", $bid);
     $count = count($bidArr);
@@ -97,33 +117,61 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
         }
     }
 
-    $ship_message = $_SESSION[$app_oid . "_ship_message"];
+
     if ($app_method == "CARD") {
+        /*
+         * P_CARD_NUM 카드번호
+         * P_CARD_ISSUER_CODE 발급사 코드
+         * P_CARD_MEMBER_NUM 가맹점번호
+         * P_CARD_PURCHASE_CODE 매입사 코드
+         * P_CARD_PRTC_CODE  부분취소 가능여부
+         * P_CARD_INTEREST 무이자 할부여부
+         * P_CARD_CHECKFLAG 체크카드 여부
+         * P_RMESG2 메시지 2 신용카드 할부 개월 수
+         * P_FN_CD1 카드코드
+         * P_AUTH_NO 승인번호
+         * P_ISP_CARDCODE VP 카드코드
+         * P_FN_NM 결제카드한글명
+         * P_EVENT_CODE 이벤트코드 A1,A2 등등
+         * */
+        $pay_info_no = $P_FN_NM."|".$_REQUEST["P_CARD_NUM"];
         $buy_status = "2";
         $app_method = "2";
         $pay_mesg = "결제완료금액";
         $payMethod = "카드";
 
-        $pay_date = date("Y-m-d H:i:s", strtotime($resultMap["applDate"]));//결제완료일
+        $pay_date = date("Y-m-d H:i:s", strtotime($P_AUTH_DT));//결제완료일
     } elseif ($app_method == "VBANK") {//가상계좌
         $buy_status = "1";
         $app_method = "64";
         $pay_mesg = "입금할 금액";
         $payMethod = "가상계좌";
-        $pay_online_name = $resultMap["VACT_InputName"];//송금자
-        $pay_online_account = $resultMap["vactBankName"] . " | " . $resultMap["VACT_Num"];//입금은행명 입금계좌
-        $pay_pre_date = date("Y-m-d", strtotime($resultMap["VACT_Date"])) . " " . date("H:i:s", strtotime($resultMap["VACT_Time"]));//입금예정일
+        $pay_online_name = $P_UNAME;//송금자
+        $P_RMESG1;             // 12 결과코드('P_VACCT_NO=79010590891926|P_EXP_DT=20160515235900')
+        $P_RMESG1Arr = explode("|",$P_RMESG1);
+        $P_RMESG1Arr1 = explode("=",$P_RMESG1Arr[0]);
+        $P_VACT_NUM = $P_RMESG1Arr1[1];
+        $P_RMESG1Arr2 = explode("=",$P_RMESG1Arr[1]);
+        $P_VACT_DATE = $P_RMESG1Arr2[1];
+
+        $pay_online_account = vbankCode($P_FN_CD1) . " | " . $P_VACT_NUM;//입금은행명 입금계좌
+        $pay_pre_date = date("Y-m-d H:i:s", strtotime($P_VACT_DATE));//입금예정일
         //$pay_date = date("Y-m-d H:i:s", strtotime($resultMap["applDate"]));//결제완료일
-    } elseif ($app_method == "DirectBank") {//실시간 게좌이체
+    } elseif ($app_method == "BANK") {//실시간 게좌이체
         $buy_status = "2";
         $app_method = "32";
         $pay_mesg = "결제완료금액";
         $payMethod = "실시간계좌이체";
-        $pay_online_name = $resultMap["VACT_InputName"];//송금자
-        $pay_online_account = vbankCode($resultMap["ACCT_BankCode"]);//입금은행명 입금계좌
+        $pay_online_name = $user_id;//송금자
+        $pay_online_account = vbankCode($P_FN_CD1);//입금은행명 입금계좌
         //$resultMap["CSHR_ResultCode"];//
         //$resultMap["CSHR_Type"];//현금영수증 발급코드구분 (0:소득공제용 1:지출증빙용);
         $pay_date = date("Y-m-d H:i:s", strtotime($resultMap["applDate"]));
+    } elseif($app_method == "MOBILE"){
+        /*
+         * P_HPP_CORP 휴대폰 통신사 SKT, KTF, LGT, SKR, KTR, LGR
+         * P_HPP_NUM 결제 휴대폰 번호
+         * */
     }
 
 
@@ -161,22 +209,19 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
     buy_instant_discount = 상품 즉시할인 금액
     buy_mile_amount = 구매시 지급되는 적립금
     */
+
+
     $buy_goods_add_query = "";
     $user_id = $uname;
     $buy_code = $app_oid;
     $buy_date = $date;
-    $buy_total_price = $_SESSION[$app_oid . "_buy_total_price"];//총상품총액(할인전금액);
     $buy_expect_mile = "";
     $pay_seq = $app_pay_seq;
     $pay_method = $app_method;
     $pay_price_normal = "";
     //$pay_date = $date;//위에있음
-    $pay_info_no = $app_card_num;
     $buy_memo = $ship_message;
-    $buy_user_name = $_SESSION[$app_oid . "_user_id"];
-    $buy_user_tel = $app_tel;
-    $buy_user_mobile = $app_tel;
-    $buy_user_email = $app_email;
+    $buy_user_name = $P_UNAME;
     $buy_user_ip = $app_ip;
     $buy_dlv_name = "";
     $buy_dlv_tel = $phone;
@@ -188,10 +233,8 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
     $buy_dlv_pre_date = "";
     $coupon_data_seq = "";
     $buy_bill_type = "";
-    $buy_instant_discount = $_SESSION[$app_oid . "_buy_instant_discount"];//상품 즉시할인 금액(총 할인금액)
     $buy_mile_amount = "";
-    $pay_dlv_fee = $_SESSION[$app_oid . "_pay_dlv_fee"];
-    $buy_mobile = $resultMap["PayDevice"];
+    $buy_mobile = "1";
 
 
     $db->query("INSERT INTO buy (
@@ -675,148 +718,14 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                         buy_goods_status_type, buy_goods_status_msg, buy_goods_status_sdate, buy_goods_status_edate, buy_goods_open_market,
                         buy_goods_dlv_ok_mileage, buy_goods_add_cancel_type, checkout_product_order_id)
                      VALUES $buy_goods_add_query");
-
-
-}
-else
-{
+} else {
     exit;
 }
+echo "OK";
+/*  ***************************************************************************
+ * 여기에 가맹점 내부 DB에 결제 결과를 반영하는 관련 프로그램 코드를 구현한다.
+
+  [중요!] 승인내용에 이상이 없음을 확인한 뒤 가맹점 DB에 해당건이 정상처리 되었음을 반영함
+  처리중 에러 발생시 망취소를 한다.
+ * **************************************************************************** */
 ?>
-<body class="home-1 checkout-page cart-page">
-    <!--[if lt IE 8]>
-    <p class="browserupgrade">You are using an
-        <strong>outdated</strong>
-        browser. Please
-        <a href="http://browsehappy.com/">upgrade your browser
-        </a>
-        to improve your experience.<![endif]-->
-    <!--header area start-->
-    <!--header area end-->
-    <!--breadcrumb area start-->
-    <div class="breadcrumb-area">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="bread-crumb">
-                        <h1 class="sin-page-title" style="text-align:left;">
-                            <a href="index.php" style="font-size:20px;">BLUE START
-                            </a>
-                            <?php
-                            if (strcmp("0000", $resultMap["resultCode"]) == 0) {
-                                echo "주문완료";
-                            } else {
-                                echo "인증실패";
-                            }
-                            ?>
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--breadcrumb area end-->
-    <!-- checkout-area start -->
-    <div class="checkout-area">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <?php
-                    //WEB 방식의 경우 가상계좌 채번 결과 무시 처리
-                    //(APP 방식의 경우 해당 내용을 삭제 또는 주석 처리 하시기 바랍니다.)
-                    if ($P_TYPE == "VBANK")    //결제수단이 가상계좌이며
-                    {
-                        if ($P_STATUS != "02") //입금통보 "02" 가 아니면(가상계좌 채번 : 00 또는 01 경우)
-                        {
-                            echo "OK";
-                        }
-                    }
-                    ?>
-                </div>
-
-                <div class="col-lg-12 col-md-12">
-                    <div class="your-order">
-                        <div class="your-order-table table-responsive">
-                            <table class="table" style="border-top:2px solid #666;margin-bottom: 30px;">
-                                <tr>
-                                    <td>
-                                        <div class="order-button-payment">
-                                            <input type="button" onclick="location.href='/'"
-                                                   style="background-color:white;color:#333;border:1px solid #ccc;"
-                                                   value="확인">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- checkout-area end -->
-    <!--footer area start-->
-
-    <!--footer area end-->
-
-    <!-- JS -->
-
-    <!-- jquery-1.11.3.min js
-    ============================================ -->
-    <script src="js/vendor/jquery-1.11.3.min.js"></script>
-
-    <!-- price-slider js -->
-    <script src="js/price-slider.js"></script>
-
-    <!-- bootstrap js
-            ============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- nevo slider js
-    ============================================ -->
-    <script src="js/jquery.nivo.slider.pack.js"></script>
-
-    <!-- owl.carousel.min js
-    ============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-
-    <!-- count down js
-    ============================================ -->
-    <script src="js/jquery.countdown.min.js" type="text/javascript"></script>
-
-    <!--zoom plugin
-    ============================================ -->
-    <script src='js/jquery.elevatezoom.js'></script>
-
-    <!-- wow js
-    ============================================ -->
-    <script src="js/wow.js"></script>
-
-    <!--Mobile Menu Js
-    ============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-
-    <!-- jquery.fancybox.pack js -->
-    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
-
-    <!-- jquery.scrollUp js
-    ============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-
-    <!-- jquery.collapse js
-    ============================================ -->
-    <script src="js/jquery.collapse.js"></script>
-
-    <!-- mixit-up js
-            ============================================ -->
-    <script src="js/jquery.mixitup.min.js"></script>
-
-    <!-- plugins js
-    ============================================ -->
-    <script src="js/plugins.js"></script>
-
-    <!-- main js
-    ============================================ -->
-    <script src="js/main.js"></script>
-</body>
-</html>

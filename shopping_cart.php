@@ -1,7 +1,10 @@
 <?php
     include_once("doctype.php");
-    $mob = isMobile();
-    if($mob){
+    include_once("include/Mobile_Detect.php");
+    $detect = new Mobile_Detect;
+    if($detect->isMobile()){
+        $action = "checkout_mobile.php";
+    }elseif($detect->isTablet()){
         $action = "checkout_mobile.php";
     }else{
         $action = "checkout.php";
