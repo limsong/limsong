@@ -7,7 +7,7 @@
 				$sortName_first = substr($sortName, 0,1);
 				$sortName_last = substr($sortName,1);
 				?>
-				<h4><?php echo "$sortName_first".$sortName_last?></h4>
+                                <h4><strong><?=$sortName_first?></strong><?=$sortName_last?></h4>
 			</div>
 			<div class="col-md-3 col-lg-2">
 				<div class="small-cat-menu">

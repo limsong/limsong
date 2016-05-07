@@ -1,12 +1,12 @@
-<?
+<?php
 //header('Content-Type: text/html; charset=utf-8');
 include("common/config.shop.php");
 include("check.php");
-$debug = true;
+$debug = false;
 //option_type 상품 옵션타입* 0 ,1 ,2
 //goods_opt_sel_type  -> option_type 이 2일대 0 : 단일서택 1: 분리선택
 foreach ($_POST as $k => $v) {
-        ${"in_" . $k} = @addslashes($v);
+        ${"in_" . $k} = addslashes($v);
 }
 $in_inputDate = date("Y-m-d H:i:s", time());
 $query = "select goods_code  FROM goods WHERE goods_code like '$in_xcode$in_mcode$in_scode%' order by goods_code desc limit 0,1";
@@ -20,11 +20,11 @@ if ($rows < 1) {
         $in_goods_code = substr("00" . $ou_goods_code, -9);
 }
 $i = 0;
-foreach (@$_POST["sp"] as $key => $value) {
+foreach ($_POST["sp"] as $key => $value) {
         if ($i == 0) {
-                @$in_sp_option .= $value;
+                $in_sp_option .= $value;
         } else {
-                @$in_sp_option .= "-" . $value;
+                $in_sp_option .= "-".$value;
         }
         $i++;
 }
@@ -148,17 +148,17 @@ if ($in_option_type == "1") {
         $mod = false;
         $num = count($in_opName2Arr);
         for ($i = 0; $i < $num; $i++) {
-                @$in_opName2Arr2 = explode(";", $in_opName2Arr[$i]);
-                @$in_commonPriceArr2 = explode(";", $in_commonPriceArr[$i]);
-                @$in_sellPriceArr2 = explode(";", $in_sellPriceArr[$i]);
-                @$in_qtaArr2 = explode(";", $in_qtaArr[$i]);
+                $in_opName2Arr2 = explode(";", $in_opName2Arr[$i]);
+                $in_commonPriceArr2 = explode(";", $in_commonPriceArr[$i]);
+                $in_sellPriceArr2 = explode(";", $in_sellPriceArr[$i]);
+                $in_qtaArr2 = explode(";", $in_qtaArr[$i]);
                   $num2=count($in_qtaArr2);
                 for ($j = 0; $j < $num2; $j++) {
                         if ($mod == false) {
-                                @$strVal = "('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
+                                $strVal = "('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
                                 $mod = true;
                         } else {
-                                @$strVal .= ",('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
+                                $strVal .= ",('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
                         }
                 }
         }
@@ -287,10 +287,10 @@ if ($in_opName3) {
                 $num2 = count($arropValue1_1);
                 for ($k = 0; $k < $num2; $k++) {
                         if ($mod == false) {
-                                @$sql .= "('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
+                                $sql .= "('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
                                 $mod = true;
                         } else {
-                                @$sql .= ",('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
+                                $sql .= ",('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
                         }
                 }
         }
@@ -328,7 +328,7 @@ foreach ($_FILES as $k => $v) {
 }
 $addFields = "";
 $addValues = "";
-for ($i = 0; $i < count(@$arrFieldName); $i++) {
+for ($i = 0; $i < count($arrFieldName); $i++) {
         $fileSource = $arrUploadedFile[$i];
         $insertFileName = $in_goods_code . $i . $arrFieldName[$i] . "." . $arrImgExt[$i];
         $dest = $brandImagesDir . $insertFileName;

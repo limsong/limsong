@@ -227,12 +227,12 @@ $(document).ready(function () {
                                     });
                               });
                               $(".del_single_op").click(function () {
-                                      alert(moda);
                                     if (moda == false) {
                                           var mod = $(this).attr("data");
                                           if (mod == "all") {
                                                 var del_box = $(this).parent().parent().attr("class");
                                                 $("." + del_box).remove();
+                                                return false;
                                           } else {
                                                 $(this).parent().parent().remove();
                                           }
@@ -318,6 +318,13 @@ $(document).ready(function () {
                         $("#commonPrice").val("");
                         $("#sellPrice").val("");
                         $("#qta").val("");
+                  }
+                  if ($("#DateBox_add tr").length == 1) {
+                        $("#opName3").val("");
+                        $("#opName4").val("");
+                        $("#opValue1").val("");
+                        $("#opValue2").val("");
+                        $("#qt").val("");
                   }
                   if (str == "a") {
                         var num = cc;
