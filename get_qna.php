@@ -45,7 +45,7 @@ $html .='</tr>';
 
 $html .='<tr>';
 $html .='<td style="width:60px;color:darkred;font-size:60px!important;font-weight: bold;">Q.</td>';
-$html .='<td style="text-align:left;">'.$tbl_bbs_comment.'</td>';
+$html .='<td style="text-align:left;">'.nl2br($tbl_bbs_comment).'</td>';
 $html .='</tr>';
 
 
@@ -62,7 +62,11 @@ $html .='<td style="margin:0px !important;padding:0px;vertical-align: top;">
             </td>
         </tr>
         <tr>
-            <td colspan="2" style="line-height:50px;border:0px;text-align:left;">'.$tbl_bbs_comment_comment.'</td>
+            <td colspan="2" style="line-height:50px;border:0px;text-align:left;">';
+                if($qna_status != "0"){
+                        $html .= nl2br($tbl_bbs_comment_comment);
+                }
+           $html .= ' </td>
         </tr>
     </table>
 </td>';

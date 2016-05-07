@@ -22,7 +22,6 @@
                 $currentTime = time();
                 $query = "select * from $code $addQuery order by fid desc,thread asc limit $first,$bnum_per_page";
                 $result = mysql_query($query) or die($query);
-                $article_num = $total_record - ($page - 1) * $bnum_per_page;   //새로 작성한 글의 번호 지정
 
                 while ($row = mysql_fetch_assoc($result)) {                 //연관 배열
                         $ou_uid = $row["uid"];
@@ -42,7 +41,7 @@
                                 <td class="check" align="center">
                                         <input type="checkbox" value="<?= $ou_uid ?>" name="check[]" />
                                 </td>
-                                <td class="num" align="center"><?= $article_num ?></td>
+                                <td class="num" align="center"><?= $ou_uid ?></td>
                                 <td class="memId" style="padding-left:<?= $indentWidth ?>">
                                         <?= $reImg ?>
                                         <a href="javascript:;" data="code=<?= $code ?>&number=<?= $ou_uid ?>&page=<?= $page ?>&keyfield=<?= $keyfield ?>&key=<?= $key ?>" class="ifDiv"><?= $ou_subject ?></a>
@@ -53,7 +52,6 @@
                                 <td align="center"><?= $str ?></td>
                         </tr>
                         <?
-                        $article_num--;
                 }
                 ?>
         </table>
@@ -109,9 +107,6 @@
         <ul class="memberBottom">
                 <li>
                         <input type="button" class="memEleB" value="삭제" onclick="brandListDel(document.boardListForm)" />
-                </li>
-                <li>
-                        <input type="button" class="memEleB" value="쓰기" onclick="location.href='boardWrite.php?code=<?= $code ?>'" />
                 </li>
                 <li>
                         <input type="submit" class="memEleB" value="검색" />

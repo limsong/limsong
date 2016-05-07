@@ -155,6 +155,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
 
 
         $buy_goods_add_query = "";
+        $buy_dlv_name =$user_id;
         $user_id = $uname;
         $buy_code = $app_oid;
         $buy_date = $date;
@@ -166,7 +167,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
         $buy_memo = $ship_message;
         $buy_user_name = $P_UNAME;
         $buy_user_ip = $app_ip;
-        $buy_dlv_name = "";
+
         $buy_dlv_tel = $phone;
         $buy_dlv_mobile = $phone;
         $buy_dlv_email = $buy_user_email;

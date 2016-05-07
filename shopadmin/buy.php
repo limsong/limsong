@@ -59,7 +59,6 @@
                         $sname = mysql_result($shopmembersresult, 0, 0);//주문인
                         ?>
                         <tr class="contentTr" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor=''">
-
                               <td align="center" height="30">
                                     <input type="checkbox" class="check_item" value="<?= $buy_seq ?>" name="check[]" />
                               </td>
@@ -75,7 +74,7 @@
                                     <span class="dlv_txt"> ( <? echo paymethod($pay_method); ?> ) </span>
                               </td>
                               <td align="center">
-                                    <? echo date("Y-m-d", strtotime("$pay_pre_date")); ?>
+                                    <?php if($pay_pre_date!="0000-00-00 00:00:00") echo date("Y-m-d", strtotime("$pay_pre_date")); else echo "--"; ?>
                               </td>
                               <td align="center">
                                     <? echo $pay_online_account ?>
@@ -117,15 +116,15 @@
             $last_page = $block * $bpage_per_block;
       }
       if ($page > 1) {
-            echo("<a href='orderList.php?code=$code&key=$key&keyfield=$keyfield&page=1'> <img src='images/ico_first.gif' class='ico_arr' alt='처음으로가기' /></a>");
+            echo("<a href='orderList.php?code=buy&delivery=0&key=$key&keyfield=$keyfield&page=1'> <input type=\"submit\" class=\"memEleB\" value=\"처음으로가기\" /></a>");
       }
       if ($block > 1) {
             $bPage = $first_page - 1;
-            echo "[<a href='orderList.php?code=$code&key=$key&keyfield=$keyfield&page=$bPage'>[이전 " . $bpage_per_block . "개]</a>] ";
+            echo "[<a href='orderList.php?code=buy&delivery=0&key=$key&keyfield=$keyfield&page=$bPage'>[이전 " . $bpage_per_block . "개]</a>] ";
       }
       if ($page > 1) {
             $bfPage = $page - 1;
-            echo("<a href='orderList.php?code=$code&key=$key&keyfield=$keyfield&page=$bfPage'> <img src='images/ico_pre.gif' class='ico_arr' alt='이전페이지' /></a>");
+            echo("<a href='orderList.php?code=buy&delivery=0&key=$key&keyfield=$keyfield&page=$bfPage'> <input type=\"submit\" class=\"memEleB\" value=\"이전페이지\" /></a>");
       }
 
 
@@ -133,30 +132,30 @@
             if ($page == $my_page) {
                   echo(" [<b>" . $my_page . "</b>]");
             } else {
-                  echo(" [<a href='orderList.php?code=$code&key=$key&keyfield=$keyfield&page=$my_page'>" . $my_page . "</a>]");
+                  echo(" [<a href='orderList.php?code=buy&delivery=0&key=$key&keyfield=$keyfield&page=$my_page'>" . $my_page . "</a>]");
             }
       }
       if ($page < $total_page) {
             $nxPage = $page + 1;
-            echo("<a href='orderList.php?code=$code&key=$key&keyfield=$keyfield&page=$nxPage'> <img src='images/ico_next.gif' class='ico_arr' alt='다음페이지' /></a>");
+            echo("<a href='orderList.php?code=buy&delivery=0&key=$key&keyfield=$keyfield&page=$nxPage'> <input type=\"submit\" class=\"memEleB\" value=\"다음페이지\" /></a>");
       }
       if ($block < $total_block) {
             $nPage = $last_page + 1;
-            echo "[<a href='orderList.php?code=$code&key=$key&keyfield=$keyfield&page=$nPage'>[다음 " . $bpage_per_block . "개]</a>]";
+            echo "[<a href='orderList.php?code=buy&delivery=0&key=$key&keyfield=$keyfield&page=$nPage'>[다음 " . $bpage_per_block . "개]</a>]";
       }
       if ($page < $total_page) {
-            echo("<a href='orderList.php?code=$code&key=$key&keyfield=$keyfield&page=$total_page'> <img src='images/ico_last.gif' class='ico_arr' alt='마지막으로가기' /></a>");
+            echo("<a href='orderList.php?code=buy&delivery=0&key=$key&keyfield=$keyfield&page=$total_page'> <input type=\"submit\" class=\"memEleB\" value=\"마지막으로가기\" /></a>");
       }
       ?>
 </div>
-<form name="searchForm" method="post" action="orderList.php">
+<form name="searchForm" method="post" action="orderList.php?code=buy&delivery=0">
       <ul class="memberBottom">
             <li>
                   <input type="text" class="border2" name="key" size="16" />
                   <select name="keyfield" class="border3">
-                        <option value="id">주문인</option>
-                        <option value="id">수령인</option>
-                        <option value="v_oid">주문번호</option>
+                        <option value="buy_user_name">주문인</option>
+                        <option value="buy_dlv_name">수령인</option>
+                        <option value="buy_code">주문번호</option>
                   </select>
                   <input type="submit" class="memEleB" value="검색" />
                   <input type="button" class="memEleB" value="삭제" name="delete" onclick="orderListDel(document.orderListForm)" />

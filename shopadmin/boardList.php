@@ -140,19 +140,19 @@ $bbs_code = $_GET["bbs_code"];
                             href="boardList.php?bbs_code=user_onetoone">QNA
                         </a>
                     </li>
-
+<!--
                     <li class="TitleLi1">일반 게시물 관리</li>
 
                     <li class="ml10">
-                        <a <?php if ($bbs_code == "notice") echo "class='active'"; ?>
+                        <a <?php /*if ($bbs_code == "notice") echo "class='active'"; */?>
                             href="boardList.php?bbs_code=notice">공지사항
                         </a>
                     </li>
                     <li class="ml10">
-                        <a <?php if ($bbs_code == "freeboard") echo "class='active'"; ?>
+                        <a <?php /*if ($bbs_code == "freeboard") echo "class='active'"; */?>
                             href="boardList.php?bbs_code=freeboard">자유게시판
                         </a>
-                    </li>
+                    </li>-->
 
                 </ul>
             </div>

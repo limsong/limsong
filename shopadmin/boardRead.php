@@ -7,6 +7,28 @@ $page = $_GET['page'];
 $key = $_GET['key'];
 $keyfield = $_GET['keyfield'];
 $number = $_GET['number'];
+$user_review = $_GET["user_review"];
+
+
+$qna_data = $_POST["qna_data"];
+$qna_status = $_POST["qna_status"];
+$mod = $_POST["mod"];//onetoone or goods_qna
+if ($qna_status != "") {
+        $in_uid = $_POST["uid"];
+        $in_qna_reg_date = date("Y-m-d H:i:s", time());
+        $in_ipInfo = get_real_ip();
+        $query = "UPDATE tbl_bbs set qna_status='$qna_status' WHERE uid='$in_uid'";
+        mysql_query($query) or die("boardRead");
+        if($qna_data !=""){
+                $query = "INSERT INTO tbl_bbs_comment (puid,user_id,comment,qna_reg_date,ipInfo) VALUES ('$in_uid','$uname','$qna_data','$in_qna_reg_date','$in_ipInfo')";
+                mysql_query($query) or die("boardRead");
+        }
+}
+$del_data = $_POST["del_data"];
+if ($del_data != "") {
+        mysql_query("DELETE FROM tbl_bbs_comment WHERE uid='$del_data'");
+}
+
 $query = "select * from $code where uid='$number'";
 $result = mysql_query($query) or die($query);
 $row = mysql_fetch_assoc($result);
@@ -21,6 +43,7 @@ $goods_seq = $row["goods_seq"];
 $buy_goods_seq = $row["buy_goods_seq"];
 $qna_mod = $row["qna_mod"];
 $cate_code = $row["cate_code"];
+$ou_qna_status = $row["qna_status"];
 $query = "SELECT name FROM shopmembers WHERE id='$ou_name'";
 $result = mysql_query($query) or die("boardRead1");
 $name = mysql_result($result, 0, 0);
@@ -36,24 +59,6 @@ if ($qna_mod == "0") {
         $upload_timage_row = mysql_fetch_array($upload_timage_result);
         $imagename = $upload_timage_row["ImageName"];
         $imgsrc = "../userFiles/images/brandImages/$imagename";
-}
-
-$qna_data = $_POST["qna_data"];
-$mod = $_POST["mod"];//onetoone or goods_qna
-if ($qna_data != "") {
-        $in_uid = $_POST["uid"];
-        $in_qna_reg_date = date("Y-m-d H:i:s", time());
-        $in_ipInfo = get_real_ip();
-        $in_qna_data = $_POST["qna_data"];
-        $qna_status = $_POST["qna_status"];
-        $query = "UPDATE tbl_bbs set qna_status='$qna_status' WHERE uid='$in_uid'";
-        mysql_query($query) or die("boardRead");
-        $query = "INSERT INTO tbl_bbs_comment (puid,user_id,comment,qna_reg_date,ipInfo) VALUES ('$in_uid','$uname','$in_qna_data','$in_qna_reg_date','$in_ipInfo')";
-        mysql_query($query) or die("boardRead");
-}
-$del_data = $_POST["del_data"];
-if ($del_data != "") {
-        mysql_query("DELETE FROM tbl_bbs_comment WHERE uid='$del_data'");
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -80,6 +85,13 @@ if ($del_data != "") {
                                         }
                                 }
                         }
+                        <?php
+                        if($qna_data !=""){
+                                echo 'alert("입력되였습니다.");';
+                        }elseif($qna_status!=""){
+                                echo 'alert("수정 되였습니다.");';
+                        }
+                        ?>
                 </script>
         </head>
         <body>
@@ -127,13 +139,23 @@ if ($del_data != "") {
                                                         <th style="width:120px;">등록일</th>
                                                         <td><?= $ou_signdate ?></td>
                                                 </tr>
+                                                <?
+                                                if($user_review=="no") {
+                                                ?>
                                                 <tr>
                                                         <th style="width:120px;">제목</th>
                                                         <td><?= $ou_subject ?></td>
                                                 </tr>
+                                                <?
+                                                }
+                                                ?>
                                                 <tr>
                                                         <th style="width:120px;">이름</th>
                                                         <td><?= $name ?></td>
+                                                </tr>
+                                                <tr>
+                                                        <th style="width:120px;">아이디</th>
+                                                        <td><?= $ou_name ?></td>
                                                 </tr>
                                                 <?
                                                 if ($qna_mod == "0") {
@@ -152,15 +174,23 @@ if ($del_data != "") {
                                                 <tr>
                                                         <th style="width:120px;">처리상태</th>
                                                         <td>
-                                                                <input type="radio" name="qna_status" value="0" id="status_i" checked /><label for="status_i">답변대기</label>&nbsp;&nbsp;
-                                                                <input type="radio" name="qna_status" value="1" id="status_ii" /><label for="status_ii">처리완료</label>&nbsp;&nbsp;
-                                                                <input type="radio" name="qna_status" value="2" id="status_iii" /><label for="status_iii">보류</label>
+                                                                <input type="radio" name="qna_status" value="0" id="status_i" <? if($ou_qna_status=="0") echo "checked"; ?> /><label for="status_i">답변대기</label>&nbsp;&nbsp;
+                                                                <input type="radio" name="qna_status" value="1" id="status_ii" <? if($ou_qna_status=="1") echo "checked"; ?> /><label for="status_ii">처리완료</label>&nbsp;&nbsp;
+                                                                <input type="radio" name="qna_status" value="2" id="status_iii" <? if($ou_qna_status=="2") echo "checked"; ?> /><label for="status_iii">보류</label>
                                                         </td>
                                                 </tr>
                                                 <? } ?>
                                                 <tr>
-                                                        <th style="width:120px;">문의내용</th>
-                                                        <td><?= $ou_comment ?></td>
+                                                        <th style="width:120px;">
+                                                                <?
+                                                                if($user_review=="no"){
+                                                                        echo "문의내용";
+                                                                }elseif($user_review=="yes"){
+                                                                        echo "내용";
+                                                                }
+                                                                ?>
+                                                        </th>
+                                                        <td><?= nl2br($ou_comment) ?></td>
                                                 </tr>
                                         </table>
 
@@ -170,10 +200,14 @@ if ($del_data != "") {
                                                 <input type="hidden" name="mod" value="<?= $qna_mod ?>" />
                                                 <tr>
                                                         <td>
-                                                                <textarea name="qna_data" style="width:100%;height: 66px;border:1px solid #ccc;padding:5px;"></textarea>
+                                                                <?php
+                                                                if($ou_qna_status=="0"){
+                                                                        echo '<textarea name="qna_data" style="width:100%;height: 66px;border:1px solid #ccc;padding:5px;"></textarea>';
+                                                                }
+                                                                ?>
                                                         </td>
                                                         <td style="width:80px;text-align: center;">
-                                                                <input type="submit" class="memEleB" value="답변" style="width:100%;height:80px;">
+                                                                <input type="submit" class="memEleB" value="확인" style="width:100%;height:80px;">
                                                         </td>
                                                 </tr>
 
