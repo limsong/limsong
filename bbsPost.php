@@ -8,6 +8,7 @@
 header("Content-Type: text/html; charset=UTF-8");
 include_once ("include/config.php");
 include_once ("session.php");
+include_once ("include/check.php");
 include_once ("include/sqlcon.php");
 
 $mod=$_POST["mod"];

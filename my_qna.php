@@ -1,4 +1,6 @@
 <?
+include_once ("session.php");
+include_once ("include/check.php");
 include_once("doctype.php");
 $del_qna = $_POST["del_qna"];
 if($del_qna != ""){

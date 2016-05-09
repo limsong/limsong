@@ -5,8 +5,9 @@
  * Date: 16. 4. 28
  * Time: 오후 12:12
  */
-include_once ("include/config.php");
 include_once ("session.php");
+include_once ("include/check.php");
+include_once ("include/config.php");
 include_once ("include/sqlcon.php");
 
 $mod = $_POST["mod"];//qna_goods my_qna

@@ -1,7 +1,6 @@
-<?
+<?php
 include_once("include/config.php");
 include_once("include/sqlcon.php");
-include_once("session.php");
 ?>
 <!DOCTYPE html><!--[if IE]><![endif]--><!--[if lt IE 7 ]>
 <html lang="en" class="ie6">    <![endif]--><!--[if IE 7 ]>

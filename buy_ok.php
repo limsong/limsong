@@ -5,7 +5,8 @@
  * Date: 16. 4. 26
  * Time: 오전 11:19
  */
-include_once("session.php");
+include_once ("session.php");
+include_once ("include/check.php");
 include_once("include/config.php");
 include("include/sqlcon.php");
 $buy_seq = $_POST['data_seq'];

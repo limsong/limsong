@@ -13,10 +13,14 @@ $ordernum = $_POST["ordernum"];
 
 foreach ($_POST as $key => $value) {
     ${$key} = $value;
-    $_SESSION[$ordernum."_".$key] = $value;
 }
-$ipadd = get_real_ip();
-$_SESSION[$ordernum."_ipadd"] = $ipadd;
+if($mobile=="true"){
+    foreach ($_POST as $key => $value) {
+        $_SESSION[$ordernum."_".$key] = $value;
+    }
+    $ipadd = get_real_ip();
+    $_SESSION[$ordernum."_ipadd"] = $ipadd;
+}
 
 $basketidArr = explode("_", $bid);
 foreach ($basketidArr as $k => $v) {

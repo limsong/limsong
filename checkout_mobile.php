@@ -1,4 +1,6 @@
 <?php
+include_once ("session.php");
+include_once ("include/check.php");
 include_once("doctype.php");
 /*이니시스 설정 시작*/
 require_once('libs/INIStdPayUtil.php');
@@ -929,7 +931,7 @@ $email = $dbshopMembers[0]["email"];
                             <input type="hidden" name="hAddr3" class="hAddr3" value="<?= $hAddr3 ?>">
 
                             <?php
-
+/*
                             //세이션 초기화
                             $_SESSION[$orderNumber . "_buy_instant_discount"] = "";//상품 즉시할인 금액(총 할인금액)
                             $_SESSION[$orderNumber . "_buy_total_price"] = "";//총상품총액(할인전금액)
@@ -939,11 +941,10 @@ $email = $dbshopMembers[0]["email"];
                             $_SESSION[$orderNumber . "_buy_instant_discount"] = $total_sum - $total_sum * $sb_sale;//상품 즉시할인 금액(총 할인금액)
                             $_SESSION[$orderNumber . "_buy_total_price"] = $total_sum + $total_sum2;//총상품총액(할인전금액)
                             $_SESSION[$orderNumber . "_pay_dlv_fee"] = $total_dShipping;
-                            $_SESSION[$orderNumber . "_price"] = $price;//총 결제 금액
+                            $_SESSION[$orderNumber . "_price"] = $price;//총 결제 금액*/
                             $buy_total_price = $total_sum + $total_sum2;
                             $buy_instant_discount = $total_sum - $total_sum * $sb_sale;
-                            $db->query("UPDATE basket SET ordernum='$ordernum',buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
-
+                            $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
                             ?>
                         </div>
                     </div>
@@ -1151,6 +1152,7 @@ $email = $dbshopMembers[0]["email"];
                 url: 'upcheck.php',
                 type: 'POST',
                 data: {
+                    mobile : "true",
                     bid: bid,
                     ordernum: ordernum,
                     user_id: user_id,

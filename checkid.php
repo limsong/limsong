@@ -1,10 +1,9 @@
 <?php
 include_once("session.php");
 include_once("include/config.php");
-$in_uname = $_POST["userid"];
-if(!empty($in_uname)){
-    include("include/sqlcon.php");
-    $ou_uname = $db->siftDown($in_uname);
+include("include/sqlcon.php");
+$ou_uname = $_POST["userid"];
+if(!empty($ou_uname)){
     $db->query("SELECT count(id) FROM shopMembers WHERE id = '$ou_uname'");
     if($db->countRows()==1)
         $dbdata = $db->loadRows();
@@ -18,4 +17,5 @@ if(!empty($in_uname)){
 }else{
     echo("false");
 }
+$db->disconnect();
 ?>

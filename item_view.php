@@ -1,4 +1,5 @@
 <?php
+include_once("session.php");
 include_once("doctype.php");
 $goods_code = $_GET["code"];
 $name1 = $_GET["name1"];

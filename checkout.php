@@ -1,4 +1,6 @@
 <?php
+include_once ("session.php");
+include_once ("include/check.php");
 include_once("doctype.php");
 /*이니시스 설정 시작*/
 require_once('libs/INIStdPayUtil.php');

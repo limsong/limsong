@@ -321,7 +321,8 @@ var login;
                                                 $(".check_id").val("o");
                                                 //location.reload();
                                         } else {
-                                                alert("사용중인 아이디 입니다.")
+                                                alert("사용중인 아이디 입니다.");
+                                                $(".check_id").val("x");
                                         }
                                 }
                         });

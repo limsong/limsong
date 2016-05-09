@@ -1,4 +1,7 @@
-<? include_once("doctype.php") ?>
+<?php
+    include_once("session.php");
+    include_once("doctype.php")
+?>
 <body class="home-2">
     <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an

@@ -1,4 +1,6 @@
-<?
+<?php
+include_once ("session.php");
+include_once ("include/check.php");
 include_once("doctype.php");
 $in_uid = $_POST["uid"];
 if($in_uid!=""){
@@ -157,7 +159,7 @@ if($del_data != ""){
                 buy_goods_seq : buy_goods_seq,
                 mod : mod
             };
-            var url = "getqna.php";
+            var url = "get_goods_qna.php";
             $.ajax({
                 type: "POST",
                 url: url,

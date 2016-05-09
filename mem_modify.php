@@ -1,4 +1,8 @@
-<? include_once("doctype.php") ?>
+<?php
+include_once ("session.php");
+include_once ("include/check.php");
+include_once("doctype.php");
+?>
 <body class="home-2">
     <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an
@@ -48,8 +52,7 @@
                                 <div class="col-md-12">
                                     <div class="table-responsive" style="border:none;">
                                         <div class="col-md-12 no-padding">
-                                            <form name="userinfoform" class="userinfoform" method="post"
-                                                  action="mem_modifyPost.php">
+                                            <form name="userinfoform" class="userinfoform" method="post" action="mem_modifyPost.php">
                                                 <div class="coupon-accordion">
                                                     <div class="checkbox-form">
                                                         <h3>회원 정보</h3>

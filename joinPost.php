@@ -1,5 +1,11 @@
 <?php
+include_once ("session.php");
 include_once("include/config.php");
+if ($uname != "") {
+    echo '<script languate="javascript">top.window.location.href="index.php";</script>';
+    exit;
+}
+include_once ("include/sqlcon.php");
 $in_uname = $_POST["user_id"];
 $in_passwd = $_POST["passwd"];
 $in_passwd = crypt($in_passwd);
@@ -19,8 +25,8 @@ $in_phone = $_POST["phone"];
 $in_hphone = $_POST["hphone"];
 //$in_gender = $_POST["gender"];//sms수신여부
 $in_signdate = date("y-m-d H:i:s",time());
-$ou_uname = $db->siftDown($in_uname);
-$db->query("SELECT count(id) FROM shopMembers WHERE id = '$ou_uname'");
+
+$db->query("SELECT count(id) FROM shopMembers WHERE id = '$in_uname'");
 if($db->countRows()==1)
     $dbdata = $db->loadRows();
 //TODO: To Process $dbdata
@@ -34,16 +40,15 @@ if($ou_id > 0){
 	        <meta charset="utf-8">
 		    <script type="text/javascript">
 		        alert("사용중인 아이디 입니다.");
-		        location.href='/';
+		        location.href='/joinPost.php';
 		    </script>
 	    </head>
 	    <body></body>
 	</html>
     <?
 }else{
-    $db->query("INSERT INTO shopMembers (`id`,`name`,`passwd`,`email`,`phone`,`mphone`,`hPost`,`hAddr1`,`hAddr2`,`oPost`,`oAddr1`,`oAddr2`,`signdate`,`milage`)
-                VALUES ('$in_uname','$in_hname','$in_passwd','$in_email','$in_phone','$in_hphone','$in_hPost','$in_address1','$in_address2',
-                '','','','$in_signdate','1000')");
+    $db->query("INSERT INTO shopMembers (`id`,`name`,`passwd`,`email`,`phone`,`mphone`,`hPost`,`hAddr1`,`hAddr2`,`signdate`,`milage`)
+                VALUES ('$in_uname','$in_hname','$in_passwd','$in_email','$in_phone','$in_hphone','$in_hPost','$in_address1','$in_address2','$in_signdate','1000')");
     $in_milage_time = date("y-m-d H:i:s",time());
     $in_milage = "1000";
     $db->query("INSERT INTO milage_log (`user_id`,`milage_time`,`milage`,`milage_info`) VALUES ('$in_uname','$in_milage_time','$in_milage','신규가입')");

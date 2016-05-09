@@ -1,4 +1,11 @@
-<?php include_once("doctype.php"); ?>
+<?php
+include_once ("session.php");
+include_once("doctype.php");
+if ($uname != "") {
+    echo '<script languate="javascript">top.window.location.href="index.php";</script>';
+    exit;
+}
+?>
 <style type="text/css">
     .row{
         margin:0px;
