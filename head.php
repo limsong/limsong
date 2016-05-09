@@ -246,7 +246,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-9 no-padding">
                                         <!--Logo start-->
                                         <div class="logo" style="text-align: center;padding-top:25px;padding-left:7px;">
-                                                <a href="index.php" style="font-size:20px;">BLUE START</a>
+                                                <a href="index.php" style="font-size:20px;">NEWNS</a>
                                         </div>
                                         <!--MAIN MENU START-->
                                         <div class="main-menu hidden-sm hidden-xs hidden-md">
