@@ -1,4 +1,5 @@
-<?
+<?php
+include_once ("session.php");
 include_once("doctype.php");
 require_once('libs/INIStdPayUtil.php');
 require_once('libs/HttpClient.php');

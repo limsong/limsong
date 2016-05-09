@@ -961,6 +961,9 @@ $email = $dbshopMembers[0]["email"];
                                                         $_SESSION[$orderNumber . "_buy_instant_discount"] = $total_sum - $total_sum * $sb_sale;//상품 즉시할인 금액(총 할인금액)
                                                         $_SESSION[$orderNumber . "_buy_total_price"] = $total_sum + $total_sum2;//총상품총액(할인전금액)
                                                         $_SESSION[$orderNumber . "_pay_dlv_fee"] = $total_dShipping;
+                                                        $buy_total_price = $total_sum + $total_sum2;
+                                                        $buy_instant_discount = $total_sum - $total_sum * $sb_sale;
+                                                        $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
 
                                                         ?>
                                                 </div>
@@ -1130,6 +1133,7 @@ $email = $dbshopMembers[0]["email"];
                         var phone = $(".phone1").val() + "-" + $(".phone2").val() + "-" + $(".phone3").val();//배송받는사람 전화
                         var ship_message = $(".ship_message").val();//배송 메세지
                         var pay_mod = $("input[name='paymethod']:checked").val();
+                    var addr_type = $(".addr_type").val();
                         if (pay_mod == "1") {
                                 var pay_online_name = $(".pay_online_name").val();
                                 var pay_online_account = $("#pay_online_account").val();
@@ -1169,15 +1173,16 @@ $email = $dbshopMembers[0]["email"];
                                 url: 'upcheck.php',
                                 type: 'POST',
                                 data: {
-                                        bid: bid,
-                                        ordernum: ordernum,
-                                        user_id: user_id,
-                                        phone: phone,
-                                        zipcode: zipcode,
-                                        oldadd: add1,
-                                        newadd: add2,
-                                        alladd: add3,
-                                        ship_message: ship_message
+                                    bid: bid,
+                                    ordernum: ordernum,
+                                    user_id: user_id,
+                                    phone: phone,
+                                    zipcode: zipcode,
+                                    oldadd: add1,
+                                    newadd: add2,
+                                    alladd: add3,
+                                    ship_message: ship_message,
+                                    addr_type: addr_type
                                 },
                                 success: function (response) {
                                         if (response == "success") {

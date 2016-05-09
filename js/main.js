@@ -714,7 +714,7 @@ var login;
                                 dataType: "XML",
                                 data: "",
                                 error: function (xml) {
-                                        //alert('xml error1');
+                                        alert(xml.responseText);
                                 },
                                 success: function (response) {
                                         $(response).find("items").each(function (i) {

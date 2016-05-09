@@ -1,4 +1,5 @@
 <?php
+include_once ("../session.php");
 include_once("../doctype.php");
 /*
  * Created by PhpStorm.
