@@ -111,7 +111,6 @@
 							</div>
 							<?
 							}
-							$db->disconnect();
 							?>
 						</div>
 					</div>

@@ -20,7 +20,7 @@
 	</div>
 	<!--<div class="header-middle hidden-sm hidden-xs hidden-md">-->
 	<div class="header-middle">
-		<div class="container-fluid no-padding">
+		<div class="container-fluid">
 			<div class="row">
 				<?
 				/*
@@ -243,7 +243,7 @@
 				?>
 				<div class="col-xs-6 col-sm-6 col-md-8 col-lg-9 no-padding">
 				   <!--Logo start-->
-					<div class="logo" style="text-align: center;padding-top:25px;padding-left:7px;">
+					<div class="logo" style="text-align: center;padding-top:25px;padding-left:0px;">
 						<a href="index.php" style="font-size:20px;">NEWNS</a>
 					</div>
 					<!--MAIN MENU START-->
@@ -409,9 +409,9 @@
 	</div>
 
 	<!--MOBILE MENU START-->
-	<div class="container-fluid no-padding">
+	<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="mobile-menu ">
 						<nav class="mobile-menu-start">
 							<ul>

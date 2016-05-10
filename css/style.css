@@ -3747,7 +3747,7 @@ ol {
 }
 
 .contact-top-area {
-      background: url(img/contact.jpg);
+      background: url(../img/contact.jpg);
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -3779,7 +3779,7 @@ ol {
 }
 
 .contact-form input {
-      background: #f2f2f2 none repeat scroll 0 0;
+      background: #fff none repeat scroll 0 0;
       border: medium none;
       border-radius: 0;
       height: 42px;
@@ -3794,13 +3794,13 @@ ol {
       width: 50%;
 }
 
-.contact-form span.con-subject {
+.contact-form span.con-subject , .contact-form span.con-name , .contact-form span.con-main {
       width: 100%;
 }
 
 textarea {
       width: 100%;
-      background: #f2f2f2;
+      background: #fff;
       border: medium none;
       padding-left: 15px;
       padding-top: 10px;

@@ -16,11 +16,6 @@ if ($uname != "") {
     </p><![endif]-->
     <!--HEADER AREA SART-->
     <? include_once("sub_head.php"); ?>
-        <style>
-                .row{
-                        margin:0px;
-                }
-        </style>
     <!--HEADER AREA END-->
     <!--BREADCRUMB AREA START-->
     <div class="breadcrumb-area">
@@ -42,7 +37,7 @@ if ($uname != "") {
     <!--BREADCRUMB AREA END-->
     <!--CART AREA START-->
     <section class="cart-area-wrapper">
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin-bottom:30px;">
             <div class="row cart-top">
                 <div class="col-md-12">
                     <h1 class="sin-page-title">Login</h1>
@@ -78,11 +73,10 @@ if ($uname != "") {
                     <p class="lost-password">
                         <a href="#">이이디 찾기</a>
                         <a href="#">비밀번호 찾기</a>
-                        <a href="#">회원가입</a>
+                        <a href="join_step1.php">회원가입</a>
                     </p>
                 </div>
             </div>
-
         </div>
     </section>
     <!--CART AREA END-->

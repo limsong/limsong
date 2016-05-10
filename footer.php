@@ -5,13 +5,22 @@
             <div class="footer-top">
                 <div class="col-sm-6 col-md-2 border-right">
                     <div class="single-footer">
-                        <h3 class="footer-top-heading">About Sozo</h3>
+                        <h3 class="footer-top-heading">notice</h3>
                         <div class="footer-list">
                             <ul>
-                                <li class="footer-list-item"><a href="#">Company History</a></li>
-                                <li class="footer-list-item" ><a href="#">Social Responsibility</a></li>
-                                <li class="footer-list-item"><a href="#">Investor Relations</a></li>
-                                <li class="footer-list-item" ><a href="#">Healijy on Papers</a></li>
+                                <?php
+                                $db->query("SELECT * FROM tbl_notice ORDER BY uid ASC LIMIT 0,7");
+                                $db_tbl_notice_query = $db->loadRows();
+                                $count = count($db_tbl_notice_query);
+                                for($i=0;$i<$count;$i++) {
+                                    $uid = $db_tbl_notice_query[$i]["uid"];
+                                ?>
+                                <li class="footer-list-item">
+                                    <a href="notice.php?no=<?=$uid?>" style="display: block;width:100%;text-overflow : ellipsis;overflow: hidden;white-space: nowrap;"><?=$db_tbl_notice_query[$i]["subject"]?></a>
+                                </li>
+                                <?php
+                                }
+                                ?>
                             </ul>
                         </div>							
                     </div>
@@ -21,23 +30,20 @@
                         <h3 class="footer-top-heading">Information</h3>
                         <div class="footer-list">
                             <ul>
-                                <li class="footer-list-item"><a href="#">our blog</a></li>
-                                <li class="footer-list-item" ><a href="#">about our shop</a></li>
-                                <li class="footer-list-item"><a href="#">secure shopping</a></li>
-                                <li class="footer-list-item" ><a href="#">privacy policy</a></li>
-                                <li class="footer-list-item" ><a href="#">dekivery information</a></li>
+                                <li class="footer-list-item"><a href="private.php">개인정보보호정책</a></li>
+                                <li class="footer-list-item" ><a href="agreement.php">이용약관</a></li>
+                                <li class="footer-list-item"><a href="about.php">찾아오는길</a></li>
                             </ul>
                         </div>							
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-2 border-right ">
                     <div class="single-footer">
-                        <h3 class="footer-top-heading">my account</h3>
+                        <h3 class="footer-top-heading">service center</h3>
                         <div class="footer-list">
                             <ul>
-                                <li class="footer-list-item"><a href="#">my account</a></li>
-                                <li class="footer-list-item" ><a href="#">shopping cart</a></li>
-                                <li class="footer-list-item"><a href="#">custom link</a></li>
+                                <li class="footer-list-item"><a href="memtomem.php">자주하는질문</a></li>
+                                <li class="footer-list-item" ><a href="qna.php">질문과 답변</a></li>
                             </ul>
                         </div>							
                     </div>
@@ -69,8 +75,8 @@
             </div>
             <div class="footer-bottom">
                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
-                    <div class="logo-footer">
-                        <img src="img/logo.png" alt="">
+                    <div class="logo-footer" style="margin-top:15px;">
+                        <a href="index.php" style="font-size:20px;">NEWNS</a>
                     </div>
                     <div class="footer-copyright ">
                         Copyright &copy; 2015 <a href="http://admin@bootexperts.com/">BootExperts</a>. All rights reserved

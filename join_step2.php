@@ -5,11 +5,6 @@ if ($uname != "") {
     exit;
 }
 ?>
-<style type="text/css">
-    .row{
-        margin:0px;
-    }
-</style>
 	<body class="home-1 shop-page cart-page">
 		<!--[if lt IE 8]>
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -39,14 +34,14 @@ if ($uname != "") {
 		<div class="container-fluid">
 			<div class="row cart-top">
 				<div class="col-md-12">
-					<h1 class="sin-page-title">회원가입</h1>
+					<h1 class="sin-page-title" style="padding-bottom:10px;">회원가입</h1>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" style="margin-bottom:60px;">
 				<form name="userinfoform" class="userinfoform" method="post" action="joinPost.php">
 					<div class="coupon-accordion">
-						<div class="col-lg-9 col-md-9" style="margin :0 auto;float:none;">
-							<div class="checkbox-form">                     
+						<div class="col-lg-12 col-md-12" style="margin :0 auto;float:none;">
+							<div class="checkbox-form">
 								<h3>회원 정보</h3>
 								<div class="row">
 									<div class="col-md-8">
@@ -60,7 +55,7 @@ if ($uname != "") {
 											<label> <span class="required">&nbsp;</span></label>     
 											<div class="order-button-payment">
 												<INPUT type="hidden" class="check_id">
-												<input type="button" value="ID중복확인" class="join_step2_check_id" style="height:42px;margin:0px;">
+												<input type="button" value="ID중복확인" class="btn btn-red join_step2_check_id" style="height:35px;margin:0px;">
 											</div>
 										</div>
 									</div>
@@ -89,12 +84,11 @@ if ($uname != "") {
 											<input type="text" readonly="readonly" name="zipcode" class="zipcode postcodify_postcode" id="postcode" placeholder="">
 										</div>
 									</div>
-									<div class="col-md-4
-									">
+									<div class="col-md-4">
 										<div class="checkout-form-list">
 											<label> <span class="required">&nbsp;</span></label>     
 											<div class="order-button-payment">                                 
-												<input type="button" value="우편번호검색" id="search_button" style="height:42px;margin:0px;">
+												<input type="button" value="우편번호검색" id="search_button" style="height:35px;margin:0px;">
 											</div>
 										</div>
 									</div>
@@ -135,7 +129,7 @@ if ($uname != "") {
 									<div class="col-md-4">
 										<div class="country-select">
 											<label>@ <span class="required"></span></label>
-											<select style="height:42px;margin-top:5px;" name="mail2" class="mail2">
+											<select style="height:35px;margin-top:5px;" name="mail2" class="mail2">
 												<option value="00" selected="">선택해주세요.</option>
 												<option value="dreamwiz.com">dreamwiz.com</option>
 												<option value="empal.com">empal.com</option>

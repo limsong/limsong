@@ -15,7 +15,6 @@
     <div class="clear"></div>
     <?
     //slider.php banner.php bottom_bannert.php category_one two three four five
-    $db->connect();
     $db->query("SELECT imgName FROM banner order by id asc");
     $dbdata = $db->loadRows();
     $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '01%' ORDER BY id ASC LIMIT 0,10");
@@ -30,7 +29,6 @@
     $dbdata_goods_TOYSGIFTS = $db->loadRows();
     $db->query("SELECT sortName FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
     $dbdata_sortCode_sortName = $db->loadRows();
-    $db->disconnect();
     ?>
     <!--SLIDER AREA START-->
     <? include_once("slider.php") ?>
@@ -78,4 +76,5 @@
             $(".search-form").submit();
         });
     </script>
-</body></html>
+</body>
+</html>
