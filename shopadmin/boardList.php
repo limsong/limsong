@@ -99,7 +99,6 @@ $bbs_code = $_GET["bbs_code"];
                         include_once ("user_onetoone.php");
                         break;
                     case "notice":
-                        $addQuery .= " qna_mod='01'";
                         $query = "select count(*) from tbl_notice ";
                         $result = mysql_query($query) or die($query);
                         $total_record = mysql_result($result, 0, 0);
@@ -109,9 +108,6 @@ $bbs_code = $_GET["bbs_code"];
                             $first = ($page - 1) * $bnum_per_page;
                         }
                         include_once ("notice.php");
-                        break;
-                    case "":
-                        include_once ("freeboard.php");
                         break;
                 }
                 ?>
@@ -131,28 +127,23 @@ $bbs_code = $_GET["bbs_code"];
                         </a>
                     </li>
                     <li class="ml10">
-                        <a <?php if ($bbs_code == "faq") echo "class='active'"; ?>
-                            href="boardList.php?bbs_code=faq">FAQ
-                        </a>
-                    </li>
-                    <li class="ml10">
                         <a <?php if ($bbs_code == "user_onetoone") echo "class='active'"; ?>
                             href="boardList.php?bbs_code=user_onetoone">QNA
                         </a>
                     </li>
-<!--
+
                     <li class="TitleLi1">일반 게시물 관리</li>
 
                     <li class="ml10">
-                        <a <?php /*if ($bbs_code == "notice") echo "class='active'"; */?>
-                            href="boardList.php?bbs_code=notice">공지사항
+                        <a <?php if ($bbs_code == "notice") echo "class='active'"; ?>
+                            href="boardList.php?bbs_code=notice">공지글
                         </a>
                     </li>
                     <li class="ml10">
-                        <a <?php /*if ($bbs_code == "freeboard") echo "class='active'"; */?>
-                            href="boardList.php?bbs_code=freeboard">자유게시판
+                        <a <?php if ($bbs_code == "faq") echo "class='active'"; ?>
+                            href="boardList.php?bbs_code=faq">자주하는 질문
                         </a>
-                    </li>-->
+                    </li>
 
                 </ul>
             </div>

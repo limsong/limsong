@@ -1,7 +1,6 @@
 <?
 include("common/config.shop.php");
 include("check.php");
-$code=$_GET["code"];
 $number=$_GET["number"];
 $page=$_GET["page"];
 $key=$_GET["key"];
@@ -12,19 +11,19 @@ foreach($_POST as $k=>$v) {
 }
 $in_signdate=time();
 if($in_mode=="delete") {
-	$query="delete from $code where uid='$number'";
+	$query="delete from tbl_notice where uid='$number'";
 	mysql_query($query) or die($query);
 ?>	
 <script type="text/javascript">
 alert("삭제 되었습니다.");
-parent.location.href='noticeList.php?code=<?=$code?>&page=<?$page?>&key=<?$key?>&keyfield=<?$keyfield?>';
+parent.location.href='boardList.php?bbs_code=notice&page=<?$page?>&key=<?$key?>&keyfield=<?$keyfield?>';
 </script>
 <?
 exit;
 } else if($in_mode=="modify") {
-	$query="update $code set name='$in_name',subject='$in_subject',comment='$in_comment' where uid='$number'";
+	$query="update tbl_notice set name='$in_name',subject='$in_subject',comment='$in_comment' where uid='$number'";
 	mysql_query($query) or die($query);
-	$url="noticeList.php?code=".$code."&page=".$page."&key=".$key."&keyfield=".$keyfield;
+	$url="'boardList.php?bbs_code=notice&page=".$page."&key=".$key."&keyfield=".$keyfield;
 	$msg="수정 되었습니다.";
 	goPURL($msg,$url);
 	mysql_close($db);

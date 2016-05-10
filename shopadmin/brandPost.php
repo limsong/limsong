@@ -88,7 +88,7 @@ if ($in_option_type == "0") {
         $goodsQuery = "INSERT INTO
                     goods (goods_name,goods_code,commonPrice,sellPrice,sp_option,sb_sale,manufacture,orgin,summary,comment,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_Num,goods_stock,inputDate)
                   VALUES
-                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_deliverycontent','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_optNum','$in_qta','$in_inputDate')";
+                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_content','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_optNum','$in_qta','$in_inputDate')";
 } elseif ($in_option_type == "1") {
         $in_sellPriceArr = explode("/", $in_sellPrice);
         $in_commonPriceArr = explode("/", $in_commonPrice);
@@ -101,7 +101,7 @@ if ($in_option_type == "0") {
         $goodsQuery = "INSERT INTO
                     goods (goods_name,goods_code,commonPrice,sellPrice,sp_option,sb_sale,manufacture,orgin,summary,comment,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_opt_type,inputDate)
                   VALUES
-                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_deliverycontent','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_inputDate')";
+                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_content','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_inputDate')";
 } else {
         $in_sellPriceArr = explode(";", $in_sellPrice);
         $in_commonPriceArr = explode(";", $in_commonPrice);
@@ -112,7 +112,7 @@ if ($in_option_type == "0") {
         $goodsQuery = "INSERT INTO
                     goods (goods_name,goods_code,commonPrice,sellPrice,sp_option,sb_sale,manufacture,orgin,summary,comment,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_opt_type,inputDate)
                   VALUES
-                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_deliverycontent','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_inputDate')";
+                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_content','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_inputDate')";
 }
 
 
@@ -386,7 +386,7 @@ if ($debug == "true") {
 
                 //setTimeout("parent.loadingMask('off')",parent.maskTime);
                 //parent.location.reload();
-                //parent.location.href="brandList.php";
+                parent.location.href="brandList.php";
         </script>
 <?
 }

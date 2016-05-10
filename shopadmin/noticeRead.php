@@ -1,7 +1,6 @@
 <?
 include("common/config.shop.php");
 include("fckeditor/fckeditor.php");
- $code=$_GET['code'];
 $page=$_GET['page'];
 if(!$_POST['key']) {
 	$key=$_GET['key'];
@@ -14,7 +13,7 @@ if(!$_POST['keyfield']) {
 	$keyfield=$_POST['keyfield'];
 }
 $number = $_GET["number"];
-$query="select * from $code where uid='$number'";
+$query="select * from tbl_notice where uid='$number'";
 $result=mysql_query($query) or die($query);
 $row=mysql_fetch_assoc($result);
 $ou_name=stripslashes($row['name']);
@@ -41,8 +40,8 @@ $ou_comment=stripslashes($row['comment']);
 			<dl id="readContent">
 				<dt>제목</dt>
 				<dd><input class="inp" type="text" name="subject" value="<?=$ou_subject?>" /></dd>
-				<dt>이름</dt>
-				<dd><input class="inp" type="text" name="name" value="<?=$ou_name?>" /></dd>
+				<dt>필독</dt>
+				<dd><input type="checkbox" name="notify" value="y" /></dd>
 				<dt>내용</dt>
 				<dd class="inputDd">
                 <?php
@@ -60,7 +59,7 @@ $ou_comment=stripslashes($row['comment']);
 			<div class="buttonBox">
 				<a href="#A" onclick="checkBForm('modify')"><img src="img/btn_modify2.gif" alt="수정" width="63" height="25" /></a>
 				<a href="#A" onclick="checkBForm('delete')"><img src="img/btn_delete2.gif" alt="삭제"  /></a>
-				<a href="noticeList.php?code=<?=$code?>&key=<?=$key?>&keyfield=<?=$keyfield?>"><img src="img/netpop_btnall.gif" alt="목록" /></a>
+				<a href="boardList.php?bbs_code=notice&key=<?=$key?>&keyfield=<?=$keyfield?>"><img src="img/netpop_btnall.gif" alt="목록" /></a>
 			</div>
 		</form>
 	</div>

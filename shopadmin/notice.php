@@ -5,7 +5,7 @@
     <table align="center" width="100%" class="memberListTable">
         <tr class="menuTr">
             <th width="5%">선택</th>
-            <th width="5%">번호</th>
+            <th width="5%">#</th>
             <th width="40%">제목</th>
             <th width="15%">작성자</th>
             <th width="25%">날짜</th>
@@ -26,23 +26,22 @@
         <?
         if ($page == '1') {
             $currentTime = time();
-            $query = "select uid,subject,name,signdate,ref from $code where notify='Y' order by uid asc";
+            $query = "select uid,subject,name,signdate,ref from tbl_notice order by uid asc";
             $result = mysql_query($query) or die($query);
-            $article_num = $total_record - ($page - 1) * $bnum_per_page;   //새로 작성한 글의 번호 지정
             while ($row = mysql_fetch_assoc($result)) {                 //연관 배열
                 $ou_uid = $row["uid"];
                 $ou_subject = stripslashes($row["subject"]);        //역슬래시를 없애준다.두개면 하나만 없앤다.stripslashes();
                 $ou_name = stripslashes($row["name"]);
-                $ou_signdate = date("Y-m-d", $row["signdate"]);
+                $ou_signdate = $row["signdate"];
                 $ou_ref = $row["ref"];
                 ?>
                 <tr class="contentTr">
                     <td class="check" align="center">
                         <input type="checkbox" value="<?= $ou_uid ?>" name="check[]"/>
                     </td>
-                    <td class="num" align="center">공지</td>
+                    <td class="num" align="center"><?=$ou_uid?></td>
                     <td class="memId">
-                        <a href="boardRead.php?code=<?= $code ?>&number=<?= $ou_uid ?>&page=<?= $page ?>
+                        <a href="noticeRead.php?number=<?= $ou_uid ?>&page=<?= $page ?>
 							&keyfield=<?= $keyfield ?>&key=<?= $key ?>"><?= $ou_subject ?></a>
                     </td>
                     <td class="memName" align="center"><?= $ou_name ?></td>
@@ -50,54 +49,7 @@
                     <td align="center"><?= $ou_ref ?></td>
                 </tr>
                 <?
-                $article_num--;
             }
-        }
-        ?>
-        <!-- 일반쪽글//-->
-        <?
-        $currentTime = time();
-        $query = "select uid,subject,name,signdate,ref,thread from $code $addQuery order by fid desc,thread asc limit $first,$bnum_per_page";
-        $result = mysql_query($query) or die($query);
-        $article_num = $total_record - ($page - 1) * $bnum_per_page;   //새로 작성한 글의 번호 지정
-
-        while ($row = mysql_fetch_assoc($result)) {                 //연관 배열
-            $ou_uid = $row["uid"];
-            $ou_subject = stripslashes($row["subject"]);        //역슬래시를 없애준다.두개면 하나만 없앤다.stripslashes();
-            $ou_name = stripslashes($row["name"]);
-            $ou_signdate = date("Y-m-d", $row["signdate"]);
-            $ou_ref = $row["ref"];
-            $ou_thread = $row["thread"];
-            $indentNum = strlen($ou_thread) - 1; //문자열 길이게산 strlen();
-            $indentWidth = ($indentNum * 15) . "px";    //들여쓰기
-            if ($indentNum > 0) {
-                $reImg = "<img src='img/tiger-version.gif' width='30' height='15' />";
-            } else {
-                $reImg = "";
-            }
-            $timeGap = $currentTime - $row["signdate"];
-            if ($timeGap <= $notify_new_article) {
-                $newImg = "<img src='img/new.gif'  width='21' height='9' />";
-            } else {
-                $newImg = "";
-            }
-            ?>
-            <tr class="contentTr">
-                <td class="check" align="center">
-                    <input type="checkbox" value="<?= $ou_uid ?>" name="check[]"/>
-                </td>
-                <td class="num" align="center"><?= $article_num ?></td>
-                <td class="memId" style="padding-left:<?= $indentWidth ?>">
-                    <?= $reImg ?>
-                    <a href="boardRead.php?code=<?= $code ?>&number=<?= $ou_uid ?>&page=<?= $page ?>&keyfield=<?= $keyfield ?>&key=<?= $key ?>"><?= $ou_subject ?></a>
-                    <?= $newImg ?>
-                </td>
-                <td class="memName" align="center"><?= $ou_name ?></td>
-                <td class="regNum" align="center"><?= $ou_signdate ?></td>
-                <td align="center"><?= $ou_ref ?></td>
-            </tr>
-            <?
-            $article_num--;
         }
         ?>
     </table>
@@ -156,8 +108,7 @@
                    onclick="brandListDel(document.boardListForm)"/>
         </li>
         <li>
-            <input type="button" class="memEleB" value="쓰기"
-                   onclick="location.href='boardWrite.php?code=<?= $code ?>'"/>
+            <input type="button" class="memEleB" value="쓰기" onclick="location.href='noticeWrite.php'"/>
         </li>
         <li>
             <input type="submit" class="memEleB" value="검색"/>

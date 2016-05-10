@@ -14,13 +14,6 @@ if(!$_POST['keyfield']) {
 } else {
 	$keyfield=$_POST['keyfield'];
 }
-$number = $_GET["number"];
-$query="select * from $code where uid='$number'";
-$result=mysql_query($query) or die($query);
-$row=mysql_fetch_assoc($result);
-$ou_name=stripslashes($row['name']);
-$ou_subject=stripslashes($row['subject']);
-$ou_comment=stripslashes($row['comment']);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,39 +23,56 @@ $ou_comment=stripslashes($row['comment']);
         <link rel="stylesheet" type="text/css" href="css/common1.css" />
         <link rel="stylesheet" type="text/css" href="css/layout.css" />
         <link rel="stylesheet" type="text/css" href="css/memberRead.css" />
-        <script type="text/javascript" src="common/jslb_ajax.js"></script>
-        <script type="text/javascript" src="common/common2.js"></script>
+        <script type="text/javascript">
+            function checkBForm() {
+                var fromObj=eval("document.bForm");
+                if(!fromObj.subject.value.trim()) {
+                    alert("제목을 입력해 주세요");
+                    fromObj.subject.value="";
+                    fromObj.subject.focus();
+                    return false;
+                }
+                fromObj.submit();
+            }
+        </script>
     </head>
 <body>
 <div id="total">
     <? include("include/include.header.php"); ?>
 	<div id="main">
 		<h4 id="mainTitle">회원상세정보</h4>
-		<dl id="readContent">
-		<form name="bForm" action="noticePost.php?code=<?=$code?>" target="action_frame" onsubmit="return checkBForm(this)" method="post" enctype="multipart/form-data">
+		<form name="bForm" action="noticePost.php" target="action_frame" onsubmit="return checkBForm(this)" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <th style="width:150px;">제목</th>
+                    <td><input class="inp" type="text" name="subject" /></td>
+                </tr>
+                <tr>
+                    <th>필독</th>
+                    <td><input type="checkbox" name="notify" value="y" /></td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td>
+                        <div style="width:90%;float:left;padding:5px 8px 5px 5px;">
+                            <!-- 加载编辑器的容器 -->
+                            <script id="container" name="comment" type="text/plain"></script>
+                            <!-- 配置文件 -->
+                            <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+                            <!-- 编辑器源码文件 -->
+                            <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+                            <!-- 实例化编辑器 -->
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('container');
+                            </script>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <dl id="readContent">
-                <dt>제목</dt>
-                <dd><input class="inp" type="text" name="subject" /></dd>
-                <dt>이름</dt>
-                <dd><input class="inp" type="text" name="name" /></dd>
-                <dt>내용</dt>
-                <dd class="inputDd">
-                <?php
-                $sBasePath ="fckeditor/";
-                $oFCKeditor = new FCKeditor('comment');
-                $oFCKeditor->BasePath	= $sBasePath;
-                $oFCKeditor->Width='100%';
-                $oFCKeditor->Height=600;
-                $oFCKeditor->Value=$ou_comment;
-                $oFCKeditor->ToolbarSet='BoardSet'; //fckconfig.js P99
-                $oFCKeditor->Create();
-                ?>
-                </dd>
-            </dl>
             <div class="buttonBox">
-                <input type="image" src="img/upload.gif" alt="등록" />
-                <a href="#A"><img src="img/cancel.gif" alt="취소" onclick="location.href='noticeList.php?code=<?=$code?>'" />
+                <input type="submit" class="memEleB" value="등록"/>
+                <input type="button" class="memEleB" value="취소" onclick="location.href='boardList.php?bbs_code=notice'" />
             </div>
         </form>
 	</div>
