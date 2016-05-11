@@ -1,7 +1,7 @@
 <? 
 include_once("doctype.php");
 $name1=$_GET["name1"];
-if($name==""){
+if($name1==""){
 	$name1=$_POST["name1"];
 }
 $name2=@$_GET["name2"];
@@ -38,17 +38,12 @@ if($total_record==0) {
 	$first=($page-1)*$gnum_per_page;
 }
 ?>
-<style type="text/css">
-	.row{
-		margin:0px;
-	}
-</style>
 	<body class="home-1 shop-page">
 		<!--[if lt IE 8]>
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 	<!--HEADER AREA START-->
-	<? include_once("sub_head.php"); ?>
+	<? include_once("head.php"); ?>
 	<!--HEADER AREA END-->
 	<!--BREADCRUMB AREA START-->
 	<div class="breadcrumb-area">

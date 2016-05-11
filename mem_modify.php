@@ -61,14 +61,14 @@ include_once("doctype.php");
                                                             $db->query("SELECT * FROM shopMembers WHERE id = '$uname'");
                                                             $dbdata = $db->loadRows();
                                                             ?>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>아이디</label>
                                                                     <?= $dbdata[0]['id'] ?>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>비밀번호 (6-18자 영문,숫자)
                                                                         <span class="required">*</span>
@@ -77,7 +77,7 @@ include_once("doctype.php");
                                                                            class="passwd" placeholder="">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>비밀번호 확인
                                                                         <span class="required">*</span>
@@ -86,7 +86,7 @@ include_once("doctype.php");
                                                                            class="passwd2" placeholder="">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>이름
                                                                         <span class="required">*</span>
@@ -95,52 +95,39 @@ include_once("doctype.php");
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>우편번호
                                                                         <span class="required">*</span>
                                                                     </label>
-                                                                    <input type="text" readonly="readonly"
-                                                                           name="zipcode"
-                                                                           value="<?= $dbdata[0]['hPost'] ?>"
-                                                                           class="zipcode postcodify_postcode"
-                                                                           id="postcode" placeholder="">
+                                                                    <input type="text" readonly="readonly" name="zipcode" value="<?= $dbdata[0]['hPost'] ?>" class="zipcode" id="postcode" placeholder="">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>
                                                                         <span class="required">&nbsp;</span>
                                                                     </label>
                                                                     <div class="order-button-payment">
-                                                                        <input type="button" value="우편번호검색"
-                                                                               id="search_button"
-                                                                               style="height:42px;margin:0px;">
+                                                                        <input type="button" value="우편번호찾기" onclick="javascript:DaumPostcode('zipcode','add1','add2');" style="height:35px;margin:0px;">
                                                                     </div>
                                                                 </div>
                                                             </div>
 
 
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>주소</label>
-                                                                    <input type="text" readonly="readonly"
-                                                                           name="add1"
-                                                                           value="<?= $dbdata[0]['hAddr1'] ?>"
-                                                                           id="address"
-                                                                           class="add1 postcodify_address"
-                                                                           placeholder="">
+                                                                    <input type="text" readonly="readonly" name="add1" value="<?= $dbdata[0]['hAddr1'] ?>" id="address" class="add1" placeholder="">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>나머지 주소</label>
-                                                                    <input type="text" name="add2"
-                                                                           value="<?= $dbdata[0]['hAddr2'] ?>"
-                                                                           class="add2" placeholder="">
+                                                                    <input type="text" name="add2" value="<?= $dbdata[0]['hAddr2'] ?>" class="add2" placeholder="">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>전화번호 (- 없이 입력해주세요)
                                                                         <span class="required"></span>
@@ -150,7 +137,7 @@ include_once("doctype.php");
                                                                            class="phone" placeholder="">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>휴대전화 (- 없이 입력해주세요)
                                                                         <span class="required"></span>
@@ -161,7 +148,7 @@ include_once("doctype.php");
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>이메일
                                                                         <span class="required"></span>
@@ -169,10 +156,7 @@ include_once("doctype.php");
                                                                     <?= $dbdata[0]['email'] ?>
                                                                 </div>
                                                             </div>
-                                                            <?
-                                                            $db->disconnect();
-                                                            ?>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>
                                                                         <span class="required">&nbsp;</span>
@@ -183,7 +167,7 @@ include_once("doctype.php");
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 no-padding">
                                                                 <div class="checkout-form-list">
                                                                     <label>
                                                                         <span class="required">&nbsp;</span>
@@ -214,67 +198,46 @@ include_once("doctype.php");
 
 
     <!-- JS -->
-
-    <!-- jquery-1.11.3.min js
-    ============================================ -->
-    <script src="js/vendor/jquery-1.11.3.min.js"></script>
-
-    <!-- price-slider js -->
-    <script src="js/price-slider.js"></script>
-
-    <!-- bootstrap js
-    ============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- nevo slider js
-    ============================================ -->
-    <script src="js/jquery.nivo.slider.pack.js"></script>
-
-    <!-- owl.carousel.min js
-    ============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-
-    <!-- count down js
-    ============================================ -->
-    <script src="js/jquery.countdown.min.js" type="text/javascript"></script>
-
-    <!--zoom plugin
-    ============================================ -->
-    <script src='js/jquery.elevatezoom.js'></script>
-
-    <!-- wow js
-    ============================================ -->
-    <script src="js/wow.js"></script>
-
-    <!--Mobile Menu Js
-    ============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-
-    <!-- jquery.fancybox.pack js -->
-    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
-
-    <!-- jquery.scrollUp js
-    ============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-
-    <!-- mixit-up js
-    ============================================ -->
-    <script src="js/jquery.mixitup.min.js"></script>
-
-    <!-- plugins js
-    ============================================ -->
-    <script src="js/plugins.js"></script>
-
-    <!-- main js
-    ============================================ -->
-    <script src="js/main.js"></script>
-
-    <!-- zip pop js
-    ============================================ -->
-    <script src="js/search.min.js"></script>
+    <?php include_once ("js.php");?>
+    <!-- 다움 주소검색 스크립트 -->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>f
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#search_button").postcodifyPopUp();
-        });
+        function DaumPostcode(zipcode, addr1, addr2) {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var fullAddr = ''; // 최종 주소 변수
+                    var extraAddr = ''; // 조합형 주소 변수
+                    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    // if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+                    // } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr2 = data.jibunAddress;
+                    //  }
+                    // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                    if (data.userSelectedType === 'R') {
+                        //법정동명이 있을 경우 추가한다.
+                        if (data.bname !== '') {
+                            extraAddr += data.bname;
+                        }
+                        // 건물명이 있을 경우 추가한다.
+                        if (data.buildingName !== '') {
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                        fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
+                    }
+                    var postcode = data.postcode1 + "" + data.postcode2;
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    $('.' + zipcode).val(postcode);
+                    $('.' + addr1).val(fullAddr2);
+                    $('.' + addr2).val(fullAddr);
+                    //$('#etc_a34').val(data.addressEnglish);
+                    // 커서를 상세주소 필드로 이동한다.
+                }
+            }).open();
+        }
     </script>
 </body></html>

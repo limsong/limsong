@@ -85,5 +85,11 @@ include_once("include/sqlcon.php");
         <link rel="stylesheet" href="/css/button.css">
 
         <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
-
+        <script language="javascript" type="text/javascript">
+            //<![CDATA[
+            var tl_loc0 = (window.location.protocol == "https:") ? "https://secure.comodo.net/trustlogo/javascript/trustlogo.js" :
+                "http://www.trustlogo.com/trustlogo/javascript/trustlogo.js";
+            document.writeln('<scr' + 'ipt language="JavaScript" src="' + tl_loc0 + '" type="text\/javascript">' + '<\/scr' + 'ipt>');
+            //]]>
+        </script>
     </head>

@@ -60,15 +60,19 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="news-letter">
-                        <h3 class="footer-top-heading">send newsletter</h3>
-                        <div class="newsletter-wrapper">
+                        <!--<h3 class="footer-top-heading">send newsletter</h3>-->
+                        <!--<div class="newsletter-wrapper">
                             <div class="subscribe-inner">
                                 <input type="text" id="subscribe_email">
                                 <a class="sub-button" href="">subscribe</a>
                             </div>
-                        </div> 
+                        </div> -->
                         <div class="payment">
                             <img src="img/payment.png" alt="">
+                        </div>
+                        <div class="payment" style="margin-top:10px;">
+                            <img src="img/positivessl-icon.png" width="43" height="43" alt="">&nbsp;&nbsp;
+                            <img src="img/inipay_43x43_color.png" width="43" height="43" alt="">
                         </div>
                     </div>
                 </div>
@@ -88,7 +92,8 @@
                             <li><a data-toggle="tooltip" data-placement="top" title="Facebook" href="#" ><i class="fa fa-facebook"></i></a></li>
                             <li><a data-toggle="tooltip" title="Twitter" href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a data-toggle="tooltip" title="Pinterest" href="#"><i class="fa fa-pinterest"></i></a></li>
-                            <li><a data-toggle="tooltip" title="Google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>                                                   <li><a data-toggle="tooltip" title="Dribbble" href=""><i class="fa fa-dribbble"></i></a></li>
+                            <li><a data-toggle="tooltip" title="Google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a data-toggle="tooltip" title="Dribbble" href=""><i class="fa fa-dribbble"></i></a></li>
                         </ul>
                     </div>
                 </div>

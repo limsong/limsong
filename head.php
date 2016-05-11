@@ -5,7 +5,7 @@
                                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                                         <div class="top-message">
                                                 <h4>Deal : of the day
-                                                        <span>sozo ?</span>
+                                                        <span>bluestart ?</span>
                                                 </h4>
                                         </div>
                                 </div>
@@ -13,7 +13,7 @@
                                         <div class="top-timer">
                                                 <i class="fa fa-clock-o"></i>
                                                 <div class="count-down">
-                                                        <div data-countdown="2016/03/17"></div>
+                                                        <div data-countdown="2016/09/17"></div>
                                                 </div>
                                         </div>
                                 </div>
@@ -259,28 +259,27 @@
                                                                 for ($i = 0; $i < $db_sortCode_count; $i++) {
                                                                         $uxName = $db_sortCode[$i]["sortName"];
                                                                         $uxCode = $db_sortCode[$i]["sortOrder"];
-                                                                        ?>
+                                                                ?>
                                                                         <li>
                                                                                 <a href="javascript:;"><?= $uxName ?></a>
                                                                                 <ul class="sub-menu">
-                                                                                        <?php
+                                                                <?php
                                                                                         $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
                                                                                         $db_sortCodes = $db->loadRows();
                                                                                         foreach ($db_sortCodes as $key => $value) {
                                                                                                 $umCode = $value["sortOrder"];
-                                                                                                ?>
+                                                                ?>
                                                                                                 <li>
                                                                                                         <a href="shop.php?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
                                                                                                 </li>
-                                                                                                <?php
+                                                                <?php
                                                                                         }
-                                                                                        ?>
+                                                                ?>
                                                                                 </ul>
                                                                         </li>
-                                                                        <?php
+                                                                <?php
                                                                 }
-                                                                ?>
-                                                                <!--<li>
+                                                                /*<li>
                                                                     <a href="shop.html">Shop</a>
                                                                     <div class="mega-menu">
                                                                         <div class="mega-catagory">
@@ -384,8 +383,8 @@
                                                                             <a href="Contact-box.html">contact us box</a>
                                                                         </li>
                                                                     </ul>
-                                                                </li>-->
-
+                                                                </li>*/
+                                                                ?>
                                                         </ul>
                                                 </nav>
                                         </div>
@@ -449,8 +448,8 @@
                                                         <div class="search-drop">
                                                                 <div class="categorys-product-search">
                                                                         <form action="shop.php" method="POST" class="search-form">
-
-                                                                                <!--<select name="catsearch" class="cat-search">
+                                                                            <?php
+                                                                            /*<select name="catsearch" class="cat-search">
                                                                                     <option value="">All Categories</option>
                                                                                     <option value="2">--Women</option>
                                                                                     <option value="3">---T-Shirts</option>
@@ -462,7 +461,8 @@
                                                                                     <option value="9">--Evening</option>
                                                                                     <option value="10">--Summer</option>
                                                                                     <option value="11">---sports</option>
-                                                                                </select>-->
+                                                                                </select>*/
+                                                                            ?>
                                                                                 <input type="text" name="search" class="form-control search-form search-key" placeholder="Enter your search key. " />
                                                                                 <button class="search-button" type="submit">
                                                                                         <i class="fa fa-search"></i>
@@ -508,177 +508,6 @@
                                         <?php
                                 }
                                 ?>
-                                <!--<li>
-                                    <a href="index.html">Home</a>
-                                    <ul>
-                                        <li>
-                                            <a href="index-box.html">Homepage 1 Box</a>
-                                        </li>
-                                        <li>
-                                            <a href="index-2.html">Homepage 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="index-2-box.html">Homepage 2 box</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="shop.html">shop</a>
-                                    <ul>
-                                        <li>
-                                            <a href="">shop layout</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="shop.html">shop grid view</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-list.html">shop List View</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-box.html">shop grid view box</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-list-box.html">shop List View box</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="">shop pages</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="product.html">product page</a>
-                                                </li>
-                                                <li>
-                                                    <a href="cart.html">Shopping Cart</a>
-                                                </li>
-                                                <li>
-                                                    <a href="checkout-box.html">Checkout</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-box.html">product page box</a>
-                                                </li>
-                                                <li>
-                                                    <a href="cart-box.html">Shopping Cart box</a>
-                                                </li>
-                                                <li>
-                                                    <a href="checkout-box.html">Checkout box</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="">product types</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="product.html">simple product</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product.html">variable product</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product.html">grouped product</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product.html">external product</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product.html">downloadable</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product.html">virtual product</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="blog.html">blog</a>
-                                    <ul>
-                                        <li>
-                                            <a href="#">blog full width</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="blog.html">non sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-left-sidebar.html">Sidebar Left</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-right-sidebar.html">Sidebar Right</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="blog-box.html">blog box layout</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="blog-box.html">non sidebar box</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-left-sidebar-box.html">Sidebar Left box</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-right-sidebar-box.html">Sidebar Right box</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="">post format</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="single-post.html">image product</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-post-video.html">video product</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-post-gallery.html">gallery product</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-post-audio.html">audio product</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">pages</a>
-                                    <ul>
-                                        <li>
-                                            <a href="about.html">about us</a>
-                                        </li>
-                                        <li>
-                                            <a href="about-box.html">about us box</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="portfolio.html">portfolio</a>
-                                    <ul>
-                                        <li>
-                                            <a href="portfolio-box.html">portfolio box</a>
-                                        </li>
-                                        <li>
-                                            <a href="portfolio-three-col.html">three columns</a>
-                                        </li>
-                                        <li>
-                                            <a href="single-project.html">single project</a>
-                                        </li>
-                                        <li>
-                                            <a href="portfolio-three-col-box.html">three columns box</a>
-                                        </li>
-                                        <li>
-                                            <a href="single-project-box.html">single project box</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="Contact.html">contact us</a>
-                                    <ul>
-                                        <li>
-                                            <a href="Contact-box.html">contact us box</a>
-                                        </li>
-                                    </ul>
-                                </li>-->
                         </ul>
                 </nav>
         </div>

@@ -15,7 +15,7 @@ $name2 = $_GET["name2"];
                 to improve your experience.
         </p><![endif]-->
         <!--HEADER AREA START-->
-        <?php include_once("head.php") ?>
+        <?php include_once("sub_head.php") ?>
         <!--HEADER AREA END-->
         <!--BREADCRUMB AREA START-->
         <div class="breadcrumb-area">
@@ -41,7 +41,7 @@ $name2 = $_GET["name2"];
                                                         if ($name2 == "") {
                                                                 echo '<li>' . $name1 . '</li>';
                                                         } else {
-                                                                echo '<li class="bc-home"><a href="shop.php?code1=' . $code1 . '&name1=' . $name1 . '&name2=">' . $name2 . '</a></li>';
+                                                                echo '<li class="bc-home"><a href="shop.php?code1=' . $code1 . '&name1=' . $name1 . '&name2=">' . $name1 . '</a></li>';
                                                                 echo '<li>' . $name2 . '</li>';
                                                         }
                                                         ?>

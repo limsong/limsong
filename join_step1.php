@@ -382,27 +382,17 @@ if ($uname != "") {
                                     이용약관에 대하여 동의안합니다.
                                 </label>
                             </div>
-                            <div class="col-md-6 no-padding">
-                                <div class="checkout-form-list">
-                                    <label>
-                                        <span class="required">&nbsp;</span>
-                                    </label>
-                                    <div class="order-button-payment">
-                                        <input type="button" value="회원가입" style="height:42px;margin:0px;"
-                                               class="join_step1_sb">
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="col-md-9"></div>
+                                <div class="col-md-3 no-padding">
+                                    <button type="button" class="btn btn-danger waves-effect waves-light join_step1_sb" style="width: 100%;">확인</button>
                                 </div>
                             </div>
-                            <div class="col-md-6 no-padding">
-                                <div class="checkout-form-list">
-                                    <label>
-                                        <span class="required">&nbsp;</span>
-                                    </label>
-                                    <div class="order-button-payment">
-                                        <input type="button" onclick="javascript:location.href='index.php'" value="취소"
-                                               style="height:42px;margin:0px;background-color:#6e6e6e;">
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="col-md-3 no-padding">
+                                    <button type="button" class="btn btn-purple waves-effect waves-light col-md-12" style="width:100%;" onclick="javascript:location.href='index.php'">취소</button>
                                 </div>
+                                <div class="col-md-9"></div>
                             </div>
                         </div>
                     </div>

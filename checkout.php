@@ -658,28 +658,22 @@ $email = $dbshopMembers[0]["email"];
                                                                                                                                         </button>
                                                                                                                                         <ul class="dropdown-menu" role="menu">
                                                                                                                                                 <li>
-                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">010
-                                                                                                                                                        </a>
+                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">010 </a>
                                                                                                                                                 </li>
                                                                                                                                                 <li>
-                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">011
-                                                                                                                                                        </a>
+                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">011 </a>
                                                                                                                                                 </li>
                                                                                                                                                 <li>
-                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">016
-                                                                                                                                                        </a>
+                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">016 </a>
                                                                                                                                                 </li>
                                                                                                                                                 <li>
-                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">017
-                                                                                                                                                        </a>
+                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">017 </a>
                                                                                                                                                 </li>
                                                                                                                                                 <li>
-                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">018
-                                                                                                                                                        </a>
+                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">018 </a>
                                                                                                                                                 </li>
                                                                                                                                                 <li>
-                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">019
-                                                                                                                                                        </a>
+                                                                                                                                                        <a href="javascript:void(0);" class="dropdown-menu-txt">019 </a>
                                                                                                                                                 </li>
                                                                                                                                         </ul>
                                                                                                                                 </div>
@@ -978,66 +972,9 @@ $email = $dbshopMembers[0]["email"];
         <!--footer area end-->
 
         <!-- JS -->
-
-        <!-- jquery-1.11.3.min js
-        ============================================ -->
-        <script src="js/vendor/jquery-1.11.3.min.js"></script>
-
-        <!-- price-slider js -->
-        <script src="js/price-slider.js"></script>
-
-        <!-- bootstrap js
-                ============================================ -->
-        <script src="js/bootstrap.min.js"></script>
-
-        <!-- nevo slider js
-        ============================================ -->
-        <script src="js/jquery.nivo.slider.pack.js"></script>
-
-        <!-- owl.carousel.min js
-        ============================================ -->
-        <script src="js/owl.carousel.min.js"></script>
-
-        <!-- count down js
-        ============================================ -->
-        <script src="js/jquery.countdown.min.js" type="text/javascript"></script>
-
-        <!--zoom plugin
-        ============================================ -->
-        <script src='js/jquery.elevatezoom.js'></script>
-
-        <!-- wow js
-        ============================================ -->
-        <script src="js/wow.js"></script>
-
-        <!--Mobile Menu Js
-        ============================================ -->
-        <script src="js/jquery.meanmenu.js"></script>
-
-        <!-- jquery.fancybox.pack js -->
-        <script src="js/fancybox/jquery.fancybox.pack.js"></script>
-
-        <!-- jquery.scrollUp js
-        ============================================ -->
-        <script src="js/jquery.scrollUp.min.js"></script>
-
-        <!-- jquery.collapse js
-        ============================================ -->
-        <script src="js/jquery.collapse.js"></script>
-
-        <!-- mixit-up js
-                ============================================ -->
-        <script src="js/jquery.mixitup.min.js"></script>
-
-        <!-- plugins js
-        ============================================ -->
-        <script src="js/plugins.js"></script>
-
-        <!-- main js
-        ============================================ -->
-        <script src="js/main.js"></script>
+        <?php include_once ("js.php");?>
         <!-- 다움 주소검색 스크립트 -->
-        <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+        <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>f
         <!-- 이니시스 웹표준 결제 스크립트 -->
         <script language="javascript" type="text/javascript" src="https://stgstdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
         <script type="text/javascript">
