@@ -1,7 +1,46 @@
 <?php
+include_once ("session.php");
 include_once("doctype.php");
+@$page = $_GET['page'];
+$key = "";
+$keyfield = "";
+if (!@$_POST['key']) {
+    @$key = $_GET['key'];
+} else {
+    @$key = $_POST['key'];
+}
+if (!@$_POST['keyfield']) {
+    @$keyfield = $_GET['keyfield'];
+} else {
+    @$keyfield = $_POST['keyfield'];
+}
+if (empty($page)) {
+    $page = 1;
+}
+if (empty($key)) {
+    $addQuery = "WHERE notify='n' ";
+} else {
+    $addQuery = " WHERE notify='n' AND $keyfield like '%$key%'";
+}
+$db->query("SELECT uid FROM tbl_notice $addQuery");
+$db_tbl_notice_query = $db->loadRows();
+$total_record = count($db_tbl_notice_query);
+if ($total_record == 0) {
+    $first = 1;
+} else {
+    $first = ($page - 1) * $bnum_per_page;
+}
+/*for($i=0;$i<1000;$i++){
+    $db->query("insert into tbl_notice (name,subject,comment,notify,signdate) values ('master','테스트$i','테스트$i','n','2016-05-11 16:26:30')");
+}*/
 ?>
 <body class="home-2 blog">
+    <style type="text/css">
+        .notice-list th {
+            background-color: #E26A6A;
+            color: #fff;
+        }
+    </style>
     <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an
         <strong>outdated</strong>
@@ -54,7 +93,14 @@ include_once("doctype.php");
                                         <?
                                         }else{
                                         ?>
-                                        <table class="table">
+                                        <table class="table notice-list">
+                                            <colgroup>
+                                                <col width="50">
+                                                <col width="*">
+                                                <col width="150">
+                                                <col width="150">
+                                                <col width="50">
+                                            </colgroup>
                                             <thead>
                                                 <th>번호</th>
                                                 <th>제목</th>
@@ -62,12 +108,48 @@ include_once("doctype.php");
                                                 <th>날짜</th>
                                                 <th>조회</th>
                                             </thead>
+
+                                                <?php
+                                                if($page=="1") {
+                                                    echo "<tbody>";
+                                                    $db->query("SELECT * FROM tbl_notice WHERE notify='y'");
+                                                    $db_tbl_notice_query = $db->loadRows();
+                                                    $count = count($db_tbl_notice_query);
+                                                    for ($i = 0; $i < $count; $i++) {
+                                                        $signdate = date("Y.m.d", strtotime($db_tbl_notice_query[$i]["signdate"]));
+                                                        ?>
+                                                        <tr>
+                                                            <td align="center">
+                                                                <span style="font-weight: bold;color:#c12e2a;">필독</span>
+                                                            </td>
+                                                            <td><?= $db_tbl_notice_query[$i]["subject"] ?></td>
+                                                            <td><?= $db_tbl_notice_query[$i]["name"] ?></td>
+                                                            <td><?= $signdate ?></td>
+                                                            <td align="center"><?= $db_tbl_notice_query[$i]["ref"] ?></td>
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                    echo "</tbody>";
+                                                }
+                                                ?>
                                             <tbody>
-                                                <td>1</td>
-                                                <td>테스트</td>
-                                                <td>master</td>
-                                                <td>2016.05.10</td>
-                                                <td></td>
+                                                <?php
+                                                $db->query("SELECT * FROM tbl_notice $addQuery ORDER BY uid DESC LIMIT $first,$gnum_per_page");
+                                                $db_tbl_notice_query = $db->loadRows();
+                                                $count = count($db_tbl_notice_query);
+                                                for($i=0;$i<$count;$i++){
+                                                    $signdate = date("Y.m.d",strtotime($db_tbl_notice_query[$i]["signdate"]));
+                                                ?>
+                                                <tr>
+                                                    <td align="center"><?=$db_tbl_notice_query[$i]["uid"]?></td>
+                                                    <td><?=$db_tbl_notice_query[$i]["subject"]?></td>
+                                                    <td><?=$db_tbl_notice_query[$i]["name"]?></td>
+                                                    <td><?=$signdate?></td>
+                                                    <td align="center"><?=$db_tbl_notice_query[$i]["ref"]?></td>
+                                                </tr>
+                                                <?php
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                         <?
@@ -89,9 +171,34 @@ include_once("doctype.php");
                                     }else{
                                     ?>
                                     <div class="pagination">
-                                        <a href="#" class="page-numbers current">1</a>
-                                        <a href="#" class="page-numbers">2</a>
-                                        <a href="#" class="next page-numbers">Next</a>
+                                        <?php
+                                        $total_page=ceil($total_record/$gnum_per_page); //젠체 페이지수
+                                        $total_block=ceil($total_page/$gpage_per_block); //젠체 block수
+                                        $block=ceil($page/$gpage_per_block);  //현재 목록
+                                        $first_page=($block-1)*$gpage_per_block+1;   //[4][5][6] $first_page=[4];
+                                        if($block>=$total_block) {
+                                            $last_page=$total_page;
+                                        } else {
+                                            $last_page=$block*$gpage_per_block;
+                                        }
+                                        ?>
+                                        <?
+                                        if($page>1) {
+                                            $bfPage=$page-1;   //이전페이지
+                                            echo '<a href="notice.php?key='.$key.'&keyfield='.$keyfield.'&page='.$bfPage.'" class="next page-numbers">Prive</a>';
+                                        }
+                                        for($my_page=$first_page;$my_page<=$last_page;$my_page++) {                 //현재 페이지
+                                            if($page==$my_page) {
+                                                echo '<a href="#" class="page-numbers current">'.$my_page.'</a>';
+                                            } else {
+                                                echo '<a href="notice.php?key='.$key.'&keyfield='.$keyfield.'&page='.$my_page.'" class="page-numbers">'.$my_page.'</a>';
+                                            }
+                                        }
+                                        if($page<$total_page) {
+                                            $nxPage=$page+1;  //다음 페이지
+                                            echo '<a href="notice.php?key='.$key.'&keyfield='.$keyfield.'&page='.$nxPage.'" class="next page-numbers">Next</a>';
+                                        }
+                                        ?>
                                     </div>
                                     <?
                                     }

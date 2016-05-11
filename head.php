@@ -266,7 +266,7 @@
                                                                 <?php
                                                                                         $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
                                                                                         $db_sortCodes = $db->loadRows();
-                                                                                        foreach ($db_sortCodes as $key => $value) {
+                                                                                        foreach ($db_sortCodes as $head_key => $value) {
                                                                                                 $umCode = $value["sortOrder"];
                                                                 ?>
                                                                                                 <li>
@@ -494,7 +494,7 @@
                                                         <?php
                                                         $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
                                                         $db_sortCodes = $db->loadRows();
-                                                        foreach ($db_sortCodes as $key => $value) {
+                                                        foreach ($db_sortCodes as $key_head => $value) {
                                                                 $umCode = $value["sortOrder"];
                                                                 ?>
                                                                 <li>

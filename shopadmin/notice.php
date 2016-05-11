@@ -24,9 +24,8 @@
         ?>
         <!-- 공지쪽글//-->
         <?
-        if ($page == '1') {
             $currentTime = time();
-            $query = "select uid,subject,name,signdate,ref from tbl_notice order by uid asc";
+            $query = "select uid,subject,name,signdate,ref from tbl_notice order by uid desc limit $first,$gnum_per_page";
             $result = mysql_query($query) or die($query);
             while ($row = mysql_fetch_assoc($result)) {                 //연관 배열
                 $ou_uid = $row["uid"];
@@ -50,7 +49,6 @@
                 </tr>
                 <?
             }
-        }
         ?>
     </table>
 </form>
