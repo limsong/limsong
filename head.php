@@ -245,7 +245,7 @@
                                 ?>
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-9 no-padding">
                                         <!--Logo start-->
-                                        <div class="logo" style="text-align: center;padding-top:17px;padding-left:3px;">
+                                        <div class="logo">
                                                 <a href="index.php">NEWNS</a>
                                         </div>
                                         <!--MAIN MENU START-->

@@ -61,7 +61,7 @@ width: 70%;
 
 @media screen and (max-width: 1400px) {
     
-.logo {padding: 13px 3px 19px 8px;}
+.logo {padding: 16px 3px 19px 8px;}
 .category-menu-list ul li span.cat-thumb {
   padding-left: 7px;
   padding-right: 8px;
@@ -138,7 +138,7 @@ margin-right: 10px;
 .slider-area-wrapper .area-heading {margin: 0 15px 16px;}
 .product-area .owl-theme .owl-controls .owl-buttons .owl-next,.product-area .owl-theme .owl-controls .owl-buttons .owl-prev {top: -62px;}
 .logo {
-padding: 11px 3px 19px 8px;
+padding: 16px 3px 19px 8px;
 width: 28%;
 }
 .header-shipping ul li i {
@@ -296,7 +296,7 @@ width: 330px !important;
 .border-right {border-right:none;}
  .mobile-menu {display: block;}
 .header-top,.search-two,/*.plus-account,*/.lang-currency {/*display: none;*/}
-.search-drop{right:-117px;width:325px;}
+.search-drop{right:-112px;width:318px;}
 .search-icon-two{border:none;}
 .cart {
 height: 55px;
@@ -441,7 +441,7 @@ margin-top: 1px;
 text-align: center;
 }
 .logo-footer {
-padding: 13px 37px 11px 15px;
+padding: 16px 37px 11px 15px;
 text-align: center;
 width: 100%;
 }

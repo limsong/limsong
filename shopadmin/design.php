@@ -77,7 +77,7 @@ include("common/config.shop.php");
                                                         <dd class="inputDd"><a href="#" style="float:left;padding-top:2px;padding-right:3px;"><img src="images/i_add.gif" class="addimg" data="banner1" /></a><span style="margin-top:3px;float:left;color:#3a5795;">( 1920x820 ) * 개수제한 무</span></dd>
                                                         <?
                                                         for($i=0;$i<count($id1);$i++){
-                                                                $imgwh=@getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$imgName1[$i]);
+                                                                $imgwh=@getimagesize("../userFiles/images/brandImages/".$imgName1[$i]);
                                                                 $img_width=$imgwh[0];
                                                                 $img_height=$imgwh[1];
                                                                 $img_src=$brandImagesWebDir.$imgName1[$i];
@@ -122,7 +122,7 @@ include("common/config.shop.php");
                                                         <dd class="inputDd"><a href="#" style="float:left;padding-top:2px;padding-right:3px;"><img src="images/i_add.gif" class="addimg" data="banner2" /></a><span style="margin-top:3px;float:left;color:#3a5795;">( 620x396 ) *개수제한3개</span></dd>
                                                         <?
                                                         for($i=0;$i<count($id2);$i++){
-                                                                $imgwh=@getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$imgName2[$i]);
+                                                                $imgwh=@getimagesize("../userFiles/images/brandImages/".$imgName2[$i]);
                                                                 $img_width=$imgwh[0];
                                                                 $img_height=$imgwh[1];
                                                                 $img_src=$brandImagesWebDir.$imgName2[$i];
@@ -164,7 +164,7 @@ include("common/config.shop.php");
                                                         <dd class="inputDd"><a href="#" style="float:left;padding-top:2px;padding-right:3px;"><img src="images/i_add.gif" class="addimg" data="banner3" /></a><span style="margin-top:3px;float:left;color:#3a5795;">(620x396 - 620x396 - 620x812 - 620x396 - 620x396 ) *개수제한5개</span></dd>
                                                         <?
                                                         for($i=0;$i<count($id3);$i++){
-                                                                $imgwh=@getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$imgName3[$i]);
+                                                                $imgwh=@getimagesize("../userFiles/images/brandImages/".$imgName3[$i]);
                                                                 $img_width=$imgwh[0];
                                                                 $img_height=$imgwh[1];
                                                                 $img_src=$brandImagesWebDir.$imgName3[$i];
@@ -206,7 +206,7 @@ include("common/config.shop.php");
                                                         <dd class="inputDd"><a href="#" style="float:left;padding-top:2px;padding-right:3px;"><img src="images/i_add.gif" class="addimg" data="banner4" /></a><span style="margin-top:3px;float:left;color:#3a5795;">( 380x447 ) *개수제한5개</span></dd>
                                                         <?
                                                         for($i=0;$i<count($id4);$i++){
-                                                                $imgwh=@getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$imgName4[$i]);
+                                                                $imgwh=@getimagesize("../userFiles/images/brandImages/".$imgName4[$i]);
                                                                 $img_width=$imgwh[0];
                                                                 $img_height=$imgwh[1];
                                                                 $img_src=$brandImagesWebDir.$imgName4[$i];

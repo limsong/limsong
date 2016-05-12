@@ -84,7 +84,17 @@ if($code == "faq"){
 
             <div class="buttonBox">
                 <input type="submit" class="memEleB" value="등록"/>
+                <?php
+                if($code != "faq"){
+                ?>
                 <input type="button" class="memEleB" value="취소" onclick="location.href='boardList.php?bbs_code=notice'" />
+                <?php
+                }else{
+                ?>
+                    <input type="button" class="memEleB" value="취소" onclick="location.href='boardList.php?bbs_code=faq'" />
+                <?php
+                }
+                ?>
             </div>
         </form>
 	</div>

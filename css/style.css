@@ -485,10 +485,10 @@ ul {
 .logo {
     border-right: 1px solid #4a4a4a;
     float: left;
-    padding: 12px 0;
     text-align: center;
     width: 18%;
     height: 80px;
+    text-align: center;padding-top:16px;padding-left:3px;
 }
 
 .cart {
@@ -632,7 +632,7 @@ a.nivo-nextNav {
     opacity: 0;
     padding: 5px 16px 10px;
     position: absolute;
-    right: 0px;
+    right: -32px;
     top: 90px;
     transition: all 0.5s ease 0s;
     visibility: hidden;
@@ -2056,7 +2056,7 @@ nav {
 }
 
 .search-two .form-control {
-    width: 85%;
+    width: 83%;
 }
 
 .search-two .search-button {
@@ -4647,11 +4647,22 @@ p.checkout-coupon input[type=submit] {
 .logo a {
     transition: all 0.3s ease 0s;
     text-decoration: none;
-    font-family: "Roboto Slab";
-    font-size:30px;
-    background: linear-gradient(330deg, #E26A6A 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #E26A6A 100%);
+    /*font-family: 'Playfair Display', serif;*/
+    /*font-family: 'Raleway', sans-serif;*/
+    /*font-family: 'Quicksand', sans-serif;*/
+    /*font-family: 'Josefin Sans', sans-serif;*/
+    /*font-family: 'Raleway', sans-serif;*/
+    /*font-family: 'Black Ops One', cursive;*/
+    font-family: 'PT Serif', serif;
+    font-style:italic;
+    font-weight:700 !important;
+    font-size:33px;
+    color: #ddd;
+    /*background: linear-gradient(330deg, #E26A6A 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #E26A6A 100%);*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#666));
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;}
+    -webkit-text-fill-color: transparent;
+}
 
 .logo a:hover {
     color: #E26A6A;
