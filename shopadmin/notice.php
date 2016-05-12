@@ -25,7 +25,7 @@
         <!-- 공지쪽글//-->
         <?
             $currentTime = time();
-            $query = "select uid,subject,name,signdate,ref from tbl_notice order by uid desc limit $first,$gnum_per_page";
+            $query = "select uid,subject,name,signdate,ref from tbl_notice where notify!='q' order by uid desc limit $first,$gnum_per_page";
             $result = mysql_query($query) or die($query);
             while ($row = mysql_fetch_assoc($result)) {                 //연관 배열
                 $ou_uid = $row["uid"];

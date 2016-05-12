@@ -781,7 +781,7 @@ $email = $dbshopMembers[0]["email"];
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-md-12" style="padding:0px;margin:20px 0px;">
+                            <!--<div class="col-md-12" style="padding:0px;margin:20px 0px;">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="input-group">
@@ -807,7 +807,7 @@ $email = $dbshopMembers[0]["email"];
                                         </div><!-- /input-group -->
                                     </div><!-- /.col-lg-6 -->
                                 </div><!-- /.row -->
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12">
@@ -829,8 +829,8 @@ $email = $dbshopMembers[0]["email"];
                                                 <label style="padding:0px 5px;" for="vbank">가상계좌</label>
                                                 <input type="radio" name="paymethod" value="bank" id="dbank">
                                                 <label style="padding:0px 5px;" for="dbank">계좌이체</label>
-                                                <input type="radio" name="paymethod" value="mobile" id="hpp">
-                                                <label style="padding:0px 5px;" for="hpp">핸드폰 결제</label>
+                                                <!--<input type="radio" name="paymethod" value="mobile" id="hpp">
+                                                <label style="padding:0px 5px;" for="hpp">핸드폰 결제</label>-->
                                             </td>
                                         </tr>
                                         <tr class="payment_option_type" style="display: none;">

@@ -74,8 +74,7 @@ $bbs_code = $_GET["bbs_code"];
                         include_once ("user_review.php");
                         break;
                     case "faq":
-                        $addQuery .= " qna_mod='0'";
-                        $query = "select count(*) from tbl_notice ";
+                        $query = "select count(*) from tbl_notice where notify='q'";
                         $result = mysql_query($query) or die($query);
                         $total_record = mysql_result($result, 0, 0);
                         if ($total_record == 0) {
@@ -99,7 +98,7 @@ $bbs_code = $_GET["bbs_code"];
                         include_once ("user_onetoone.php");
                         break;
                     case "notice":
-                        $query = "select count(*) from tbl_notice ";
+                        $query = "select count(*) from tbl_notice where notify!='q'";
                         $result = mysql_query($query) or die($query);
                         $total_record = mysql_result($result, 0, 0);
                         if ($total_record == 0) {

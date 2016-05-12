@@ -2,7 +2,7 @@
 include("common/config.shop.php");
 include("check.php");
 include("fckeditor/fckeditor.php");
-$code=$_GET['code'];
+
 $page=$_GET['page'];
 if(!$_POST['key']) {
 	$key=$_GET['key'];
@@ -13,6 +13,12 @@ if(!$_POST['keyfield']) {
 	$keyfield=$_GET['keyfield'];
 } else {
 	$keyfield=$_POST['keyfield'];
+}
+$code=$_GET['code'];
+if($code == "faq"){
+    $title = "FAQ";
+}else{
+    $title = "공지글";
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -40,17 +46,23 @@ if(!$_POST['keyfield']) {
 <div id="total">
     <? include("include/include.header.php"); ?>
 	<div id="main">
-		<h4 id="mainTitle">회원상세정보</h4>
-		<form name="bForm" action="noticePost.php" target="action_frame" onsubmit="return checkBForm(this)" method="post" enctype="multipart/form-data">
+		<h4 id="mainTitle"><?=$title?></h4>
+		<form name="bForm" action="noticePost.php?code=<?=$code?>" target="action_frame" onsubmit="return checkBForm(this)" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <th style="width:150px;">제목</th>
                     <td><input class="inp" type="text" name="subject" /></td>
                 </tr>
+                <?php
+                if($code !='faq'){
+                ?>
                 <tr>
                     <th>필독</th>
                     <td><input type="checkbox" name="notify" value="y" /></td>
                 </tr>
+                <?php
+                }
+                ?>
                 <tr>
                     <th>내용</th>
                     <td>

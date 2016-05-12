@@ -777,7 +777,7 @@ $email = $dbshopMembers[0]["email"];
                                                                         </tbody>
                                                                 </table>
                                                         </div>
-                                                        <div class="col-md-12" style="padding:0px;margin:20px 0px;">
+                                                        <!--<div class="col-md-12" style="padding:0px;margin:20px 0px;">
                                                                 <div class="row">
                                                                         <div class="col-md-12">
                                                                                 <div class="input-group">
@@ -801,7 +801,7 @@ $email = $dbshopMembers[0]["email"];
                                                                                 </div><!-- /input-group -->
                                                                         </div><!-- /.col-lg-6 -->
                                                                 </div><!-- /.row -->
-                                                        </div>
+                                                        </div>-->
                                                 </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12">
@@ -823,8 +823,8 @@ $email = $dbshopMembers[0]["email"];
                                                                                                 <input type="radio" name="paymethod" value="VBank" id="vbank" style="padding:0px 5px;">
                                                                                                 <label style="padding:0px 5px;" for="dbank">실시간계좌이체</label>
                                                                                                 <input type="radio" name="paymethod" value="DirectBank" id="dbank">
-                                                                                                <label style="padding:0px 5px;" for="hpp">핸드폰 결제</label>
-                                                                                                <input type="radio" name="paymethod" value="HPP" id="hpp">
+                                                                                                <!--<label style="padding:0px 5px;" for="hpp">핸드폰 결제</label>
+                                                                                                <input type="radio" name="paymethod" value="HPP" id="hpp">-->
                                                                                                 <?
                                                                                                 /*
                                                                                                  * 결제수단코드 gopaymethod
