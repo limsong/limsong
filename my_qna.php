@@ -131,7 +131,6 @@ if($del_qna != ""){
                                             </tbody>
                                             <?
                                         }
-                                        $db->disconnect();
                                         ?>
 
                                     </table>

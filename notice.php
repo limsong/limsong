@@ -1,6 +1,7 @@
 <?php
 include_once ("session.php");
 include_once("doctype.php");
+@$uid = $_GET["no"];
 @$page = $_GET['page'];
 $key = "";
 $keyfield = "";
@@ -68,7 +69,6 @@ if ($total_record == 0) {
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <?php
-                                        $uid = $_GET["no"];
                                         if($uid !=""){
                                             $db->query("SELECT * FROM tbl_notice WHERE uid='$uid'");
                                             $db_tbl_notice_query = $db->loadRows();
@@ -142,7 +142,7 @@ if ($total_record == 0) {
                                                 ?>
                                                 <tr>
                                                     <td align="center"><?=$db_tbl_notice_query[$i]["uid"]?></td>
-                                                    <td><?=$db_tbl_notice_query[$i]["subject"]?></td>
+                                                    <td><a href="notice.php?no=<?=$db_tbl_notice_query[$i]["uid"]?>"><?=$db_tbl_notice_query[$i]["subject"]?></a></td>
                                                     <td><?=$db_tbl_notice_query[$i]["name"]?></td>
                                                     <td><?=$signdate?></td>
                                                     <td align="center"><?=$db_tbl_notice_query[$i]["ref"]?></td>
@@ -163,7 +163,14 @@ if ($total_record == 0) {
                                     ?>
                                     <table class="table">
                                         <tr>
-                                            <td><a href="notice.php?no=1">BACK</a> . <a href="notice.php?no=2">NEXT</a></td>
+                                            <?
+                                            if($uid>1){
+                                                $back = $uid-1;
+                                            }else{
+                                                $uid = 1;
+                                            }
+                                            ?>
+                                            <td><a href="notice.php?no=<?=$back?>">BACK</a> . <a href="notice.php?no=<? echo $uid+1;?>">NEXT</a></td>
                                             <td style="text-align: right;"><a href="notice.php">글목록</a></td>
                                         </tr>
                                     </table>

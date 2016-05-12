@@ -104,9 +104,7 @@ if($del_data != ""){
                                             </tbody>
                                             <?
                                         }
-                                        $db->disconnect();
                                         ?>
-
                                     </table>
                                 </div>
                             </div>
