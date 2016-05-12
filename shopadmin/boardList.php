@@ -141,7 +141,7 @@ $bbs_code = $_GET["bbs_code"];
                     </li>
                     <li class="ml10">
                         <a <?php if ($bbs_code == "faq") echo "class='active'"; ?>
-                            href="boardList.php?bbs_code=faq">자주하는 질문
+                            href="boardList.php?bbs_code=faq">자주하는 질문(FAQ)
                         </a>
                     </li>
 

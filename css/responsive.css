@@ -189,7 +189,7 @@ h2.slider-tiile-middle span.bg-text {
 @media (min-width: 768px) and (max-width: 991px) {
 
 .mobile-menu {display: block;}
-.header-top,/*.plus-account,*/.lang-currency,.search-two {display: none;}
+.header-top,/*.plus-account,*/.lang-currency,.search-two {/*display: none;*/}
 .contact-page .contact-form {margin-top: 40px;}
 .cart {
 height: 55px;
@@ -209,7 +209,7 @@ float: right;
 margin-right: 8px;
 }
 .logo {
-  width: 50%;
+  /*width: 50%;*/
   border-right: none;
 }
 .header-middle .col-sm-12.col-md-7 {border-bottom: 1px solid #4a4a4a;}
@@ -295,7 +295,9 @@ width: 330px !important;
 .categorys-product-search {margin: 16px 0 0px;}
 .border-right {border-right:none;}
  .mobile-menu {display: block;}
-.header-top,.search-two,/*.plus-account,*/.lang-currency {display: none;}
+.header-top,.search-two,/*.plus-account,*/.lang-currency {/*display: none;*/}
+.search-drop{right:-117px;width:325px;}
+.search-icon-two{border:none;}
 .cart {
 height: 55px;
 line-height: 58px;
@@ -390,7 +392,7 @@ font-size: 19px;
 margin-top: 17px;
 }
 .logo {
-width: 100%;
+/*width: 100%;*/
 border-right: none;
 }
 /*product area*/

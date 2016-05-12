@@ -5,7 +5,7 @@
                                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                                         <div class="top-message">
                                                 <h4>Deal : of the day
-                                                        <span>bluestart ?</span>
+                                                        <span style="">bluestart ?</span>
                                                 </h4>
                                         </div>
                                 </div>
@@ -245,8 +245,8 @@
                                 ?>
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-9 no-padding">
                                         <!--Logo start-->
-                                        <div class="logo" style="text-align: center;padding-top:25px;padding-left:7px;">
-                                                <a href="index.php" style="font-size:20px;">NEWNS</a>
+                                        <div class="logo" style="text-align: center;padding-top:17px;padding-left:3px;">
+                                                <a href="index.php">NEWNS</a>
                                         </div>
                                         <!--MAIN MENU START-->
                                         <div class="main-menu hidden-sm hidden-xs hidden-md">
