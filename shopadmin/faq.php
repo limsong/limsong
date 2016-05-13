@@ -25,7 +25,11 @@
         <!-- 공지쪽글//-->
         <?
         $currentTime = time();
-        $query = "select uid,subject,name,signdate,ref from tbl_notice where notify='q' order by uid desc limit $first,$gnum_per_page";
+        if($addQuery == " where") {
+            $query = "select uid,subject,name,signdate,ref from tbl_notice $addQuery notify='q' order by uid desc limit $first,$gnum_per_page";
+        }else{
+            $query = "select uid,subject,name,signdate,ref from tbl_notice $addQuery and notify='q' order by uid desc limit $first,$gnum_per_page";
+        }
         $result = mysql_query($query) or die($query);
         while ($row = mysql_fetch_assoc($result)) {                 //연관 배열
             $ou_uid = $row["uid"];
@@ -98,7 +102,7 @@
         </dt>
     </dl>
 </div>
-<form name="searchForm" method="post" action="boardList.php?code=<?= $code ?>">
+<form name="searchForm" method="post" action="boardList.php?bbs_code=faq">
     <ul class="memberBottom">
         <li>
             <input type="button" class="memEleB" value="삭제"

@@ -11,10 +11,20 @@ include_once("include/sqlcon.php");
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>BLUE START</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>뉴엔에스 NEWNS 보조배터리 나인붓 셀카봉</title>
+        <meta name="description" content="뉴엔에스 NEWNS 보조배터리 나인붓 셀카봉">
+	<?php
+	include_once("include/Mobile_Detect.php");
+   	$detect = new Mobile_Detect;
+    	if($detect->isMobile()){
+		    echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">';
+    	}elseif($detect->isTablet()){
+        	echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">';
+    	}else{
+        	echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
+    	}
 
+	?>
         <!-- Favicon
         ============================================ -->
         <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">

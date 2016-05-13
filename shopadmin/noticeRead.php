@@ -37,6 +37,7 @@ $ou_code = $_GET["code"];
 	<div id="main">
 		<form name="noticeForm" method="post" action="noticeChangePost.php?code=<?=$ou_code?>&number=<?=$number?>&page=<?=$page?>&key=<?=$key?>&keyfield=<?=$keyfield?>" target="action_frame" enctype="multipart/form-data">
 			<input type="Hidden" name="mode" />
+            <input type="hidden" name="bbs_code" value="<?=$ou_code?>" />
             <table>
                 <tr>
                     <th style="width:150px;">제목</th>
@@ -71,8 +72,8 @@ $ou_code = $_GET["code"];
                 </tr>
             </table>
 			<div class="buttonBox">
-				<a href="#A" onclick="checkBForm('modify')"><img src="img/btn_modify2.gif" alt="수정" width="63" height="25" /></a>
-				<a href="#A" onclick="checkBForm('delete')"><img src="img/btn_delete2.gif" alt="삭제"  /></a>
+				<a href="javascript:checkBForm('modify');"><img src="img/btn_modify2.gif" alt="수정" width="63" height="25" /></a>
+				<a href="javascript:checkBForm('delete');"><img src="img/btn_delete2.gif" alt="삭제"  /></a>
                 <?php
                 if($ou_code!='q'){
                 ?>

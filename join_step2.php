@@ -12,7 +12,7 @@ if ($uname != "") {
 		<![endif]-->
 	<!--HEADER AREA SART-->
 
-    <? include_once("sub_head.php"); ?>
+    <? include_once("head.php"); ?>
 	<!--HEADER AREA END-->
 	<!--BREADCRUMB AREA START-->
 	<div class="breadcrumb-area">

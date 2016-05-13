@@ -74,7 +74,12 @@ $bbs_code = $_GET["bbs_code"];
                         include_once ("user_review.php");
                         break;
                     case "faq":
-                        $query = "select count(*) from tbl_notice where notify='q'";
+                        if($addQuery == " where"){
+                            $query = "select count(*) from tbl_notice $addQuery notify='q'";
+                        }else{
+                            $query = "select count(*) from tbl_notice $addQuery and notify='q'";
+                        }
+
                         $result = mysql_query($query) or die($query);
                         $total_record = mysql_result($result, 0, 0);
                         if ($total_record == 0) {
@@ -98,7 +103,11 @@ $bbs_code = $_GET["bbs_code"];
                         include_once ("user_onetoone.php");
                         break;
                     case "notice":
-                        $query = "select count(*) from tbl_notice where notify!='q'";
+                        if($addQuery == " where"){
+                            $query = "select count(*) from tbl_notice $addQuery notify!='q'";
+                        }else{
+                            $query = "select count(*) from tbl_notice $addQuery and notify!='q'";
+                        }
                         $result = mysql_query($query) or die($query);
                         $total_record = mysql_result($result, 0, 0);
                         if ($total_record == 0) {
@@ -106,7 +115,7 @@ $bbs_code = $_GET["bbs_code"];
                         } else {
                             $first = ($page - 1) * $bnum_per_page;
                         }
-                        include_once ("notice.php");
+                        include_once ("noticeList.php");
                         break;
                 }
                 ?>
