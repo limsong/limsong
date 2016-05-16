@@ -433,7 +433,7 @@
     <div class="header-bottom">
         <div class="container-fluid">
             <div class="row">
-                <div class=" col-xs-12 col-sm-12 col-lg-offset-2 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="categorys-product-search">
                         <form action="shop.php" method="post" class="search-form">
                             <input type="hidden" name="code1" value="<?= $code1 ?>">
@@ -454,8 +454,7 @@
                                     <option value="11">---sports</option>
                                 </select>*/
                                 ?>
-                                <input type="text" name="search" class="form-control search-form search-key"
-                                       style="width:70%;" placeholder="Enter your search key. "/>
+                                <input type="text" name="search" class="form-control search-form search-key" placeholder="Enter your search key. "/>
                                 <button class="search-button" value="검색" type="button">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -463,7 +462,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="header-shipping">
                         <ul>
                             <li>

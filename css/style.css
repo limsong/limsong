@@ -946,7 +946,7 @@ a.nivo-nextNav {
     float: left;
     margin-top: 10px;
     padding: 6px 12px;
-    width: 74%;
+    width: 93%;
 }
 
 .search-button {
@@ -982,7 +982,7 @@ a.nivo-nextNav {
 }
 
 .categorys-product-search {
-    margin: 25px 0 20px;
+    margin: 20px 0 20px;
 }
 
 .header-shipping ul li {
@@ -1009,7 +1009,7 @@ a.nivo-nextNav {
 .header-shipping {
     color: #2f2f2f;
     font-weight: 500;
-    margin-top: 38px;
+    margin-top: 45px;
 }
 
 /*----2.5  TOP PRODUCT AREA*/
@@ -2865,7 +2865,7 @@ padding-right: 15px;
 
 .product-review-area .meta > strong {
     font-size: 16px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 .product-review-area .meta {
