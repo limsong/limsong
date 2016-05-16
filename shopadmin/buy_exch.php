@@ -158,7 +158,7 @@
         }
         ?>
 </div>
-<form name="searchForm" method="post" action="orderList.php">
+<form name="searchForm" method="post" action="orderList.php?code=claim&delivery=8192">
         <ul class="memberBottom">
                 <li>
                         <input type="text" class="border2" name="key" size="16" />

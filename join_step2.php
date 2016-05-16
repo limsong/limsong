@@ -55,7 +55,7 @@ if ($uname != "") {
 										<div class="checkout-form-list">
 											<label> <span class="required">&nbsp;</span></label>     
 											<div class="order-button-payment">
-												<INPUT type="hidden" class="check_id">
+												<INPUT type="hidden" class="check_id" name="check_id">
 												<input type="button" value="ID중복확인" class="btn btn-red join_step2_check_id" style="height:35px;margin:0px;">
 											</div>
 										</div>
@@ -98,27 +98,49 @@ if ($uname != "") {
 
 									<div class="col-md-12">
 										<div class="checkout-form-list">
-											<label>주소</label>
+											<label>구주소</label>
 											<input type="text" readonly="readonly" name="add1" id="address" class="add1 postcodify_address" placeholder="">
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="checkout-form-list">
-											<label>나머지 주소</label>
+											<label>새주소</label>
 											<input type="text" name="add2" class="add2" placeholder="">
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="checkout-form-list">
-											<label>전화번호 (- 없이 입력해주세요)  <span class="required"></span></label>                                       
-											<input type="text" name="phone" class="phone" placeholder="">
+                                    <div class="col-md-12">
+                                        <div class="checkout-form-list">
+                                            <label>나머지주소</label>
+                                            <input type="text" name="add3" class="add3" placeholder="">
+                                        </div>
+                                    </div>
+									<div class="col-md-12no-padding">
+										<div class="checkout-form-list col-md-4">
+											<label>전화번호 <span class="required"></span></label>
+											<input type="text" name="phone1" class="phone1" placeholder="">
 										</div>
+                                        <div class="checkout-form-list col-md-4">
+                                            <label>&nbsp;<span class="required"></span></label>
+                                            <input type="text" name="phone2" class="phone2" placeholder="">
+                                        </div>
+                                        <div class="checkout-form-list col-md-4">
+                                            <label>&nbsp;<span class="required"></span></label>
+                                            <input type="text" name="phone3" class="phone3" placeholder="">
+                                        </div>
 									</div>
-									<div class="col-md-6">
-										<div class="checkout-form-list">
-											<label>휴대전화 (- 없이 입력해주세요)  <span class="required"></span></label>                                       
-											<input type="text" name="hphone" class="hphone"  placeholder="">
+									<div class="col-md-12 no-padding">
+										<div class="checkout-form-list col-md-4">
+											<label>휴대전화  <span class="required"></span></label>
+											<input type="text" name="hphone1" class="hphone1"  placeholder="">
 										</div>
+                                        <div class="checkout-form-list col-md-4">
+                                            <label>&nbsp;<span class="required"></span></label>
+                                            <input type="text" name="hphone2" class="hphone2"  placeholder="">
+                                        </div>
+                                        <div class="checkout-form-list col-md-4">
+                                            <label>&nbsp;<span class="required"></span></label>
+                                            <input type="text" name="hphone3" class="hphone3"  placeholder="">
+                                        </div>
 									</div>
 
 									<div class="col-md-4">
@@ -128,7 +150,7 @@ if ($uname != "") {
 										</div>
 									</div>
 									<div class="col-md-4">
-										<div class="country-select">
+										<div class="country-select" style="margin-bottom:0px;">
 											<label>@ <span class="required"></span></label>
 											<select style="height:35px;margin-top:5px;" name="mail2" class="mail2">
 												<option value="00" selected="">선택해주세요.</option>
@@ -191,7 +213,7 @@ if ($uname != "") {
 	<!-- JS -->
 	<?php include_once ("js.php");?>
     <!-- 다움 주소검색 스크립트 -->
-        <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>f
+        <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
         <script type="text/javascript">
             function DaumPostcode(zipcode, addr1, addr2) {
                 new daum.Postcode({
@@ -220,13 +242,18 @@ if ($uname != "") {
                             // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
                             fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
                         }
-                        var postcode = data.postcode1 + "" + data.postcode2;
+                        var postcode = data.postcode1 + "" + data.postcode2;// 구우편번호
+                        var zonecode = data.zonecode;// 새우편번호
                         // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        $('.' + zipcode).val(postcode);
+                        $('.' + zipcode).val(zonecode);
                         $('.' + addr1).val(fullAddr2);
                         $('.' + addr2).val(fullAddr);
                         //$('#etc_a34').val(data.addressEnglish);
                         // 커서를 상세주소 필드로 이동한다.
+                    },
+                    theme: {
+                        searchBgColor: "#0B65C8", //검색창 배경색
+                        queryTextColor: "#FFFFFF" //검색창 글자색
                     }
                 }).open();
             }

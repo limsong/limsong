@@ -11,6 +11,9 @@ if($in_code!=""){
 }else{
     $goUrl="boardList.php?bbs_code=notice".$queryString;
 }
+if($in_notify==""){
+        $in_notify ="n";
+}
 $in_ref=0;  //방문자수
 $in_signdate=date("Y-m-d H:i:s",time());
 $query="insert into tbl_notice (name,subject,comment,notify,signdate)
