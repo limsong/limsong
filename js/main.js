@@ -334,6 +334,10 @@ var login;
 
     /*--- join_step2 select zipcode pop ----*/
     $(".join_submit").on('click', function () {
+        if($(".check_id").val()!="o"){
+            alert("아이디 중복 확인을 해주세요.");
+            return false;
+        }
         if (4 > $(".user_id").val().length || $(".user_id").val().length > 12) {
             alert("아이디는 4~12자 여야 합니다.");
             $(".user_id").focus();
@@ -385,23 +389,51 @@ var login;
             $(".add2").focus();
             return false;
         }
-        if (!Regx.test($(".phone").val())) {
+        if (!Regx.test($(".phone1").val())) {
             alert("전화번호는,숫자 여야 합니다.");
-            $(".phone").focus();
-            $(".phone").val("");
+            $(".phone1").focus();
+            $(".phone1").val("");
             return false;
         }
-        if (!Regx.test($(".hphone").val())) {
+        if (!Regx.test($(".phone2").val())) {
+            alert("전화번호는,숫자 여야 합니다.");
+            $(".phone2").focus();
+            $(".phone2").val("");
+            return false;
+        }
+        if (!Regx.test($(".phone3").val())) {
+            alert("전화번호는,숫자 여야 합니다.");
+            $(".phone3").focus();
+            $(".phone3").val("");
+            return false;
+        }
+
+        if (!Regx.test($(".hphone1").val())) {
             alert("휴대전화번호는,숫자 여야 합니다.");
-            $(".hphone").focus();
-            $(".hphone").val("");
+            $(".hphone1").focus();
+            $(".hphone1").val("");
             return false;
         }
-        if ($(".phone").val() == "" && $(".hphone").val() == "") {
+
+        if (!Regx.test($(".hphone2").val())) {
+            alert("휴대전화번호는,숫자 여야 합니다.");
+            $(".hphone2").focus();
+            $(".hphone2").val("");
+            return false;
+        }
+
+        if (!Regx.test($(".hphone3").val())) {
+            alert("휴대전화번호는,숫자 여야 합니다.");
+            $(".hphone3").focus();
+            $(".hphone3").val("");
+            return false;
+        }
+
+        if ($(".phone1").val() == "" || $(".phone2").val() == "" || $(".phone3").val() == "" || $(".hphone1").val() == "" || $(".hphone2").val() == "" || $(".hphone3").val() == "") {
             alert("연락가능한 번호를 입력해주세요");
-            $(".phone").focus();
             return false;
         }
+
         if ($(".mail1").val() == "") {
             alert("메일주소를 입력해 주세요.");
             $(".mail1").focus();
