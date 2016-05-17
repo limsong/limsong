@@ -79,17 +79,16 @@ if ($oname == "") {
     $ophone1 = $ophoneArr[0];
     $ophone2 = $ophoneArr[1];
     $ophone3 = $ophoneArr[2];
+}else{
+    $ophoneArr = explode("-", $ophone);
+    $ophone1 = $ophoneArr[0];
+    $ophone2 = $ophoneArr[1];
+    $ophone3 = $ophoneArr[2];
 }
 ?>
 <body class="home-1 checkout-page cart-page">
     <style type="text/css">
-        .modal-header .close {
-            margin-top: -25px;
-        }
-        .close {
-            font-size: 60px;
-            font-weight: normal;
-        }
+
     </style>
     <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an
@@ -689,7 +688,7 @@ if ($oname == "") {
                                            style="margin-left:10px;">
                                     <label for="addr_type0" style="margin-right:10px;padding-left:3px;">기본 배송지</label>
                                     <input type="radio" name="addr_type" id="addr_type1"
-                                           checked="checked" data-toggle="modal" data-target=".bs-example-modal-lg">
+                                           checked="checked">
                                     <label for="addr_type1" style="margin-right:10px;padding-left:3px;">최근 배송지</label>
                                     <input type="radio" name="addr_type" class="addr_type" id="addr_type2">
                                     <label for="addr_type2" style="padding-left:3px;">새로운 배송지</label>
@@ -806,14 +805,13 @@ if ($oname == "") {
                                                     </div>
                                                     <div class="col-md-12" style="margin-top:10px;"></div>
                                                     <div class="col-md-12">
-                                                        <strong>도로명</strong>
+                                                        <strong>새주소(도로명)</strong>
                                                         <input type="text" readonly="readonly" name="add2"
                                                                value="<?= $oaddr2 ?>" id="add2">
                                                     </div>
                                                     <div class="col-md-12" style="margin-top:10px;"></div>
                                                     <div class="col-md-12">
                                                         <strong>나머지 주소</strong>
-                                                        *(나머 지 주소를 입력하세요.)
                                                         <input type="text" name="add3" value="<?= $oaddr3 ?>" id="add3">
                                                     </div>
                                                 </div>
@@ -1062,7 +1060,44 @@ if ($oname == "") {
             </div>
         </form>
     </div>
-
+    <style>
+        .modal-header .close {
+            margin-top: -10px;
+        }
+        .close {
+            font-size: 60px;
+            font-weight: normal;
+        }
+        th td {
+            text-align: center !important;
+        }
+        .modal-header , .modal-footer{
+            border:none;
+        }
+        .modal-body .table > tbody > tr > th{
+            border-top:1px solid #333;
+            border-bottom: 1px solid #aaa;
+            color: #393939;
+            font-size: 12px;
+            font-family: '돋움',dotum,sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            background-color: #f4f4f4;
+            background: -webkit-linear-gradient(#fff, #f9f9fa);
+            background: -o-linear-gradient(#fff, #f9f9fa);
+            background: -moz-linear-gradient(#fff,#f9f9fa);
+            background: linear-gradient(#fff,#f9f9fa);
+        }
+        .modal-header {
+            padding-bottom: 0px;
+        }
+        .modal-body {
+            padding-top: 0px;
+        }
+        .modal-title {
+            padding-top:10px;
+        }
+    </style>
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -1076,7 +1111,7 @@ if ($oname == "") {
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-red">
+                            <button type="button" class="btn btn-red btn_addr">
                                 확인
                             </button>
                             <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
@@ -1171,8 +1206,9 @@ if ($oname == "") {
                         fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
                     }
                     var postcode = data.postcode1 + "" + data.postcode2;
+                    var zonecode = data.zonecode;// 새우편번호
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    $('#' + zipcode).val(postcode);
+                    $('#' + zipcode).val(zonecode);
                     $('#' + addr1).val(fullAddr2);
                     $('#' + addr2).val(fullAddr);
                     //$('#etc_a34').val(data.addressEnglish);
@@ -1265,5 +1301,54 @@ if ($oname == "") {
                 $(".payment_option_type").css("display", "none");
             }
         });
+        $("#addr_type1").on("click",function(){
+            $.ajax({
+                url: 'get_address.php',
+                success: function (response) {
+                    add_html(response);
+                }
+            });
+        });
+        function add_html(obj){
+            $(".modal-body").html(obj);
+            $(".modal.bs-example-modal-lg").modal("show");
+            $(".del_addr").on("click",function () {
+                var no = $(this).attr("data-no");
+                var tobj = $(this);
+                $.ajax({
+                    url: 'del_address.php',
+                    type: "POST",
+                    data: { no: no},
+                    success: function (response) {
+                        if(response == "ok"){
+                            alert("선택하신 주소를 삭제하였습니다.");
+                            tobj.parent().parent().html("");
+                        }
+                    }
+
+                });
+            });
+        }
+        $(".btn_addr").on("click",function () {
+            var user_name =$(".get_add:checked").attr("data-name");
+            var zipcode = $(".get_add:checked").attr("data-zipcode");
+            var addr1 = $(".get_add:checked").attr("data-addr1");
+            var addr2 = $(".get_add:checked").attr("data-addr2");
+            var addr3 = $(".get_add:checked").attr("data-addr3");
+            var phone = $(".get_add:checked").attr("data-phone");
+            $(".user_id").val(user_name);
+            $("#zipcode").val(zipcode);
+            var phoneArr = phone.split("-");
+            $(".dropdown-txt").val(phoneArr[0]);
+            $(".phone1").val(phoneArr[0]);
+            $(".phone2").val(phoneArr[1]);
+            $(".phone3").val(phoneArr[2]);
+            $("#add1").val(addr1);
+            $("#add2").val(addr2);
+            $("#add3").val(addr3);
+            $(".modal.bs-example-modal-lg").modal("hide");
+        });
+
     </script>
-</body></html>
+</body>
+</html>
