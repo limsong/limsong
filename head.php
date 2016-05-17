@@ -390,7 +390,7 @@
                                         </div>
                                         <!--MAIN MENU END-->
                                 </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3" style="padding:0px;">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                                         <div class="top-right-menu-wrapper">
                                                 <div class="plus-account">
                                                         <div class="plus-icon">
