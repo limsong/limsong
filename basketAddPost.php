@@ -98,7 +98,14 @@ if (!empty($goods_code) & !empty($goods_name)) {
     $db->query("INSERT INTO basket (id,v_oid,orderNum,goods_name,goods_code,sbid,sbnum,opid,opnum,signdate) 
         VALUES 
         ('$uname','$v_oid','X','$goods_name','$goods_code','$itemId','$itemnum','$opid','$opnum','$in_signdate')");
-    echo "success";
+    if($_POST["data_mod"]=="buynow"){
+        $db->query("SELECT uid FROM basket WHERE v_oid='$v_oid'");
+        $db_basket_query = $db->loadRows();
+        $basket_uid = $db_basket_query[0]["uid"];
+        echo "success,$basket_uid";
+    }else{
+        echo "success";
+    }
 } else {
     echo "error";
 }

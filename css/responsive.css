@@ -741,6 +741,7 @@
 
     .col-xs-6 {
         width: 48%;
+        padding:0px;
     }
 
     .logo {

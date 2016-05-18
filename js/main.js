@@ -471,6 +471,7 @@ var login;
     $(".addbasket").on('click', function () {
         var goods_opt_type = $(".goods_opt_type").val();
         var goods_opt_num = $(".optNum").val();
+        var data_mod = $(this).attr("data-mod");
         if (goods_opt_type == "2") {
 
             var bsitem1 = $(".bsitem1")[0].selectedIndex;
@@ -587,7 +588,7 @@ var login;
             opnum = "";
         }
 
-        additems(goods_name, goods_code, imgSrc, total_sum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num);
+        additems(goods_name, goods_code, imgSrc, total_sum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num,data_mod);
 
         //delCookieAll();
         /*
@@ -613,7 +614,7 @@ var login;
     });
 
     /* 상품 추가 시작 */
-    function additems(goods_name, goods_code, imgSrc, totalsum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num) {
+    function additems(goods_name, goods_code, imgSrc, totalsum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num,data_mod) {
         $.ajax({
             type: "POST",
             url: "c_login.php",
@@ -621,14 +622,14 @@ var login;
                 if (response == "false") {
                     additemtocookie(goods_name, goods_code, imgSrc, totalsum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num);
                 } else {
-                    additemtodb(goods_name, goods_code, imgSrc, totalsum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num);
+                    additemtodb(goods_name, goods_code, imgSrc, totalsum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num,data_mod);
                 }
             }
         });
     }
 
-    /* 디비에  상품추가 시갖 */
-    function additemtodb(goods_name, goods_code, imgSrc, totalsum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num) {
+    /* 디비에  상품추가 */
+    function additemtodb(goods_name, goods_code, imgSrc, totalsum, itemId, opid, itemnum, opnum, goods_opt_type, goods_opt_num,data_mod) {
         var url = "basketAddPost.php";
         var form_data = {
             goods_name: goods_name,
@@ -638,7 +639,8 @@ var login;
             itemnum: itemnum,
             opnum: opnum,
             goods_opt_type: goods_opt_type,
-            goods_opt_num: goods_opt_num
+            goods_opt_num: goods_opt_num,
+            data_mod: data_mod
         };
         $.ajax({
             type: "POST",
@@ -646,14 +648,22 @@ var login;
             //dataType    : "JSON",
             data: form_data,
             success: function (response) {
-                //alert(response);
-                if (response == "success") {
-                    alert("상품이 추가되였습니다.");
-                    getCookie(true);
-                } else {
-                    alert("상품추가 실패.판매자에게 문의해주세요.");
+                if(data_mod=="buynow"){
+                    var respArr = response.split(",");
+                    var status = respArr[0];
+                    var no = respArr[1];
+                    if(status=="success"){
+                        $(".chkitem").val(no);
+                        $(".itemviewform").submit();
+                    }
+                }else{
+                    if (response == "success") {
+                        alert("상품이 추가되였습니다.");
+                        getCookie(true);
+                    } else {
+                        alert("상품추가 실패.판매자에게 문의해주세요.");
+                    }
                 }
-
             }
         });
     }

@@ -1187,4 +1187,5 @@ $email = $dbshopMembers[0]["email"];
         });
     </script>
 
-</body></html>
+</body>
+</html>

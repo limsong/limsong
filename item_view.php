@@ -1,6 +1,15 @@
 <?php
 include_once("session.php");
 include_once("doctype.php");
+include_once("include/Mobile_Detect.php");
+$detect = new Mobile_Detect;
+if($detect->isMobile()){
+        $action = "checkout_mobile.php";
+}elseif($detect->isTablet()){
+        $action = "checkout_mobile.php";
+}else{
+        $action = "checkout.php";
+}
 $goods_code = $_GET["code"];
 $name1 = $_GET["name1"];
 $name2 = $_GET["name2"];
@@ -94,7 +103,7 @@ $name2 = $_GET["name2"];
                                                 </div>
                                         </div>
                                         <div class="col-sm-7 col-md-7">
-                                                <form name="itemviewform" action="checkout.php" method="POST" class="itemviewform">
+                                                <form name="itemviewform" action="<?=$action?>" method="POST" class="itemviewform">
                                                         <?php
                                                         /*
                                                         *상품 정보 추가goods 시작
@@ -168,6 +177,7 @@ $name2 = $_GET["name2"];
                                                         <input type="hidden" value="<?= $db_goodsArr[0]["goods_opt_type"] ?>" class="goods_opt_type">
                                                         <input type="hidden" name="goods_code" value="<?= $db_goodsArr[0]["goods_code"] ?>" class="goods_code">
                                                         <input type="hidden" value="<?= $db_goodsArr[0]["goods_opt_Num"] ?>" class="optNum">
+                                                        <input type="hidden" name="chkitem[]" class="chkitem">
                                                         <div class="prod-list-detail">
                                                                 <div class="prod-info">
                                                                         <h2 class="pro-name"><?= $db_goodsArr[0]["goods_name"] ?></h2>
@@ -378,8 +388,7 @@ $name2 = $_GET["name2"];
                                                                                                 </button>
                                                                                         </span>
                                                                                         <span class="pro-buy-no">
-                                                                                                <button type="button" class="buynow btn btn-purple waves-effect waves-light">Buy Now
-                                                                                                </button>
+                                                                                                <button type="button" class="addbasket btn btn-purple waves-effect waves-light" data="item_<?php echo $goods_code ?>" data-mod="buynow">Buy Now</button>
                                                                                         </span>
                                                                                 </div>
                                                                                 <?
@@ -425,11 +434,10 @@ $name2 = $_GET["name2"];
 
                                                                                 <div class="actions" style="text-align: right;">
                                                                                         <span class="pro-add-to-cart">
-                                                                                                <button type="button" class="addbasket btn btn-danger waves-effect waves-light" data="item_<?= $goods_code ?>">Add To Cart
-                                                                                                </button>
+                                                                                                <button type="button" class="addbasket btn btn-danger waves-effect waves-light" data="item_<?= $goods_code ?>">Add To Cart</button>
                                                                                         </span>
                                                                                         <span class="pro-buy-no">
-                                                                                                <button type="button" class="buynow btn btn-purple waves-effect waves-light">Buy Now</button>
+                                                                                                <button type="button" class="addbasket btn btn-purple waves-effect waves-light" data="item_<?php echo $goods_code ?>" data-mod="buynow">Buy Now</button>
                                                                                         </span>
                                                                                 </div>
                                                                                 <?
@@ -994,21 +1002,6 @@ $name2 = $_GET["name2"];
                                                         itemnumArr.splice(i, 1, "1");
                                                 }
                                         }
-                                }
-                        });
-                        /* 메인상품 토탈추가 끝 */
-                        $(".buynow").click(function () {
-                                var idlen = $(".m-item").find("input[type=hidden]").length;
-                                var goods_opt_type = $(".goods_opt_type").val();
-                                if (parseInt(goods_opt_type) > 0) {
-                                        if (idlen >= 1) {
-                                                $(".itemviewform").submit();
-                                        } else {
-                                                alert("아이템을 선택해 주세요.");
-                                                return false;
-                                        }
-                                } else {
-                                        $(".itemviewform").submit();
                                 }
                         });
 
