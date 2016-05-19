@@ -5,7 +5,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                     <div class="top-message">
                         <h4>Deal : of the day
-                            <span>bluestart ?</span>
+                            <span>newns ?</span>
                         </h4>
                     </div>
                 </div>

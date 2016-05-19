@@ -436,8 +436,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     </dl>
                     <dl class="readContent">
                         <dt style="background-color:#3a5795;color:white;">특수코드</dt>
-                        <dd class="inputDd"
-                            style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
+                        <dd class="inputDd" style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
                         <?
                         $i = 0;
                         $query = "SELECT name,img FROM sp";

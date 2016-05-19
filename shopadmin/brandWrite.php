@@ -481,8 +481,7 @@ if ($debug == true) {
                     </div>
                 </form>
             </div>
-            <iframe name="action_frame" width="100%" height="200"
-                    style="display:none;background-color:#eee;;"></iframe>
+            <iframe name="action_frame" width="100%" height="200" style="display:none;background-color:#eee;;"></iframe>
         </div>
         <script type="text/javascript" src="common/brandWrite.js"></script>
         <script type="text/javascript" src="common/jslb_ajax.js"></script>

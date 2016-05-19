@@ -315,6 +315,12 @@ $name2 = $_GET["name2"];
 
                                                                                         </div>
                                                                                 </div>
+                                                                                <?php
+                                                                                $db->query("SELECT * FROM goods_option WHERE goods_code='$goods_code' ORDER BY id asc");
+                                                                                $goods_optionQuery = $db->loadRows();
+                                                                                $count = count($goods_optionQuery);
+                                                                                if($count > 0){
+                                                                                ?>
                                                                                 <div class="col-md-12" style="border-bottom:1px dotted #aaa;margin:5px 0px;"></div>
                                                                                 <div class="col-md-12" style="padding: 0px;">
                                                                                         -추가구매를 원하시면 추가옵션을 선택하세요
@@ -327,9 +333,6 @@ $name2 = $_GET["name2"];
                                                                                         <div class="col-md-12" style="padding: 0px;">
                                                                                                 <div class="country-select" style="margin-bottom:10px;">
                                                                                                         <?php
-                                                                                                        $db->query("SELECT * FROM goods_option WHERE goods_code='$goods_code' ORDER BY id asc");
-                                                                                                        $goods_optionQuery = $db->loadRows();
-                                                                                                        $count = count($goods_optionQuery);
                                                                                                         for ($i = 0; $i < $count; $i++) {
                                                                                                                 $option_opName1 = $goods_optionQuery[$i]["opName1"];//옵션명
                                                                                                                 $option_opName2 = $goods_optionQuery[$i]["opName2"];//옵션 상품명
@@ -362,6 +365,9 @@ $name2 = $_GET["name2"];
                                                                                         ?>
                                                                                         <!--PRODUCT INCREASE BUTTON START-->
                                                                                 </div><!--PRODUCT INCREASE BUTTON END-->
+                                                                                <?php
+                                                                                }
+                                                                                ?>
                                                                                 <div class="col-md-12" style="border-bottom:1px dotted #aaa;margin:5px 0px 15px 0px;"></div><!-- 메인상품 추가 폼 시작-->
                                                                                 <div class="col-md-12 m-item"></div><!-- 메인상품 추가 폼 끝--><!-- 서브상품 추가 폼 시작-->
                                                                                 <div class="s-item"></div><!-- 서브상품 추가 폼 끝-->

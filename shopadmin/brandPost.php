@@ -36,12 +36,20 @@ if ($in_goods_dlv_special == "0") {
          * 2 무료
          * 3 고정금액(선불)
          */
+        $query = "SELECT dShipping FROM settings";
+        $result = mysql_query($query) or die("brandPost");
+        $row = mysql_fetch_array($result);
+        $dShipping = $row["dShipping"];
+
         if ($in_goods_dlv_type == "1") {
-                $dlv_fee = "2500";
+                $dlv_fee = $dShipping;
+                $shipping = "Y";
         } elseif ($in_goods_dlv_type == "2") {
-                $dlv_fee = 0;
+                $dlv_fee = "0";
+                $shipping = "N";
         } else {
                 $dlv_fee = $in_goods_dlv_fee;
+                $shipping = "Y";
         }
 } else {
         /*
@@ -55,10 +63,13 @@ if ($in_goods_dlv_special == "0") {
          * */
         if ($in_goods_dlv_type == "1") {
                 $dlv_fee = "0";
+                $shipping = "N";
         } elseif ($in_goods_dlv_type == "2") {
                 $dlv_fee = $in_goods_dlv_fee;
+                $shipping = "Y";
         } elseif ($in_goods_dlv_type == "3") {
                 $dlv_fee = $in_goods_dlv_fee;
+                $shipping = "Y";
         } elseif ($in_goods_dlv_type == "4") {
 
         } elseif ($in_goods_dlv_type == "5") {
@@ -86,9 +97,9 @@ $in_opName2Arr = explode("/", $in_opName2);
 if ($in_option_type == "0") {
         //goods 상품정보 추가
         $goodsQuery = "INSERT INTO
-                    goods (goods_name,goods_code,commonPrice,sellPrice,sp_option,sb_sale,manufacture,orgin,summary,comment,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_Num,goods_stock,inputDate)
+                    goods (goods_name,goods_code,commonPrice,sellPrice,sp_option,shipping,sb_sale,manufacture,orgin,summary,comment,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_Num,goods_stock,inputDate)
                   VALUES
-                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_content','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_optNum','$in_qta','$in_inputDate')";
+                    ('$in_goods_name','$in_goods_code','$in_commonPrice','$in_sellPrice','$in_sp_option','$shipping','$in_sb_sale','$in_manufacture','$in_orgin','$in_summary','$in_content','$in_goods_dlv_special','$in_goods_dlv_type','$dlv_fee','$in_option_type','$in_optNum','$in_qta','$in_inputDate')";
 } elseif ($in_option_type == "1") {
         $in_sellPriceArr = explode("/", $in_sellPrice);
         $in_commonPriceArr = explode("/", $in_commonPrice);

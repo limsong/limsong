@@ -309,7 +309,12 @@ if($in_mode=='modify') {
                                 }else{
                                         $query = "UPDATE $upload_tables SET ImageName='$insertFileName',inputDate='$in_inputDate'  WHERE id='$timgidArr'";
                                         query("update_img","upload_images",$query,$in_imgName);
-                                        if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("update",$upload_tables,$query);mysql_query($query) or die($query);}
+                                        if ($debug == "true")
+                                        {
+                                                echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";
+                                        }else{
+                                                query("update",$upload_tables,$query);mysql_query($query) or die($query);
+                                        }
                                 }
                         }else{
                                 echo "<script type=\"text/javascript\">setTimeout(\"parent.loadingMask('off')\",parent.maskTime);</script>";
@@ -363,9 +368,9 @@ if($in_mode=='modify') {
         /*------- 이미지 수정 끝 ----------*/
 ?>
 <script type="text/javascript">
-	alert("수정 되었습니다.");
-        setTimeout("parent.loadingMask('off')",parent.maskTime);
-        //parent.location.href="brandList.php?xcode=<?=$in_xcode?>&mcode=<?=$in_mcode?>&scode=<?=$in_scode?>&key=<?=$in_key?>&keyfield=<?=$in_keyfield?>";
+	    alert("수정 되었습니다.");
+        //setTimeout("parent.loadingMask('off')",parent.maskTime);
+        parent.location.href="brandList.php?xcode=<?=$in_xcode?>&mcode=<?=$in_mcode?>&scode=<?=$in_scode?>&key=<?=$in_key?>&keyfield=<?=$in_keyfield?>";
 </script>
 <?
 /*====== 삭제 시작 ======*/
