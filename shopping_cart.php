@@ -197,11 +197,18 @@
                                                 if ($goods_dlv_type == "1") {
                                                     echo "0 원";
                                                     $total_dShipping = $total_dShipping + 0;
-                                                } else {
-                                                    echo number_format(2500) . " 원";
+                                                } elseif($goods_dlv_type="2"){
+                                                    //고정금액
+                                                    echo number_format($goods_dlv_fee). " 원";
                                                     if ($total_dShipping == "") {
                                                         $total_dShipping = "2500";
                                                     }
+                                                }elseif($goods_dlv_type="8"){
+                                                    //판매자 기본 배송정책 적용
+                                                    $db->query("SELECT dShipping FROM settings");
+                                                    $db_settings_query = $db->loadRows();
+                                                    $dShipping = $db_settings_query[0]["dShipping"];
+                                                    echo number_format($dShipping). " 원";
                                                 }
                                                 ?>
                                             </td>

@@ -4,22 +4,22 @@ include("common/config.shop.php");
 include("check.php");
 $debug = false;
 foreach($_POST as $k=>$v) {
-	${"in_".$k}=addslashes($v);
+        ${"in_".$k}=addslashes($v);
 }
 $in_inputDate = date("Y-m-d H:i:s",time());
 
 /*====== 수정 시작 ======*/
 if($in_mode=='modify') {
-	$i=0;
-	foreach ($_POST["sp"] as $key => $value) {
-		# code...
-		if($i==0){
-			$in_sp_option = $value;
-		}else{
-			$in_sp_option .= "-".$value;
-		}
-		$i++;
-	}
+        $i=0;
+        foreach ($_POST["sp"] as $key => $value) {
+                # code...
+                if($i==0){
+                        $in_sp_option = $value;
+                }else{
+                        $in_sp_option .= "-".$value;
+                }
+                $i++;
+        }
         //goods_dlv_special 배송정책 0 일반배송 1 별도배송
         if ($in_goods_dlv_special == "0") {
                 /*
@@ -80,7 +80,10 @@ if($in_mode=='modify') {
                 $goodsQuery = "UPDATE goods SET
                                                 goods_name='$in_goods_name',commonPrice='$in_commonPrice',sellPrice='$in_sellPrice',sp_option='$in_sp_option',sb_sale='$in_sb_sale',
                                                manufacture='$in_manufacture',orgin='$in_orgin',summary='$in_summary',comment='$in_comment',goods_dlv_special='$in_goods_dlv_special',
-                                                goods_dlv_type='$in_goods_dlv_type',goods_dlv_fee='$in_goods_dlv_fee',goods_opt_type='$in_goods_opt_type',goods_opt_Num='$in_optNum',goods_stock='$in_qta',inputDate='$in_inputDate' WHERE goods_code='$in_goods_code'";
+                                                goods_dlv_type='$in_goods_dlv_type',goods_dlv_fee='$in_goods_dlv_fee',goods_opt_type='$in_option_type',goods_opt_Num='$in_optNum',
+                                                goods_stock='$in_qta',inputDate='$in_inputDate' ,goods_type='$in_goods_type',goods_stock_type='$in_goods_stock_type',goods_tag='$in_goods_tag',
+                                                goods_display='$in_goods_display'
+                                                WHERE goods_code='$in_goods_code'";
         } elseif ($in_option_type == "1") {
                 $in_sellPriceArr = explode("/", $in_sellPrice);
                 $in_commonPriceArr = explode("/", $in_commonPrice);
@@ -93,7 +96,10 @@ if($in_mode=='modify') {
                 $goodsQuery = "UPDATE goods SET
                                                 goods_name='$in_goods_name',commonPrice='$in_commonPrice',sellPrice='$in_sellPrice',sp_option='$in_sp_option',sb_sale='$in_sb_sale',
                                                manufacture='$in_manufacture',orgin='$in_orgin',summary='$in_summary',comment='$in_comment',goods_dlv_special='$in_goods_dlv_special',
-                                                goods_dlv_type='$in_goods_dlv_type',goods_dlv_fee='$in_goods_dlv_fee',goods_opt_type='$in_goods_opt_type',goods_opt_Num='$in_optNum',goods_stock='$in_qta',inputDate='$in_inputDate' WHERE goods_code='$in_goods_code'";
+                                                goods_dlv_type='$in_goods_dlv_type',goods_dlv_fee='$in_goods_dlv_fee',goods_opt_type='$in_option_type',goods_opt_Num='$in_optNum',
+                                                goods_stock='$in_qta',inputDate='$in_inputDate',goods_type='$in_goods_type',goods_stock_type='$in_goods_stock_type',goods_tag='$in_goods_tag',
+                                                goods_display='$in_goods_display'
+                                                WHERE goods_code='$in_goods_code'";
         } else {
                 $in_sellPriceArr = explode(";", $in_sellPrice);
                 $in_commonPriceArr = explode(";", $in_commonPrice);
@@ -104,7 +110,10 @@ if($in_mode=='modify') {
                 $goodsQuery = "UPDATE goods SET
                                                 goods_name='$in_goods_name',commonPrice='$in_commonPrice',sellPrice='$in_sellPrice',sp_option='$in_sp_option',sb_sale='$in_sb_sale',
                                                manufacture='$in_manufacture',orgin='$in_orgin',summary='$in_summary',comment='$in_comment',goods_dlv_special='$in_goods_dlv_special',
-                                                goods_dlv_type='$in_goods_dlv_type',goods_dlv_fee='$in_goods_dlv_fee',goods_opt_type='$in_goods_opt_type',goods_opt_Num='$in_optNum',goods_stock='$in_qta',inputDate='$in_inputDate' WHERE goods_code='$in_goods_code'";
+                                                goods_dlv_type='$in_goods_dlv_type',goods_dlv_fee='$in_goods_dlv_fee',goods_opt_type='$in_option_type',goods_opt_Num='$in_optNum',
+                                                goods_stock='$in_qta',inputDate='$in_inputDate',goods_type='$in_goods_type',goods_stock_type='$in_goods_stock_type',goods_tag='$in_goods_tag',
+                                                goods_display='$in_goods_display'
+                                                WHERE goods_code='$in_goods_code'";
         }
         if ($debug == true) {
                 echo "<br>" . "$" . "goodsQuery = " . $goodsQuery . "<br>";
@@ -366,45 +375,45 @@ if($in_mode=='modify') {
                 */
         }
         /*------- 이미지 수정 끝 ----------*/
-?>
-<script type="text/javascript">
-	    alert("수정 되었습니다.");
-        //setTimeout("parent.loadingMask('off')",parent.maskTime);
-        parent.location.href="brandList.php?xcode=<?=$in_xcode?>&mcode=<?=$in_mcode?>&scode=<?=$in_scode?>&key=<?=$in_key?>&keyfield=<?=$in_keyfield?>";
-</script>
-<?
-/*====== 삭제 시작 ======*/
+        ?>
+        <script type="text/javascript">
+                alert("수정 되었습니다.");
+                setTimeout("parent.loadingMask('off')",parent.maskTime);
+                parent.location.href="brandList.php?xcode=<?=$in_xcode?>&mcode=<?=$in_mcode?>&scode=<?=$in_scode?>&key=<?=$in_key?>&keyfield=<?=$in_keyfield?>";
+        </script>
+        <?
+        /*====== 삭제 시작 ======*/
 } else if($in_mode=="delete") {
-	$tabArr = array("upload_timages","upload_simages","upload_mimages","upload_bimages");
-	$tabcount = count($tabArr);
-	for($i=0;$i<$tabcount;$i++) {
-		$query = "SELECT imageName FROM $tabArr[$i] WHERE goods_code='$in_goods_code'";
-		$result = mysql_query($query) or die($query);
-		while ($rows=mysql_fetch_assoc($result)) {
-			$imageName = $rows["imageName"];
-			move_file_to_trash($imageName);
-			$query="delete from $tabArr[$i] where imageName='$imageName'";
-			if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete",$tabArr[$i],$query);mysql_query($query) or die($query);}
-		}
-	}
-	$query = "DELETE FROM goods WHERE goods_code='$in_goods_code'";
-	if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods",$query);mysql_query($query) or die($query);}
-	$query = "DELETE FROM goods_option WHERE goods_code='$in_goods_code'";
-	if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option",$query);mysql_query($query) or die($query);}
-	$query = "DELETE FROM goods_option_grid_name WHERE goods_code='$in_goods_code'";
-	if($debug=="true"){echo "<span style='color:blue;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option_grid_name",$query);mysql_query($query) or die($query);}
-	$query = "DELETE FROM goods_option_grid_value WHERE goods_code='$in_goods_code'";
-	if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option_grid_value",$query);mysql_query($query) or die($query);}
+        $tabArr = array("upload_timages","upload_simages","upload_mimages","upload_bimages");
+        $tabcount = count($tabArr);
+        for($i=0;$i<$tabcount;$i++) {
+                $query = "SELECT imageName FROM $tabArr[$i] WHERE goods_code='$in_goods_code'";
+                $result = mysql_query($query) or die($query);
+                while ($rows=mysql_fetch_assoc($result)) {
+                        $imageName = $rows["imageName"];
+                        move_file_to_trash($imageName);
+                        $query="delete from $tabArr[$i] where imageName='$imageName'";
+                        if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete",$tabArr[$i],$query);mysql_query($query) or die($query);}
+                }
+        }
+        $query = "DELETE FROM goods WHERE goods_code='$in_goods_code'";
+        if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods",$query);mysql_query($query) or die($query);}
+        $query = "DELETE FROM goods_option WHERE goods_code='$in_goods_code'";
+        if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option",$query);mysql_query($query) or die($query);}
+        $query = "DELETE FROM goods_option_grid_name WHERE goods_code='$in_goods_code'";
+        if($debug=="true"){echo "<span style='color:blue;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option_grid_name",$query);mysql_query($query) or die($query);}
+        $query = "DELETE FROM goods_option_grid_value WHERE goods_code='$in_goods_code'";
+        if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option_grid_value",$query);mysql_query($query) or die($query);}
         $query = "DELETE FROM goods_option_single_name WHERE goods_code='$in_goods_code'";
         if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option_single_name",$query);mysql_query($query) or die($query);}
         $query = "DELETE FROM goods_option_single_value WHERE goods_code='$in_goods_code'";
         if($debug=="true"){echo "<span style='color:red;font-weight:600;'>$"."query = </span>".$query."<br>";}else{query("delete","goods_option_single_value",$query);mysql_query($query) or die($query);}
 
         ?>
-<script type="text/javascript">
-	alert("삭제 되었습니다.");
-	parent.location.href="brandList.php?xcode=<?=$in_xcode?>&mcode=<?=$in_mcode?>&scode=<?=$in_scode?>&key=<?=$in_key?>&keyfield=<?=$in_keyfield?>";
-</script>
-<?
+        <script type="text/javascript">
+                alert("삭제 되었습니다.");
+                parent.location.href="brandList.php?xcode=<?=$in_xcode?>&mcode=<?=$in_mcode?>&scode=<?=$in_scode?>&key=<?=$in_key?>&keyfield=<?=$in_keyfield?>";
+        </script>
+        <?
 }
 ?>

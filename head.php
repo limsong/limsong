@@ -253,21 +253,21 @@
                                                 <nav>
                                                         <ul>
                                                                 <?php
-                                                                $db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
+                                                                $db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortOrder ASC");
                                                                 $db_sortCode = $db->loadRows();
                                                                 $db_sortCode_count = count($db_sortCode);
                                                                 for ($i = 0; $i < $db_sortCode_count; $i++) {
                                                                         $uxName = $db_sortCode[$i]["sortName"];
-                                                                        $uxCode = $db_sortCode[$i]["sortOrder"];
+                                                                        $uxCode = $db_sortCode[$i]["sortCode"];
                                                                 ?>
                                                                         <li>
                                                                                 <a href="javascript:;"><?= $uxName ?></a>
                                                                                 <ul class="sub-menu">
                                                                 <?php
-                                                                                        $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
+                                                                                        $db->query("SELECT sortName,sortCode FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
                                                                                         $db_sortCodes = $db->loadRows();
                                                                                         foreach ($db_sortCodes as $head_key => $value) {
-                                                                                                $umCode = $value["sortOrder"];
+                                                                                                $umCode = $value["sortCode"];
                                                                 ?>
                                                                                                 <li>
                                                                                                         <a href="shop.php?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
@@ -481,21 +481,21 @@
                 <nav class="mobile-menu-start">
                         <ul>
                                 <?php
-                                $db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
+                                $db->query("SELECT * FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortOrder ASC");
                                 $db_sortCode = $db->loadRows();
                                 $db_sortCode_count = count($db_sortCode);
                                 for ($i = 0; $i < $db_sortCode_count; $i++) {
                                         $uxName = $db_sortCode[$i]["sortName"];
-                                        $uxCode = $db_sortCode[$i]["sortOrder"];
+                                        $uxCode = $db_sortCode[$i]["sortCode"];
                                         ?>
                                         <li>
                                                 <a href="javascript:;"><?= $uxName ?></a>
                                                 <ul>
                                                         <?php
-                                                        $db->query("SELECT sortName,sortOrder FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
+                                                        $db->query("SELECT sortName,sortCode FROM sortCodes WHERE uxCode='$uxCode' and umCode='00' ORDER BY sortOrder ASC");
                                                         $db_sortCodes = $db->loadRows();
                                                         foreach ($db_sortCodes as $key_head => $value) {
-                                                                $umCode = $value["sortOrder"];
+                                                                $umCode = $value["sortCode"];
                                                                 ?>
                                                                 <li>
                                                                         <a href="shop.php?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>

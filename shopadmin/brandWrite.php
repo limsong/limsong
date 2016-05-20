@@ -132,8 +132,17 @@ if ($debug == true) {
                     <input type="hidden" name="optNum" value="<?= $optNum ?>"/>
                     <dl id="readContent" class="readContent">
                         <dt style="background-color:#3a5795;color:white;">분류</dt>
-                        <dd class="inputDd"
-                            style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
+                        <dd class="inputDd" style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
+                        <dt>상품구분 <span class="fontCol">*</span></dt>
+                        <dd>
+                            <select name="goods_type">
+                                <option value="0">일반상품</option>
+                                <!--<option value="1">기획전</option>
+                                <option value="2">공동구매</option>
+                                <option value="3">경매</option>-->
+                                <option value="4">구매대행</option>
+                            </select>
+                        </dd>
                         <dt>옵션타입
                             <span class="fontCol">*</span>
                         </dt>
@@ -158,10 +167,6 @@ if ($debug == true) {
                             <input type="text" value="<?= @$goods_name ?>" name="goods_name" id="goods_name"
                                    class="inputItem" style="width:100%;"/>
                         </dd>
-                        <!--
-                        <dt><span class="fontCol">옵션명</span></dt>
-                        <dd class="inputDd"><input type="text" name="optionName" id="optionName" class="inputItem" style="width:100%;" value="타입A" /></dd>
-                    -->
                         <dt class="option_name">옵션명1
                             <span class="fontCol">*</span>
                         </dt>
@@ -200,14 +205,29 @@ if ($debug == true) {
                                    value="가격.재고 설정하기"/>
                             <div id="qtBoxa"></div>
                         </dd>
+                        <dt>재고처리 종류</dt>
+                        <dd>
+                            <select name="goods_stock_type">
+                                <option value="0">무한대</option>
+                                <option value="1">품절</option>
+                                <option value="2" selected>잔여수량</option>
+                            </select>
+                        </dd>
+                        <dt>검색어</dt>
+                        <dd style="height: 35px;;">
+                            <input type="text" name="goods_tag" class="inputItem" style="width:100%;">
+                            <span style="color:#09a0f7;">※ 상품 검색 시 키워드로 사용되며 일부 단어로도 검색이 가능합니다. 검색어를 열거하여 입력하시면 됩니다.</span>
+                        </dd>
+                        <dt>진열여부</dt>
+                        <dd><input type="radio" name="goods_display" value="0" id="goods_display_hide"><label for="goods_display_hide">숨김</label> <input type="radio" name="goods_display" value="1" id="goods_display_show" checked><label for="goods_display_show">진열</label></dd>
                         <dt>배송정책</dt>
                         <dd class="inputDd">
                             <label>
-                                <INPUT type="radio" value="0" class="dlv_special" name="goods_dlv_special" checked>
+                                <inputinput type="radio" value="0" class="dlv_special" name="goods_dlv_special" checked>
                                 일반배송
                             </label>
                             <label>
-                                <INPUT type="radio" value="1" class="dlv_special" name="goods_dlv_special">
+                                <inputinput type="radio" value="1" class="dlv_special" name="goods_dlv_special">
                                 별도배송
                             </label>
                         </dd>
@@ -217,19 +237,19 @@ if ($debug == true) {
                                 <ul class="goods_dlv_special0">
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="1" name="goods_dlv_type" checked="checked">
+                                            <input type="radio" value="8" name="goods_dlv_type" checked="checked">
                                             판매자 기본 배송정책 적용
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="2" name="goods_dlv_type">
+                                            <input type="radio" value="1" name="goods_dlv_type">
                                             무료
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="3" name="goods_dlv_type">
+                                            <INPUT type="radio" value="2" name="goods_dlv_type">
                                             고정금액(선불)
                                         </label>
                                     </li>
@@ -237,43 +257,43 @@ if ($debug == true) {
                                 <ul class="goods_dlv_special1">
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="1" name="goods_dlv_type">
+                                            <input type="radio" value="1" name="goods_dlv_type">
                                             무료
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="2" name="goods_dlv_type">
+                                            <input type="radio" value="2" name="goods_dlv_type">
                                             고정금액(선불)
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="3" name="goods_dlv_type">
+                                            <input type="radio" value="3" name="goods_dlv_type">
                                             착불
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="4" name="goods_dlv_type">
+                                            <input type="radio" value="4" name="goods_dlv_type">
                                             주문금액별 차등
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="5" name="goods_dlv_type">
+                                            <input type="radio" value="5" name="goods_dlv_type">
                                             무게별 차등
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="6" name="goods_dlv_type">
+                                            <input type="radio" value="6" name="goods_dlv_type">
                                             부피별 차등
                                         </label>
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="7" name="goods_dlv_type">
+                                            <input type="radio" value="7" name="goods_dlv_type">
                                             수량비례
                                         </label>
                                     </li>

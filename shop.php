@@ -43,7 +43,7 @@ if($total_record==0) {
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 	<!--HEADER AREA START-->
-	<? include_once("head.php"); ?>
+	<? include_once("sub_head.php"); ?>
 	<!--HEADER AREA END-->
 	<!--BREADCRUMB AREA START-->
 	<div class="breadcrumb-area">

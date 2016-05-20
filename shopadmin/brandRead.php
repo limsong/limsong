@@ -216,8 +216,17 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     <input type="hidden" name="optNum" value="<?= $ou_goods_opt_Num ?>"/>
                     <dl id="readContent" class="readContent">
                         <dt style="background-color:#3a5795;color:white;">분류</dt>
-                        <dd class="textDd"
-                            style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"><?= $sortText ?></dd>
+                        <dd class="textDd" style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"><?= $sortText ?></dd>
+                        <dt>상품구분 <span class="fontCol">*</span></dt>
+                        <dd>
+                            <select name="goods_type">
+                                <option value="0" <?php if($ou_goods_type=="0") echo "selected"; ?>>일반상품</option>
+                                <!--<option value="1" <?php if($ou_goods_type=="1") echo "selected"; ?>>기획전</option>
+                                <option value="2" <?php if($ou_goods_type=="2") echo "selected"; ?>>공동구매</option>
+                                <option value="3" <?php if($ou_goods_type=="3") echo "selected"; ?>>경매</option>-->
+                                <option value="4" <?php if($ou_goods_type=="4") echo "selected"; ?>>구매대행</option>
+                            </select>
+                        </dd>
                         <dt>옵션타입
                             <span class="fontCol">*</span>
                         </dt>
@@ -284,6 +293,26 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             <input type="Button" class="memEleB DateBoxa <?= @$show ?>" data="option1" value="상품 입력"/>
                             <div id="qtBoxa"></div>
                         </dd>
+                        <dt>재고처리 종류</dt>
+                        <dd>
+                            <select name="goods_stock_type">
+                                <option value="0" <?php if($ou_goods_stock_type=="0") echo "selected"; ?>>무한대</option>
+                                <option value="1" <?php if($ou_goods_stock_type=="1") echo "selected"; ?>>품절</option>
+                                <option value="2" <?php if($ou_goods_stock_type=="2") echo "selected"; ?>>잔여수량</option>
+                            </select>
+                        </dd>
+                        <dt>검색어</dt>
+                        <dd style="height: 35px;;">
+                            <input type="text" name="goods_tag" value="<?=$ou_goods_tag?>" class="inputItem" style="width:100%;">
+                            <span style="color:#09a0f7;">※ 상품 검색 시 키워드로 사용되며 일부 단어로도 검색이 가능합니다. 검색어를 열거하여 입력하시면 됩니다.</span>
+                        </dd>
+                        <dt>진열여부</dt>
+                        <dd>
+                            <input type="radio" name="goods_display" value="0" id="goods_display_hide" <?php if($ou_goods_display=="0") echo "checked"; ?>>
+                            <label for="goods_display_hide">숨김</label>
+                            <input type="radio" name="goods_display" value="1" id="goods_display_show" <?php if($ou_goods_display=="1") echo "checked"; ?>>
+                            <label for="goods_display_show">진열</label>
+                        </dd>
                         <dt>배송정책</dt>
                         <dd class="inputDd">
                             <label>
@@ -328,6 +357,8 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                             <INPUT type="radio" value="3"
                                                    name="goods_dlv_type" <? if ($ou_goods_dlv_special == "0" && $ou_goods_dlv_type == "3") {
                                                 echo 'checked';
+                                                $dlv_fee_style1 = 'style="display:block;"';
+                                                $dlv_fee_style2 = 'style="display:none;"';
                                             } ?>>
                                             고정금액(선불)
                                         </label>
@@ -403,9 +434,9 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         <dt>배송비</dt>
                         <dd class="inputDd">
                             <label>
-                                <span class="dlv_txt">판매자 기본 배송정책 적용: 고정금액(선불) / 배송료 : 2500원 / 지역할증 : 있음</span>
-                                <input type="text" name="goods_dlv_fee" class="inputItem dlv_fee">
-                                <span class="dlv_won">원</span>
+                                <span class="dlv_txt" <?php echo $dlv_fee_style2;?>>판매자 기본 배송정책 적용: 고정금액(선불) / 배송료 : 2500원 / 지역할증 : 있음</span>
+                                <input type="text" name="goods_dlv_fee" class="inputItem dlv_fee" <?php echo $dlv_fee_style1;?>>
+                                <span class="dlv_won" <?php echo $dlv_fee_style1;?>>원</span>
                             </label>
                         </dd>
                         <dt>세일</dt>
@@ -1742,9 +1773,11 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         if (dlv_type_val == "1") {
                             $(".dlv_txt").text("판매자 기본 배송정책 적용: 고정금액(선불) / 배송료 : 2500원 / 지역할증 : 있음");
                             $(".dlv_fee").hide();
+                            $(".dlv_won").hide();
                         } else if (dlv_type_val == "2") {
                             $(".dlv_txt").text("배송비 무료");
                             $(".dlv_fee").hide();
+                            $(".dlv_won").hide();
                         } else if (dlv_type_val == "3") {
                             $(".dlv_txt").text("고정금액");
                             $(".dlv_fee").show();
@@ -1754,17 +1787,6 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
 
                     }
                 });
-
-                function goods_opt_grid_del(num) {
-                    //delete json.SEX;
-                    if (num == 1) {
-
-                    } else if (num == 2) {
-
-                    } else {
-
-                    }
-                }
 
                 function goods_opt_grid(Fnum) {
                     if (Fnum == "2") {

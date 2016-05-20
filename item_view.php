@@ -142,7 +142,7 @@ $name2 = $_GET["name2"];
                                                                 if ($goods_dlv_fee == "0") {
                                                                         $goods_dlv = "무료";
                                                                 } else {
-                                                                        $goods_dlv = "고정금액(선불) " . number_format($goods_dlv_fee);
+                                                                        $goods_dlv = number_format($goods_dlv_fee). " 원";
                                                                 }
                                                         } else {
                                                                 $goods_dlv_special = "별도배송";
@@ -151,22 +151,22 @@ $name2 = $_GET["name2"];
                                                                                 $goods_dlv = "무료";
                                                                                 break;
                                                                         case 1:
-                                                                                $goods_dlv = "고정금액(선불) " . number_format($goods_dlv_fee) . "원";
+                                                                                $goods_dlv =  number_format($goods_dlv_fee) . " 원";
                                                                                 break;
                                                                         case 2:
-                                                                                $goods_dlv = "착불 (" . number_format($goods_dlv_fee) . "원)";
+                                                                                $goods_dlv = number_format($goods_dlv_fee) . " 원";
                                                                                 break;
                                                                         case 3:
-                                                                                $goods_dlv = "주문금액별 차등 (" . number_format($goods_dlv_fee) . "원)";
+                                                                                $goods_dlv = number_format($goods_dlv_fee) . " 원";
                                                                                 break;
                                                                         case 4:
-                                                                                $goods_dlv = "무게별 차등 (" . number_format($goods_dlv_fee) . "원)";
+                                                                                $goods_dlv = number_format($goods_dlv_fee) . " 원";
                                                                                 break;
                                                                         case 5:
-                                                                                $goods_dlv = "부피별 차등 (" . number_format($goods_dlv_fee) . "원)";
+                                                                                $goods_dlv = number_format($goods_dlv_fee) . " 원";
                                                                                 break;
                                                                         case 6:
-                                                                                $goods_dlv = "수량비례 적용 (" . number_format($goods_dlv_fee) . "원)";
+                                                                                $goods_dlv = number_format($goods_dlv_fee) . " 원";
                                                                                 break;
                                                                 }
                                                         }
