@@ -289,7 +289,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                         }
 
 
-                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
+                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
                         $goods_value_query = $db->loadRows();
                         $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                         $goods_name = $goods_value_query[0]["goods_name"];
@@ -298,16 +298,18 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                         $goods_opt_num = $goods_value_query[0]["goods_opt_num"];//가격선택옵션 2,3 구분
                         $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
                         $manufacture = $goods_value_query[0]["manufacture"];//제조사
+                        $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                        $buy_goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
 
 
-                        switch ($goods_dlv_type) {
+                        /*switch ($goods_dlv_type) {
                                 case "1":
                                         $goods_dlv_free = "0";
                                         $buy_goods_dlv_type = "1";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
                                 case "2":
                                         $goods_dlv_free = "2500";
                                         $buy_goods_dlv_type = "2";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
-                        }
+                        }*/
 
                         if ($goods_opt_type == "1") {
                                 //일반옵션
@@ -513,7 +515,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                 }
 
 
-                $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
+                $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
                 $goods_value_query = $db->loadRows();
                 $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                 $goods_name = $goods_value_query[0]["goods_name"];
@@ -522,16 +524,17 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                 $goods_opt_num = $goods_value_query[0]["goods_opt_num"];//가격선택옵션 2,3 구분
                 $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
                 $manufacture = $goods_value_query[0]["manufacture"];//제조사
+                $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                $buy_goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
 
-
-                switch ($goods_dlv_type) {
+                /*switch ($goods_dlv_type) {
                         case "1":
                                 $goods_dlv_free = "0";
                                 $buy_goods_dlv_type = "1";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
                         case "2":
                                 $goods_dlv_free = "2500";
                                 $buy_goods_dlv_type = "2";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
-                }
+                }*/
 
                 if ($goods_opt_type == "1") {
                         //일반옵션

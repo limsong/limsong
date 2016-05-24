@@ -249,6 +249,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
             $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
             $manufacture = $goods_value_query[0]["manufacture"];//제조사
             $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+            $buy_goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
 
 
             /*switch ($goods_dlv_type) {
@@ -474,6 +475,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
         $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
         $manufacture = $goods_value_query[0]["manufacture"];//제조사
         $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+        $buy_goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
 
 
         /*switch ($goods_dlv_type) {

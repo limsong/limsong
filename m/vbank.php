@@ -86,6 +86,7 @@ if ($_POST['P_STATUS'] === '00') {
                 $buy_user_mobile = $db_basket_query[0]["buy_user_mobile"];
                 $buy_user_email = $db_basket_query[0]["buy_user_email"];
                 $uname = $db_basket_query[0]["id"];//id
+                $goods_type = $db_basket_query[0]["goods_type"];
 
 
 
@@ -193,11 +194,11 @@ if ($_POST['P_STATUS'] === '00') {
 
 
                 $db->query("INSERT INTO buy (
-                    user_id,buy_code,buy_status,buy_date,buy_total_price,buy_expect_mile,pay_seq,pay_method,pay_price_normal,pay_dlv_fee,pay_price_mile,pay_pre_date
+                    user_id,buy_code,buy_status,buy_goods_type,buy_date,buy_total_price,buy_expect_mile,pay_seq,pay_method,pay_price_normal,pay_dlv_fee,pay_price_mile,pay_pre_date
                     ,pay_date,pay_online_name,pay_online_account,pay_info_no,buy_memo,buy_user_name,buy_user_tel,buy_user_mobile,buy_user_email,buy_user_ip,buy_dlv_name,buy_dlv_tel,buy_dlv_mobile
                     ,buy_dlv_email,buy_dlv_zipcode,buy_dlv_addr_base,buy_dlv_addr_etc,buy_dlv_pre_date,coupon_data_seq,buy_bill_type,buy_instant_discount,buy_mile_amount,buy_mobile)
                     VALUES
-                    ('$user_id','$buy_code','$buy_status','$buy_date','$buy_total_price','$buy_expect_mile','$pay_seq','$pay_method','$pay_price_normal','$pay_dlv_fee','$pay_price_mile','$pay_pre_date',
+                    ('$user_id','$buy_code','$buy_status',$goods_type,'$buy_date','$buy_total_price','$buy_expect_mile','$pay_seq','$pay_method','$pay_price_normal','$pay_dlv_fee','$pay_price_mile','$pay_pre_date',
                     '$pay_date','$pay_online_name','$pay_online_account','$pay_info_no','$buy_memo','$buy_user_name','$buy_user_tel','$buy_user_mobile','$buy_dlv_email','$buy_user_ip',''$buy_dlv_name,'$buy_dlv_tel','$buy_dlv_mobile',
                     '$buy_dlv_email','$buy_dlv_zipcode','$buy_dlv_addr_base','$alladd','$buy_dlv_pre_date','$coupon_data_seq','$buy_bill_type','$buy_instant_discount','$buy_mile_amount','$buy_mobile')");
 
@@ -253,7 +254,7 @@ if ($_POST['P_STATUS'] === '00') {
                                 }
 
 
-                                $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
+                                $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
                                 $goods_value_query = $db->loadRows();
                                 $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                                 $goods_name = $goods_value_query[0]["goods_name"];
@@ -262,16 +263,17 @@ if ($_POST['P_STATUS'] === '00') {
                                 $goods_opt_num = $goods_value_query[0]["goods_opt_num"];//가격선택옵션 2,3 구분
                                 $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
                                 $manufacture = $goods_value_query[0]["manufacture"];//제조사
+                                $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                                $buy_goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
 
-
-                                switch ($goods_dlv_type) {
+                                /*switch ($goods_dlv_type) {
                                         case "1":
                                                 $goods_dlv_free = "0";
                                                 $buy_goods_dlv_type = "1";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
                                         case "2":
                                                 $goods_dlv_free = "2500";
                                                 $buy_goods_dlv_type = "2";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
-                                }
+                                }*/
 
                                 if ($goods_opt_type == "1") {
                                         //일반옵션
@@ -477,7 +479,7 @@ if ($_POST['P_STATUS'] === '00') {
                         }
 
 
-                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
+                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
                         $goods_value_query = $db->loadRows();
                         $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                         $goods_name = $goods_value_query[0]["goods_name"];
@@ -486,16 +488,18 @@ if ($_POST['P_STATUS'] === '00') {
                         $goods_opt_num = $goods_value_query[0]["goods_opt_num"];//가격선택옵션 2,3 구분
                         $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
                         $manufacture = $goods_value_query[0]["manufacture"];//제조사
+                        $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                        $buy_goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
 
 
-                        switch ($goods_dlv_type) {
+                        /*switch ($goods_dlv_type) {
                                 case "1":
                                         $goods_dlv_free = "0";
                                         $buy_goods_dlv_type = "1";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
                                 case "2":
                                         $goods_dlv_free = "2500";
                                         $buy_goods_dlv_type = "2";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
-                        }
+                        }*/
 
                         if ($goods_opt_type == "1") {
                                 //일반옵션
