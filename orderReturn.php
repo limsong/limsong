@@ -128,6 +128,7 @@ try {
                 $oldadd = $_SESSION[$app_oid . "_oldadd"];
                 $newadd = $_SESSION[$app_oid . "_newadd"];
                 $alladd = $_SESSION[$app_oid . "_alladd"];
+                $buy_goods_type = $_SESSION[$orderNumber . "_buy_goods_type"];
 
                 $bidArr = explode("_", $bid);
                 $count = count($bidArr);
@@ -144,14 +145,14 @@ try {
                 if ($app_method == "Card") {
                     $buy_status = "2";
                     $app_method = "2";
-                    $pay_mesg = "결제완료금액";
+                    $pay_mesg = "결제완료";
                     $payMethod = "카드";
 
                     $pay_date = date("Y-m-d H:i:s", strtotime($resultMap["applDate"]));//결제완료일
                 } elseif ($app_method == "VBank") {//가상계좌
                     $buy_status = "1";
                     $app_method = "64";
-                    $pay_mesg = "입금할 금액";
+                    $pay_mesg = "입금하실 금액";
                     $payMethod = "가상계좌";
                     $pay_online_name = $resultMap["VACT_InputName"];//송금자
                     $pay_online_account = $resultMap["vactBankName"] . " | " . $resultMap["VACT_Num"];//입금은행명 입금계좌
@@ -160,7 +161,7 @@ try {
                 } elseif ($app_method == "DirectBank") {//실시간 게좌이체
                     $buy_status = "2";
                     $app_method = "32";
-                    $pay_mesg = "결제완료금액";
+                    $pay_mesg = "결제완료";
                     $payMethod = "실시간계좌이체";
                     $pay_online_name = $resultMap["VACT_InputName"];//송금자
                     $pay_online_account = vbankCode($resultMap["ACCT_BankCode"]);//입금은행명 입금계좌
@@ -238,11 +239,11 @@ try {
 
 
                 $db->query("INSERT INTO buy (
-                            user_id,buy_code,buy_status,buy_date,buy_total_price,buy_expect_mile,pay_seq,pay_method,pay_price_normal,pay_dlv_fee,pay_price_mile,pay_pre_date
+                            user_id,buy_code,buy_status,buy_goods_type,buy_date,buy_total_price,buy_expect_mile,pay_seq,pay_method,pay_price_normal,pay_dlv_fee,pay_price_mile,pay_pre_date
                             ,pay_date,pay_online_name,pay_online_account,pay_info_no,buy_memo,buy_user_name,buy_user_tel,buy_user_mobile,buy_user_email,buy_user_ip,buy_dlv_name,buy_dlv_tel,buy_dlv_mobile
                             ,buy_dlv_email,buy_dlv_zipcode,buy_dlv_addr_base,buy_dlv_addr_etc,buy_dlv_pre_date,coupon_data_seq,buy_bill_type,buy_instant_discount,buy_mile_amount,buy_mobile)
                             VALUES
-                            ('$user_id','$buy_code','$buy_status','$buy_date','$buy_total_price','$buy_expect_mile','$pay_seq','$pay_method','$pay_price_normal','$pay_dlv_fee','$pay_price_mile','$pay_pre_date',
+                            ('$user_id','$buy_code','$buy_status','$buy_goods_type','$buy_date','$buy_total_price','$buy_expect_mile','$pay_seq','$pay_method','$pay_price_normal','$pay_dlv_fee','$pay_price_mile','$pay_pre_date',
                             '$pay_date','$pay_online_name','$pay_online_account','$pay_info_no','$buy_memo','$buy_user_name','$buy_user_tel','$buy_user_mobile','$buy_dlv_email','$buy_user_ip',''$buy_dlv_name,'$buy_dlv_tel','$buy_dlv_mobile',
                             '$buy_dlv_email','$buy_dlv_zipcode','$buy_dlv_addr_base','$alladd','$buy_dlv_pre_date','$coupon_data_seq','$buy_bill_type','$buy_instant_discount','$buy_mile_amount','$buy_mobile')");
 
@@ -298,7 +299,7 @@ try {
                         }
 
 
-                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
+                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
                         $goods_value_query = $db->loadRows();
                         $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                         $goods_name = $goods_value_query[0]["goods_name"];
@@ -307,16 +308,17 @@ try {
                         $goods_opt_num = $goods_value_query[0]["goods_opt_num"];//가격선택옵션 2,3 구분
                         $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
                         $manufacture = $goods_value_query[0]["manufacture"];//제조사
+                        $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
 
 
-                        switch ($goods_dlv_type) {
+                        /*switch ($goods_dlv_type) {
                             case "1":
                                 $goods_dlv_free = "0";
                                 $buy_goods_dlv_type = "1";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
                             case "2":
                                 $goods_dlv_free = "2500";
                                 $buy_goods_dlv_type = "2";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
-                        }
+                        }*/
 
                         if ($goods_opt_type == "1") {
                             //일반옵션
@@ -522,7 +524,7 @@ try {
                     }
 
 
-                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
+                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num,manufacture FROM goods WHERE goods_code='$goods_code'");
                     $goods_value_query = $db->loadRows();
                     $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                     $goods_name = $goods_value_query[0]["goods_name"];
@@ -531,16 +533,17 @@ try {
                     $goods_opt_num = $goods_value_query[0]["goods_opt_num"];//가격선택옵션 2,3 구분
                     $goods_sellPrice = $goods_value_query[0]["sellPrice"];//단가
                     $manufacture = $goods_value_query[0]["manufacture"];//제조사
+                    $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
 
 
-                    switch ($goods_dlv_type) {
+                    /*switch ($goods_dlv_type) {
                         case "1":
                             $goods_dlv_free = "0";
                             $buy_goods_dlv_type = "1";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
                         case "2":
                             $goods_dlv_free = "2500";
                             $buy_goods_dlv_type = "2";//배송비 유형 - 1:무료, 2:고정금액(주문시 선결제처럼추가됨?), 3:착불, 4:주문금액별, 5:무게별, 6:부피별
-                    }
+                    }*/
 
                     if ($goods_opt_type == "1") {
                         //일반옵션
@@ -724,95 +727,90 @@ try {
             //공통 부분만
             /*$str .= "<tr>
 
-                        <th class='td01'>거래 번호</th>
+                        <th class='col-lg-3 col-md-3'>거래 번호</th>
                         <td class='td02'>" . @(in_array($resultMap["tid"], $resultMap) ? $resultMap["tid"] : "null") . "</td></tr>
 
-                        <tr><th class='td01'>결제방법(지불수단)</th>
+                        <tr><th class='col-lg-3 col-md-3'>결제방법(지불수단)</th>
                         <td class='td02'>" . $payMethod . "</td></tr>
 
-                        <tr><th class='td01'>결과 코드</th>
+                        <tr><th class='col-lg-3 col-md-3'>결과 코드</th>
                         <td class='td02'>" . @(in_array($resultMap["resultCode"], $resultMap) ? $resultMap["resultCode"] : "null") . "</td></tr>
 
-                        <tr><th class='td01'>결과 내용</th>
+                        <tr><th class='col-lg-3 col-md-3'>결과 내용</th>
                         <td class='td02'>" . @(in_array($resultMap["resultMsg"], $resultMap) ? $resultMap["resultMsg"] : "null") . "</td></tr>
 
-                        <tr><th class='td01'>" . $pay_mesg . "</th>
+                        <tr><th class='col-lg-3 col-md-3'>" . $pay_mesg . "</th>
                         <td class='td02'>" . @(in_array($resultMap["TotPrice"], $resultMap) ? $resultMap["TotPrice"] : "null") . "원</td></tr>
-                        <tr><th class='td01'>주문 번호</th>
+                        <tr><th class='col-lg-3 col-md-3'>주문 번호</th>
                         <td class='td02'>" . @(in_array($resultMap["MOID"], $resultMap) ? $resultMap["MOID"] : "null") . "</td></tr>
-                        <tr><th class='td01'>승인날짜</th>
+                        <tr><th class='col-lg-3 col-md-3'>승인날짜</th>
                         <td class='td02'>" . date("Y-m-d", strtotime($resultMap["applDate"])) . "</td></tr>
 
-                        <tr><th class='td01'>승인시간</th>
+                        <tr><th class='col-lg-3 col-md-3'>승인시간</th>
                         <td class='td02'>" . @(in_array($resultMap["applTime"], $resultMap) ? $resultMap["applTime"] : "null") . "</td>
 
                         </tr>";*/
             $str .= "<tr>
-
-
-                        <tr><th class='td01'>결제방법(지불수단)</th>
+                        <tr><th class='col-lg-3 col-md-3'>결제방법(지불수단)</th>
                         <td class='td02'>" . $payMethod . "</td></tr>
-
-                        <tr><th class='td01'>결과 코드</th>
-                        <td class='td02'>" . @(in_array($resultMap["resultCode"], $resultMap) ? $resultMap["resultCode"] : "null") . "</td></tr>
                         
-                        <tr><th class='td01'>결과 내용</th>
+                        <tr><th class='col-lg-3 col-md-3'>결과 내용</th>
                         <td class='td02'>" . @(in_array($resultMap["resultMsg"], $resultMap) ? $resultMap["resultMsg"] : "null") . "</td></tr>
 
-                        <tr><th class='td01'>" . $pay_mesg . "</th>
+                        <tr><th class='col-lg-3 col-md-3'>" . $pay_mesg . "</th>
                         <td class='td02'>" . @(in_array($resultMap["TotPrice"], $resultMap) ? $resultMap["TotPrice"] : "null") . "원</td></tr>
-                        <tr><th class='td01'>승인날짜</th>
+                        <tr><th class='col-lg-3 col-md-3'>승인날짜</th>
                         <td class='td02'>" . date("Y-m-d", strtotime($resultMap["applDate"])) . "</td></tr>
 
-                        <tr><th class='td01'>승인시간</th>
-                        <td class='td02'>" . @(in_array($resultMap["applTime"], $resultMap) ? $resultMap["applTime"] : "null") . "</td>
+                        <tr><th class='col-lg-3 col-md-3'>승인시간</th>
+                        <td class='td02'>" . date("H:i:s", strtotime($resultMap["applTime"])) . "</td>
 
                         </tr>";
 
             if (isset($resultMap["payMethod"]) && strcmp("VBank", $resultMap["payMethod"]) == 0) { //가상계좌
-                $str .= "<tr><th class='td01'>입금 계좌번호</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>입금 계좌번호</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_Num"], $resultMap) ? $resultMap["VACT_Num"] : "null") . "</td></tr>
 
-                            <tr><th class='td01'>입금 은행코드</th>
+                            <tr><th class='col-lg-3 col-md-3'>입금 은행코드</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_BankCode"], $resultMap) ? $resultMap["VACT_BankCode"] : "null") . "</td></tr>
 
-                            <tr><th class='td01'>입금 은행명</th>
+                            <tr><th class='col-lg-3 col-md-3'>입금 은행명</th>
                             <td class='td02'>" . @(in_array($resultMap["vactBankName"], $resultMap) ? $resultMap["vactBankName"] : "null") . "</td></tr>
-                            <tr><th class='td01'>예금주 명</th>
+                            <tr><th class='col-lg-3 col-md-3'>예금주 명</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_Name"], $resultMap) ? $resultMap["VACT_Name"] : "null") . "</td></tr>
-                            <tr><th class='td01'>송금자 명</th>
+                            <tr><th class='col-lg-3 col-md-3'>송금자 명</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_InputName"], $resultMap) ? $resultMap["VACT_InputName"] : "null") . "</td></tr>
-                            <tr><th class='td01'>송금 일자</th>
+                            <tr><th class='col-lg-3 col-md-3'>송금 일자</th>
                             <td class='td02'>" . date("Y-m-d", strtotime($resultMap["VACT_Date"])) . " 까지</td></tr>
 
-                            <tr><th class='td01'>송금 시간</th>
+                            <tr><th class='col-lg-3 col-md-3'>송금 시간</th>
                             <td class='td02'>" . @(in_array($resultMap["VACT_Time"], $resultMap) ? $resultMap["VACT_Time"] : "null") . "</td>
                             
                             </tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("DirectBank", $resultMap["payMethod"]) == 0) { //실시간계좌이체
-                $str .= "<tr><th class='td01'>은행코드</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>은행코드</th>
                             <td class='td02'>" . @(in_array($resultMap["ACCT_BankCode"], $resultMap) ? $resultMap["ACCT_BankCode"] : "null") . "</td></tr>
-                            <tr><th class='td01'>현금영수증 발급결과코드</th>
+                            <tr><th class='col-lg-3 col-md-3'>현금영수증 발급결과코드</th>
                             <td class='td02'>" . @(in_array($resultMap["CSHR_ResultCode"], $resultMap) ? $resultMap["CSHR_ResultCode"] : "null") . "</td></tr>
-                            <tr><th class='td01'>현금영수증 발급구분코드 <font color=red><b>(0 - 소득공제용, 1 - 지출증빙용)</b></font></th>
+                            <tr><th class='col-lg-3 col-md-3'>현금영수증 발급구분코드 <font color=red><b>(0 - 소득공제용, 1 - 지출증빙용)</b></font></th>
                             <td class='td02'>" . @(in_array($resultMap["CSHR_Type"], $resultMap) ? $resultMap["CSHR_Type"] : "null") . "</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("HPP", $resultMap["payMethod"]) == 0) { //휴대폰
-                $str .= "<tr><th class='td01'>통신사</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>통신사</th>
                             <td class='td02'>" . @(in_array($resultMap["HPP_Corp"], $resultMap) ? $resultMap["HPP_Corp"] : "null") . "</td></tr>
-                            <tr><th class='td01'>결제장치</th>
+                            <tr><th class='col-lg-3 col-md-3'>결제장치</th>
                             <td class='td02'>" . @(in_array($resultMap["payDevice"], $resultMap) ? $resultMap["payDevice"] : "null") . "</td></tr>
-                            <tr><th class='td01'>휴대폰번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>휴대폰번호</th>
                             <td class='td02'>" . @(in_array($resultMap["HPP_Num"], $resultMap) ? $resultMap["HPP_Num"] : "null") . "</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("KWPY", $resultMap["payMethod"]) == 0) { //뱅크월렛 카카오
-                $str .= "<tr><th class='td01'>휴대폰번호</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>휴대폰번호</th>
                                 <td class='td02'>" . @(in_array($resultMap["KWPY_CellPhone"], $resultMap) ? $resultMap["KWPY_CellPhone"] : "null") . "</td></tr>
-                                <tr><th class='td01'>거래금액</th>
+                                <tr><th class='col-lg-3 col-md-3'>거래금액</th>
                                 <td class='td02'>" . @(in_array($resultMap["KWPY_SalesAmount"], $resultMap) ? $resultMap["KWPY_SalesAmount"] : "null") . "</td></tr>
-                                <tr><th class='td01'>공급가액</th>
+                                <tr><th class='col-lg-3 col-md-3'>공급가액</th>
                                 <td class='td02'>" . @(in_array($resultMap["KWPY_Amount"], $resultMap) ? $resultMap["KWPY_Amount"] : "null") . "</td></tr>
-                                <tr><th class='td01'>부가세</th>
+                                <tr><th class='col-lg-3 col-md-3'>부가세</th>
                                 <td class='td02'>" . @(in_array($resultMap["KWPY_Tax"], $resultMap) ? $resultMap["KWPY_Tax"] : "null") . "</td></tr>
-                                <tr><th class='td01'>봉사료</th>
+                                <tr><th class='col-lg-3 col-md-3'>봉사료</th>
                                 <td class='td02'>" . @(in_array($resultMap["KWPY_ServiceFee"], $resultMap) ? $resultMap["KWPY_ServiceFee"] : "null") . "</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("DGCL", $resultMap["payMethod"]) == 0) { //게임문화상품권
                 $sum = "0";
@@ -822,169 +820,169 @@ try {
                 $sum5 = "0";
                 $sum6 = "0";
 
-                $str .= "<tr><th class='td01'>게임문화상품권승인금액</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>게임문화상품권승인금액</th>
                             <td class='td02'>" . @(in_array($resultMap["GAMG_ApplPrice"], $resultMap) ? $resultMap["GAMG_ApplPrice"] : "null") . "원</td></tr>
-                            <tr><th class='td01'>사용한 카드수</th>
+                            <tr><th class='col-lg-3 col-md-3'>사용한 카드수</th>
                             <td class='td02'>" . @(in_array($resultMap["GAMG_Cnt"], $resultMap) ? $resultMap["GAMG_Cnt"] : "null") . "</td></tr>
-                            <tr><th class='td01'>사용한 카드번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>사용한 카드번호</th>
                             <td class='td02'>" . @(in_array($resultMap["GAMG_Num1"], $resultMap) ? $resultMap["GAMG_Num1"] : "null") . "</td></tr>
-                            <tr><th class='td01'>카드잔액</th>
+                            <tr><th class='col-lg-3 col-md-3'>카드잔액</th>
                             <td class='td02'>" . @(in_array($resultMap["GAMG_Price1"], $resultMap) ? $resultMap["GAMG_Price1"] : "null") . "원</td></tr>";
                 if (!strcmp("", $resultMap["GAMG_Num2"]) == 0) {
-                    $str .= "<tr><th class='td01'>사용한 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>사용한 카드번호</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Num2"], $resultMap) ? $resultMap["GAMG_Num2"] : "null") . "</td></tr>
-                                <tr><th class='td01'>카드잔액</th>
+                                <tr><th class='col-lg-3 col-md-3'>카드잔액</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Price2"], $resultMap) ? $resultMap["GAMG_Price2"] : "null") . "원</td></tr>";
                 }
                 if (!strcmp("", $resultMap["GAMG_Num3"]) == 0) {
 
-                    $str .= "<tr><th class='td01'>사용한 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>사용한 카드번호</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Num3"], $resultMap) ? $resultMap["GAMG_Num3"] : "null") . "</td></tr>
-                                <tr><th class='td01'>카드잔액</th>
+                                <tr><th class='col-lg-3 col-md-3'>카드잔액</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Price3"], $resultMap) ? $resultMap["GAMG_Price3"] : "null") . "원</td></tr>";
                 }
                 if (!strcmp("", $resultMap["GAMG_Num4"]) == 0) {
 
-                    $str .= "<tr><th class='td01'>사용한 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>사용한 카드번호</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Num4"], $resultMap) ? $resultMap["GAMG_Num4"] : "null") . "</td></tr>
-                                <tr><th class='td01'>카드잔액</th>
+                                <tr><th class='col-lg-3 col-md-3'>카드잔액</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Price4"], $resultMap) ? $resultMap["GAMG_Price4"] : "null") . "원</td></tr>";
                 }
                 if (!strcmp("", $resultMap["GAMG_Num5"]) == 0) {
 
-                    $str .= "<tr><th class='td01'>사용한 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>사용한 카드번호</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Num5"], $resultMap) ? $resultMap["GAMG_Num5"] : "null") . "</td></tr>
-                                <tr><th class='td01'>카드잔액</th>
+                                <tr><th class='col-lg-3 col-md-3'>카드잔액</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Price5"], $resultMap) ? $resultMap["GAMG_Price5"] : "null") . "원</td></tr>";
                 }
                 if (!strcmp("", $resultMap["GAMG_Num6"]) == 0) {
 
-                    $str .= "<tr><th class='td01'>사용한 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>사용한 카드번호</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Num6"], $resultMap) ? $resultMap["GAMG_Num6"] : "null") . "</td></tr>
-                                <tr><th class='td01'>카드잔액</th>
+                                <tr><th class='col-lg-3 col-md-3'>카드잔액</th>
                                 <td class='td02'>" . @(in_array($resultMap["GAMG_Price6"], $resultMap) ? $resultMap["GAMG_Price6"] : "null") . "원</td></tr>";
                 }
             } else if (isset($resultMap["payMethod"]) && strcmp("OCBPoint", $resultMap["payMethod"]) == 0) { //오케이 캐쉬백
-                $str .= "<tr><th class='td01'>지불구분</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>지불구분</th>
                             <td class='td02'>" . @(in_array($resultMap["PayOption"], $resultMap) ? $resultMap["PayOption"] : "null") . "</td></tr>
-                            <tr><th class='td01'>결제완료금액2</th>
+                            <tr><th class='col-lg-3 col-md-3'>결제완료금액2</th>
                             <td class='td02'>" . @(in_array($resultMap["applPrice"], $resultMap) ? $resultMap["applPrice"] : "null") . "원</td></tr>
-                            <tr><th class='td01'>OCB 카드번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>OCB 카드번호</th>
                             <td class='td02'>" . @(in_array($resultMap["OCB_Num"], $resultMap) ? $resultMap["OCB_Num"] : "null") . "</td></tr>
-                            <tr><th class='td01'>적립 승인번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>적립 승인번호</th>
                             <td class='td02'>" . @(in_array($resultMap["OCB_SaveApplNum"], $resultMap) ? $resultMap["OCB_SaveApplNum"] : "null") . "</td></tr>
-                            <tr><th class='td01'>사용 승인번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>사용 승인번호</th>
                             <td class='td02'>" . @(in_array($resultMap["OCB_PayApplNum"], $resultMap) ? $resultMap["OCB_PayApplNum"] : "null") . "</td></tr>
-                            <tr><th class='td01'>OCB 지불 금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>OCB 지불 금액</th>
                             <td class='td02'>" . @(in_array($resultMap["OCB_PayPrice"], $resultMap) ? $resultMap["OCB_PayPrice"] : "null") . "</td></tr>";
             } else if (isset($resultMap["payMethod"]) && (strcmp("GSPT", $resultMap["payMethod"]) == 0)) { //GSPoint
-                $str .= "<tr><th class='td01'>지불구분</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>지불구분</th>
                             <td class='td02'>" . @(in_array($resultMap["PayOption"], $resultMap) ? $resultMap["PayOption"] : "null") . "</td></tr>
-                            <tr><th class='td01'>GS 포인트 승인금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>GS 포인트 승인금액</th>
                             <td class='td02'>" . @(in_array($resultMap["GSPT_ApplPrice"], $resultMap) ? $resultMap["GSPT_ApplPrice"] : "null") . "원</td></tr>
-                            <tr><th class='td01'>GS 포인트 적립금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>GS 포인트 적립금액</th>
                             <td class='td02'>" . @(in_array($resultMap["GSPT_SavePrice"], $resultMap) ? $resultMap["GSPT_SavePrice"] : "null") . "원</td></tr>
-                            <tr><th class='td01'>GS 포인트 지불금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>GS 포인트 지불금액</th>
                             <td class='td02'>" . @(in_array($resultMap["GSPT_PayPrice"], $resultMap) ? $resultMap["GSPT_PayPrice"] : "null") . "원</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("UPNT", $resultMap["payMethod"]) == 0) {  //U-포인트
-                $str .= "<tr><th class='td01'>U포인트 카드번호</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>U포인트 카드번호</th>
                             <td class='td02'>" . @(in_array($resultMap["UPoint_Num"], $resultMap) ? $resultMap["UPoint_Num"] : "null") . "</td></tr>
-                            <tr><th class='td01'>가용포인트</th>
+                            <tr><th class='col-lg-3 col-md-3'>가용포인트</th>
                             <td class='td02'>" . @(in_array($resultMap["UPoint_usablePoint"], $resultMap) ? $resultMap["UPoint_usablePoint"] : "null") . "</td></tr>
-                            <tr><th class='td01'>포인트지불금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>포인트지불금액</th>
                             <td class='td02'>" . @(in_array($resultMap["UPoint_ApplPrice"], $resultMap) ? $resultMap["UPoint_ApplPrice"] : "null") . "</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("KWPY", $resultMap["payMethod"]) == 0) {  //뱅크월렛 카카오
-                $str .= "<tr><th class='td01'>결제방법</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>결제방법</th>
                             <td class='td02'>" . @(in_array($resultMap["payMethod"], $resultMap) ? $resultMap["payMethod"] : "null") . "</td></tr>
-                            <tr><th class='td01'>결과 코드</th>
+                            <tr><th class='col-lg-3 col-md-3'>결과 코드</th>
                             <td class='td02'>" . @(in_array($resultMap["resultCode"], $resultMap) ? $resultMap["resultCode"] : "null") . "</td></tr>
-                            <tr><th class='td01'>결과 내용</th>
+                            <tr><th class='col-lg-3 col-md-3'>결과 내용</th>
                             <td class='td02'>" . @(in_array($resultMap["resultMsg"], $resultMap) ? $resultMap["resultMsg"] : "null") . "</td></tr>
-                            <tr><th class='td01'>거래 번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>거래 번호</th>
                             <td class='td02'>" . @(in_array($resultMap["tid"], $resultMap) ? $resultMap["tid"] : "null") . "</td></tr>
-                            <tr><th class='td01'>주문 번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>주문 번호</th>
                             <td class='td02'>" . @(in_array($resultMap["orderNumber"], $resultMap) ? $resultMap["orderNumber"] : "null") . "</td></tr>
-                            <tr><th class='td01'>결제완료금액3</th>
+                            <tr><th class='col-lg-3 col-md-3'>결제완료금액3</th>
                             <td class='td02'>" . @(in_array($resultMap["price"], $resultMap) ? $resultMap["price"] : "null") . "원</td></tr>
-                            <tr><th class='td01'>사용일자</th>
+                            <tr><th class='col-lg-3 col-md-3'>사용일자</th>
                             <td class='td02'>" . @(in_array($resultMap["applDate"], $resultMap) ? $resultMap["applDate"] : "null") . "</td></tr>
-                            <tr><th class='td01'>사용시간</th>
+                            <tr><th class='col-lg-3 col-md-3'>사용시간</th>
                             <td class='td02'>" . @(in_array($resultMap["applTime"], $resultMap) ? $resultMap["applTime"] : "null") . "</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("YPAY", $resultMap["payMethod"]) == 0) { //엘로우 페이
                 //별도 응답 필드 없음
             } else if (isset($resultMap["payMethod"]) && strcmp("TEEN", $resultMap["payMethod"]) == 0) { //틴캐시
-                $str .= "<tr><th class='td01'>틴캐시 승인번호</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>틴캐시 승인번호</th>
                             <td class='td02'>" . @(in_array($resultMap["TEEN_ApplNum"], $resultMap) ? $resultMap["TEEN_ApplNum"] : "null") . "</td></tr>
-                            <tr><th class='td01'>틴캐시아이디</th>
+                            <tr><th class='col-lg-3 col-md-3'>틴캐시아이디</th>
                             <td class='td02'>" . @(in_array($resultMap["TEEN_UserID"], $resultMap) ? $resultMap["TEEN_UserID"] : "null") . "</td></tr>
-                            <tr><th class='td01'>틴캐시승인금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>틴캐시승인금액</th>
                             <td class='td02'>" . @(in_array($resultMap["TEEN_ApplPrice"], $resultMap) ? $resultMap["TEEN_ApplPrice"] : "null") . "원</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("Bookcash", $resultMap["payMethod"]) == 0) { //도서문화상품권
-                $str .= "<tr><th class='td01'>도서상품권 승인번호</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>도서상품권 승인번호</th>
                             <td class='td02'>" . @(in_array($resultMap["BCSH_ApplNum"], $resultMap) ? $resultMap["BCSH_ApplNum"] : "null") . "</td></tr>
-                            <tr><th class='td01'>도서상품권 사용자ID</th>
+                            <tr><th class='col-lg-3 col-md-3'>도서상품권 사용자ID</th>
                             <td class='td02'>" . @(in_array($resultMap["BCSH_UserID"], $resultMap) ? $resultMap["BCSH_UserID"] : "null") . "</td></tr>
-                            <tr><th class='td01'>도서상품권 승인금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>도서상품권 승인금액</th>
                             <td class='td02'>" . @(in_array($resultMap["BCSH_ApplPrice"], $resultMap) ? $resultMap["BCSH_ApplPrice"] : "null") . "원</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("PhoneBill", $resultMap["payMethod"]) == 0) { //폰빌전화결제
-                $str .= "<tr><th class='td01'>승인전화번호</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>승인전화번호</th>
                                                                         <td class='td02'>" . @(in_array($resultMap["PHNB_Num"], $resultMap) ? $resultMap["PHNB_Num"] : "null") . "</td></tr>";
             } else if (isset($resultMap["payMethod"]) && strcmp("Bill", $resultMap["payMethod"]) == 0) { //빌링결제
-                $str .= "<tr><th class='td01'>빌링키</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>빌링키</th>
                             <td class='td02'>" . @(in_array($resultMap["CARD_BillKey"], $resultMap) ? $resultMap["CARD_BillKey"] : "null") . "</td></tr>";
             } else { //카드
 //					int  quota=Integer.parseInt(resultMap.get("CARD_Quota"));
                 if (isset($resultMap["EventCode"]) && !is_null($resultMap["EventCode"])) {
-                    $str .= "<tr><th class='td01'>이벤트 코드</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>이벤트 코드</th>
                             <td class='td02'>" . @(in_array($resultMap["EventCode"], $resultMap) ? $resultMap["EventCode"] : "null") . "</td></tr>";
                 }
-                $str .= "<tr><th class='td01'>카드번호</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>카드번호</th>
                             <td class='td02'>" . @(in_array($resultMap["CARD_Num"], $resultMap) ? $resultMap["CARD_Num"] : "null") . "</td></tr>
-                            <tr><th class='td01'>할부기간</th>
+                            <tr><th class='col-lg-3 col-md-3'>할부기간</th>
                             <td class='td02'>" . @(in_array($resultMap["CARD_Quota"], $resultMap) ? $resultMap["CARD_Quota"] : "null") . "</td></tr>";
                 if (isset($resultMap["EventCode"]) && isset($resultMap["CARD_Interest"]) && (strcmp("1", $resultMap["CARD_Interest"]) == 0 || strcmp("1", $resultMap["EventCode"]) == 0)) {
-                    $str .= "<tr><th class='td01'>할부 유형</th>";
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>할부 유형</th>";
                 } else if (isset($resultMap["CARD_Interest"]) && !strcmp("1", $resultMap["CARD_Interest"]) == 0) {
-                    $str .= "<tr><th class='td01'>할부 유형</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>할부 유형</th>
 									                <td class='td02'>유이자 <font color='red'> *유이자로 표시되더라도 EventCode 및 EDI에 따라 무이자 처리가 될 수 있습니다.</font></td></tr>";
                 }
                 if (isset($resultMap["point"]) && strcmp("1", $resultMap["point"]) == 0) {
                     $str .= "<td class='td02'></td></tr>
-                            <tr><th class='td01'>포인트 사용 여부</th>
+                            <tr><th class='col-lg-3 col-md-3'>포인트 사용 여부</th>
                             <td class='td02'>사용</td></tr>";
                 } else {
                     $str .= "<td class='td02'></td></tr>
-                            <tr><th class='td01'>포인트 사용 여부</th>
+                            <tr><th class='col-lg-3 col-md-3'>포인트 사용 여부</th>
                             <td class='td02'>미사용</td></tr>";
                 }
-                $str .= "<tr><th class='td01'>카드 종류</th>
+                $str .= "<tr><th class='col-lg-3 col-md-3'>카드 종류</th>
                             <td class='td02'>" . @(in_array($resultMap["CARD_Code"], $resultMap) ? $resultMap["CARD_Code"] : "null") . "</td></tr>
                             <tr><th class='line' colspan='2'></th></tr>
-                            <tr><th class='td01'>카드 발급사</th>
+                            <tr><th class='col-lg-3 col-md-3'>카드 발급사</th>
                             <td class='td02'>" . @(in_array($resultMap["CARD_BankCode"], $resultMap) ? $resultMap["CARD_BankCode"] : "null") . "</td></tr>";
 
                 if (isset($resultMap["OCB_Num"]) && !is_null($resultMap["OCB_Num"]) && !empty($resultMap["OCB_Num"])) {
-                    $str .= "<tr><th class='td01'>OK CASHBAG 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>OK CASHBAG 카드번호</th>
                             <td class='td02'>" . @(in_array($resultMap["OCB_Num"], $resultMap) ? $resultMap["OCB_Num"] : "null") . "</td></tr>
-                            <tr><th class='td01'>OK CASHBAG 적립 승인번호</th>
+                            <tr><th class='col-lg-3 col-md-3'>OK CASHBAG 적립 승인번호</th>
                             <td class='td02'>" . @(in_array($resultMap["OCB_SaveApplNum"], $resultMap) ? $resultMap["OCB_SaveApplNum"] : "null") . "</td></tr>
-                            <tr><th class='td01'>OK CASHBAG 포인트지불금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>OK CASHBAG 포인트지불금액</th>
                             <td class='td02'>" . @(in_array($resultMap["OCB_PayPrice"], $resultMap) ? $resultMap["OCB_PayPrice"] : "null") . "</td></tr>";
                 }
                 if (isset($resultMap["GSPT_Num"]) && !is_null($resultMap["GSPT_Num"]) && !empty($resultMap["GSPT_Num"])) {
-                    $str .= "<tr><th class='td01'>GS&Point 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>GS&Point 카드번호</th>
                             <td class='td02'>" . @(in_array($resultMap["GSPT_Num"], $resultMap) ? $resultMap["GSPT_Num"] : "null") . "</td></tr>
-                            <tr><th class='td01'>GS&Point 잔여한도</th>
+                            <tr><th class='col-lg-3 col-md-3'>GS&Point 잔여한도</th>
                             <td class='td02'>" . @(in_array($resultMap["GSPT_Remains"], $resultMap) ? $resultMap["GSPT_Remains"] : "null") . "</td></tr>
-                            <tr><th class='td01'>GS&Point 승인금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>GS&Point 승인금액</th>
                             <td class='td02'>" . @(in_array($resultMap["GSPT_ApplPrice"], $resultMap) ? $resultMap["GSPT_ApplPrice"] : "null") . "</td></tr>";
                 }
                 if (isset($resultMap["UNPT_CardNum"]) && !is_null($resultMap["UNPT_CardNum"]) && !empty($resultMap["UNPT_CardNum"])) {
-                    $str .= "<tr><th class='td01'>U-Point 카드번호</th>
+                    $str .= "<tr><th class='col-lg-3 col-md-3'>U-Point 카드번호</th>
                             <td class='td02'>" . @(in_array($resultMap["UNPT_CardNum"], $resultMap) ? $resultMap["UNPT_CardNum"] : "null") . "</td></tr>
-                            <tr><th class='td01'>U-Point 가용포인트</th>
+                            <tr><th class='col-lg-3 col-md-3'>U-Point 가용포인트</th>
                             <td class='td02'>" . @(in_array($resultMap["UPNT_UsablePoint"], $resultMap) ? $resultMap["UPNT_UsablePoint"] : "null") . "</td></tr>
-                            <tr><th class='td01'>U-Point 포인트지불금액</th>
+                            <tr><th class='col-lg-3 col-md-3'>U-Point 포인트지불금액</th>
                             <td class='td02'>" . @(in_array($resultMap["UPNT_PayPrice"], $resultMap) ? $resultMap["UPNT_PayPrice"] : "null") . "</td></tr>";
                 }
             }
@@ -1148,7 +1146,7 @@ try {
                                                     }
 
 
-                                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
+                                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
                                                     $goods_value_query = $db->loadRows();
                                                     $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                                                     $goods_name = $goods_value_query[0]["goods_name"];
@@ -1156,6 +1154,16 @@ try {
                                                     $goods_opt_type = $goods_value_query[0]["goods_opt_type"];
                                                     $goods_opt_num = $goods_value_query[0]["goods_opt_num"];
                                                     $goods_sellPrice = $goods_value_query[0]["sellPrice"];
+                                                    $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                                                    $goods_type = $goods_value_query[0]["goods_type"];
+
+                                                    if($goods_type == "0"){
+                                                        //일반상품
+                                                        $total_dShipping = $goods_dlv_fee;
+                                                    }else if($goods_dlv_type == "8"){
+                                                        //구매대행
+                                                        $total_dShipping += $goods_dlv_fee;
+                                                    }
 
                                                     $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                     $dbdata = $db->loadRows();
@@ -1223,22 +1231,8 @@ try {
                                                                 원
                                                             </td>
                                                             <td class="cross shipping"
-                                                                data-shipping="<?php if ($goods_dlv_type == "1") {
-                                                                    echo "0";
-                                                                } else {
-                                                                    echo "2500";
-                                                                } ?>" rowspan="<?= $rowspan ?>">
-                                                                <?php
-                                                                if ($goods_dlv_type == "1") {
-                                                                    echo "0 원";
-                                                                    $total_dShipping = $total_dShipping + 0;
-                                                                } else {
-                                                                    echo number_format(2500) . " 원";
-                                                                    if ($total_dShipping == "") {
-                                                                        $total_dShipping = "2500";
-                                                                    }
-                                                                }
-                                                                ?>
+                                                                data-shipping="<?=$goods_dlv_fee?>" rowspan="<?= $rowspan ?>">
+                                                                <?=number_format($goods_dlv_fee)?> 원
                                                             </td>
                                                         </tr>
                                                         <?php

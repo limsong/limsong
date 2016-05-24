@@ -237,7 +237,7 @@ if ($debug == true) {
                                 <ul class="goods_dlv_special0">
                                     <li>
                                         <label>
-                                            <input type="radio" value="8" name="goods_dlv_type" checked="checked">
+                                            <input type="radio" value="0" name="goods_dlv_type" checked="checked">
                                             판매자 기본 배송정책 적용
                                         </label>
                                     </li>

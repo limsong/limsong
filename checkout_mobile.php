@@ -155,7 +155,7 @@ $email = $dbshopMembers[0]["email"];
                                                         }
                                                     }
 
-                                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
+                                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
                                                     $goods_value_query = $db->loadRows();
                                                     $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                                                     $goods_name = $goods_value_query[0]["goods_name"];
@@ -163,6 +163,8 @@ $email = $dbshopMembers[0]["email"];
                                                     $goods_opt_type = $goods_value_query[0]["goods_opt_type"];
                                                     $goods_opt_num = $goods_value_query[0]["goods_opt_num"];
                                                     $goods_sellPrice = $goods_value_query[0]["sellPrice"];
+                                                    $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                                                    $goods_type = $goods_value_query[0]["goods_type"];
 
                                                     $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                     $dbdata = $db->loadRows();
@@ -393,7 +395,7 @@ $email = $dbshopMembers[0]["email"];
                                                         }
 
 
-                                                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
+                                                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
                                                         $goods_value_query = $db->loadRows();
                                                         $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
 
@@ -402,6 +404,8 @@ $email = $dbshopMembers[0]["email"];
                                                         $goods_opt_type = $goods_value_query[0]["goods_opt_type"];
                                                         $goods_opt_num = $goods_value_query[0]["goods_opt_num"];
                                                         $goods_sellPrice = $goods_value_query[0]["sellPrice"];
+                                                        $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                                                        $goods_type = $goods_value_query[0]["goods_type"];
 
                                                         $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                         $dbdata = $db->loadRows();
@@ -941,11 +945,12 @@ $email = $dbshopMembers[0]["email"];
                             $_SESSION[$orderNumber . "_buy_instant_discount"] = $total_sum - $total_sum * $sb_sale;//상품 즉시할인 금액(총 할인금액)
                             $_SESSION[$orderNumber . "_buy_total_price"] = $total_sum + $total_sum2;//총상품총액(할인전금액)
                             $_SESSION[$orderNumber . "_pay_dlv_fee"] = $total_dShipping;
+                            $_SESSION[$orderNumber . "_buy_goods_type"] = $goods_type;
 
                             $_SESSION[$orderNumber . "_price"] = $price;//총 결제 금액
                             $buy_total_price = $total_sum + $total_sum2;
                             $buy_instant_discount = $total_sum - $total_sum * $sb_sale;
-                            $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
+                            $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',goods_type='$goods_type',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
                             ?>
                         </div>
                     </div>

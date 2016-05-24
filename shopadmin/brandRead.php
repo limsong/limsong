@@ -336,7 +336,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                 <ul class="goods_dlv_special0">
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="1"
+                                            <INPUT type="radio" value="0"
                                                    name="goods_dlv_type" <? if ($ou_goods_dlv_special == "0" && $ou_goods_dlv_type == "1") {
                                                 echo 'checked';
                                             } ?>>
@@ -345,7 +345,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="2"
+                                            <INPUT type="radio" value="1"
                                                    name="goods_dlv_type" <? if ($ou_goods_dlv_special == "0" && $ou_goods_dlv_type == "2") {
                                                 echo 'checked';
                                             } ?>>
@@ -354,7 +354,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                     </li>
                                     <li>
                                         <label>
-                                            <INPUT type="radio" value="3"
+                                            <INPUT type="radio" value="2"
                                                    name="goods_dlv_type" <? if ($ou_goods_dlv_special == "0" && $ou_goods_dlv_type == "3") {
                                                 echo 'checked';
                                                 $dlv_fee_style1 = 'style="display:block;"';
@@ -435,7 +435,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         <dd class="inputDd">
                             <label>
                                 <span class="dlv_txt" <?php echo $dlv_fee_style2;?>>판매자 기본 배송정책 적용: 고정금액(선불) / 배송료 : 2500원 / 지역할증 : 있음</span>
-                                <input type="text" name="goods_dlv_fee" class="inputItem dlv_fee" <?php echo $dlv_fee_style1;?>>
+                                <input type="text" name="goods_dlv_fee" class="inputItem dlv_fee" value="<?=$ou_goods_dlv_fee?>" <?php echo $dlv_fee_style1;?>>
                                 <span class="dlv_won" <?php echo $dlv_fee_style1;?>>원</span>
                             </label>
                         </dd>
@@ -767,8 +767,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     <div class="buttonBox">
                         <input type="button" value=" 수정 " class="memEleB" onclick="subButton('수정')"/>
                         <input type="button" value=" 삭제 " class="memEleB" onclick="subButton('삭제')"/>
-                        <input type="button" value=" 목록 " class="memEleB"
-                               onclick="location.href='brandList.php?key=<?= $key ?>&xcode=<?= $xcode ?>&mcode=<?= $mcode ?>&scode=<?= $scode ?>&keyfield=<?= $keyfield ?>'"/>
+                        <input type="button" value=" 목록 " class="memEleB" onclick="location.href='brandList.php?key=<?= $key ?>&xcode=<?= $xcode ?>&mcode=<?= $mcode ?>&scode=<?= $scode ?>&keyfield=<?= $keyfield ?>'"/>
                     </div>
                 </form>
                 <iframe name="action_frame" width="99%" height="200" style="display:none;"></iframe>

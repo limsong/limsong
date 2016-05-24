@@ -151,9 +151,6 @@ if ($oname == "") {
                                                     </tr>
                                                 </thead>
                                                 <?php
-                                                $db->query("SELECT dShipping FROM settings");
-                                                $dbsettings = $db->loadRows();
-                                                $dShipping = $dbsettings[0]["dShipping"];
                                                 $chkitem = $_POST["chkitem"];
                                                 if ($chkitem == "") {
                                                     //바로구매
@@ -234,7 +231,7 @@ if ($oname == "") {
                                                         }
                                                     }
 
-                                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
+                                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
                                                     $goods_value_query = $db->loadRows();
                                                     $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                                                     $goods_name = $goods_value_query[0]["goods_name"];
@@ -242,6 +239,16 @@ if ($oname == "") {
                                                     $goods_opt_type = $goods_value_query[0]["goods_opt_type"];
                                                     $goods_opt_num = $goods_value_query[0]["goods_opt_num"];
                                                     $goods_sellPrice = $goods_value_query[0]["sellPrice"];
+                                                    $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                                                    $goods_type = $goods_value_query[0]["goods_type"];
+
+                                                    if($goods_type == "0"){
+                                                        //일반상품
+                                                        $total_dShipping = $goods_dlv_fee;
+                                                    }else if($goods_dlv_type == "8"){
+                                                        //구매대행
+                                                        $total_dShipping += $goods_dlv_fee;
+                                                    }
 
                                                     $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                     $dbdata = $db->loadRows();
@@ -309,22 +316,8 @@ if ($oname == "") {
                                                                 원
                                                             </td>
                                                             <td class="cross shipping"
-                                                                data-shipping="<?php if ($goods_dlv_type == "1") {
-                                                                    echo "0";
-                                                                } else {
-                                                                    echo "2500";
-                                                                } ?>" rowspan="<?= $rowspan ?>">
-                                                                <?php
-                                                                if ($goods_dlv_type == "1") {
-                                                                    echo "0 원";
-                                                                    $total_dShipping = $total_dShipping + 0;
-                                                                } else {
-                                                                    echo number_format(2500) . " 원";
-                                                                    if ($total_dShipping == "") {
-                                                                        $total_dShipping = "2500";
-                                                                    }
-                                                                }
-                                                                ?>
+                                                                data-shipping="<?=$goods_dlv_fee?>" rowspan="<?= $rowspan ?>">
+                                                                <?=number_format($goods_dlv_fee)?> 원
                                                             </td>
                                                         </tr>
                                                         <?php
@@ -472,7 +465,7 @@ if ($oname == "") {
                                                         }
 
 
-                                                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
+                                                        $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
                                                         $goods_value_query = $db->loadRows();
                                                         $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
 
@@ -481,6 +474,16 @@ if ($oname == "") {
                                                         $goods_opt_type = $goods_value_query[0]["goods_opt_type"];
                                                         $goods_opt_num = $goods_value_query[0]["goods_opt_num"];
                                                         $goods_sellPrice = $goods_value_query[0]["sellPrice"];
+                                                        $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
+                                                        $goods_type = $goods_value_query[0]["goods_type"];
+
+                                                        if($goods_type == "0"){
+                                                            //일반상품
+                                                            $total_dShipping = $goods_dlv_fee;
+                                                        }else if($goods_dlv_type == "8"){
+                                                            //구매대행
+                                                            $total_dShipping += $goods_dlv_fee;
+                                                        }
 
                                                         $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                         $dbdata = $db->loadRows();
@@ -549,22 +552,8 @@ if ($oname == "") {
                                                                     원
                                                                 </td>
                                                                 <td class="cross shipping"
-                                                                    data-shipping="<?php if ($goods_dlv_type == "1") {
-                                                                        echo "0";
-                                                                    } else {
-                                                                        echo "2500";
-                                                                    } ?>" rowspan="<?= $rowspan ?>">
-                                                                    <?php
-                                                                    if ($goods_dlv_type == "1") {
-                                                                        echo "0 원";
-                                                                        $total_dShipping = $total_dShipping + 0;
-                                                                    } else {
-                                                                        echo number_format(2500) . " 원";
-                                                                        if ($total_dShipping == "") {
-                                                                            $total_dShipping = "2500";
-                                                                        }
-                                                                    }
-                                                                    ?>
+                                                                    data-shipping="<?=$goods_dlv_fee?>" rowspan="<?= $rowspan ?>">
+                                                                    <?=number_format($goods_dlv_fee)?> 원
                                                                 </td>
                                                             </tr>
                                                             <?php
@@ -1051,9 +1040,10 @@ if ($oname == "") {
                     $_SESSION[$orderNumber . "_buy_instant_discount"] = $total_sum - $total_sum * $sb_sale;//상품 즉시할인 금액(총 할인금액)
                     $_SESSION[$orderNumber . "_buy_total_price"] = $total_sum + $total_sum2;//총상품총액(할인전금액)
                     $_SESSION[$orderNumber . "_pay_dlv_fee"] = $total_dShipping;
+                    $_SESSION[$orderNumber . "_buy_goods_type"] = $goods_type;
                     $buy_total_price = $total_sum + $total_sum2;
                     $buy_instant_discount = $total_sum - $total_sum * $sb_sale;
-                    $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
+                    $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',goods_type='$goods_type',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
 
                     ?>
                 </div>

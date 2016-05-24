@@ -54,7 +54,7 @@ html, body {
     /*font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     /*font-size: 14px;*/
     background-image: url("../img/bg.png");
-    font-family: '돋움',dotum,sans-serif;
+    font-family: '돋움', dotum, sans-serif;
     font-size: 12px;
     font-weight: normal;
 }
@@ -491,7 +491,9 @@ ul {
     text-align: center;
     width: 18%;
     height: 80px;
-    text-align: center;padding-top:16px;padding-left:3px;
+    text-align: center;
+    padding-top: 16px;
+    padding-left: 3px;
 }
 
 .cart {
@@ -2607,7 +2609,7 @@ h2.slider-tiile-middle span.bg-text {
 }
 
 .zoom-slider li {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     margin: 5px;
 }
 
@@ -4656,9 +4658,9 @@ p.checkout-coupon input[type=submit] {
     /*font-family: 'Raleway', sans-serif;*/
     /*font-family: 'Black Ops One', cursive;*/
     font-family: 'PT Serif', serif;
-    font-style:italic;
-    font-weight:700 !important;
-    font-size:33px;
+    font-style: italic;
+    font-weight: 700 !important;
+    font-size: 33px;
     color: #ddd;
     /*background: linear-gradient(330deg, #E26A6A 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #E26A6A 100%);*/
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#666));
@@ -4697,8 +4699,8 @@ p.checkout-coupon input[type=submit] {
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     width: 100%;
-    padding-top: 1px;
-    line-height: 22px;
+    padding-top: 6px;
+    height: 25px;
 }
 
 .item-minus {
@@ -4707,8 +4709,8 @@ p.checkout-coupon input[type=submit] {
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     width: 100%;
-    padding-top: 1px;
-    line-height: 22px;
+    padding-top: 6px;
+    height: 25px;
 }
 
 .sub_pric {
@@ -5029,7 +5031,7 @@ td {
     vertical-align: middle;
 }
 
-.user-info tr>th, .user-info tr>td {
+.user-info tr > th, .user-info tr > td {
     text-align: left !important;
 }
 

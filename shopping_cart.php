@@ -59,9 +59,6 @@
                                     </tr>
                                 </thead>
                                 <?php
-                                $db->query("SELECT dShipping FROM settings");
-                                $dbsettings = $db->loadRows();
-                                $dShipping = $dbsettings[0]["dShipping"];
                                 $db->query("SELECT uid,v_oid,goods_code,sbid,sbnum,opid,opnum,signdate FROM basket WHERE id='$uname' ORDER BY uid ASC");
                                 $dbdata = $db->loadRows();
                                 foreach ($dbdata as $k => $v) {
@@ -104,14 +101,24 @@
                                         $opidQuery .= ")";
                                     }
 
-                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_dlv_type,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
+                                    $db->query("SELECT goods_name,sb_sale,sellPrice,goods_type,goods_dlv_type,goods_dlv_fee,goods_opt_type,goods_opt_num FROM goods WHERE goods_code='$goods_code'");
                                     $goods_value_query = $db->loadRows();
                                     $sb_sale = (100 - $goods_value_query[0]["sb_sale"]) / 100;
                                     $goods_name = $goods_value_query[0]["goods_name"];
-                                    $goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];
+                                    $goods_dlv_type = $goods_value_query[0]["goods_dlv_type"];//배송유형 1:
+                                    $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];//배송비
                                     $goods_opt_type = $goods_value_query[0]["goods_opt_type"];
                                     $goods_opt_num = $goods_value_query[0]["goods_opt_num"];
                                     $goods_sellPrice = $goods_value_query[0]["sellPrice"];
+                                    $goods_type = $goods_value_query[0]["goods_type"];
+
+                                    if($goods_type == "0"){
+                                        //일반상품
+                                        $total_dShipping = $goods_dlv_fee;
+                                    }else if($goods_dlv_type == "8"){
+                                        //구매대행
+                                        $total_dShipping += $goods_dlv_fee;
+                                    }
 
                                     $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                     $dbdata = $db->loadRows();
@@ -188,29 +195,8 @@
                                                 <?= number_format($sum) ?>
                                                 원
                                             </td>
-                                            <td class="cross shipping" data-shipping="<?php if ($goods_dlv_type == "1") {
-                                                echo "0";
-                                            } else {
-                                                echo "2500";
-                                            } ?>" rowspan="<?= $rowspan ?>">
-                                                <?php
-                                                if ($goods_dlv_type == "1") {
-                                                    echo "0 원";
-                                                    $total_dShipping = $total_dShipping + 0;
-                                                } elseif($goods_dlv_type="2"){
-                                                    //고정금액
-                                                    echo number_format($goods_dlv_fee). " 원";
-                                                    if ($total_dShipping == "") {
-                                                        $total_dShipping = "2500";
-                                                    }
-                                                }elseif($goods_dlv_type="8"){
-                                                    //판매자 기본 배송정책 적용
-                                                    $db->query("SELECT dShipping FROM settings");
-                                                    $db_settings_query = $db->loadRows();
-                                                    $dShipping = $db_settings_query[0]["dShipping"];
-                                                    echo number_format($dShipping). " 원";
-                                                }
-                                                ?>
+                                            <td class="cross shipping" data-shipping="<?=$goods_dlv_fee?>" rowspan="<?= $rowspan ?>">
+                                                <?=number_format($goods_dlv_fee)?> 원
                                             </td>
                                         </tr>
                                         <?php
