@@ -146,7 +146,7 @@ $name2 = $_GET["name2"];
                             ?>
                         </div>
                     </div>
-                    <div class="col-sm-7 col-md-7">
+                    <div class="col-sm-7 col-md-7 no-padding">
                         <form name="itemviewform" action="<?= $action ?>" method="POST" class="itemviewform">
                             <?php
                             /*
@@ -218,10 +218,8 @@ $name2 = $_GET["name2"];
                             <input type="hidden" value="<?= $db_goodsArr[0]["sellPrice"] ?>" class="pric1">
                             <input type="hidden" value="<?= $goods_code ?>" class="code">
                             <input type="hidden" value="<?= $db_goodsArr[0]["goods_name"] ?>" class="goods_name">
-                            <input type="hidden" value="<?= $db_goodsArr[0]["goods_opt_type"] ?>"
-                                   class="goods_opt_type">
-                            <input type="hidden" name="goods_code" value="<?= $db_goodsArr[0]["goods_code"] ?>"
-                                   class="goods_code">
+                            <input type="hidden" value="<?= $db_goodsArr[0]["goods_opt_type"] ?>" class="goods_opt_type">
+                            <input type="hidden" name="goods_code" value="<?= $db_goodsArr[0]["goods_code"] ?>" class="goods_code">
                             <input type="hidden" value="<?= $db_goodsArr[0]["goods_opt_Num"] ?>" class="optNum">
                             <input type="hidden" name="chkitem[]" class="chkitem">
                             <div class="prod-list-detail">
@@ -423,14 +421,14 @@ $name2 = $_GET["name2"];
                                         <div class="col-md-12 m-item"></div><!-- 메인상품 추가 폼 끝--><!-- 서브상품 추가 폼 시작-->
                                         <div class="s-item"></div><!-- 서브상품 추가 폼 끝-->
                                         <div class="col-md-12" style="margin:5px 0px 0px 0px;"></div><!-- 토탈 폼 시작-->
-                                        <div class="col-md-12 total">
+                                        <div class="col-md-12 col-xs-12 total">
                                             <div class="col-md-6 cm6">
                                                 <span style="font-size:12px;font-weight:bold;color:#333;">총 합계금액</span>
                                                 <span style="font-size:12px;color:#000;">(수량)</span>
                                             </div>
                                             <div class="col-md-6 cm6" style="text-align:right;">
                                                 <span class="totalSum" data="0"
-                                                      style="font-size:17px;color:#e26a6a;font-weight:bold;">0
+                                                      style="font-size:15px;color:#e26a6a;font-weight:bold;">0
                                                 </span>
                                                 <span style="color:#e26a6a;">원(
                                                     <span class="totalNum">0</span>

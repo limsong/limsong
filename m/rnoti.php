@@ -87,6 +87,10 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
     $buy_user_email = $db_basket_query[0]["buy_user_email"];
     $uname = $db_basket_query[0]["id"];//id
     $goods_type = $db_basket_query[0]["goods_type"];
+    $new_add = $db_basket_query[0]["new_addr"];
+    if ($new_add == "y") {
+        $db->query("INSERT INTO user_address (user_id,user_name,zipcode,addr1,addr2,addr3,phone) values ('$uname','$user_id','$zipcode','$oldadd','$newadd','$alladd','$buy_user_mobile')");
+    }
 
 
 

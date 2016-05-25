@@ -12,7 +12,6 @@
         //$action = "checkout.php";
         $action = "checkout_mobile.php";
     }
-//$action = "checkout_mobile.php";
 ?>
 <link href="css/shoppingcart.css" rel='stylesheet' type='text/css'>
 <body class="home-1 shop-page cart-page">
@@ -356,7 +355,7 @@
         </form>
 
         <!-- Modal -->
-        <button type="button" style="display:none;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal
+        <button type="button" style="display:none;z-index:5000;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal
         </button>
         <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">

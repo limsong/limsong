@@ -44,7 +44,7 @@
     <? include_once("bottom_banner.php") ?>
     <!--BOTTOM BANNER AREA END-->
     <!--CATEGORY ONE AREA START-->
-    <? include_once("category_one.php") ?>
+    <? include_once("m_category_one.php") ?>
     <!--CATEGORY ONE AREA END-->
     <!--CATEGORY TWO AREA START-->
     <? include_once("category_two.php") ?>
@@ -68,6 +68,14 @@
     <? include_once("js.php") ?>
     <!-- JS END -->
     <script>
+        $(document).read(function () {
+            $(".owl-carousel").owlCarousel()
+
+//get carousel instance data and store it in variable owl
+            var owl = $(".owl-carousel").data('owlCarousel');
+
+            owl.play() // Autoplay
+        });
         $(".search-button").click(function () {
             if (!$(".search-key").val()) {
                 alert("검색할 키워드를 입력해 주세요");

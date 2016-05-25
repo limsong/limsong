@@ -279,45 +279,201 @@ $(document).ready(function () {
         /* 추가옵션 토탈추가  끝 */
 
         /* 메인상품 토탈추가 시작 */
-        $(".bsitem").on("change", function () {
-            var selVal = $(this, 'option:selected').val();
-            var data = $('.bsitem option:selected').attr("data");
-            var itemName = $(".bsitem option:selected").text();
-            var idlen = $(".m-item").find("input[type=hidden]").length;
-            var mod = true;
-            total_sum = $(".totalSum").attr("data");
-            if (!selVal) {
-                return false;
-            }
-            $(".m-item").find("input[type=hidden]").each(function (i) {
-                if ($(this).val() == data) {
-                    alert("이미 추가된 상품 입니다.1");
-                    $(".bsitem").get(i).selectedIndex = 0;
-                    mod = false;
+        $("select[name=bsitem]").on("change", function () {
+            var goods_opt_type = $(".goods_opt_type").val();
+            var goods_code = $(".goods_code").val();
+            var optNum = $(".optNum").val();
+            if (goods_opt_type == "1") {
+                //일반옵션
+                var mod = $(this)[0].selectedIndex;
+                var selVal = $(this, 'option:selected').val();
+                if (mod != 0) {
+                    var data1 = $(this).find("option:selected").attr("data");
+                    var data2 = $(this).find("option:selected").attr("data1");
+                    var data3 = $(this).find("option:selected").attr("data2");
+                } else {
                     return false;
                 }
-            });
-            if (mod == false) {
+            } else {
+                //가격선택옵션
+                var optNum = $(".optNum").val();
+                var cls = $(this).attr("class");
+                var mod = $(this)[0].selectedIndex;
+                if (optNum == "2") {
+                    //가격선택옵션2
+                    if (mod != 0) {
+                        if (cls == "bsitem1") {
+                            var opVal = $(".bsitem2 option:eq(0)").text();
+                            var opName = $(".bsitem1 option:selected").text();
+                            var url = "item_viewPost.php";
+                            var form_data = {
+                                goods_code: goods_code,
+                                optNum: optNum,
+                                opname1: opName,
+                                opVal: opVal
+                            };
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: form_data,
+                                error: function () {
+                                    alert("상품 선택 실패하였습니다.관리자에게 문의해주세요.");
+                                },
+                                success: function (response) {
+                                    $(".bsitem2").empty();
+                                    $(".bsitem2").append(response);
+                                }
+                            });
+                            return false;
+                        } else {
+                            var data = $(this).find("option:selected").attr("data");
+                            var mod = $(this)[0].selectedIndex;
+                            var selVal = $(this, 'option:selected').val();
+                            if (mod != 0) {
+                                var data1 = $(this).find("option:selected").attr("data");
+                                var data2 = $(this).find("option:selected").attr("data1");
+                                var data3 = $(this).find("option:selected").attr("data2");
+                            }
+                        }
+                    } else {
+                        var opVal = $(".bsitem2 option:eq(0)").text();
+                        $(".bsitem2").empty();
+                        var option = '<option>' + opVal + '</option>';
+                        $(".bsitem2").append(option);
+                        return false;
+                    }
+                } else {
+                    //가격선택옵션3
+                    var mod = $(this)[0].selectedIndex;
+                    if (mod != 0) {
+                        if (cls == "bsitem1") {
+                            var i = 0;
+                            var opVal = $(".bsitem2 option:eq(0)").text();
+                            var opVal2 = $(".bsitem3 option:eq(0)").text();
+                            var opName = $(".bsitem1 option:selected").text();
+                            var url = "item_viewPost.php";
+                            var form_data = {
+                                goods_code: goods_code,
+                                optNum: optNum,
+                                opname1: opName,
+                                opVal: opVal
+                            };
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: form_data,
+                                error: function () {
+                                    alert("상품 선택 실패하였습니다.관리자에게 문의해주세요.");
+                                },
+                                success: function (response) {
+                                    $(".bsitem2").empty();//2번 옵션 비움
+                                    $(".bsitem3").empty();//3번옵션 비움
+                                    $(".bsitem2").append(response);
+                                    var option = '<option>' + opVal2 + '</option>';
+                                    $(".bsitem3").append(option);//3번 옵션 초기화
+                                }
+                            });
+                            return false;
+                        } else if (cls == "bsitem2") {
+                            var opVal = $(".bsitem3 option:eq(0)").text();
+                            var opName = $(".bsitem1 option:selected").text();
+                            var opName1 = $(".bsitem2 option:selected").text();
+                            var url = "item_viewPost.php";
+                            var form_data = {
+                                goods_code: goods_code,
+                                optNum: optNum,
+                                opname1: opName,
+                                opname2: opName1,
+                                opVal: opVal
+                            };
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: form_data,
+                                error: function () {
+                                    alert("상품 선택 실패하였습니다.관리자에게 문의해주세요.");
+                                },
+                                success: function (response) {
+                                    $(".bsitem3").empty();
+                                    $(".bsitem3").append(response);
+                                }
+                            });
+                            return false;
+                        } else {
+                            var data = $(this).find("option:selected").attr("data");
+                            var mod = $(this)[0].selectedIndex;
+                            var selVal = $(this, 'option:selected').val();
+                            if (mod != 0) {
+                                var data1 = $(this).find("option:selected").attr("data");
+                                var data2 = $(this).find("option:selected").attr("data1");
+                                var data3 = $(this).find("option:selected").attr("data2");
+                                var data4 = $(this).find("option:selected").attr("data3");
+                            }
+                        }
+                    } else {
+                        var opVal1 = $(".bsitem2 option:eq(0)").text();
+                        var opVal2 = $(".bsitem3 option:eq(0)").text();
+                        $(".bsitem2").empty();
+                        $(".bsitem3").empty();
+                        var option = '<option>' + opVal1 + '</option>';
+                        $(".bsitem2").append(option);
+                        var option = '<option>' + opVal2 + '</option>';
+                        $(".bsitem3").append(option);//3번 옵션 초기화
+                        return false;
+                    }
+                }
+            }
+
+            if (goods_opt_type == "1") {
+                var cv = goods_code + "_" + data1 + "_" + data2;
+            } else if (goods_opt_type = "2") {
+                if (optNum == "2") {
+                    var cv = goods_code + "_" + data1 + "_" + data2;
+                } else {
+                    var cv = goods_code + "_" + data1 + "_" + data2 + "_" + data3;
+                }
+            }
+            total_sum = $(".totalSum").attr("data");
+            if (!selVal) {
                 return false;
             }
             if (total == false) {
                 $(".total").css("display", "block");
                 total = true;
             }
+            if (data4 == undefined) {
+                data4 = "";
+            }
+            var data = $(this).find("option:selected").attr("data");
+            if (data4 == "") {
+                var itemName = data2 + " - " + data3;
+            } else {
+                var itemName = data2 + " - " + data3 + "-" + data4;
+            }
+
+            for (var i = 0; i < addItemArr.length; i++) {
+                if (addItemArr[i] == data) {
+                    alert("이미 추가된 상품 입니다.");
+                    return false;
+                }
+            }
+            addItemArr.unshift(data);//unshift      데이터를 배열 첫번째에 넣어준다.
+            itemnumArr.unshift("1");//메인상품 구매 개수
             total_sum = parseInt(selVal) + parseInt(total_sum);
-            total_num = addOPItemArr.length + addItemArr.length;
+            total_num = $(".totalNum").text();
+            total_num = parseInt(total_num) + 1;
             $(".totalSum").text(formatNumber(total_sum));
             $(".totalSum").attr("data", total_sum);
             $(".totalNum").text(total_num);
-            var rHtm = '<div class="col-md-12" style="padding:0px;"><div class="col-md-12" style="margin:5px 0px;"></div>' +
-                '<input type="hidden" name="itemid[]" data=" " value="' + data + '">' +
-                '<div class="col-md-7 cm12" style="line-height:25px;height:25px;">' + itemName + '</div>' +
-                '<div class="col-md-2 cm6"  style="padding:0px;">' +
+            var rHtm = '<div class="col-md-12 cm12" style="padding:0px;"><div class="col-md-12" style="margin:5px 0px;"></div>' +
+                '<input type="hidden" name="itemid[]" value="' + data + '" data="' + cv + '">' +
+                '<div class="col-md-6 cm12">' + itemName + '</div>' +
+                '<div class="col-md-3 cm6">' +
                 '<div class="col-md-4 cm4" style="background-color:white;padding:0px;text-align:center;line-height:25px;height:25px;"><i class="fa fa-minus item-minus"></i></div>' +
                 '<div class="col-md-4 cm4" style="padding:0px;text-align:center;"><input type="text" name="itemnum[]" class="item_num" value="1"></div>' +
-                '<div class="col-md-4 cm4" style="background-color:white;padding:0px;text-align:center;line-height:25px;height:25px;"><i class="fa fa-plus item-plus"></i></div>' +
+                '<div class="col-md-4 cm4" style="background-color:white;padding:0px;text-align:center;"><i class="fa fa-plus item-plus"></i></div>' +
                 '</div>' +
-                '<div class="col-md-3 cm6"  style="line-height:25px;height:25px;text-align:right;padding:0px;">' +
+                '<div class="col-md-3 cm6"  style="text-align:right;padding:0px;">' +
                 '<span data="' + selVal + '" class="sub_pric">' + formatNumber(selVal) + '</span>' +
                 '<span style="color:#e26a6a;">원</span>' +
                 '<i data-toggle="tooltip" data-original-title="삭제" class="fa fa-trash-o"></i>' +
@@ -325,6 +481,33 @@ $(document).ready(function () {
                 '</div>';
             $(".m-item").append(rHtm);
 
+            $('.m-item').on('click', '.fa-trash-o', function (e) {
+                var id = $(this).parent().parent().find("input:first").val();
+                if (id == "no") {
+                    return false;
+                }
+                $(this).parent().parent().find("input:first").val("no");
+                for (var i = 0; i < addItemArr.length; i++) {
+                    if (addItemArr[i] == id) {
+                        addItemArr.splice(i, 1);
+                        itemnumArr.splice(i, 1);
+                    }
+                }
+                var total_sum = $(".totalSum").attr("data");
+                var sub_pric = $(this).parent().parent().find(".sub_pric").attr("data");
+                var sub_str = $(this).parent().parent().find(".item_num").val();
+                total_sum = parseInt(total_sum);
+                total_num = addItemArr.length + addOPItemArr.length;
+                var total_fsum = total_sum - parseInt(sub_pric) * parseInt(sub_str);
+                $(".totalSum").text(formatNumber(total_fsum));
+                $(".totalSum").attr("data", total_fsum);
+                $(".totalNum").text(total_num);
+                if (total_num == 0) {
+                    $(".total").css("display", "none");
+                    total = false;
+                }
+                $(this).parent().parent().remove();
+            });
         });
         $(".m-item").on('click', '.item-plus', function () {
             var id = $(this).parent().parent().parent().find("input:first").val();

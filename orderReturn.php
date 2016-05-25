@@ -119,16 +119,42 @@ try {
                 $pay_price_mile = 0;//결제금액 적립금
                 $app_ip = get_real_ip();
 
+                $db->query("SELECT * FROM basket WHERE ordernum='$P_OID'");
+                $db_basket_query = $db->loadRows();
+
+                $date = date("Y-m-d H:i:s", strtotime($P_AUTH_DT));
+                $bid = $db_basket_query[0]["v_oid"];
+                $zipcode = $db_basket_query[0]["zipcode"];
+                $user_id = $db_basket_query[0]["user_id"];
+                $phone = $db_basket_query[0]["phone"];
+                $oldadd = $db_basket_query[0]["add1"];
+                $newadd = $db_basket_query[0]["add2"];
+                $alladd = $db_basket_query[0]["add3"];
+                $app_ip = $db_basket_query[0]["ipadd"];
+                $ship_message = $db_basket_query[0]["ship_message"];
+                $pay_dlv_fee = $db_basket_query[0]["pay_dlv_fee"];
+                $buy_total_price = $db_basket_query[0]["buy_total_price"];//총상품총액(할인전금액);
+                $buy_instant_discount = $db_basket_query[0]["buy_instant_discount"];//상품 즉시할인 금액(총 할인금액)
+                $buy_user_tel = $db_basket_query[0]["buy_user_tel"];
+                $buy_user_mobile = $db_basket_query[0]["buy_user_mobile"];
+                $buy_user_email = $db_basket_query[0]["buy_user_email"];
+                $uname = $db_basket_query[0]["id"];//id
+                $buy_goods_type = $db_basket_query[0]["goods_type"];
+                $new_add = $db_basket_query[0]["new_addr"];
+                if ($new_add == "y") {
+                    $db->query("INSERT INTO user_address (user_id,user_name,zipcode,addr1,addr2,addr3,phone) values ('$uname','$user_id','$zipcode','$oldadd','$newadd','$alladd','$buy_user_mobile')");
+                }
+
 
                 $date = date("Y-m-d H:i:s");
                 $bid = $_SESSION[$app_oid . "_bid"];
-                $zipcode = $_SESSION[$app_oid . "_zipcode"];
+                /*$zipcode = $_SESSION[$app_oid . "_zipcode"];
                 $user_id = $_SESSION[$app_oid . "_user_id"];
                 $phone = $_SESSION[$app_oid . "_phone"];
                 $oldadd = $_SESSION[$app_oid . "_oldadd"];
                 $newadd = $_SESSION[$app_oid . "_newadd"];
                 $alladd = $_SESSION[$app_oid . "_alladd"];
-                $buy_goods_type = $_SESSION[$orderNumber . "_buy_goods_type"];
+                $buy_goods_type = $_SESSION[$orderNumber . "_buy_goods_type"];*/
 
                 $bidArr = explode("_", $bid);
                 $count = count($bidArr);

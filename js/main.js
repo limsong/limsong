@@ -62,7 +62,7 @@ var login;
         itemsDesktop: [1199, 1],
         itemsTablet: [991, 3],
         itemsTabletSmall: [767, 2],
-        itemsMobile: [480, 1],
+        itemsMobile: [480, 3],
         autoPlay: false
     });
 
@@ -101,8 +101,8 @@ var login;
         itemsDesktop: [1599, 3],
         itemsTablet: [500, 2],
         itemsTabletSmall: [767, 2],
-        itemsMobile: [480, 1],
-        autoPlay: false
+        itemsMobile: [480, 2],
+        autoPlay: true
     });
 
     /*---Owl Carousel clients---*/
@@ -115,7 +115,7 @@ var login;
         itemsTablet: [991, 5],
         itemsTabletSmall: [767, 4],
         itemsMobile: [480, 3],
-        autoPlay: false
+        autoPlay: true
     });
 
 

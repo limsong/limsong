@@ -622,9 +622,9 @@ if ($oname == "") {
                                 <div class="col-md-9 no-padding" style="font-size:12px;margin-top:10px;">
                                     <input type="radio" name="addr_type" class="addr_type" id="addr_type0" >
                                     <label for="addr_type0" style="padding-left:3px;">기본 배송지</label>
-                                    <input type="radio" name="addr_type" id="addr_type1" checked="checked">
+                                    <input type="radio" name="addr_type" class="addr_type" id="addr_type1" checked="checked">
                                     <label for="addr_type1" style="padding-left:3px;">최근 배송지</label>
-                                    <input type="radio" name="addr_type" class="addr_type" id="addr_type2">
+                                    <input type="radio" name="addr_type" class="addr_type" id="addr_type2" value="y">
                                     <label for="addr_type2" style="padding-left:3px;">새로운 배송지</label>
                                 </div>
                             </h3>
@@ -1154,7 +1154,7 @@ if ($oname == "") {
             var phone = $(".phone1").val() + "-" + $(".phone2").val() + "-" + $(".phone3").val();//배송받는사람 전화
             var ship_message = $(".ship_message").val();//배송 메세지
             var pay_mod = $("input[name='paymethod']:checked").val();
-            var addr_type = $(".addr_type").val();
+            var addr_type = $(".addr_type:checked").val();
 
             if (pay_mod == "1") {
                 var pay_online_name = $(".pay_online_name").val();
@@ -1186,12 +1186,12 @@ if ($oname == "") {
                 alert("주소를 입력해주세요.");
                 return false;
             }
-            if (pay_mod == "1") {
+            /*if (pay_mod == "1") {
                 $("#SendPayForm").attr("action", "buy_end.php");
                 $("#SendPayForm").submit();
                 return false;
-            }
-
+            }*/
+            alert(addr_type);
             $.ajax({
                 url: 'upcheck.php',
                 type: 'POST',
@@ -1212,7 +1212,9 @@ if ($oname == "") {
                         if (pay_mod != "1") {
                             $("#SendPayForm").submit();
                         } else {
-                            location.href = "buy_end.php";
+                            $("#SendPayForm").attr("action", "buy_end.php");
+                            $("#SendPayForm").submit();
+                            return false;
                         }
                     } else {
                         alert("결제 실패 하였습니다.잠시후 다시 시도해 주세요.")
