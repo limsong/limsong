@@ -337,7 +337,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                     <li>
                                         <label>
                                             <INPUT type="radio" value="0"
-                                                   name="goods_dlv_type" <? if ($ou_goods_dlv_special == "0" && $ou_goods_dlv_type == "1") {
+                                                   name="goods_dlv_type" <? if ($ou_goods_dlv_type == "0") {
                                                 echo 'checked';
                                             } ?>>
                                             판매자 기본 배송정책 적용
@@ -346,7 +346,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                     <li>
                                         <label>
                                             <INPUT type="radio" value="1"
-                                                   name="goods_dlv_type" <? if ($ou_goods_dlv_special == "0" && $ou_goods_dlv_type == "2") {
+                                                   name="goods_dlv_type" <? if ($ou_goods_dlv_type == "1") {
                                                 echo 'checked';
                                             } ?>>
                                             무료
@@ -355,7 +355,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                     <li>
                                         <label>
                                             <INPUT type="radio" value="2"
-                                                   name="goods_dlv_type" <? if ($ou_goods_dlv_special == "0" && $ou_goods_dlv_type == "3") {
+                                                   name="goods_dlv_type" <? if ($ou_goods_dlv_type == "2"){
                                                 echo 'checked';
                                                 $dlv_fee_style1 = 'style="display:block;"';
                                                 $dlv_fee_style2 = 'style="display:none;"';
@@ -509,7 +509,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         $i = 1;
                         while ($bimgRow = mysql_fetch_array($bimgResult)) {
                             $bImage = $bimgRow["ImageName"];
-                            $arrImg = @getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$bImage);
+                            $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$bImage);
                             $img_width = $arrImg[0];
                             $img_height = $arrImg[1];
                             $img_src = $brandImagesWebDir . $bImage;
@@ -567,7 +567,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             <dd class="inputDd">
                                 <?
                                 $mImage = $mimgRow["ImageName"];
-                                $arrImg = @getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$mImage);
+                                $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$mImage);
                                 $img_width = $arrImg[0];
                                 $img_height = $arrImg[1];
                                 $img_src = $brandImagesWebDir . $mImage;
@@ -618,7 +618,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         <dd class="inputDd">
                             <?
                             $sImage = $simgRow["ImageName"];
-                            $arrImg = @getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$sImage);
+                            $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$sImage);
                             $img_width = $arrImg[0];
                             $img_height = $arrImg[1];
                             $img_src = $brandImagesWebDir . $sImage;
@@ -667,7 +667,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             <dd class="inputDd">
                                 <?
                                 $tImage = $timgRow["ImageName"];
-                                $arrImg = @getimagesize("http://sozo.bestvpn.net/userFiles/images/brandImages/".$tImage);
+                                $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$tImage);
                                 $img_width = $arrImg[0];
                                 $img_height = $arrImg[1];
                                 $img_src = $brandImagesWebDir . $tImage;
@@ -1769,15 +1769,15 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         }
                     });
                     if (chkVal == "0") {
-                        if (dlv_type_val == "1") {
+                        if (dlv_type_val == "0") {
                             $(".dlv_txt").text("판매자 기본 배송정책 적용: 고정금액(선불) / 배송료 : 2500원 / 지역할증 : 있음");
                             $(".dlv_fee").hide();
                             $(".dlv_won").hide();
-                        } else if (dlv_type_val == "2") {
+                        } else if (dlv_type_val == "1") {
                             $(".dlv_txt").text("배송비 무료");
                             $(".dlv_fee").hide();
                             $(".dlv_won").hide();
-                        } else if (dlv_type_val == "3") {
+                        } else if (dlv_type_val == "2") {
                             $(".dlv_txt").text("고정금액");
                             $(".dlv_fee").show();
                             $(".dlv_won").show();
