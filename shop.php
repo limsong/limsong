@@ -1,4 +1,5 @@
-<? 
+<?
+include_once("session.php");
 include_once("doctype.php");
 $name1=$_GET["name1"];
 if($name1==""){

@@ -1,3 +1,15 @@
+<?php
+include_once("include/Mobile_Detect.php");
+$detect = new Mobile_Detect;
+if ($detect->isMobile()) {
+        $ismobile = "true";
+        $shop = "m_shop.php";
+} elseif ($detect->isTablet()) {
+        $shop = "m_shop.php";
+} else {
+        $shop = "shop.php";
+}
+?>
 <section class="header-area">
         <div class="header-top hidden-sm hidden-xs hidden-md">
                 <div class="container-fluid">
@@ -270,7 +282,7 @@
                                                                                                 $umCode = $value["sortCode"];
                                                                 ?>
                                                                                                 <li>
-                                                                                                        <a href="shop.php?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
+                                                                                                        <a href="<?=$shop?>?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
                                                                                                 </li>
                                                                 <?php
                                                                                         }
@@ -447,7 +459,7 @@
                                                         </div>
                                                         <div class="search-drop">
                                                                 <div class="categorys-product-search">
-                                                                        <form action="shop.php" method="POST" class="search-form">
+                                                                        <form action="<?=$shop?>" method="POST" class="search-form">
                                                                             <?php
                                                                             /*<select name="catsearch" class="cat-search">
                                                                                     <option value="">All Categories</option>
@@ -498,7 +510,7 @@
                                                                 $umCode = $value["sortCode"];
                                                                 ?>
                                                                 <li>
-                                                                        <a href="shop.php?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
+                                                                        <a href="<?=$shop?>?code1=<?= $uxCode ?>&code2=<?= $umCode ?>&name1=<?= urlencode($uxName) ?>&name2=<?= urlencode($value["sortName"]) ?>"><?= $value["sortName"] ?></a>
                                                                 </li>
                                                                 <?php
                                                         }

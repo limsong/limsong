@@ -9,8 +9,7 @@
     }elseif($detect->isTablet()){
         $action = "checkout_mobile.php";
     }else{
-        //$action = "checkout.php";
-        $action = "checkout_mobile.php";
+        $action = "checkout.php";
     }
 ?>
 <link href="css/shoppingcart.css" rel='stylesheet' type='text/css'>

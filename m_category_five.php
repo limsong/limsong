@@ -27,12 +27,12 @@
                 }
         }
 </style>
-<section class="category-area-one control-car mar-bottom">
+<section class="category-area-five control-car mar-bottom">
         <div class="container-fluid">
                 <div class="row">
                         <div class="cat-area-heading">
                                 <?
-                                $sortName = $dbdata_sortCode_sortName[0]["sortName"];
+                                $sortName = $dbdata_sortCode_sortName[4]["sortName"];
                                 $sortName_first = substr($sortName, 0, 1);
                                 $sortName_last = substr($sortName, 1);
                                 ?>
@@ -42,16 +42,16 @@
                         <div class="col-md-3 col-lg-2">
                                 <div class="small-cat-menu">
                                         <h2>
-                                                <a href="m_shop.php?code1=01&name1=<?= urlencode($sortName) ?>"><?= $sortName ?></a>
+                                                <a href="m_shop.php?code1=05&name1=<?= urlencode($sortName) ?>"><?= $sortName ?></a>
                                         </h2>
                                         <ul class="cat-menu-ul">
                                                 <?
                                                 $db->connect();
-                                                $db->query("SELECT sortName,sortCode FROM sortCodes WHERE uxCode='01' and umCode='00' ORDER BY sortOrder ASC");
+                                                $db->query("SELECT sortName,sortCode FROM sortCodes WHERE uxCode='04' and umCode='00' ORDER BY sortOrder ASC");
                                                 $db_sortCodes = $db->loadRows();
                                                 foreach ($db_sortCodes as $key => $value) {
                                                         $sortCode = $value["sortCode"];
-                                                        $code1 = "01";
+                                                        $code1 = "05";
                                                         $code2 = $sortCode;
                                                         ?>
                                                         <li class="cat-menu-li">
@@ -68,8 +68,8 @@
                                         <div class="single-banner">
                                                 <div class="overlay"></div>
                                                 <p>
-                                                        <a href="m_shop.php?code1=01&name1=<?= urlencode($sortName_first . $sortName_last) ?>">
-                                                                <img src="<? echo $brandImagesWebDir . $dbdata[10]["imgName"] ?>" alt="">
+                                                        <a href="m_shop.php?code1=05&name1=<?= urlencode($sortName_first . $sortName_last) ?>">
+                                                                <img src="<? echo $brandImagesWebDir . $dbdata[12]["imgName"] ?>" alt="">
                                                         </a>
                                                 </p>
                                         </div>
@@ -78,7 +78,7 @@
                                         <div class="cat-carousel-area">
                                                 <!--SINGLE CAROUSEL-->
                                                 <?
-                                                foreach ($dbdata_goods_ELECTRONICS as $key => $value) {
+                                                foreach ($dbdata_goods_TOYSGIFTS as $key => $value) {
                                                         ?>
                                                         <div class="cm4 no-padding" style="padding:0px 1px;">
                                                                 <div class="single-product">
@@ -93,7 +93,7 @@
                                                                         ?>
                                                                         <div class="show-img">
                                                                                 <a href="item_view.php?code=<?= $value["goods_code"] ?>&name1=<?= urlencode($sortName_first . $sortName_last) ?>">
-                                                                                        <img src="<? echo $brandImagesWebDir . $db_upload_simages[0]["imageName"]; ?>" alt="">
+                                                                                        <img src="<? echo $brandImagesWebDir . $db_upload_simages[0]["imageName"]; ?>" style="height:100px !important;" alt="">
                                                                                 </a>
                                                                         </div>
                                                                         <?
@@ -101,7 +101,7 @@
                                                                                 ?>
                                                                                 <div class="hide-img">
                                                                                         <a href="item_view.php?code=<?= $value["goods_code"] ?>&name1=<?= urlencode($sortName_first . $sortName_last) ?>">
-                                                                                                <img src="<? echo $brandImagesWebDir . $db_upload_simages[1]["imageName"]; ?>" alt="">
+                                                                                                <img src="<? echo $brandImagesWebDir . $db_upload_simages[1]["imageName"]; ?>" style="height:100px !important;" alt="">
                                                                                         </a>
                                                                                 </div>
                                                                                 <?
