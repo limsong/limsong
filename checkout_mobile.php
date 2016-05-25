@@ -22,6 +22,33 @@ $hAddr2 = $dbshopMembers[0]["hAddr2"];
 $hAddr3 = $dbshopMembers[0]["hAddr3"];
 $email = $dbshopMembers[0]["email"];
 
+
+$db->query("SELECT * FROM user_address WHERE user_id='$uname' ORDER BY id DESC LIMIT 0,1");
+$db_user_address_query = $db->loadRows();
+$oname = $db_user_address_query[0]["user_name"];
+$ophone = $db_user_address_query[0]["phone"];
+$opost = $db_user_address_query[0]["zipcode"];
+$oaddr1 = $db_user_address_query[0]["addr1"];
+$oaddr2 = $db_user_address_query[0]["addr2"];
+$oaddr3 = $db_user_address_query[0]["addr3"];
+
+if ($oname == "") {
+    $oname = $name;
+    $ophone = $phone;
+    $opost = $hPost;
+    $oaddr1 = $hAddr1;
+    $oaddr2 = $hAddr2;
+    $oaddr3 = $hAddr3;
+    $ophoneArr = explode("-", $phone);
+    $ophone1 = $ophoneArr[0];
+    $ophone2 = $ophoneArr[1];
+    $ophone3 = $ophoneArr[2];
+}else{
+    $ophoneArr = explode("-", $ophone);
+    $ophone1 = $ophoneArr[0];
+    $ophone2 = $ophoneArr[1];
+    $ophone3 = $ophoneArr[2];
+}
 ?>
 <body class="home-1 checkout-page cart-page">
     <!--[if lt IE 8]>
@@ -166,6 +193,14 @@ $email = $dbshopMembers[0]["email"];
                                                     $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
                                                     $goods_type = $goods_value_query[0]["goods_type"];
 
+                                                    if($goods_type == "0"){
+                                                        //일반상품
+                                                        $total_dShipping = $goods_dlv_fee;
+                                                    }else if($goods_dlv_type == "8"){
+                                                        //구매대행
+                                                        $total_dShipping += $goods_dlv_fee;
+                                                    }
+
                                                     $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                     $dbdata = $db->loadRows();
                                                     $imgSrc = $brandImagesWebDir . $dbdata[0]["imageName"];
@@ -232,22 +267,8 @@ $email = $dbshopMembers[0]["email"];
                                                                 원
                                                             </td>
                                                             <td class="cross shipping"
-                                                                data-shipping="<?php if ($goods_dlv_type == "1") {
-                                                                    echo "0";
-                                                                } else {
-                                                                    echo "2500";
-                                                                } ?>" rowspan="<?= $rowspan ?>">
-                                                                <?php
-                                                                if ($goods_dlv_type == "1") {
-                                                                    echo "0 원";
-                                                                    $total_dShipping = $total_dShipping + 0;
-                                                                } else {
-                                                                    echo number_format(2500) . " 원";
-                                                                    if ($total_dShipping == "") {
-                                                                        $total_dShipping = "2500";
-                                                                    }
-                                                                }
-                                                                ?>
+                                                                data-shipping="<?=$goods_dlv_fee?>" rowspan="<?= $rowspan ?>">
+                                                                <?=number_format($goods_dlv_fee)?>
                                                             </td>
                                                         </tr>
                                                         <?php
@@ -407,6 +428,14 @@ $email = $dbshopMembers[0]["email"];
                                                         $goods_dlv_fee = $goods_value_query[0]["goods_dlv_fee"];
                                                         $goods_type = $goods_value_query[0]["goods_type"];
 
+                                                        if($goods_type == "0"){
+                                                            //일반상품
+                                                            $total_dShipping = $goods_dlv_fee;
+                                                        }else if($goods_dlv_type == "8"){
+                                                            //구매대행
+                                                            $total_dShipping += $goods_dlv_fee;
+                                                        }
+
                                                         $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                         $dbdata = $db->loadRows();
                                                         $imgSrc = $brandImagesWebDir . $dbdata[0]["imageName"];
@@ -474,22 +503,8 @@ $email = $dbshopMembers[0]["email"];
                                                                     원
                                                                 </td>
                                                                 <td class="cross shipping"
-                                                                    data-shipping="<?php if ($goods_dlv_type == "1") {
-                                                                        echo "0";
-                                                                    } else {
-                                                                        echo "2500";
-                                                                    } ?>" rowspan="<?= $rowspan ?>">
-                                                                    <?php
-                                                                    if ($goods_dlv_type == "1") {
-                                                                        echo "0 원";
-                                                                        $total_dShipping = $total_dShipping + 0;
-                                                                    } else {
-                                                                        echo number_format(2500) . " 원";
-                                                                        if ($total_dShipping == "") {
-                                                                            $total_dShipping = "2500";
-                                                                        }
-                                                                    }
-                                                                    ?>
+                                                                    data-shipping="<?=$goods_dlv_fee?>" rowspan="<?= $rowspan ?>">
+                                                                    <?=number_format($goods_dlv_fee)?>
                                                                 </td>
                                                             </tr>
                                                             <?php
@@ -602,37 +617,37 @@ $email = $dbshopMembers[0]["email"];
                                     </table>
                                 </div>
                             </div>
-                            <h3 class="col-md-12"
-                                style="margin:0px;padding-left:0px;border-bottom:none;margin-top:20px;">
-                                <div class="col-md-3" style="padding:0px;">받는사람 정보</div>
-                                <div style="font-size:12px;" class="col-md-9">
-                                    <input type="radio" name="addr_type" value="0" class="addr_type" id="addr_type0"
-                                           style="margin-left:10px;">
-                                    <label for="addr_type0" style="margin-right:10px;padding-left:3px;">기본 배송지</label>
-                                    <input type="radio" name="addr_type" value="1" class="addr_type" id="addr_type1"
-                                           checked="checked">
-                                    <label for="addr_type1" style="margin-right:10px;padding-left:3px;">최근 배송지</label>
-                                    <input type="radio" name="addr_type" value="2" class="addr_type" id="addr_type2">
+                            <h3 class="col-md-12" style="margin:0px;padding-left:0px;border-bottom:none;margin-top:20px;">
+                                <div class="col-md-3 no-padding">받는사람 정보</div>
+                                <div class="col-md-9 no-padding" style="font-size:12px;margin-top:10px;">
+                                    <input type="radio" name="addr_type" class="addr_type" id="addr_type0" >
+                                    <label for="addr_type0" style="padding-left:3px;">기본 배송지</label>
+                                    <input type="radio" name="addr_type" id="addr_type1" checked="checked">
+                                    <label for="addr_type1" style="padding-left:3px;">최근 배송지</label>
+                                    <input type="radio" name="addr_type" class="addr_type" id="addr_type2">
                                     <label for="addr_type2" style="padding-left:3px;">새로운 배송지</label>
                                 </div>
                             </h3>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="table borderless user-info">
+                                    <table class="table borderless user-info" style="border-top:2px solid #666;">
+                                        <tbody>
                                         <tr>
-                                            <th class="col-lg-3 col-md-3" style="width:122px;">이름</th>
+                                            <th style="width:80px;">이름</th>
                                             <td>
                                                 <div class="checkout-form-list">
-                                                    <div class="col-md-12">
-                                                        <input type="text" name="user_id" class="user_id">
+                                                    <div>
+                                                        <input type="text" name="user_id" value="<?= $oname ?>" class="user_id">
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
+                                        </tbody>
+                                        <tbody>
                                         <tr>
                                             <th>휴대폰</th>
                                             <td>
-                                                <div class="col-md-12 checkout-form-list">
+                                                <div class="col-md-12 checkout-form-list no-padding">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="input-group">
@@ -640,7 +655,8 @@ $email = $dbshopMembers[0]["email"];
                                                                     <button type="button" class="btn btn-default"
                                                                             data-toggle="dropdown" aria-expanded="false"
                                                                             style="border-right: none;">
-                                                                        <span class="dropdown-txt">010</span>
+                                                                        <span
+                                                                            class="dropdown-txt"><?= $ophone1 ?></span>
                                                                         <span class="caret"></span>
                                                                     </button>
                                                                     <ul class="dropdown-menu" role="menu">
@@ -677,11 +693,12 @@ $email = $dbshopMembers[0]["email"];
                                                                     </ul>
                                                                 </div>
                                                                 <!-- /btn-group -->
-                                                                <input type="hidden" name="phone1" class="phone1">
-                                                                <input type="text" name="phone2"
+                                                                <input type="hidden" name="phone1"
+                                                                       value="<?= $ophone1 ?>" class="phone1">
+                                                                <input type="text" name="phone2" value="<?= $ophone2 ?>"
                                                                        class="form-control phone2"
                                                                        style="margin:0px;width:50%;border-right:none;">
-                                                                <input type="text" name="phone3"
+                                                                <input type="text" name="phone3" value="<?= $ophone3 ?>"
                                                                        class="form-control phone3"
                                                                        style="margin:0px;width:50%;">
                                                             </div>
@@ -692,17 +709,20 @@ $email = $dbshopMembers[0]["email"];
                                                 </div>
                                             </td>
                                         </tr>
+                                        </tbody>
+                                        <tbody>
                                         <tr>
                                             <th>주소</th>
                                             <td>
                                                 <div class="checkout-form-list">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12 no-padding">
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                            readonly="readonly" name="zipcode"
-                                                                           id="zipcode" style="margin:0px;">
+                                                                           value="<?= $opost ?>" id="zipcode"
+                                                                           style="margin:0px;">
                                                                     <span class="input-group-btn">
                                                                         <button type="button" class="btn btn-red"
                                                                                 onclick="javascript:DaumPostcode('zipcode','add1','add2');">
@@ -715,36 +735,35 @@ $email = $dbshopMembers[0]["email"];
                                                         </div>
                                                         <!-- /.row -->
                                                     </div>
-                                                    <div class="col-md-12" style="margin-top:10px;"></div>
-                                                    <div class="col-md-12">
-                                                        <strong>구주소</strong>
-                                                        <input type="text" readonly="readonly" name="add1" id="add1">
+                                                    <div class="col-md-12 no-padding" style="margin-top:10px;"></div>
+                                                    <div class="col-md-12 no-padding">
+                                                        <input type="text" readonly="readonly" name="add1"
+                                                               value="<?= $oaddr1 ?>" id="add1">
                                                     </div>
                                                     <div class="col-md-12" style="margin-top:10px;"></div>
-                                                    <div class="col-md-12">
-                                                        <strong>도로명</strong>
-                                                        <input type="text" readonly="readonly" name="add2" id="add2">
+                                                    <div class="col-md-12 no-padding">
+                                                        <input type="text" readonly="readonly" name="add2" value="<?= $oaddr2 ?>" id="add2">
                                                     </div>
                                                     <div class="col-md-12" style="margin-top:10px;"></div>
-                                                    <div class="col-md-12">
-                                                        <strong>나머지 주소</strong>
-                                                        *(나머 지 주소를 입력하세요.)
-                                                        <input type="text" name="add3" id="add3">
+                                                    <div class="col-md-12 no-padding">
+                                                        <input type="text" name="add3" value="<?= $oaddr3 ?>" id="add3">
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
+                                        </tbody>
+                                        <tbody>
                                         <tr>
                                             <th>배송메시지</th>
                                             <td>
                                                 <div class="checkout-form-list">
-                                                    <div class="col-md-12">
-                                                        <input type="text" name="ship_message" class="ship_message"
-                                                               type="hidden">
+                                                    <div class="col-md-12 no-padding">
+                                                        <input type="text" name="ship_message" class="ship_message">
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -756,32 +775,36 @@ $email = $dbshopMembers[0]["email"];
                             <div class="your-order-table table-responsive">
                                 <table class="table checkout-table checkout" style="border-top:2px solid #666;">
                                     <thead>
-                                        <th class="cross">주문금액</th>
-                                        <th class="cross">배송비</th>
-                                        <th class="cross">할인금액</th>
-                                        <th>
-                                            <span class="checkout-price">결제 예정금액</span>
-                                        </th>
+                                        <tr>
+                                            <th class="cross">주문금액</th>
+                                            <th class="cross">배송비</th>
+                                            <th class="cross">할인금액</th>
+                                            <th>
+                                                <span class="checkout-price">결제 예정금액</span>
+                                            </th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <td><?= number_format($total_sum + $total_sum2) ?>
-                                            <span class="won">원</span>
-                                        </td>
-                                        <td class="cross">
-                                            <i class="fa fa-plus-square"></i> <?= number_format($total_dShipping) ?>
-                                            <span class="won">원
-                                            </span>
-                                        </td>
-                                        <td class="cross">
-                                            <i class="fa fa-minus-square"></i> <?= number_format($total_sum - $total_sum * $sb_sale) ?>
-                                            <span class="won">원</span>
-                                        </td>
-                                        <td>
-                                            <span
-                                                class="checkout-price"><?= number_format($total_sum * $sb_sale + $total_sum2 + $total_dShipping) ?></span>
-                                            <span class="won2">원
-                                            </span>
-                                        </td>
+                                        <tr>
+                                            <td><?= number_format($total_sum + $total_sum2) ?>
+                                                <span class="won">원</span>
+                                            </td>
+                                            <td class="cross">
+                                                <i class="fa fa-plus-square"></i> <?= number_format($total_dShipping) ?>
+                                                <span class="won">원
+                                                </span>
+                                            </td>
+                                            <td class="cross">
+                                                <i class="fa fa-minus-square"></i> <?= number_format($total_sum - $total_sum * $sb_sale) ?>
+                                                <span class="won">원</span>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="checkout-price"><?= number_format($total_sum * $sb_sale + $total_sum2 + $total_dShipping) ?></span>
+                                                <span class="won2">원
+                                                </span>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -807,10 +830,10 @@ $email = $dbshopMembers[0]["email"];
                                                         <a href="javascript:void(0);">포인트 ( 보유포인트 : 10,000 )</a>
                                                     </li>
                                                 </ul>
-                                            </div><!-- /btn-group -->
-                                        </div><!-- /input-group -->
-                                    </div><!-- /.col-lg-6 -->
-                                </div><!-- /.row -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>-->
                         </div>
                     </div>
@@ -821,18 +844,25 @@ $email = $dbshopMembers[0]["email"];
                                 <table class="table borderless user-info" style="border-top:2px solid #666;">
                                     <tbody>
                                         <tr>
-                                            <th style="width:150px !important;font-weight:bold;" rowspan="2">
-                                                사용하실 결제수단
-                                            </th>
-                                            <td>
-                                                <input type="radio" name="paymethod" value="wcard" id="card" checked="checked" style="padding:0px 5px;">
-                                                <label style="padding:0px 5px;" for="card">카드결제</label>
-                                                <input type="radio" name="paymethod" value="1" id="bank" style="padding:0px 5px;">
-                                                <label style="padding:0px 5px;" for="bank">무통장입금</label>
-                                                <input type="radio" name="paymethod" value="vbank" id="vbank" style="padding:0px 5px;">
-                                                <label style="padding:0px 5px;" for="vbank">가상계좌</label>
-                                                <input type="radio" name="paymethod" value="bank" id="dbank">
-                                                <label style="padding:0px 5px;" for="dbank">계좌이체</label>
+                                            <td colspan="2">
+                                                <ul>
+                                                    <li>
+                                                        <input type="radio" name="paymethod" value="wcard" id="card" checked="checked" style="padding:0px 5px;">
+                                                        <label style="padding:0px 5px;" for="card">카드결제</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" name="paymethod" value="1" id="bank" style="padding:0px 5px;">
+                                                        <label style="padding:0px 5px;" for="bank">무통장입금</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" name="paymethod" value="vbank" id="vbank" style="padding:0px 5px;">
+                                                        <label style="padding:0px 5px;" for="vbank">가상계좌</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" name="paymethod" value="bank" id="dbank">
+                                                        <label style="padding:0px 5px;" for="dbank">계좌이체</label>
+                                                    </li>
+                                                </ul>
                                                 <!--<input type="radio" name="paymethod" value="mobile" id="hpp">
                                                 <label style="padding:0px 5px;" for="hpp">핸드폰 결제</label>-->
                                             </td>
@@ -862,22 +892,22 @@ $email = $dbshopMembers[0]["email"];
                                                                 <select id="pay_online_account"
                                                                         name="pay_online_account">
                                                                     <option
-                                                                        value="신한은행|110-450-713612"> 신한은행 110-450-713612
+                                                                        value="신한은행|110-450-713612"> 신한은행
                                                                     </option>
                                                                     <option
-                                                                        value="NH농협은행|302-9691-9190-81"> NH농협은행 302-9691-9190-81
+                                                                        value="NH농협은행|302-9691-9190-81"> NH농협은행
                                                                     </option>
                                                                     <option
-                                                                        value="우리은행|1005-802-973145"> 우리은행 1005-802-973145
+                                                                        value="우리은행|1005-802-973145"> 우리은행
                                                                     </option>
                                                                     <option
-                                                                        value="하나은행|1005-802-973145"> 하나은행 810-810810-88607
+                                                                        value="하나은행|1005-802-973145"> 하나은행
                                                                     </option>
                                                                     <option
-                                                                        value="외환은행|1005-802-973145"> 외환은행 630-010490-258
+                                                                        value="외환은행|1005-802-973145"> 외환은행
                                                                     </option>
                                                                     <option
-                                                                        value="KB국민은행|1005-802-973145"> KB국민은행 996-919190-49
+                                                                        value="KB국민은행|1005-802-973145"> KB국민은행
                                                                     </option>
                                                                 </select>
                                                             </td>
@@ -950,7 +980,7 @@ $email = $dbshopMembers[0]["email"];
                             $_SESSION[$orderNumber . "_price"] = $price;//총 결제 금액
                             $buy_total_price = $total_sum + $total_sum2;
                             $buy_instant_discount = $total_sum - $total_sum * $sb_sale;
-                            $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',goods_type='$goods_type',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
+                            $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',goods_type='$goods_type',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' $basketWhere");
                             ?>
                         </div>
                     </div>
@@ -958,70 +988,76 @@ $email = $dbshopMembers[0]["email"];
             </div>
         </form>
     </div>
+    <style>
+        .modal-header .close {
+            margin-top: -10px;
+        }
+        .close {
+            font-size: 60px;
+            font-weight: normal;
+        }
+        th td {
+            text-align: center !important;
+        }
+        .modal-header , .modal-footer{
+            border:none;
+        }
+        .modal-body .table > tbody > tr > th{
+            border-top:1px solid #333;
+            border-bottom: 1px solid #aaa;
+            color: #393939;
+            font-size: 12px;
+            font-family: '돋움',dotum,sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            background-color: #f4f4f4;
+            background: -webkit-linear-gradient(#fff, #f9f9fa);
+            background: -o-linear-gradient(#fff, #f9f9fa);
+            background: -moz-linear-gradient(#fff,#f9f9fa);
+            background: linear-gradient(#fff,#f9f9fa);
+        }
+        .modal-header {
+            padding-bottom: 0px;
+        }
+        .modal-body {
+            padding-top: 0px;
+        }
+        .modal-title {
+            padding-top:10px;
+        }
+    </style>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myLargeModalLabel">최근배송지<a class="anchorjs-link" href="#myLargeModalLabel"><span class="anchorjs-icon"></span></a></h4>
+                </div>
+                <div class="modal-body table-responsive">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-red btn_addr">
+                                확인
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+                                취소
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- checkout-area end -->
     <!--footer area start-->
 
     <!--footer area end-->
 
     <!-- JS -->
-
-    <!-- jquery-1.11.3.min js
-    ============================================ -->
-    <script src="js/vendor/jquery-1.11.3.min.js"></script>
-
-    <!-- price-slider js -->
-    <script src="js/price-slider.js"></script>
-
-    <!-- bootstrap js
-            ============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- nevo slider js
-    ============================================ -->
-    <script src="js/jquery.nivo.slider.pack.js"></script>
-
-    <!-- owl.carousel.min js
-    ============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-
-    <!-- count down js
-    ============================================ -->
-    <script src="js/jquery.countdown.min.js" type="text/javascript"></script>
-
-    <!--zoom plugin
-    ============================================ -->
-    <script src='js/jquery.elevatezoom.js'></script>
-
-    <!-- wow js
-    ============================================ -->
-    <script src="js/wow.js"></script>
-
-    <!--Mobile Menu Js
-    ============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-
-    <!-- jquery.fancybox.pack js -->
-    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
-
-    <!-- jquery.scrollUp js
-    ============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-
-    <!-- jquery.collapse js
-    ============================================ -->
-    <script src="js/jquery.collapse.js"></script>
-
-    <!-- mixit-up js
-            ============================================ -->
-    <script src="js/jquery.mixitup.min.js"></script>
-
-    <!-- plugins js
-    ============================================ -->
-    <script src="js/plugins.js"></script>
-
-    <!-- main js
-    ============================================ -->
-    <script src="js/main.js"></script>
+    <?php include_once("js.php"); ?>
     <!-- 다움 주소검색 스크립트 -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <!-- 이니시스 웹표준 결제 스크립트 -->
@@ -1119,6 +1155,7 @@ $email = $dbshopMembers[0]["email"];
             var ship_message = $(".ship_message").val();//배송 메세지
             var pay_mod = $("input[name='paymethod']:checked").val();
             var addr_type = $(".addr_type").val();
+
             if (pay_mod == "1") {
                 var pay_online_name = $(".pay_online_name").val();
                 var pay_online_account = $("#pay_online_account").val();
@@ -1150,10 +1187,11 @@ $email = $dbshopMembers[0]["email"];
                 return false;
             }
             if (pay_mod == "1") {
-                $("#SendPayForm_id").attr("action", "buy_end.php");
-                $("#SendPayForm_id").submit();
+                $("#SendPayForm").attr("action", "buy_end.php");
+                $("#SendPayForm").submit();
                 return false;
             }
+
             $.ajax({
                 url: 'upcheck.php',
                 type: 'POST',
@@ -1189,6 +1227,53 @@ $email = $dbshopMembers[0]["email"];
             } else {
                 $(".payment_option_type").css("display", "none");
             }
+        });
+        $("#addr_type1").on("click",function(){
+            $.ajax({
+                url: 'get_address.php',
+                success: function (response) {
+                    add_html(response);
+                }
+            });
+        });
+        function add_html(obj){
+            $(".modal-body").html(obj);
+            $(".modal.bs-example-modal-lg").modal("show");
+            $(".del_addr").on("click",function () {
+                var no = $(this).attr("data-no");
+                var tobj = $(this);
+                $.ajax({
+                    url: 'del_address.php',
+                    type: "POST",
+                    data: { no: no},
+                    success: function (response) {
+                        if(response == "ok"){
+                            alert("선택하신 주소를 삭제하였습니다.");
+                            tobj.parent().parent().html("");
+                        }
+                    }
+
+                });
+            });
+        }
+        $(".btn_addr").on("click",function () {
+            var user_name =$(".get_add:checked").attr("data-name");
+            var zipcode = $(".get_add:checked").attr("data-zipcode");
+            var addr1 = $(".get_add:checked").attr("data-addr1");
+            var addr2 = $(".get_add:checked").attr("data-addr2");
+            var addr3 = $(".get_add:checked").attr("data-addr3");
+            var phone = $(".get_add:checked").attr("data-phone");
+            $(".user_id").val(user_name);
+            $("#zipcode").val(zipcode);
+            var phoneArr = phone.split("-");
+            $(".dropdown-txt").val(phoneArr[0]);
+            $(".phone1").val(phoneArr[0]);
+            $(".phone2").val(phoneArr[1]);
+            $(".phone3").val(phoneArr[2]);
+            $("#add1").val(addr1);
+            $("#add2").val(addr2);
+            $("#add3").val(addr3);
+            $(".modal.bs-example-modal-lg").modal("hide");
         });
     </script>
 

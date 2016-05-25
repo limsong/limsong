@@ -1043,7 +1043,7 @@ if ($oname == "") {
                     $_SESSION[$orderNumber . "_buy_goods_type"] = $goods_type;
                     $buy_total_price = $total_sum + $total_sum2;
                     $buy_instant_discount = $total_sum - $total_sum * $sb_sale;
-                    $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',goods_type='$goods_type',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' WHERE v_oid='$basketvoid'");
+                    $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',goods_type='$goods_type',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' $basketWhere");
 
                     ?>
                 </div>
