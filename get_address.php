@@ -38,9 +38,9 @@ for($i=0;$i<$count;$i++) {
     $phone = $db_user_address_query[$i]["phone"];
     $str .= '
         <tr>
-            <td><input type="radio" name="oadd" id="get_add" class="get_add" data-name="'.$user_name.'" data-zipcode="'.$zipcode.'" data-addr1="'.$addr1.'" data-addr2="'.$addr2.'" data-addr3="'.$addr3.'" data-phone="'.$phone.'"></th>
+            <td><input type="radio" name="oadd" id="get_add'.$id.'" class="get_add" data-name="'.$user_name.'" data-zipcode="'.$zipcode.'" data-addr1="'.$addr1.'" data-addr2="'.$addr2.'" data-addr3="'.$addr3.'" data-phone="'.$phone.'"></th>
             <td class="cross">'.$user_name.'</th>
-            <td class="cross"><label style="width:100%;" for="get_add"><p style="text-align:left;">'.$phone.'</p><p style="text-align:left;">['.$zipcode.'] '.$addr2.' '.$addr3.'</p></label></th>
+            <td class="cross"><label style="width:100%;cursor:pointer;" for="get_add'.$id.'"><p style="text-align:left;">'.$phone.'</p><p style="text-align:left;">['.$zipcode.'] '.$addr2.' '.$addr3.'</p></label></th>
             <td class="cross"><button type="button" class="btn btn-danger btn-sm del_addr" data-no="'.$id.'">삭제</button></th>
         </tr>';
 }

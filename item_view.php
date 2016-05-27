@@ -268,7 +268,7 @@ $name2 = $_GET["name2"];
                                                 <div class="blog-post-date">
                                                     판매자
                                                 </div>
-                                                <span class="author">블루스타</span>
+                                                <span class="author">뉴엔에스</span>
                                             </div>
                                             <div class="blog-meta-small no-margin no-border-top">
                                                 <div class="blog-post-date">
@@ -446,8 +446,9 @@ $name2 = $_GET["name2"];
                                                 </button>
                                             </span>
                                             <span class="pro-buy-no">
-                                                <button type="button"
-                                                        class="addbasket btn btn-purple waves-effect waves-light"
+                                                <? if($uname==""){$str='onclick="location.href=\'login.php\'"';$class="addbasket";} else {$class="addbasket";} ?>
+                                                <button type="button" <?=$str?>
+                                                        class="<?=$class?> btn btn-purple waves-effect waves-light"
                                                         data="item_<?php echo $goods_code ?>" data-mod="buynow">Buy Now
                                                 </button>
                                             </span>
@@ -507,8 +508,9 @@ $name2 = $_GET["name2"];
                                                 </button>
                                             </span>
                                             <span class="pro-buy-no">
-                                                <button type="button"
-                                                        class="addbasket btn btn-purple waves-effect waves-light"
+                                                <? if($uname==""){$str='onclick="location.href=\'login.php\'"';$class="";} else {$class="addbasket";} ?>
+                                                <button type="button" <?=$str?>
+                                                        class="<?=$class?> btn btn-purple waves-effect waves-light"
                                                         data="item_<?php echo $goods_code ?>" data-mod="buynow">Buy Now
                                                 </button>
                                             </span>

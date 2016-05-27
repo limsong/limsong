@@ -687,7 +687,7 @@ var login;
         $.cookie('opnum' + cookieNum, opnum, {expires: 7, path: '/'});
         $.cookie('goods_opt_type' + cookieNum, goods_opt_type, {expires: 7, path: '/'});
         $.cookie('goods_opt_num' + cookieNum, goods_opt_num, {expires: 7, path: '/'});
-        alert("상품이 추가 되였습니다.");
+        alert("상품이 추가 되였습니다1.");
         return true;
     }
 

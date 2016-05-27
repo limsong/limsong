@@ -112,7 +112,6 @@ include_once("doctype.php");
                                                 </tbody>
                                                 <?
                                             }
-                                            $db->disconnect();
                                             ?>
 
                                         </table>
