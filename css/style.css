@@ -5019,6 +5019,10 @@ td {
     border-top: 0px !important;
 }
 
+.no-border-bottom {
+    border-bottom: 0px !important;
+}
+
 .no-margin .blog-post-date {
     width: 80px;
 }
@@ -5037,4 +5041,8 @@ td {
 
 .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
     border-bottom: 1px solid #ddd;
+}
+.message{
+    font-size:12px;
+    color:red;
 }

@@ -142,6 +142,45 @@ $name2 = $_GET["name2"];
                                 </ul>
                             </div>
                             <?
+                            }else{
+                            ?>
+                                <div class="single-zoom-thumb">
+                                    <ul class="zoom-slider" id="gallery_01">
+                                        <?php
+                                        $count = count($db_upload_timagesArr);
+                                        if($count>0) {
+                                            for ($i = 0; $i < $count; $i++) {
+                                                $timages = $db_upload_timagesArr[$i]["ImageName"];
+                                                $mimages = $db_upload_mimagesArr[$i]["ImageName"];
+                                                $bimages = $db_upload_bimagesArr[$i]["ImageName"];
+                                                ?>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="elevatezoom-gallery active" data-update=""
+                                                       data-image="<?= $brandImagesWebDir . $mimages ?>"
+                                                       data-zoom-image="<?= $brandImagesWebDir . $bimages ?>">
+                                                        <img src="<?= $brandImagesWebDir . $timages ?>"
+                                                             alt="zo-th-<?= $i ?>"/>
+                                                    </a>
+                                                </li>
+                                                <?php
+                                            }
+                                        }else{
+                                            $timages = $db_upload_simagesArr[0]["ImageName"];
+                                            ?>
+                                            <li>
+                                                <a href="#" class="elevatezoom-gallery active" data-update=""
+                                                   data-image="<?= $brandImagesWebDir . $mimages ?>"
+                                                   data-zoom-image="<?= $brandImagesWebDir . $bimages ?>">
+                                                    <img src="<?= $brandImagesWebDir . $timages ?>"
+                                                         alt="zo-th-<?= $i ?>"/>
+                                                </a>
+                                            </li>
+                                            <?
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            <?
                             }
                             ?>
                         </div>

@@ -173,18 +173,18 @@ include_once("session.php");
                         switch($paymethod){
                                 case "wcard":
                                         $P_NEXT_URL = "";
-                                        $P_NOTI_URL = "http://sozo.bestvpn.net/m/card.php";
+                                        $P_NOTI_URL = "$pay_url/m/card.php";
                                         break;
                                 case "vbank":
-                                        $P_NEXT_URL = "http://sozo.bestvpn.net/m/vbank.php";
-                                        $P_NOTI_URL = "http://sozo.bestvpn.net/m/vbank_check.php";
+                                        $P_NEXT_URL = "$pay_url/m/vbank.php";
+                                        $P_NOTI_URL = "$pay_url/m/vbank_check.php";
                                         break;
                                 case "bank":
                                         $P_NEXT_URL = "";
-                                        $P_NOTI_URL = "http://sozo.bestvpn.net/m/bank.php";
+                                        $P_NOTI_URL = "$pay_url/m/bank.php";
                                         break;
                                 case "mobile":
-                                        $url="http://sozo.bestvpn.net/m/mobile.php";
+                                        $url="$pay_url/m/mobile.php";
                                         break;
                         }
 
@@ -192,7 +192,7 @@ include_once("session.php");
                         // $P_NEXT_URL ="https://mobile.inicis.com/smart/testmall/next_url_test.php";
                         //결제창이 끝난 후 이동할 페이지의 URL입니다. 실험해보진 않았으나 전체 경로를 적어야할 것으로 보입니다.(카드결제 해당 페이지 안옴) 가상계좌 해당페이지 방문하고 결과 출력
 
-                        //$P_NEXT_URL = "http://sozo.bestvpn.net/m/pay_save.php";
+                        //$P_NEXT_URL = "$pay_url/m/pay_save.php";
 
                         // $P_NOTI_URL : 가상계좌, ISP 인증 및 결제 후 상점의 결제 수신 서버URL로 결제 결과를 통보합니다.
                         // $P_NOTI_URL = "http://ts.inicis.com/~esjeong/mobile_rnoti/rnoti.php";
@@ -205,7 +205,7 @@ include_once("session.php");
                         // $P_RETURN_URL = "http://ts.inicis.com/~esjeong/mobile_rnoti/rnoti.php";
                         //카드 결제 진행 완료시 넘어가는 페이지입니다. 아무런 정보도 받을 수 없는 페이지 입니다. 실험해보진 않았으나 전체 경로를 적어야할 것으로 보입니다.
                         //P_RETURN_URL(송신정보없음)
-                        $P_RETURN_URL = "http://sozo.bestvpn.net/mypage.php";
+                        $P_RETURN_URL = "$pay_url/mypage.php";
 
 
                         ?>

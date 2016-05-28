@@ -14,7 +14,7 @@ if($check_id != "o"){
 	        <meta charset="utf-8">
 		    <script type="text/javascript">
 		        alert("아이디 중복 확인을 해주세요.");
-		        location.href="/joinPost.php";
+		        location.href="join_step2.php";
 		    </script>
 	    </head>
 	    <body></body>
@@ -66,7 +66,7 @@ if($ou_id > 0){
 	        <meta charset="utf-8">
 		    <script type="text/javascript">
 		        alert("사용중인 아이디 입니다.");
-		        location.href='/joinPost.php';
+		        location.href='join_step2.php';
 		    </script>
 	    </head>
 	    <body></body>

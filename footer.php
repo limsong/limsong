@@ -42,8 +42,8 @@
                         <h3 class="footer-top-heading">service center</h3>
                         <div class="footer-list">
                             <ul>
-                                <li class="footer-list-item"><a href="memtomem.php">자주하는질문</a></li>
-                                <li class="footer-list-item" ><a href="qna.php">질문과 답변</a></li>
+                                <li class="footer-list-item"><a href="faq.php">FAQ</a></li>
+                                <li class="footer-list-item" ><a href="my_qna.php">Q&A</a></li>
                             </ul>
                         </div>							
                     </div>

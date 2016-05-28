@@ -59,6 +59,11 @@ foreach ($dbdata as $k => $v) {
     $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
     $dbdata = $db->loadRows();
     $imgSrc = $brandImagesWebDir . $dbdata[0]["imageName"];
+    if($dbdata[0]["imageName"]==""){
+        $db->query("SELECT imageName FROM upload_simages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
+        $dbdata = $db->loadRows();
+        $imgSrc = $brandImagesWebDir . $dbdata[0]["imageName"];
+    }
 
     if ($goods_opt_type == "0") {
         // 옵션없음

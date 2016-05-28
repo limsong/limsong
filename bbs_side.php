@@ -8,11 +8,11 @@ $baseUrl = $_SERVER['PHP_SELF'];
                 <a <?php if($baseUrl=="/notice.php") echo 'class="active"'; ?> href="notice.php">공지글</a>
             </li>
             <li class="cat-menu-li">
-                <a <?php if($baseUrl=="/memtomem.php") echo 'class="active"'; ?> href="memtomem.php">자주하는질문</a>
+                <a <?php if($baseUrl=="/faq.php") echo 'class="active"'; ?> href="faq.php">FAQ</a>
             </li>
-            <!--<li class="cat-menu-li">
-                <a <?php /*if($baseUrl=="/qna.php") echo 'class="active"'; */?> href="qna.php">질문관답변</a>
-            </li>-->
+            <li class="cat-menu-li">
+                <a <?php if($baseUrl=="/my_qna.php") echo 'class="active"';?> href="my_qna.php">Q&A</a>
+            </li>
         </ul>
     </div>
 </div>

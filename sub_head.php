@@ -367,6 +367,9 @@ if ($detect->isMobile()) {
                                                                                         <a href="shopping_cart.php">shopping cart</a>
                                                                                 </li>
                                                                                 <li>
+                                                                                        <a href="notice.php">notice</a>
+                                                                                </li>
+                                                                                <li>
                                                                                         <a href="logout.php">logout</a>
                                                                                 </li>
                                                                                 <?

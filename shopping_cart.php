@@ -382,4 +382,5 @@
     <!-- JS -->
     <?php include_once("js.php"); ?>
     <script src="js/shoppingcart.js"></script>
-</body></html>
+</body>
+</html>

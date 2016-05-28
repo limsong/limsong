@@ -1191,7 +1191,6 @@ if ($oname == "") {
                 $("#SendPayForm").submit();
                 return false;
             }*/
-            alert(addr_type);
             $.ajax({
                 url: 'upcheck.php',
                 type: 'POST',

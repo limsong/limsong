@@ -64,7 +64,7 @@ if ($total_record == 0) {
                         <div class="container-fluid">
                             <div class="row cart-top">
                                 <div class="col-md-12">
-                                    <h3>* 자주하는질문</h3>
+                                    <h3>* FAQ</h3>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="table-responsive">
@@ -118,7 +118,7 @@ if ($total_record == 0) {
                                                         ?>
                                                         <tr>
                                                             <td align="center"><?=$db_tbl_notice_query[$i]["uid"]?></td>
-                                                            <td><a href="memtomem.php?no=<?=$db_tbl_notice_query[$i]["uid"]?>"><?=$db_tbl_notice_query[$i]["subject"]?></a></td>
+                                                            <td><a href="faq.php?no=<?=$db_tbl_notice_query[$i]["uid"]?>"><?=$db_tbl_notice_query[$i]["subject"]?></a></td>
                                                             <td><?=$db_tbl_notice_query[$i]["name"]?></td>
                                                             <td><?=$signdate?></td>
                                                             <td align="center"><?=$db_tbl_notice_query[$i]["ref"]?></td>
@@ -147,7 +147,7 @@ if ($total_record == 0) {
                                                 }
                                                 ?>
                                                 <td></td>
-                                                <td style="text-align: right;"><a href="memtomem.php">글목록</a></td>
+                                                <td style="text-align: right;"><a href="faq.php">글목록</a></td>
                                             </tr>
                                         </table>
                                         <?
@@ -168,18 +168,18 @@ if ($total_record == 0) {
                                             <?
                                             if($page>1) {
                                                 $bfPage=$page-1;   //이전페이지
-                                                echo '<a href="memtomem.php?key='.$key.'&keyfield='.$keyfield.'&page='.$bfPage.'" class="next page-numbers">Prive</a>';
+                                                echo '<a href="faq.php?key='.$key.'&keyfield='.$keyfield.'&page='.$bfPage.'" class="next page-numbers">Prive</a>';
                                             }
                                             for($my_page=$first_page;$my_page<=$last_page;$my_page++) {                 //현재 페이지
                                                 if($page==$my_page) {
                                                     echo '<a href="#" class="page-numbers current">'.$my_page.'</a>';
                                                 } else {
-                                                    echo '<a href="memtomem.php?key='.$key.'&keyfield='.$keyfield.'&page='.$my_page.'" class="page-numbers">'.$my_page.'</a>';
+                                                    echo '<a href="faq.php?key='.$key.'&keyfield='.$keyfield.'&page='.$my_page.'" class="page-numbers">'.$my_page.'</a>';
                                                 }
                                             }
                                             if($page<$total_page) {
                                                 $nxPage=$page+1;  //다음 페이지
-                                                echo '<a href="memtomem.php?key='.$key.'&keyfield='.$keyfield.'&page='.$nxPage.'" class="next page-numbers">Next</a>';
+                                                echo '<a href="faq.php?key='.$key.'&keyfield='.$keyfield.'&page='.$nxPage.'" class="next page-numbers">Next</a>';
                                             }
                                             ?>
                                         </div>

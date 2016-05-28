@@ -26,7 +26,7 @@ if($del_qna != ""){
                         account
                     </h4>
                 </div>
-                <? include_once "mypage_side.php"; ?>
+                <? include_once "bbs_side.php"; ?>
                 <style type="text/css">
                     .active {
                         background: #76caf1 none repeat scroll 0 0 !important;
