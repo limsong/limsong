@@ -28,18 +28,18 @@ if ($in_mode == 'modify') {
          * 2 무료
          * 3 고정금액(선불)
          */
-        if($in_goods_dlv_type == "1"){
+        if($in_goods_dlv_type == "0"){
             //판매자 기본배송정책 적용
             $query = "SELECT dShipping FROM settings";
             $result = mysql_query($query) or die($query);
             $dShipping = mysql_result($result,0,0);
-            $dlv_fee = $dShipping;
-        }elseif ($in_goods_dlv_type == "2") {
+            $in_goods_dlv_fee = $dShipping;
+        }
+        if($in_goods_dlv_type == "1"){
             //무료배송
-            $dlv_fee = 0;
-        } elseif ($in_goods_dlv_type == "3") {
+            $in_goods_dlv_fee = "0";
+        }elseif ($in_goods_dlv_type == "2") {
             //고정금액
-            $dlv_fee = $in_goods_dlv_fee;
         }
     } else {
         /*

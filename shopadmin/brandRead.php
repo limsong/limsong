@@ -509,7 +509,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         $i = 1;
                         while ($bimgRow = mysql_fetch_array($bimgResult)) {
                             $bImage = $bimgRow["ImageName"];
-                            $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$bImage);
+                            $arrImg = @getimagesize("../userFiles/images/brandImages/".$bImage);
                             $img_width = $arrImg[0];
                             $img_height = $arrImg[1];
                             $img_src = $brandImagesWebDir . $bImage;
@@ -567,7 +567,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             <dd class="inputDd">
                                 <?
                                 $mImage = $mimgRow["ImageName"];
-                                $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$mImage);
+                                $arrImg = @getimagesize("../userFiles/images/brandImages/".$mImage);
                                 $img_width = $arrImg[0];
                                 $img_height = $arrImg[1];
                                 $img_src = $brandImagesWebDir . $mImage;
@@ -618,7 +618,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         <dd class="inputDd">
                             <?
                             $sImage = $simgRow["ImageName"];
-                            $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$sImage);
+                            $arrImg = @getimagesize("../userFiles/images/brandImages/".$sImage);
                             $img_width = $arrImg[0];
                             $img_height = $arrImg[1];
                             $img_src = $brandImagesWebDir . $sImage;
@@ -667,7 +667,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             <dd class="inputDd">
                                 <?
                                 $tImage = $timgRow["ImageName"];
-                                $arrImg = @getimagesize("http://vbank.nohseong.com/userFiles/images/brandImages/".$tImage);
+                                $arrImg = @getimagesize("../userFiles/images/brandImages/".$tImage);
                                 $img_width = $arrImg[0];
                                 $img_height = $arrImg[1];
                                 $img_src = $brandImagesWebDir . $tImage;
