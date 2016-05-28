@@ -187,10 +187,10 @@ if ($in_mode == 'modify') {
             $num2 = count($in_qtaArr2);
             for ($j = 0; $j < $num2; $j++) {
                 if ($mod == false) {
-                    @$strVal = "('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
+                    $strVal="('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
                     $mod = true;
                 } else {
-                    @$strVal .= ",('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
+                    $strVal .= ",('$in_goods_code','$in_opName1Arr[$i]','$in_opName2Arr2[$j]','$in_commonPriceArr2[$j]','$in_sellPriceArr2[$j]','$in_qtaArr2[$j]','$in_inputDate')";
                 }
             }
         }
@@ -234,7 +234,7 @@ if ($in_mode == 'modify') {
             for ($i = 0; $i < $num0; $i++) {
                 for ($j = 0; $j < $num1; $j++) {
                     if ($mod == false) {
-                        $grid_value .= "('$in_goods_code','$opName2_1[$i]','$opName2_2[$j]','$in_commonPriceArr[$n]','$in_sellPriceArr[$n]','$in_qtaArr[$n]')";
+                        $grid_value = "('$in_goods_code','$opName2_1[$i]','$opName2_2[$j]','$in_commonPriceArr[$n]','$in_sellPriceArr[$n]','$in_qtaArr[$n]')";
                         $mod = true;
                     } else {
                         $grid_value .= ",('$in_goods_code','$opName2_1[$i]','$opName2_2[$j]','$in_commonPriceArr[$n]','$in_sellPriceArr[$n]','$in_qtaArr[$n]')";

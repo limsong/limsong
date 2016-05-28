@@ -44,7 +44,7 @@ if ($ou_goods_opt_type == "0") {
 } elseif ($ou_goods_opt_type == "1") {
     $show = "show";
     $readonly = "readonly";
-    $goods_option_single_name_Query = "SELECT * FROM goods_option_single_name WHERE goods_code='$ou_goods_code'";
+    $goods_option_single_name_Query = "SELECT * FROM goods_option_single_name WHERE goods_code='$ou_goods_code' ORDER by id ASC";
     $goods_option_single_name_Reslult = mysql_query($goods_option_single_name_Query) or die($goods_option_single_name_Query);
     $i = 0;
     while ($goods_option_single_name_Rows = mysql_fetch_array($goods_option_single_name_Reslult)) {
@@ -91,7 +91,7 @@ if ($ou_goods_opt_type == "0") {
 } else if ($ou_goods_opt_type == "2") {
     $show = "show";
     $readonly = "readonly";
-    $goods_option_grid_name_Query = "SELECT * FROM goods_option_grid_name WHERE goods_code = '$ou_goods_code'";
+    $goods_option_grid_name_Query = "SELECT * FROM goods_option_grid_name WHERE goods_code = '$ou_goods_code' ORDER by id ASC";
     $goods_option_grid_name_Result = mysql_query($goods_option_grid_name_Query) or die($goods_option_grid_name_Query);
     $i = 0;
     while ($goods_option_grid_name_Rows = mysql_fetch_array($goods_option_grid_name_Result)) {
