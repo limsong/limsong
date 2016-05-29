@@ -59,14 +59,14 @@ if($del_qna != ""){
                                     $count = count($dbdata);
                                     $qna_mod0=0;$qna_mod1=0;$qna_mod2=0;
                                     for($i=0;$i<$count;$i++){
-                                            $qna_mod = $dbdata[$i]["qna_mod"];
-                                            if($qna_mod=="0"){
-                                                    $qna_mod0++;
-                                            }elseif($qna_mod=="1"){
-                                                    $qna_mod1++;
-                                            }else{
-                                                    $qna_mod2++;
-                                            }
+                                        $qna_mod = $dbdata[$i]["qna_mod"];
+                                        if($qna_mod=="0"){
+                                                $qna_mod0++;
+                                        }elseif($qna_mod=="1"){
+                                                $qna_mod1++;
+                                        }else{
+                                                $qna_mod2++;
+                                        }
                                     }
                                     ?>
                                     <div class="col-md-12">

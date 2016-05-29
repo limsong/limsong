@@ -589,16 +589,27 @@ $name2 = $_GET["name2"];
                 <div class="col-md-12">
                     <div class="review-wrapper">
                         <ul class="review-menu">
-                            <li class="active">
+                            <li class="active col-md-3">
                                 <a data-toggle="tab" href="#pr-description">상품상세정보</a>
                             </li>
-                            <li>
+                            <li class="col-md-3">
                                 <?php
                                 $db->query("SElECT * FROM tbl_bbs WHERE qna_mod='2' AND goods_code='$goods_code'");
                                 $db_tbl_qna_query = $db->loadRows();
                                 $count = count($db_tbl_qna_query);
                                 ?>
-                                <a data-toggle="tab" href="#pr-reviews">리뷰어(<?= $count ?>)</a>
+                                <a data-toggle="tab" href="#pr-reviews">상품리뷰(<?= $count ?>)</a>
+                            </li>
+                            <li class="col-md-3">
+                                <?php
+                                $db->query("SELECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='1'");
+                                $dbdata = $db->loadRows();
+                                $qna_count = count($dbdata);
+                                ?>
+                                <a data-toggle="tab" href="#pr-qna">상품 Q&A(<?=$qna_count?>)</a>
+                            </li>
+                            <li class="col-md-3">
+                                <a data-toggle="tab" href="#pr-info">반품/교환정보</a>
                             </li>
                         </ul>
                         <div class="con tab-content">
@@ -608,67 +619,167 @@ $name2 = $_GET["name2"];
                             </div>
                             <div id="pr-reviews" class="tab-pane fade">
                                 <!-- 유저 리뷰어 -->
-                                <div class="product-comment">
-                                    <?php
-                                    for ($i = 0; $i < $count; $i++) {
-                                        $bbs_ext1 = $db_tbl_qna_query[$i]["bbs_ext1"];
-                                        $user_id = $db_tbl_qna_query[$i]["user_id"];
-                                        $comment = $db_tbl_qna_query[$i]["comment"];
-                                        $qna_reg_date = date("Y.m.d", strtotime($db_tbl_qna_query[$i]["qna_reg_date"]));
-                                        ?>
-                                        <div class="comment-a">
-                                            <img src="img/user-1.jpg" alt="">
-                                            <div class="comment-text">
-                                                <div class="rating">
-                                                    <?php
-                                                    for ($j = 0; $j < $bbs_ext1; $j++) {
-                                                        echo '<i class="fa fa-star"></i>';
-                                                    }
-                                                    ?>
-                                                </div>
-                                                <p class="meta">
-                                                    <strong><?= $user_id ?></strong> &ndash; <?= $qna_reg_date ?>
-                                                </p>
-                                                <div class="pro-com-des">
-                                                    <p>
-                                                        <?= nl2br($comment) ?>
-                                                    </p>
-                                                </div>
+                                <?php
+                                for ($i = 0; $i < $count; $i++) {
+                                    $bbs_ext1 = $db_tbl_qna_query[$i]["bbs_ext1"];
+                                    $user_id = $db_tbl_qna_query[$i]["user_id"];
+                                    $comment = $db_tbl_qna_query[$i]["comment"];
+                                    $qna_reg_date = date("Y.m.d", strtotime($db_tbl_qna_query[$i]["qna_reg_date"]));
+                                    ?>
+                                    <div class="comment-a">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-md-3">평가</th>
+                                                    <th class="col-md-3">작성자/작성일</th>
+                                                    <th class="col-md-6">구매후기</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <?php
+                                                        for ($j = 0; $j < $bbs_ext1; $j++) {
+                                                            echo '<i class="fa fa-star"></i>';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <strong><?= $user_id ?></strong> &ndash; <?= $qna_reg_date ?>
+                                                    </td>
+                                                    <td>
+                                                        <?=$comment?>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!--<img src="img/user-1.jpg" alt="">
+                                        <div class="comment-text">
+                                            <div class="rating">
+                                                <?php
+/*                                                    for ($j = 0; $j < $bbs_ext1; $j++) {
+                                                    echo '<i class="fa fa-star"></i>';
+                                                }
+                                                */?>
                                             </div>
-                                        </div>
+                                            <p class="meta">
+                                                <strong><?/*= $user_id */?></strong> &ndash; <?/*= $qna_reg_date */?>
+                                            </p>
+                                            <div class="pro-com-des">
+                                                <p>
+                                                    <?/*= nl2br($comment) */?>
+                                                </p>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                    <?
+                                }
+                                ?>
+                                <div class="add-review">
+                                    <form name="form-review" method="post" class="form-review"
+                                          action="goodsReview.php" target="action_frame">
+                                        <input type="hidden" name="goods_code" value="<?= $goods_code ?>">
+                                        <p class="comment-form-rating">
+                                        <fieldset class="rating">
+                                            <input type="radio" id="star5" name="rating" value="5"/>
+                                            <label for="star5" title="Rocks!"></label>
+                                            <input type="radio" id="star4" name="rating" value="4"/>
+                                            <label for="star4" title="Pretty good"></label>
+                                            <input type="radio" id="star3" name="rating" value="3"/>
+                                            <label for="star3" title="Meh"></label>
+                                            <input type="radio" id="star2" name="rating" value="2"/>
+                                            <label for="star2" title="Kinda bad"></label>
+                                            <input type="radio" id="star1" name="rating" value="1" checked/>
+                                            <label for="star1" title="Sucks big time"></label>
+                                        </fieldset>
+                                        </p>
+                                        <p class="product-form-comment">
+                                            <textarea aria-required="true" name="review_com"
+                                                      class="review_com"></textarea>
+                                        </p>
+                                        <p class="form-submit">
+                                            <input value="등록 " type="button" class="submit btn_review">
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="pr-qna" class="tab-pane fade">
+                                <!-- 유저 리뷰어 -->
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td width="5%">NO</td>
+                                            <td width="15%">문의유형</td>
+                                            <td width="*">문의/답변</td>
+                                            <td width="10%">작성자</td>
+                                            <td width="15%">등록일</td>
+                                        </tr>
+                                    </thead>
+                                    <?php
+                                    for ($i = 0; $i < $qna_count; $i++) {
+                                        $uid = $dbdata[$i]["uid"];
+                                        $buy_goods_seq = $dbdata[$i]["buy_goods_seq"];
+                                        $goods_seq = $dbdata[$i]["goods_seq"];
+                                        $user_id = $dbdata[$i]["user_id"];
+                                        $title = $dbdata[$i]["title"];
+                                        $comment = $dbdata[$i]["comment"];
+                                        $qna_reg_date = date("Y-m-d",strtotime($dbdata[$i]["qna_reg_date"]));
+                                        $cate_code = $dbdata[$i]["cate_code"];//배송관련,모델지원,환불관련,상품문의
+                                        $qna_status = $dbdata[$i]["qna_status"];
+                                        $qna_user_id = hideStr($dbdata[$i]["user_id"],2,4);
+
+                                        if($qna_status == 0){
+                                            $btn = '미답변';
+                                        }else{
+                                            $btn = '답변완료';
+                                        }
+                                        $db->query("SELECT goods_code,goods_name FROM goods WHERE id='$goods_seq'");
+                                        $db_goods = $db->loadRows();
+                                        $goods_code = $db_goods[0]["goods_code"];
+                                        $goods_name = $db_goods[0]["goods_name"];
+                                        ?>
+                                        <tbody>
+                                            <tr>
+                                                <td><?= $dbdata[$i]['uid'] ?></td>
+                                                <td><?= $cate_code ?></td>
+                                                <td class="txt_ag_left"><?= $btn ?> 비밀글 입니다</td>
+                                                <td></td>
+                                                <td><?= $qna_reg_date ?></td>
+                                            </tr>
+                                        </tbody>
                                         <?
                                     }
                                     ?>
-                                    <div class="add-review">
-                                        <form name="form-review" method="post" class="form-review"
-                                              action="goodsReview.php" target="action_frame">
-                                            <input type="hidden" name="goods_code" value="<?= $goods_code ?>">
-                                            <p class="comment-form-rating">
-                                            <fieldset class="rating">
-                                                <input type="radio" id="star5" name="rating" value="5"/>
-                                                <label for="star5" title="Rocks!"></label>
-                                                <input type="radio" id="star4" name="rating" value="4"/>
-                                                <label for="star4" title="Pretty good"></label>
-                                                <input type="radio" id="star3" name="rating" value="3"/>
-                                                <label for="star3" title="Meh"></label>
-                                                <input type="radio" id="star2" name="rating" value="2"/>
-                                                <label for="star2" title="Kinda bad"></label>
-                                                <input type="radio" id="star1" name="rating" value="1" checked/>
-                                                <label for="star1" title="Sucks big time"></label>
-                                            </fieldset>
-                                            </p>
-                                            <p class="product-form-comment">
-                                                <textarea aria-required="true" name="review_com"
-                                                          class="review_com"></textarea>
-                                            </p>
-                                            <p class="form-submit">
-                                                <input value="등록 " type="button" class="submit btn_review">
-                                            </p>
-                                        </form>
-                                    </div>
-                                </div>
+                                </table>
+                            </div>
+                            <div id="pr-info" class="tab-pane fade">
+
                             </div>
                         </div>
+                        <ul class="review-menu">
+                            <li class="active col-md-3">
+                                <a data-toggle="tab" href="#pr-description">상품상세정보</a>
+                            </li>
+                            <li class="col-md-3">
+                                <?php
+                                $db->query("SElECT * FROM tbl_bbs WHERE qna_mod='2' AND goods_code='$goods_code'");
+                                $db_tbl_qna_query = $db->loadRows();
+                                $count = count($db_tbl_qna_query);
+                                ?>
+                                <a data-toggle="tab" href="#pr-reviews">상품리뷰(<?= $count ?>)</a>
+                            </li>
+                            <li class="col-md-3">
+                                <?php
+                                $db->query("SELECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='1'");
+                                $dbdata = $db->loadRows();
+                                $qna_count = count($dbdata);
+                                ?>
+                                <a data-toggle="tab" href="#pr-qna">상품 Q&A(<?=$qna_count?>)</a>
+                            </li>
+                            <li class="col-md-3">
+                                <a data-toggle="tab" href="#pr-info">반품/교환정보</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
