@@ -55,10 +55,10 @@ if ($total_record == 0) {
             <div class="row">
                 <div class="cat-area-heading">
                     <h4>
-                        <strong>N</strong>otice
+                        <strong>My</strong>account
                     </h4>
                 </div>
-                <? include_once "bbs_side.php"; ?>
+                <? include_once "mypage_side.php"; ?>
                 <div class="col-md-9 col-lg-10 no-padding">
                     <section class="cart-area-wrapper">
                         <div class="container-fluid">

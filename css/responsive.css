@@ -606,7 +606,7 @@
     }
 
     .search-drop {
-        right: -112px;
+        right: -131px;
         width: 318px;
     }
 
@@ -740,8 +740,7 @@
     }
 
     .col-xs-6 {
-        width: 48%;
-        padding:0px;
+        width: 50%;
     }
 
     .logo {

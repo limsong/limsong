@@ -30,8 +30,7 @@ if($del_data != ""){
             <div class="row">
                 <div class="cat-area-heading">
                     <h4>
-                        <strong>My</strong>
-                        account
+                        <strong>My</strong>account
                     </h4>
                 </div>
                 <? include_once "mypage_side.php"; ?>

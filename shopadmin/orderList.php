@@ -366,7 +366,7 @@ if ($total_record == 0) {
                     data: data_form,
                     success: function (response) {
                         layer.tab({
-                            area: ['1100px', '850px'],
+                            area: ['1100px', '750px'],
                             tab: [{
                                 title: '주문상세정보',
                                 content: response

@@ -30,6 +30,7 @@ if ($tdata != "goods_review") {
         <input type="hidden" name="tdata" value="' . $tdata . '">
         <input type="hidden" name="goods_seq" value="' . $goods_seq . '">
         <input type="hidden" name="buy_goods_seq" value="' . $buy_goods_seq . '">
+        <input type="hidden" name="goods_code" value="' . $goods_code . '">
         <table class="table table-bordered">
             <tbody>
                 <tr>

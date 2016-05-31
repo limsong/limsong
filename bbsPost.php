@@ -28,6 +28,7 @@ $comment=$_POST["comment"];
 $bbs_secret=$_POST["bbs_secret"];//공개 비공개
 $mod = $_POST["mod"];//goods_qna,goods_option_qna,my_qna
 $cate_code = $_POST["cate_code"];//카테고리
+$goods_code = $_POST["goods_code"];
 
 if($bbs_secret==""){
     $bbs_secret = "0";
@@ -35,11 +36,11 @@ if($bbs_secret==""){
 $ipinfo = get_real_ip();
 $qna_reg_date = date("Y-m-d H:i:s",time());
 if($mod=="my_qna"){
-    $db->query("INSERT INTO tbl_bbs (buy_goods_seq,goods_seq,user_id,title,comment,cate_code,qna_mod,bbs_secret,qna_reg_date,ipinfo)
-            VALUES ('','','$uname','$bbs_title','$comment','$cate_code','1','0','$qna_reg_date','$ipinfo')");
+    $db->query("INSERT INTO tbl_bbs (buy_goods_seq,goods_seq,goods_code,user_id,title,comment,cate_code,qna_mod,bbs_secret,qna_reg_date,ipinfo)
+            VALUES ('','','$goods_code','$uname','$bbs_title','$comment','$cate_code','1','0','$qna_reg_date','$ipinfo')");
 }else {
-    $db->query("INSERT INTO tbl_bbs (buy_goods_seq,goods_seq,user_id,title,comment,qna_mod,bbs_secret,qna_reg_date,ipinfo)
-            VALUES ('$buy_goods_seq','$goods_seq','$uname','$bbs_title','$comment','$qna_mod','$bbs_secret','$qna_reg_date','$ipinfo')");
+    $db->query("INSERT INTO tbl_bbs (buy_goods_seq,goods_seq,goods_code,user_id,title,comment,qna_mod,bbs_secret,qna_reg_date,ipinfo)
+            VALUES ('$buy_goods_seq','$goods_seq','$goods_code','$uname','$bbs_title','$comment','$qna_mod','$bbs_secret','$qna_reg_date','$ipinfo')");
 }
 $db->disconnect();
 ?>

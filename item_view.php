@@ -28,6 +28,21 @@ $name2 = $_GET["name2"];
     </p><![endif]-->
     <!--HEADER AREA START-->
     <?php include_once("sub_head.php") ?>
+    <style type="text/css">
+
+        .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+            border: none;
+            vertical-align: middle;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+
+        .table-bordered {
+            border: none;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
     <!--HEADER AREA END-->
     <!--BREADCRUMB AREA START-->
     <div class="breadcrumb-area">
@@ -209,6 +224,7 @@ $name2 = $_GET["name2"];
                             */
                             $db->query("SELECT id,goods_code,goods_opt_Num,goods_name,commonPrice,sellPrice,sb_sale,summary,comment,goods_opt_type,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_dlv_unit,goods_dlv_value,goods_mile,goods_mile_flag FROM goods WHERE goods_code='$goods_code'");
                             $db_goodsArr = $db->loadRows();
+                            $goods_seq_main = $db_goodsArr[0]["id"];
                             $goods_dlv_special = $db_goodsArr[0]["goods_dlv_special"];
                             $goods_dlv_fee = $db_goodsArr[0]["goods_dlv_fee"];//배송비
                             $goods_dlv_type = $db_goodsArr[0]["goods_dlv_type"];//배송정책
@@ -594,7 +610,7 @@ $name2 = $_GET["name2"];
                             </li>
                             <li class="col-md-3">
                                 <?php
-                                $db->query("SElECT * FROM tbl_bbs WHERE qna_mod='2' AND goods_code='$goods_code'");
+                                $db->query("SElECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='2'");
                                 $db_tbl_qna_query = $db->loadRows();
                                 $count = count($db_tbl_qna_query);
                                 ?>
@@ -602,7 +618,7 @@ $name2 = $_GET["name2"];
                             </li>
                             <li class="col-md-3">
                                 <?php
-                                $db->query("SELECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='1'");
+                                $db->query("SELECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='0'");
                                 $dbdata = $db->loadRows();
                                 $qna_count = count($dbdata);
                                 ?>
@@ -705,12 +721,14 @@ $name2 = $_GET["name2"];
                             </div>
                             <div id="pr-qna" class="tab-pane fade">
                                 <!-- 유저 리뷰어 -->
+                                <div style="float: right;">
+                                    <button type="button" class="btn btn-sm btn-default waves-effect waves-light bbs" mod="buy_goods" data="goods_qna" goods-seq="<?=$goods_seq_main?>" buy-goods-seq="">상품문의</button>
+                                </div>
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <td width="5%">NO</td>
-                                            <td width="15%">문의유형</td>
-                                            <td width="*">문의/답변</td>
+                                            <td width="*">답변/문의</td>
                                             <td width="10%">작성자</td>
                                             <td width="15%">등록일</td>
                                         </tr>
@@ -727,23 +745,24 @@ $name2 = $_GET["name2"];
                                         $cate_code = $dbdata[$i]["cate_code"];//배송관련,모델지원,환불관련,상품문의
                                         $qna_status = $dbdata[$i]["qna_status"];
                                         $qna_user_id = hideStr($dbdata[$i]["user_id"],2,4);
+                                        $bbs_secret = $dbdata[$i]["bbs_secret"];
+                                        if($bbs_secret=="0"){
+                                            $alink = '<a href="javascript:;" class="qna" data="'.$uid.'" buy-goods-seq="'.$buy_goods_seq.'" goods-seq="'.$goods_seq.'" data-mod="goods_qna">'.$title.'</a>';
+                                        }else{
+                                            $alink = "비밀글입니다.";
+                                        }
 
                                         if($qna_status == 0){
                                             $btn = '미답변';
                                         }else{
                                             $btn = '답변완료';
                                         }
-                                        $db->query("SELECT goods_code,goods_name FROM goods WHERE id='$goods_seq'");
-                                        $db_goods = $db->loadRows();
-                                        $goods_code = $db_goods[0]["goods_code"];
-                                        $goods_name = $db_goods[0]["goods_name"];
                                         ?>
                                         <tbody>
                                             <tr>
                                                 <td><?= $dbdata[$i]['uid'] ?></td>
-                                                <td><?= $cate_code ?></td>
-                                                <td class="txt_ag_left"><?= $btn ?> 비밀글 입니다</td>
-                                                <td></td>
+                                                <td class="txt_ag_left"><?= $btn ?> <?=$alink?></td>
+                                                <td><?=$user_id?></td>
                                                 <td><?= $qna_reg_date ?></td>
                                             </tr>
                                         </tbody>
@@ -753,34 +772,166 @@ $name2 = $_GET["name2"];
                                 </table>
                             </div>
                             <div id="pr-info" class="tab-pane fade">
+                                <h3 class="mt30">SHIPPING & RETURNS   교환/반품/배송안내</h3>
+                                <dl class="prdt_detail_list">
+                                    <dt>교환/반품</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>1. 고객을 전적으로 신뢰하는 <span class="text_red bold">맞교환정책</span></li>
+                                            <li>2. 교환/반품건은 고객불만족으로 판단, <span class="text_red bold">최우선 처리</span></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
 
+                                <dl class="prdt_detail_list2">
+                                    <dt>교환/반품기간</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>물품 수령하신 후 훼손되지 않은 새상품인 경우 <span class="text_red bold">7일이내</span> 가능합니다.</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
+
+                                <dl class="prdt_detail_list2">
+                                    <dt>교환 및 환불이 불가한 경우</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>택배수령후 7일이 경과한 경우.
+                                            </li><li>상품을 사용하시어 훼손된 경우.</li>
+                                            <li>테그나 상표를 제거하신 경우.</li>
+                                            <li>특정 상품의 구성품을 분실하시거나 원래 포장 상태가 훼손되어 원 상품으로 취급할 수 없는 경우.</li>
+                                            <li>사용 부주의로 인해 상품의 가치가 훼손된 경우.</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
+
+                                <dl class="prdt_detail_list2">
+                                    <dt>교환/반품방법</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>마이페이지에 가셔서 [반품/교환요청] 클릭하시면 주문한 물품정보가 나옵니다.</li>
+                                            <li>해당상품을 선택하시고 접수과정을 거쳐주시면 됩니다 (단 온라인 특성상
+                                                고객님께서 직접물품을 가지고 오실수 없음으로  택배비를 부담하여 물품을 보내주셔야 합니다
+                                                착불로 보내실 경우는 물품환불 대금에서 공제됩니다 )</li>
+                                            <li>교환시 초기 결제 금액과 무관하게 왕복 배송비 부과됩니다. </li>
+                                            <li>일반지역 2500*2 = 5,00원 (제주,도서산간 지역 5500*2=11,00)</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
+
+                                <dl class="prdt_detail_list">
+                                    <dt>배송안내</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>1. 통상 주말을 제외한 배송기간은 <span class="text_red bold">1박2일</span></li>
+                                            <li>2. 배송비는 빽마진없는 1,800원, <span class="text_red bold">대한민국 최저수준</span></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
+
+                                <dl class="prdt_detail_list2">
+                                    <dt>배송지역</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>전국, 제주도, 도서지역</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
+
+                                <dl class="prdt_detail_list2">
+                                    <dt>배송비</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>일반지역 2500원</li>
+                                            <li>제주 , 도서지역 3000원 추가금</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
+
+                                <dl class="prdt_detail_list2">
+                                    <dt>배송정보</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>여러개의 상품을 함께구매시에는 장바구니를 이용하셔서 결제시 묶음배송처리가 됩니다.</li>
+                                            <li>발송은 오후 7시 이후 고객님의 핸드폰으로 발송된 운송장번호를 통해 마이페이지 또는</li>
+                                            <li>대한통운 1588-1255 전화주시면 주문상품의 배송확인 및 추적이 가능합니다.</li>
+                                            평일오우 15:00 이전 결제건은 당일발송됩니다
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <p class="div_line"></p>
+                                <dl class="prdt_detail_list2">
+                                    <dt>특이사항</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>차별화된 서비스로 토요일은 오전 12:00 결제건은 토요일 출고되어 월요일 수령하실수 있습니다.</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
                             </div>
                         </div>
                         <ul class="review-menu">
-                            <li class="active col-md-3">
+                            <li class="col-md-3">
                                 <a data-toggle="tab" href="#pr-description">상품상세정보</a>
                             </li>
                             <li class="col-md-3">
-                                <?php
-                                $db->query("SElECT * FROM tbl_bbs WHERE qna_mod='2' AND goods_code='$goods_code'");
-                                $db_tbl_qna_query = $db->loadRows();
-                                $count = count($db_tbl_qna_query);
-                                ?>
                                 <a data-toggle="tab" href="#pr-reviews">상품리뷰(<?= $count ?>)</a>
                             </li>
                             <li class="col-md-3">
-                                <?php
-                                $db->query("SELECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='1'");
-                                $dbdata = $db->loadRows();
-                                $qna_count = count($dbdata);
-                                ?>
                                 <a data-toggle="tab" href="#pr-qna">상품 Q&A(<?=$qna_count?>)</a>
                             </li>
-                            <li class="col-md-3">
+                            <li class="col-md-3 active">
                                 <a data-toggle="tab" href="#pr-info">반품/교환정보</a>
                             </li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
+            style="display: none;">Launch demo modal
+    </button>
+    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">취소신청</h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-red submit">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" id="myModal-qna" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-red submit">확인</button>
                 </div>
             </div>
         </div>
@@ -1261,5 +1412,91 @@ $name2 = $_GET["name2"];
                 $(".form-review").submit();
             });
         });
+
+        $(".bbs").click(function () {
+            var tdata = $(this).attr("data");//goods_qna onetoone goods_review
+            var goods_seq = $(this).attr("goods-seq");
+            var buy_goods_seq = $(this).attr("buy-goods-seq");
+            var mod = $(this).attr("mod");//buy_goods ,buy_option
+            if (tdata == "goods_qna") {
+                var str = "상품문의";
+            } else if (tdata == "onetoone") {
+                var str = "1:1상담";
+            } else {
+                var str = "구매후기";
+            }
+            var form_data = {
+                tdata: tdata,
+                goods_seq: goods_seq,
+                buy_goods_seq: buy_goods_seq,
+                mod: mod
+            };
+            var url = "getbbs.php";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form_data,
+                error: function (response) {
+                    alert("mypage");
+                },
+                success: function (response) {
+                    $("#myModalLabel").text(str);
+                    $(".modal-body").html("");
+                    add_goods(response);
+                    $("#myModal").modal("show");
+                    //$(".modal-footer").css("display", "none");
+                }
+            });
+        });
+
+        $(".qna").click(function () {
+            var goods_seq = $(this).attr("goods-seq");
+            var buy_goods_seq = $(this).attr("buy-goods-seq");
+            var mod = $(this).attr("data-mod");//goods_qna,my_qna
+            var tdata = $(this).attr("data");
+
+            var form_data = {
+                tdata: tdata,
+                goods_seq : goods_seq,
+                buy_goods_seq : buy_goods_seq,
+                mod : mod
+            };
+            var url = "get_goods_qna.php";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form_data,
+                error: function (response) {
+                    alert("mypage");
+                },
+                success: function (response) {
+                    $("#myModalLabel").text("상품문의");
+                    $(".modal-body").html("");
+                    add_goods(response,"qna");
+                    $("#myModal-qna").modal("show");
+                }
+            });
+        });
+
+        function add_goods(rep,str) {
+            $(".modal-body").append(rep);
+            if(str=="qna"){
+                $(".modal-footer").css("display", "none");
+                $(".submit").click(function () {
+                    if($(".qna_data").val()==""){
+                        alert("내용이 비였습니다.");
+                        return false
+                    }
+                    $(".cancelForm").submit();
+                });
+            }else{
+                $(".modal-footer").css("display", "block");
+                $(".submit").click(function () {
+                    $(".cancelForm").submit();
+                });
+            }
+
+        }
     </script>
-</body></html>
+</body>
+</html>

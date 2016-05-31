@@ -380,13 +380,13 @@ if ($uname != "") {
                                     이용약관에 대하여 동의안합니다.
                                 </label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-xs-6">
                                 <div class="col-md-9"></div>
                                 <div class="col-md-3 no-padding">
                                     <button type="button" class="btn btn-danger waves-effect waves-light join_step1_sb" style="width: 100%;">확인</button>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-xs-6">
                                 <div class="col-md-3 no-padding">
                                     <button type="button" class="btn btn-purple waves-effect waves-light col-md-12" style="width:100%;" onclick="javascript:location.href='index.php'">취소</button>
                                 </div>

@@ -22,11 +22,10 @@ if($del_qna != ""){
             <div class="row">
                 <div class="cat-area-heading">
                     <h4>
-                        <strong>My</strong>
-                        account
+                        <strong>my</strong>account
                     </h4>
                 </div>
-                <? include_once "bbs_side.php"; ?>
+                <? include_once "mypage_side.php"; ?>
                 <style type="text/css">
                     .active {
                         background: #76caf1 none repeat scroll 0 0 !important;

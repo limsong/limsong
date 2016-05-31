@@ -13,12 +13,12 @@ $baseUrl = $_SERVER['PHP_SELF'];
             <li class="cat-menu-li">
                 <a <?php if($baseUrl=="/point.php") echo 'class="active"'; ?> href="point.php">적립금현황</a>
             </li>
-            <!--<li class="cat-menu-li">
-                <a <?php /*if($baseUrl=="/my_qna.php") echo 'class="active"'; */?> href="my_qna.php">Q&A</a>
+            <li class="cat-menu-li">
+                <a <?php if($baseUrl=="/my_qna.php") echo 'class="active"'; ?> href="my_qna.php">Q&A</a>
             </li>
             <li class="cat-menu-li">
-                <a <?php /*if($baseUrl=="/faq.php") echo 'class="active"'; */?> href="faq.php">FAQ</a>
-            </li>-->
+                <a <?php if($baseUrl=="/faq.php") echo 'class="active"'; ?> href="faq.php">FAQ</a>
+            </li>
             <li class="cat-menu-li">
                 <a <?php if($baseUrl=="/goods_qna.php") echo 'class="active"'; ?> href="goods_qna.php">상품문의</a>
             </li>

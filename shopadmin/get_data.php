@@ -14,51 +14,23 @@ if ($mod == "goods") {
     $query = "select * from buy where buy_code='$ordernum'";
     $result = mysql_query($query) or die($query);
     $row = mysql_fetch_array($result);
-    $row_count = count($row);
-
     //'결제수단 - 1:무통장, 2:카드, 4:적립금, 8:쿠폰, 16:휴대폰결제, 32:실시간 계좌이체, 64:가상계좌, 128:에스크로, 256:전액할인, 512:다날, 1024:모빌리언스, 2048:네이버 마일리지',
     $pay_method = $row["pay_method"];
     $buy_seq = $row["buy_seq"];
     $buy_code = $row["buy_code"];
     //주문일
     $buy_date = $row["buy_date"];
-
-    $buy_goods_query = "select * from buy_goods where buy_seq='$buy_seq'";
-    $buy_goods_result = mysql_query($buy_goods_query) or die("get_data buy_goods_query");
-    $buy_goods_row = mysql_fetch_array($buy_goods_result);
-    $buy_goods_row_count = count($buy_goods_row);
-
-    $goods_code = $buy_goods_row["goods_code"];
-    $goods_query = "select * from goods where goods_code='$goods_code'";
-    $goods_result = mysql_query($goods_query) or die("get_data goods_query");
-    $goods_row = mysql_fetch_array($goods_result);
-    $goods_name = $goods_row["goods_name"];
-
-    $goods_timg_query = "select ImageName from upload_timages where goods_code='$goods_code' limit 0,1";
-    $goods_timg_result = mysql_query($goods_timg_query) or die("get_data goods_timg_query");
-    $goods_timg_row = mysql_fetch_array($goods_timg_result);
-    $img_name = $goods_timg_row["ImageName"];
-
-    if($img_name == ""){
-        $goods_simg_query = "select ImageName from upload_simages where goods_code='$goods_code' limit 0,1";
-        $goods_simg_result = mysql_query($goods_simg_query) or die("get_data goods_simg_query");
-        $goods_simg_row = mysql_fetch_array($goods_simg_result);
-        $img_name = $goods_simg_row["ImageName"];
-    }
-
-    $imgSrc = $brandImagesWebDir.$img_name;
+    $pay_dlv_fee = $row["pay_dlv_fee"];//배송비
 
     $html = '
             <div style="padding:0px 10px">
-                <div>기본정보'.$goods_timg_query.'</div>
+                <div>기본정보</div>
                 <div>
                     <table class="memberListTable" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tbody>
                             <tr>
                                 <td>
-                                    주문번호 : <span class="fc_blue_b">'.$buy_code.'</span><br>		
-                                </td>
-                                <td>
+                                    주문번호 : <span class="fc_blue_b">'.$ordernum.'</span><br>
                                     주문일시 : '.$buy_date.'		
                                 </td>
                             </tr>
@@ -88,28 +60,74 @@ if ($mod == "goods") {
                                 <th>진행상태</th>
                             </tr>
                         </thead>
-                    
-                        <tbody>	
-                            <tr>
+                        <tbody>';
+                    $buy_goods_query = "select * from buy_goods where buy_seq='$buy_seq'";
+                    $buy_goods_result = mysql_query($buy_goods_query) or die("get_data buy_goods_query");
+                    //$buy_goods_row_count = mysql_num_rows($buy_goods_result);
+                    while($buy_goods_row=mysql_fetch_array($buy_goods_result)){
+                        $goods_code=$buy_goods_row["buy_goods_code"];
+
+
+                        $goods_query = "select * from goods where goods_code='$goods_code'";
+                        $goods_result = mysql_query($goods_query) or die("get_data goods_query");
+                        $goods_row = mysql_fetch_array($goods_result);
+                        $goods_name = $goods_row["goods_name"];
+
+                        $goods_timg_query = "select ImageName from upload_timages where goods_code='$goods_code' limit 0,1";
+                        $goods_timg_result = mysql_query($goods_timg_query) or die("get_data goods_timg_query");
+                        $goods_timg_row = mysql_fetch_array($goods_timg_result);
+                        $img_name = $goods_timg_row["ImageName"];
+
+                        if($img_name == ""){
+                            $goods_simg_query = "select ImageName from upload_simages where goods_code='$goods_code' limit 0,1";
+                            $goods_simg_result = mysql_query($goods_simg_query) or die("get_data goods_simg_query");
+                            $goods_simg_row = mysql_fetch_array($goods_simg_result);
+                            $img_name = $goods_simg_row["ImageName"];
+                        }
+
+                        $imgSrc = $brandImagesWebDir.$img_name;
+
+
+                        if($tmp_goods_code == "" || $tmp_goods_code!=$goods_code){
+                            $tmp_goods_code = $goods_code;
+                    $html .= '<tr>
                                 <!-- 상품명(상품코드) -->
                                 <td align="center">
                                     <table width="100%" cellpadding="0" cellspacing="0" border="0" class="tab-no-border">
                                         <tbody>
                                             <tr>
-                                                <td width="55" rowspan="2"><img src="'.$imgSrc.'" onerror="Durian.imgDefault(this, \'/data/file/0008_02713_200.jpg\');" class="imgborder" width="50" height="50"></td>
+                                                <td width="55" rowspan="2"><img src="' . $imgSrc . '" onerror="Durian.imgDefault(this, \'/data/file/0008_02713_200.jpg\');" class="imgborder" width="50" height="50"></td>
                                                 <td align="left">
-                                                    <span style="color:gray;">&nbsp;G54F81247D2EC4<br></span>
-                                                    &nbsp;<a href="/item_view.php?code=" target="_blank"><u>바지&amp;벨트</u></a>
-                                                    <span style="color:gray;margin-left:5px;"><br>&nbsp;&nbsp;· 기본상품 / 사이즈 : S / 색상 : 연두 / 1개  (30,000원) </span>
-                            
-                                                </td>
+                                                    <span style="color:gray;">&nbsp;' . $ordernum . '<br></span>
+                                                    &nbsp;<a href="/item_view.php?code=" target="_blank"><u>' . $goods_name . '</u></a>';
+                                                    $buy_goods_query2="select * from buy_goods where buy_goods_code='$goods_code' and buy_seq='$buy_seq'";
+                                                    $buy_goods_result2 = mysql_query($buy_goods_query2) or die("get_data buy_goods_query2");
+                                                    while ($buy_goods_row2=mysql_fetch_array($buy_goods_result2)) {
+                                                        $buy_goods_code = $buy_goods_row2["buy_goods_code"];
+                                                        $goods_opt_type = $buy_goods_row2["goods_opt_type"];
+                                                        if ($goods_opt_type == "0") {
+                                                            //옶션없음
+                                                            $buy_goods_count = $buy_goods_row2["buy_goods_count"];//구매한 상품개수
+                                                            $buy_goods_price = $buy_goods_row2["buy_goods_price"];//할인전 상품금액
+                                                            $buy_goods_price_total = $buy_goods_row2["buy_goods_price_total"];//할인후 상품금액
+                                                        }elseif($goods_opt_type=="1"){
+                                                            //일반옶션
+
+                                                        }elseif($goods_opt_type=="2"){
+                                                            //가격선택옶션
+                                                            if($goods_opt_Num=="2"){
+                                                                //가격선택옶션2
+
+                                                            }elseif($goods_opt_Num=="3"){
+                                                                //가격선택옶션3
+
+                                                            }
+                                                        }
+                                                        $html.='<span style = "color:gray;margin-left:5px;" ><br >&nbsp;&nbsp;· 기본상품 / 사이즈 : S / 색상 : 연두 / 1개(30, 000원) </span >';
+                                                    }
+                                                $html.='</td>
                                             </tr>
-                                            <tr>
-                                                <td align="left" style="padding:10px 0 0 10px;">
-                                                    <!-- 별도배송 -->
-                                                                            <!-- 착불 -->
-                                                </td>
-                                            </tr>
+                                            <tr><td align="left" style="padding:10px 0 0 10px;"><!-- 별도배송 --><!-- 착불 --></td></tr>
                                         </tbody>
                                     </table>
                                 </td>
@@ -144,8 +162,10 @@ if ($mod == "goods") {
                                 <td class="tdR" align="center">
                                     입금대기
                                 </td>
-                            </tr>
-                        </tbody>    
+                            </tr>';
+                    }
+                    }
+        $html .=        '</tbody>    
                     </table>
                 </div>
                 <div>결제내역</div>
