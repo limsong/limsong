@@ -21,7 +21,8 @@ if ($mod == "goods") {
     //주문일
     $buy_date = $row["buy_date"];
     $pay_dlv_fee = $row["pay_dlv_fee"];//배송비
-
+    $buy_status = $row["buy_status"];//진행상태 '주문상태(bitwise) - 0:주문중, 1:입금대기, 2:입금완료, 4:배송대기, 8:배송중, 16:배소완료, 32:취소신청, 64:취소완료, 128:환불신청, 256:환불완료, 512: 반품신청, 1024:반품배송중, 2048:반품환불, 4096:반품완료, 8192:교환신청, 16384:교환배송중, 32768:재주문처리, 65536:교환완료',
+    $buy_status = goods_status($buy_status);
     $html = '
             <div style="padding:0px 10px">
                 <div>기본정보</div>
@@ -61,12 +62,11 @@ if ($mod == "goods") {
                             </tr>
                         </thead>
                         <tbody>';
-                    $buy_goods_query = "select * from buy_goods where buy_seq='$buy_seq'";
+                    $buy_goods_query = "select buy_goods_code from buy_goods where buy_seq='$buy_seq'";
                     $buy_goods_result = mysql_query($buy_goods_query) or die("get_data buy_goods_query");
                     //$buy_goods_row_count = mysql_num_rows($buy_goods_result);
                     while($buy_goods_row=mysql_fetch_array($buy_goods_result)){
                         $goods_code=$buy_goods_row["buy_goods_code"];
-
 
                         $goods_query = "select * from goods where goods_code='$goods_code'";
                         $goods_result = mysql_query($goods_query) or die("get_data goods_query");
@@ -96,34 +96,36 @@ if ($mod == "goods") {
                                     <table width="100%" cellpadding="0" cellspacing="0" border="0" class="tab-no-border">
                                         <tbody>
                                             <tr>
-                                                <td width="55" rowspan="2"><img src="' . $imgSrc . '" onerror="Durian.imgDefault(this, \'/data/file/0008_02713_200.jpg\');" class="imgborder" width="50" height="50"></td>
+                                                <td width="55" rowspan="2"><img src="' . $imgSrc . '" class="imgborder" width="50" height="50"></td>
                                                 <td align="left">
                                                     <span style="color:gray;">&nbsp;' . $ordernum . '<br></span>
                                                     &nbsp;<a href="/item_view.php?code=" target="_blank"><u>' . $goods_name . '</u></a>';
                                                     $buy_goods_query2="select * from buy_goods where buy_goods_code='$goods_code' and buy_seq='$buy_seq'";
                                                     $buy_goods_result2 = mysql_query($buy_goods_query2) or die("get_data buy_goods_query2");
+                                                    $goods_opt_type = $buy_goods_row2["goods_opt_type"];//상품 유형  0:옵션업슴 1:일반옵션 2:가격선택옵션
                                                     while ($buy_goods_row2=mysql_fetch_array($buy_goods_result2)) {
                                                         $buy_goods_code = $buy_goods_row2["buy_goods_code"];
-                                                        $goods_opt_type = $buy_goods_row2["goods_opt_type"];
+                                                        $buy_goods_count = $buy_goods_row2["buy_goods_count"];//구매상품 개수
+                                                        $buy_goods_price = $buy_goods_row2["buy_goods_price"];//할인전 상품금액
+                                                        $buy_goods_price_total = $buy_goods_row2["buy_goods_price_total"];//할인후 상품금액
                                                         if ($goods_opt_type == "0") {
-                                                            //옶션없음
-                                                            $buy_goods_count = $buy_goods_row2["buy_goods_count"];//구매한 상품개수
-                                                            $buy_goods_price = $buy_goods_row2["buy_goods_price"];//할인전 상품금액
-                                                            $buy_goods_price_total = $buy_goods_row2["buy_goods_price_total"];//할인후 상품금액
+                                                            //옵션없음
+                                                            //기본상품 / 사이즈 : S / 색상 : 연두 / 1개(30, 000원
+                                                            $goods_info = "기본상품 ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
                                                         }elseif($goods_opt_type=="1"){
-                                                            //일반옶션
+                                                            //일반옵션
 
                                                         }elseif($goods_opt_type=="2"){
-                                                            //가격선택옶션
+                                                            //가격선택옵션
                                                             if($goods_opt_Num=="2"){
-                                                                //가격선택옶션2
+                                                                //가격선택옵션2
 
                                                             }elseif($goods_opt_Num=="3"){
-                                                                //가격선택옶션3
+                                                                //가격선택옵션3
 
                                                             }
                                                         }
-                                                        $html.='<span style = "color:gray;margin-left:5px;" ><br >&nbsp;&nbsp;· 기본상품 / 사이즈 : S / 색상 : 연두 / 1개(30, 000원) </span >';
+                                                        $html.='<span style = "color:gray;margin-left:5px;" ><br >&nbsp;&nbsp;· '.$goods_info.' </span >';
                                                     }
                                                 $html.='</td>
                                             </tr>
@@ -459,7 +461,13 @@ if ($mod == "goods") {
                                     <table id="buy_memo_part" width="100%" cellpadding="0" cellspacing="0" border="0" style="display: none;">
                                         <tbody>
                                             <tr>
-                                                <td height="30"><a href="/?act=shop.goods_view&amp;GS=9" target="_blank"><strong>셀러입니다</strong></a> <a href="#" ui_buy_good="26"><img src="/admin/images/button/btn_option.gif" alt="&nbsp;&nbsp;· 기본상품 / 1개  (35,000원) "></a> <input type="text" id="buy_good_memo" name="buy_good_memo[26]" value="" class="inputbox" style="width:300px;"></td>
+                                                <td height="30"><a href="/?act=shop.goods_view&amp;GS=9" target="_blank">
+                                                    <strong>셀러입니다</strong></a>
+                                                    <a href="#" ui_buy_good="26">
+                                                        <img src="/admin/images/button/btn_option.gif" alt="&nbsp;&nbsp;· 기본상품 / 1개  (35,000원) ">
+                                                    </a>
+                                                    <input type="text" id="buy_good_memo" name="buy_good_memo[26]" value="" class="inputbox" style="width:300px;">
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
