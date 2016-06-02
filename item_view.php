@@ -42,6 +42,13 @@ $name2 = $_GET["name2"];
             border: none;
             border-bottom: 1px solid #ddd;
         }
+
+        .jbFixed {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: 2000;
+        }
     </style>
     <!--HEADER AREA END-->
     <!--BREADCRUMB AREA START-->
@@ -604,11 +611,11 @@ $name2 = $_GET["name2"];
             <div class="row">
                 <div class="col-md-12">
                     <div class="review-wrapper">
-                        <ul class="review-menu">
-                            <li class="active col-md-3">
+                        <ul id="header" class="review-menu">
+                            <li class="active col-md-3 pr-description jbmenu">
                                 <a data-toggle="tab" href="#pr-description">상품상세정보</a>
                             </li>
-                            <li class="col-md-3">
+                            <li class="col-md-3 pr-reviews jbmenu">
                                 <?php
                                 $db->query("SElECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='2'");
                                 $db_tbl_qna_query = $db->loadRows();
@@ -616,7 +623,7 @@ $name2 = $_GET["name2"];
                                 ?>
                                 <a data-toggle="tab" href="#pr-reviews">상품리뷰(<?= $count ?>)</a>
                             </li>
-                            <li class="col-md-3">
+                            <li class="col-md-3 pr-qna jbmenu">
                                 <?php
                                 $db->query("SELECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='0'");
                                 $dbdata = $db->loadRows();
@@ -624,17 +631,19 @@ $name2 = $_GET["name2"];
                                 ?>
                                 <a data-toggle="tab" href="#pr-qna">상품 Q&A(<?=$qna_count?>)</a>
                             </li>
-                            <li class="col-md-3">
-                                <a data-toggle="tab" href="#pr-info">반품/교환정보</a>
+                            <li class="col-md-3 pr-info jbmenu">
+                                <a data-toggle="tab" href="#pr-info">교환/반품/배송안내</a>
                             </li>
                         </ul>
                         <div class="con tab-content">
                             <!-- 상품 상세정보 -->
-                            <div id="pr-description" class="tab-pane fade in active">
+                            <div id="pr-description">
+                                <h4>상품상세설명</h4><br>
                                 <?= $db_goodsArr[0]["comment"] ?>
                             </div>
-                            <div id="pr-reviews" class="tab-pane fade">
+                            <div id="pr-reviews">
                                 <!-- 유저 리뷰어 -->
+                                <br><br><br><br><br><h4>상품리뷰어</h4><br>
                                 <?php
                                 for ($i = 0; $i < $count; $i++) {
                                     $bbs_ext1 = $db_tbl_qna_query[$i]["bbs_ext1"];
@@ -719,8 +728,9 @@ $name2 = $_GET["name2"];
                                     </form>
                                 </div>
                             </div>
-                            <div id="pr-qna" class="tab-pane fade">
-                                <!-- 유저 리뷰어 -->
+                            <div id="pr-qna">
+                                <!-- 상품Q&A -->
+                                <br><br><br><br><br><h4>상품Q&A</h4><br>
                                 <div style="float: right;">
                                     <button type="button" class="btn btn-sm btn-default waves-effect waves-light bbs" mod="buy_goods" data="goods_qna" goods-seq="<?=$goods_seq_main?>" buy-goods-seq="">상품문의</button>
                                 </div>
@@ -771,8 +781,9 @@ $name2 = $_GET["name2"];
                                     ?>
                                 </table>
                             </div>
-                            <div id="pr-info" class="tab-pane fade">
-                                <h3 class="mt30">SHIPPING & RETURNS   교환/반품/배송안내</h3>
+                            <div id="pr-info">
+                                <!-- 교환/반품/배송안내 -->
+                                <br><br><br><br><br><h4>교환/반품/배송안내</h4><br>
                                 <dl class="prdt_detail_list">
                                     <dt>교환/반품</dt>
                                     <dd>
@@ -877,20 +888,6 @@ $name2 = $_GET["name2"];
                                 </dl>
                             </div>
                         </div>
-                        <ul class="review-menu">
-                            <li class="col-md-3">
-                                <a data-toggle="tab" href="#pr-description">상품상세정보</a>
-                            </li>
-                            <li class="col-md-3">
-                                <a data-toggle="tab" href="#pr-reviews">상품리뷰(<?= $count ?>)</a>
-                            </li>
-                            <li class="col-md-3">
-                                <a data-toggle="tab" href="#pr-qna">상품 Q&A(<?=$qna_count?>)</a>
-                            </li>
-                            <li class="col-md-3 active">
-                                <a data-toggle="tab" href="#pr-info">반품/교환정보</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -943,6 +940,7 @@ $name2 = $_GET["name2"];
     <!--FOOTER AREA END-->
     <!-- JS START-->
     <? include_once("js.php") ?>
+    <script src="js/jquery.scrollTo.js"></script>
     <!-- JS END -->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -1411,6 +1409,44 @@ $name2 = $_GET["name2"];
                 }
                 $(".form-review").submit();
             });
+
+            var jbOffset = $( '#header' ).offset();
+            var pr_description = $("#pr-description").offset();
+            var pr_reviews = $("#pr-reviews").offset();
+            var pr_qna = $("#pr-qna").offset();
+            var pr_info = $("#pr-info").offset();
+            $( window ).scroll( function() {
+                if ( $( document ).scrollTop() > jbOffset.top ) {
+                    $( '#header' ).addClass( 'jbFixed' );
+                    if($( document ).scrollTop() >= (pr_description.top - 50) && $( document ).scrollTop() < pr_reviews.top){
+                        $("#header").find(".jbmenu").each(function(){
+                            $(this).removeClass("active");
+                        });
+                        $(".pr-description").addClass("active");
+                    }
+                    if($( document ).scrollTop() >= (pr_reviews.top - 50) && $( document ).scrollTop() < pr_qna.top){
+                        $("#header").find(".jbmenu").each(function(){
+                            $(this).removeClass("active");
+                        });
+                        $(".pr-reviews").addClass("active");
+                    }
+                    if($( document ).scrollTop() >= (pr_qna.top - 50) && $( document ).scrollTop() < pr_info.top){
+                        $("#header").find(".jbmenu").each(function(){
+                            $(this).removeClass("active");
+                        });
+                        $(".pr-qna").addClass("active");
+                    }
+                    if($( document ).scrollTop() >= (pr_info.top - 50)){
+                        $("#header").find(".jbmenu").each(function(){
+                            $(this).removeClass("active");
+                        });
+                        $(".pr-info").addClass("active");
+                    }
+                }
+                else {
+                    $( '#header' ).removeClass( 'jbFixed' );
+                }
+            });
         });
 
         $(".bbs").click(function () {
@@ -1497,6 +1533,10 @@ $name2 = $_GET["name2"];
             }
 
         }
+
+        $("#header a").click(function(){
+            $("body").scrollTo($(this).attr("href"), 0);
+        });
     </script>
 </body>
 </html>

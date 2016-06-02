@@ -360,6 +360,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                 $buy_goods_name = $goods_name;
                 $buy_goods_prefix = "";
                 $buy_goods_suffix = "";
+                $opName3 = "";
                 $buy_goods_price = $goods_sellPrice;//단가
                 $buy_goods_count = $sbnumArr[$i];//상품수량
                 $buy_goods_price_total = $buy_goods_price * $sb_sale;//총상품금액
@@ -387,6 +388,9 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                 }
             } else {
                 $i = 0;
+                $buy_goods_prefix = "";
+                $buy_goods_suffix = "";
+                $opName3 = "";
                 foreach ($goods_value_query as $e => $f) {
                     if ($goods_opt_type == "1") {
                         $opName1 = $goods_value_query[$i]["opName1"];
@@ -437,7 +441,9 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
             if ($goods_opt_type != "0") {
                 $db->query("SELECT opName1,opName2,opValue2 FROM goods_option $opidQuery");
                 $goods_option = $db->loadRows();
-
+                $buy_goods_prefix = "";
+                $buy_goods_suffix = "";
+                $opName3 = "";
                 $i = 0;
                 foreach ($goods_option as $e => $f) {
                     $option_opName1 = $f["opName1"];
@@ -585,6 +591,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
             $buy_goods_name = $goods_name;
             $buy_goods_prefix = "";
             $buy_goods_suffix = "";
+            $opName3 = "";
             $buy_goods_price = $goods_sellPrice;//단가
             $buy_goods_count = $sbnumArr[$i];//상품수량
             $buy_goods_price_total = $buy_goods_price * $sb_sale;//총상품금액
@@ -612,6 +619,9 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
             }
         } else {
             $i = 0;
+            $buy_goods_prefix = "";
+            $buy_goods_suffix = "";
+            $opName3 = "";
             foreach ($goods_value_query as $e => $f) {
                 if ($goods_opt_type == "1") {
                     $opName1 = $goods_value_query[$i]["opName1"];
@@ -662,7 +672,9 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
         if ($goods_opt_type != "0") {
             $db->query("SELECT opName1,opName2,opValue2 FROM goods_option $opidQuery");
             $goods_option = $db->loadRows();
-
+            $buy_goods_prefix = "";
+            $buy_goods_suffix = "";
+            $opName3 = "";
             $i = 0;
             foreach ($goods_option as $e => $f) {
                 $option_opName1 = $f["opName1"];

@@ -274,8 +274,10 @@ if ($oname == "") {
                                                     for ($i = 0; $i < $goods_count; $i++) {
                                                         if ($goods_opt_type == "2") {
                                                             $sum += $goods_value_query[$i]["opValue2"] * $sbnumArr[$i];
+                                                            $sum3 += $sum3 += ($goods_value_query[$i]["opValue2"] * $sbnumArr[$i] - $goods_value_query[$i]["opValue2"] * $sbnumArr[$i]*$sb_sale);
                                                         } else {
                                                             $sum += $goods_value_query[$i]["sellPrice"] * $sbnumArr[$i];
+                                                            $sum3 += $sum3 += ($goods_value_query[$i]["sellPrice"] * $sbnumArr[$i] - $goods_value_query[$i]["sellPrice"] * $sbnumArr[$i]*$sb_sale);
                                                         }
                                                     }
                                                     $sum2 = 0;
@@ -509,8 +511,10 @@ if ($oname == "") {
                                                         for ($i = 0; $i < $goods_count; $i++) {
                                                             if ($goods_opt_type == "2") {
                                                                 $sum += $goods_value_query[$i]["opValue2"] * $sbnumArr[$i];
+                                                                $sum3 += ($goods_value_query[$i]["opValue2"] * $sbnumArr[$i] - $goods_value_query[$i]["opValue2"] * $sbnumArr[$i]*$sb_sale);
                                                             } else {
                                                                 $sum += $goods_value_query[$i]["sellPrice"] * $sbnumArr[$i];
+                                                                $sum3 += ($goods_value_query[$i]["sellPrice"] * $sbnumArr[$i] - $goods_value_query[$i]["sellPrice"] * $sbnumArr[$i]*$sb_sale);
                                                             }
                                                         }
                                                         $sum2 = 0;
@@ -847,12 +851,12 @@ if ($oname == "") {
                                             </span>
                                         </td>
                                         <td class="cross">
-                                            <i class="fa fa-minus-square"></i> <?= number_format($total_sum - $total_sum * $sb_sale) ?>
+                                            <i class="fa fa-minus-square"></i> <?= number_format($sum3) ?>
                                             <span class="won">원</span>
                                         </td>
                                         <td>
                                             <span
-                                                class="checkout-price"><?= number_format($total_sum * $sb_sale + $total_sum2 + $total_dShipping) ?></span>
+                                                class="checkout-price"><?= number_format($total_sum - $sum3 + $total_sum2 + $total_dShipping) ?></span>
                                             <span class="won2">원
                                             </span>
                                         </td>
@@ -987,7 +991,7 @@ if ($oname == "") {
                         </div>
                     </div>
                     <?php
-                    $price = $total_sum * $sb_sale + $total_sum2 + $total_dShipping;        // 상품가격(특수기호 제외, 가맹점에서 직접 설정)
+                    $price = $total_sum - $sum3 + $total_sum2 + $total_dShipping;        // 상품가격(특수기호 제외, 가맹점에서 직접 설정)
                     $price = "1000";
                     $params = array(
                         "oid" => $orderNumber,
@@ -1037,12 +1041,12 @@ if ($oname == "") {
                     $_SESSION[$orderNumber . "_buy_total_price"] = "";//총상품총액(할인전금액)
                     $_SESSION[$orderNumber . "_pay_dlv_fee"] = "";//결제한 배송비
 
-                    $_SESSION[$orderNumber . "_buy_instant_discount"] = $total_sum - $total_sum * $sb_sale;//상품 즉시할인 금액(총 할인금액)
+                    $_SESSION[$orderNumber . "_buy_instant_discount"] = $sum3;//상품 즉시할인 금액(총 할인금액)
                     $_SESSION[$orderNumber . "_buy_total_price"] = $total_sum + $total_sum2;//총상품총액(할인전금액)
                     $_SESSION[$orderNumber . "_pay_dlv_fee"] = $total_dShipping;
                     $_SESSION[$orderNumber . "_buy_goods_type"] = $goods_type;
                     $buy_total_price = $total_sum + $total_sum2;
-                    $buy_instant_discount = $total_sum - $total_sum * $sb_sale;
+                    $buy_instant_discount = $sum3;
                     $db->query("UPDATE basket SET buy_user_tel='$phone',buy_user_mobile='$phone',buy_user_email='$email',pay_dlv_fee='$total_dShipping',goods_type='$goods_type',buy_total_price='$buy_total_price',buy_instant_discount='$buy_instant_discount' $basketWhere");
 
                     ?>

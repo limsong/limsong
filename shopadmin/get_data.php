@@ -23,6 +23,8 @@ if ($mod == "goods") {
     $pay_dlv_fee = $row["pay_dlv_fee"];//배송비
     $buy_status = $row["buy_status"];//진행상태 '주문상태(bitwise) - 0:주문중, 1:입금대기, 2:입금완료, 4:배송대기, 8:배송중, 16:배소완료, 32:취소신청, 64:취소완료, 128:환불신청, 256:환불완료, 512: 반품신청, 1024:반품배송중, 2048:반품환불, 4096:반품완료, 8192:교환신청, 16384:교환배송중, 32768:재주문처리, 65536:교환완료',
     $buy_status = goods_status($buy_status);
+    $buy_total_price = $row["buy_total_price"];//결제예정 총 상품금액
+
     $html = '
             <div style="padding:0px 10px">
                 <div>기본정보</div>
@@ -47,7 +49,7 @@ if ($mod == "goods") {
                             <col width="75">
                             <col width="75">
                             <col width="75">
-                            <col width="140">
+                            <col width="180">
                             <col width="85">
                         </colgroup>
                         <thead>
@@ -72,6 +74,8 @@ if ($mod == "goods") {
                         $goods_result = mysql_query($goods_query) or die("get_data goods_query");
                         $goods_row = mysql_fetch_array($goods_result);
                         $goods_name = $goods_row["goods_name"];
+                        $goods_opt_type = $goods_row["goods_opt_type"];//상품 유형  0:옵션업슴 1:일반옵션 2:가격선택옵션
+                        $goods_opt_Num = $goods_row["goods_opt_Num"];
 
                         $goods_timg_query = "select ImageName from upload_timages where goods_code='$goods_code' limit 0,1";
                         $goods_timg_result = mysql_query($goods_timg_query) or die("get_data goods_timg_query");
@@ -102,31 +106,75 @@ if ($mod == "goods") {
                                                     &nbsp;<a href="/item_view.php?code=" target="_blank"><u>' . $goods_name . '</u></a>';
                                                     $buy_goods_query2="select * from buy_goods where buy_goods_code='$goods_code' and buy_seq='$buy_seq'";
                                                     $buy_goods_result2 = mysql_query($buy_goods_query2) or die("get_data buy_goods_query2");
-                                                    $goods_opt_type = $buy_goods_row2["goods_opt_type"];//상품 유형  0:옵션업슴 1:일반옵션 2:가격선택옵션
+                                                    $total_buy_count="";
+                                                    $total_buy_goods_price="";//총 상품금액 개수포함
+                                                    $total_buy_goods_sale = "";//총 할인금액 개수포함
                                                     while ($buy_goods_row2=mysql_fetch_array($buy_goods_result2)) {
                                                         $buy_goods_code = $buy_goods_row2["buy_goods_code"];
                                                         $buy_goods_count = $buy_goods_row2["buy_goods_count"];//구매상품 개수
+                                                        if($total_buy_count==""){
+                                                            $total_buy_count = $buy_goods_count;
+                                                        }else{
+                                                            $total_buy_count += $buy_goods_count;
+                                                        }
                                                         $buy_goods_price = $buy_goods_row2["buy_goods_price"];//할인전 상품금액
                                                         $buy_goods_price_total = $buy_goods_row2["buy_goods_price_total"];//할인후 상품금액
+
                                                         if ($goods_opt_type == "0") {
                                                             //옵션없음
                                                             //기본상품 / 사이즈 : S / 색상 : 연두 / 1개(30, 000원
                                                             $goods_info = "기본상품 ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
+                                                            $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                            $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
                                                         }elseif($goods_opt_type=="1"){
                                                             //일반옵션
-
+                                                            $buy_goods_name = $buy_goods_row2["buy_goods_name"];
+                                                            $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
+                                                            $goods_info = "기본상품 / $buy_goods_name : $buy_goods_prefix ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
+                                                            $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                            $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
                                                         }elseif($goods_opt_type=="2"){
                                                             //가격선택옵션
                                                             if($goods_opt_Num=="2"){
                                                                 //가격선택옵션2
+                                                                $buy_goods_name = $buy_goods_row2["buy_goods_name"];
+                                                                $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
+                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_name'";
+                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                $opName1 = mysql_result($db_goods_grid_name_result,0,0);
 
+                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_prefix'";
+                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                $opName2 = mysql_result($db_goods_grid_name_result,0,0);
+                                                                $goods_info = "기본상품 / $opName1 : $buy_goods_name / $opName2 : $buy_goods_prefix ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
+                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
                                                             }elseif($goods_opt_Num=="3"){
                                                                 //가격선택옵션3
+                                                                $buy_goods_name = $buy_goods_row2["buy_goods_name"];
+                                                                $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
+                                                                $buy_goods_suffix = $buy_goods_row2["buy_goods_suffix"];
+                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_name'";
+                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                $opName1 = mysql_result($db_goods_grid_name_result,0,0);
 
+                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_prefix'";
+                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                $opName2 = mysql_result($db_goods_grid_name_result,0,0);
+
+                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_suffix'";
+                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                $opName3 = mysql_result($db_goods_grid_name_result,0,0);
+
+                                                                $goods_info = "기본상품 / $opName1 : $buy_goods_name / $opName2 : $buy_goods_prefix / $opName3 : $buy_goods_suffix ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
+                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
                                                             }
                                                         }
                                                         $html.='<span style = "color:gray;margin-left:5px;" ><br >&nbsp;&nbsp;· '.$goods_info.' </span >';
                                                     }
+                                                    $total_price += ($total_buy_goods_price+$total_buy_goods_sale);//할인전 전체 상품금액
+                                                    $total_price_sale += $total_buy_goods_sale;
                                                 $html.='</td>
                                             </tr>
                                             <tr><td align="left" style="padding:10px 0 0 10px;"><!-- 별도배송 --><!-- 착불 --></td></tr>
@@ -135,34 +183,36 @@ if ($mod == "goods") {
                                 </td>
                                 <!-- 수량 -->
                                 <td align="center">
-                                    1		
+                                    '.$total_buy_count.'
                                 </td>
                                 <!-- 상품금액 -->
-                                <td align="right" style="padding-right:10px">
-                                    30,000		
+                                <td align="center" style="padding-right:10px">
+                                    '.number_format($total_buy_goods_price+$total_buy_goods_sale).'
                                 </td>
                                 <!-- 할인금액 -->
-                                <td align="right" style="padding-right:10px">
-                                    -10,000		
+                                <td align="center" style="padding-right:10px">
+                                    '.number_format($total_buy_goods_sale).'
                                 </td>
                                 <!-- 주문금액 -->
-                                <td align="right" style="padding-right:10px">
-                                    <span class="fc_red_b">20,000</span>
+                                <td align="center" style="padding-right:10px">
+                                    <span class="fc_red_b">
+                                        '.number_format($total_buy_goods_price).'
+                                    </span>
                                 </td>
                                 <!-- 배송정보 -->
                                 <td align="center">
                                     <table width="100%" cellpadding="0" cellspacing="0" border="0" class="tab-no-border">
                                         <tbody>
                                             <tr>
-                                                <td style="word-break:break-all;">
-                                                    DS1605307145481I01					
+                                                <td align="center" style="word-break:break-all;">
+                                                    '.$ordernum.'
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td class="tdR" align="center">
-                                    입금대기
+                                    '.$buy_status.'
                                 </td>
                             </tr>';
                     }
@@ -184,28 +234,22 @@ if ($mod == "goods") {
                             <tr>
                                 <td class="label">총 주문금액</td>
                                 <td class="box text">
-                                    30,000원 
-                                    (상품금액 30,000원 + 배송비 0원 
+                                    '.number_format($buy_total_price).'원 
+                                    (상품금액 '.number_format($total_price).'원 + 배송비 '.number_format($pay_dlv_fee).'원 
                                                     무료						)
                                 </td>
                             </tr>
                             <tr>
                                 <td class="label">할인액</td>
                                 <td class="box text">
-                                    <span class="fc_red">10,000원</span>
-                                    (
-                                                        회원할인가 할인: <span class="fc_red">0원</span>
-                                        + 쿠폰 할인: <span class="fc_red">0원</span>
-                                        + 적립금 할인: <span class="fc_red">0p</span>
-                                    )
+                                    <span class="fc_red">'.number_format($total_price_sale).'원</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="label">결제금액</td>
                                 <td class="box text">
-                                    <input type="hidden" id="pay_price_normal" name="pay_price_normal" value="20000">
-                                    20,000원 
-                                    <span class="fc_blue02_s">( 결제금액 = 총주문금액 - 할인액 )</span>
+                                    <input type="hidden" id="pay_price_normal" name="pay_price_normal" value="'.$buy_total_price.'">
+                                    '.number_format($buy_total_price-$total_price_sale).'원
                                 </td>
                             </tr>
                             <!--

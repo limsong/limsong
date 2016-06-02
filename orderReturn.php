@@ -394,6 +394,7 @@ try {
                             $buy_goods_name = $goods_name;
                             $buy_goods_prefix = "";
                             $buy_goods_suffix = "";
+                            $opName3 = "";
                             $buy_goods_price = $goods_sellPrice;//단가
                             $buy_goods_count = $sbnumArr[$i];//상품수량
                             $buy_goods_price_total = $buy_goods_price * $sb_sale;//총상품금액
@@ -420,6 +421,9 @@ try {
                                 '$buy_goods_dlv_ok_mileage', '$buy_goods_add_cancel_type', '$checkout_product_order_id')";
                             }
                         } else {
+                            $buy_goods_prefix = "";
+                            $buy_goods_suffix = "";
+                            $opName3 = "";
                             $i = 0;
                             foreach ($goods_value_query as $e => $f) {
                                 if ($goods_opt_type == "1") {
@@ -471,7 +475,9 @@ try {
                         if ($goods_opt_type != "0") {
                             $db->query("SELECT opName1,opName2,opValue2 FROM goods_option $opidQuery");
                             $goods_option = $db->loadRows();
-
+                            $buy_goods_prefix = "";
+                            $buy_goods_suffix = "";
+                            $opName3 = "";
                             $i = 0;
                             foreach ($goods_option as $e => $f) {
                                 $option_opName1 = $f["opName1"];
@@ -619,6 +625,7 @@ try {
                         $buy_goods_name = $goods_name;
                         $buy_goods_prefix = "";
                         $buy_goods_suffix = "";
+                        $opName3 = "";
                         $buy_goods_price = $goods_sellPrice;//단가
                         $buy_goods_count = $sbnumArr[$i];//상품수량
                         $buy_goods_price_total = $buy_goods_price * $sb_sale;//총상품금액
@@ -696,7 +703,9 @@ try {
                     if ($goods_opt_type != "0") {
                         $db->query("SELECT opName1,opName2,opValue2 FROM goods_option $opidQuery");
                         $goods_option = $db->loadRows();
-
+                        $buy_goods_prefix = "";
+                        $buy_goods_suffix = "";
+                        $opName3 = "";
                         $i = 0;
                         foreach ($goods_option as $e => $f) {
                             $option_opName1 = $f["opName1"];
