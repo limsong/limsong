@@ -254,6 +254,12 @@ if ($oname == "") {
 
                                                     $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                     $dbdata = $db->loadRows();
+                                                    $imageName = $dbdata[0]["imageName"];
+                                                    if($imageName==""){
+                                                        $db->query("SELECT imageName FROM upload_simages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
+                                                        $dbdata = $db->loadRows();
+                                                        $imageName = $dbdata[0]["imageName"];
+                                                    }
                                                     $imgSrc = $brandImagesWebDir . $dbdata[0]["imageName"];
 
                                                     if ($goods_opt_type == "0") {
@@ -491,6 +497,13 @@ if ($oname == "") {
 
                                                         $db->query("SELECT imageName FROM upload_timages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
                                                         $dbdata = $db->loadRows();
+                                                        $imageName = $dbdata[0]["imageName"];
+                                                        if($imageName==""){
+                                                            $db->query("SELECT imageName FROM upload_simages WHERE goods_code='$goods_code' ORDER BY id ASC limit 0,1");
+                                                            $dbdata = $db->loadRows();
+                                                            $imageName = $dbdata[0]["imageName"];
+                                                        }
+
                                                         $imgSrc = $brandImagesWebDir . $dbdata[0]["imageName"];
 
                                                         if ($goods_opt_type == "0") {

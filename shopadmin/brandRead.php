@@ -770,7 +770,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         <input type="button" value=" 목록 " class="memEleB" onclick="location.href='brandList.php?key=<?= $key ?>&xcode=<?= $xcode ?>&mcode=<?= $mcode ?>&scode=<?= $scode ?>&keyfield=<?= $keyfield ?>'"/>
                     </div>
                 </form>
-                <iframe name="action_frame" width="99%" height="200" style="display:none;"></iframe>
+                <iframe name="action_frame" width="99%" height="200" style="display:block;"></iframe>
             </div>
         </div>
         <div id="light" class="white_content" onclick="closeBox()">asdadsa</div>

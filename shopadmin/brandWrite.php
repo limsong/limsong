@@ -13,9 +13,10 @@ TRUNCATE TABLE `opName`;
 TRUNCATE TABLE `goods`;
 TRUNCATE TABLE `goods_option`;
 */
-$debug = false;
+$debug = true;
 //0 옵션 없음 1일반옵션 2 가격선택 옵션
-$goods_option_type = 1;
+$goods_option_type = 2;
+$optNum = "2";
 if ($debug == true) {
     $goods_name = "옵션없음";
     if ($goods_option_type == 0) {
@@ -30,7 +31,7 @@ if ($debug == true) {
         $sellPrice = "180000;190000;200000;210000/220000;230000;240000;250000";
         $qta = "210;220;230;240/250;260;270;280";
     } else {
-        $optNum = "3";
+
         if ($optNum == "2") {
             $goods_name = "가격선택옵션2";
             $goods_opName1 = "상품명/색상";
