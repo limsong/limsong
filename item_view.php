@@ -940,7 +940,8 @@ $name2 = $_GET["name2"];
     <!--FOOTER AREA END-->
     <!-- JS START-->
     <? include_once("js.php") ?>
-    <script src="js/jquery.scrollTo.js"></script>
+    <!--<script src="js/jquery.scrollTo.js"></script>-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.0/jquery.scrollTo.min.js"></script>
     <!-- JS END -->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -1535,7 +1536,7 @@ $name2 = $_GET["name2"];
         }
 
         $("#header a").click(function(){
-            $("body").scrollTo($(this).attr("href"), 0);
+            $("body").scrollTo($(this).attr("href"), 100);
         });
     </script>
 </body>
