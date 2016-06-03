@@ -69,12 +69,11 @@ if ($mod == "goods") {
     }
     $admin_price = $buy_admin_price;
     $buy_admin_price = substr($buy_admin_price,1);
-    $html = '
-            <style>
-            .inp ,textarea{
-            border:1px solid #aaa;
-            }
-</style>
+    $html = '<style>
+                .inp ,textarea{
+                    border:1px solid #aaa;
+                }
+            </style>
             <div style="padding:0px 10px">
                 <div>기본정보</div>
                 <div>
@@ -143,7 +142,7 @@ if ($mod == "goods") {
 
                         if($tmp_goods_code == "" || $tmp_goods_code!=$goods_code){
                             $tmp_goods_code = $goods_code;
-                    $html .= '<tr>
+                            $html .= '<tr>
                                 <!-- 상품명(상품코드) -->
                                 <td align="center">
                                     <table width="100%" cellpadding="0" cellspacing="0" border="0" class="tab-no-border">
@@ -264,7 +263,7 @@ if ($mod == "goods") {
                                     '.$buy_status.'
                                 </td>
                             </tr>';
-                    }
+                        }
                     }
         $html .=        '</tbody>    
                     </table>
