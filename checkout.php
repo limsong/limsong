@@ -973,7 +973,7 @@ if ($oname == "") {
                                                     <td>입금 계좌</td>
                                                     <td>
                                                         <select id="pay_online_account" name="pay_online_account">
-                                                            <option value="신한은행|110-450-713612"> 신한은행 </option>
+                                                            <option value="신한은행|110-461-191371"> 신한은행 </option>
                                                             <option value="NH농협은행|302-9691-9190-81"> NH농협은행 </option>
                                                             <option value="우리은행|1005-802-973145"> 우리은행 </option>
                                                             <option value="하나은행|1005-802-973145"> 하나은행 </option>
@@ -1232,7 +1232,7 @@ if ($oname == "") {
             var add3 = $("#add3").val();
             var bid = $(".bid").val();
             var ordernum = $(".oid").val();
-            var user_id = $(".user_id").val();//배송받는사람
+            var user_id = $(".user_id").val();//수령인 이름
             var phone = $(".phone1").val() + "-" + $(".phone2").val() + "-" + $(".phone3").val();//배송받는사람 전화
             var ship_message = $(".ship_message").val();//배송 메세지
             var pay_mod = $("input[name='paymethod']:checked").val();
@@ -1267,11 +1267,7 @@ if ($oname == "") {
                 alert("주소를 입력해주세요.");
                 return false;
             }
-            if (pay_mod == "1") {
-                $("#SendPayForm_id").attr("action", "buy_end.php");
-                $("#SendPayForm_id").submit();
-                return false;
-            }
+            
             $.ajax({
                 url: 'upcheck.php',
                 type: 'POST',
@@ -1292,7 +1288,9 @@ if ($oname == "") {
                         if (pay_mod != "1") {
                             INIStdPay.pay('SendPayForm_id');
                         } else {
-                            location.href = "buy_end.php";
+                            $("#SendPayForm_id").attr("action", "buy_end.php");
+                            $("#SendPayForm_id").submit();
+                            return false;
                         }
                     } else {
                         alert("결제 실패 하였습니다.잠시후 다시 시도해 주세요.")

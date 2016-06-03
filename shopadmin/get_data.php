@@ -16,16 +16,65 @@ if ($mod == "goods") {
     $row = mysql_fetch_array($result);
     //'결제수단 - 1:무통장, 2:카드, 4:적립금, 8:쿠폰, 16:휴대폰결제, 32:실시간 계좌이체, 64:가상계좌, 128:에스크로, 256:전액할인, 512:다날, 1024:모빌리언스, 2048:네이버 마일리지',
     $pay_method = $row["pay_method"];
+    $pay_method_txt = paymethod($pay_method);
+    $pay_date = $row["pay_date"];//입금확인일
+    if($pay_date=="0000-00-00 00:00:00"){
+        $pay_data_btn = '<button type="button" class="buy_ok">입금확인</button>';
+    }else{
+        $pay_data_btn = $pay_date;
+    }
+
+    $buy_memo = $row["buy_memo"];//배송시 요청사항
+
+    $pay_online_name = $row["pay_online_name"];//입금인
+    $pay_online_account = $row["pay_online_account"];//입금계좌
+    $pay_pre_date = $row["pay_pre_date"];//입금예정일
+    //주문자 정보
+    $buy_user_name = $row["buy_user_name"];//주문자 아이디;
+    $db_shopmembers_query = "select name from shopmembers where id='$buy_user_name'";
+    $db_shopmembers_result = mysql_query($db_shopmembers_query) or die("get_data db_shopmembers_query");
+    $buy_user_id = mysql_result($db_shopmembers_result, 0,0);
+    $buy_user_tel = $row["buy_user_tel"];//일반전화
+    $buy_user_telArr = explode("-", $buy_user_tel);
+    $buy_user_mobile = $row["buy_user_mobile"];//핸드폰번호
+    $buy_user_mobileArr = explode("-", $buy_user_mobile);
+    $buy_user_email = $row["buy_user_email"];//이메일주소
+    $buy_user_emailArr = explode("@", $buy_user_email);
+    //수령인 정보
+    $buy_dlv_name = $row["buy_dlv_name"];//이름
+    $buy_dlv_tel = $row["buy_dlv_tel"];//일반전화
+    $buy_dlv_telArr = explode("-", $buy_dlv_tel);
+    $buy_dlv_mobile = $row["buy_dlv_mobile"];//핸드폰번호
+    $buy_dlv_mobileArr = explode("-", $buy_dlv_mobile);
+    $buy_dlv_zipcode = $row["buy_dlv_zipcode"];
+    $buy_dlv_zipcodeArr = explode("-", $buy_dlv_zipcode);
+    $buy_dlv_addr_base = $row["buy_dlv_addr_base"];
+    $buy_dlv_addr_etc = $row["buy_dlv_addr_etc"];
+
+
+
     $buy_seq = $row["buy_seq"];
     $buy_code = $row["buy_code"];
-    //주문일
-    $buy_date = $row["buy_date"];
+
+    $buy_date = $row["buy_date"];//주문일
     $pay_dlv_fee = $row["pay_dlv_fee"];//배송비
     $buy_status = $row["buy_status"];//진행상태 '주문상태(bitwise) - 0:주문중, 1:입금대기, 2:입금완료, 4:배송대기, 8:배송중, 16:배소완료, 32:취소신청, 64:취소완료, 128:환불신청, 256:환불완료, 512: 반품신청, 1024:반품배송중, 2048:반품환불, 4096:반품완료, 8192:교환신청, 16384:교환배송중, 32768:재주문처리, 65536:교환완료',
     $buy_status = goods_status($buy_status);
     $buy_total_price = $row["buy_total_price"];//결제예정 총 상품금액
-
+    $buy_admin_price = $row["buy_admin_price"];//관리자할인(-)/할증(+)
+    if($buy_admin_price>0){
+        $admin_price_plus = "selected";
+    }else{
+        $admin_price_minece = "selected";
+    }
+    $admin_price = $buy_admin_price;
+    $buy_admin_price = substr($buy_admin_price,1);
     $html = '
+            <style>
+            .inp ,textarea{
+            border:1px solid #aaa;
+            }
+</style>
             <div style="padding:0px 10px">
                 <div>기본정보</div>
                 <div>
@@ -220,6 +269,7 @@ if ($mod == "goods") {
         $html .=        '</tbody>    
                     </table>
                 </div>
+                <div style="margin-top:40px;"></div>
                 <div>결제내역</div>
                 <div>
                     <table cellpadding="0" cellspacing="0" border="0" class="tbstylea" width="100%">
@@ -235,8 +285,7 @@ if ($mod == "goods") {
                                 <td class="label">총 주문금액</td>
                                 <td class="box text">
                                     '.number_format($buy_total_price).'원 
-                                    (상품금액 '.number_format($total_price).'원 + 배송비 '.number_format($pay_dlv_fee).'원 
-                                                    무료						)
+                                    (상품금액 '.number_format($total_price).'원 + 배송비 '.number_format($pay_dlv_fee).'원 )
                                 </td>
                             </tr>
                             <tr>
@@ -250,6 +299,7 @@ if ($mod == "goods") {
                                 <td class="box text">
                                     <input type="hidden" id="pay_price_normal" name="pay_price_normal" value="'.$buy_total_price.'">
                                     '.number_format($buy_total_price-$total_price_sale).'원
+                                    <span class="fc_blue02_s">( 결제금액 = 총주문금액 - 할인액 )</span>
                                 </td>
                             </tr>
                             <!--
@@ -258,11 +308,11 @@ if ($mod == "goods") {
                                 <td class="label">관리자 할인(할증)금액</td>
                                 <td class="box text">			
                                     <select name="buy_admin_price_symbol" id="buy_admin_price_symbol">
-                                        <option value="-">할인(-)</option>
-                                        <option value="+">할증(+)</option>
+                                        <option value="-" '.$admin_price_minece.'>할인(-)</option>
+                                        <option value="+" '.$admin_price_plus.'>할증(+)</option>
                                     </select>
-                                    <input type="hidden" name="buy_admin_price_org" value="0">
-                                    <input type="text" id="buy_admin_price" name="buy_admin_price" value="0" class="inputbox2 price_only" style="width:100px;">
+                                    <input type="hidden" name="buy_admin_price_org" value="'.$buy_admin_price.'">
+                                    <input type="text" class="inp" id="buy_admin_price" name="buy_admin_price" value="'.$buy_admin_price.'" class="inputbox2 price_only" style="width:100px;">
                                     <input type="submit" class="memEleB" value="바로적용">
                                     <strong><span class="fc_blue02_s">* 관리자 할인(할증)금액 변경시 최종 결제금액이 조정됩니다.</span></strong>
                                 </td>
@@ -271,12 +321,13 @@ if ($mod == "goods") {
                                 <td class="label">최종 결제금액</td>
                                 <td class="box text">
                                     <input type="hidden" id="pay_price_total" name="pay_price_total" value="20000">
-                                    <span id="pay_price_total_span" class="fc_red_b">20,000원</span> 
+                                    <span id="pay_price_total_span" class="fc_red_b">'.number_format($buy_total_price-$total_price_sale+$admin_price).'원</span> 
                                     <span class="fc_blue02_s">(최종 결제금액 = 결제금액 - 관리자 할인(할증)금액 - 환불/교환비용)</span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="alignCenter"><input type="submit" class="memEleB" value="적용"></div>
                 </div>
                 <div>결제처리</div>
                 <div>
@@ -291,12 +342,11 @@ if ($mod == "goods") {
                             </tr>
                             <tr>
                                 <td class="label">결제방법</td>
-                                <td class="box text">무통장</td>
+                                <td class="box text">'.$pay_method_txt.'</td>
                             </tr>
                             <tr>
                                 <td class="label">결제확인일</td>
-                                <td class="box text">
-                                                            2015.03.20 04:36							</td>
+                                <td class="box text">'.$pay_data_btn.'</td>
                             </tr>
                             <tr>
                                 <td class="label">상세정보</td>
@@ -310,7 +360,7 @@ if ($mod == "goods") {
                                             <tr>
                                                 <td height="30" class="fs11 dotum ls1">입금인</td>
                                                 <td>
-                                                    <input type="text" id="pay_online_name" name="pay_online_name" value="후이즈몰2" class="inputbox" style="width:70px;">
+                                                    <input type="text" class="inp" id="pay_online_name" name="pay_online_name" value="'.$pay_online_name.'" class="inputbox" style="width:70px;">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -318,14 +368,14 @@ if ($mod == "goods") {
                                                 <td>
                                                     <select id="pay_online_account" name="pay_online_account" style="width:300px;">
                                                         <option value="">선택</option>
-                                                        <option value="1" selected="">[여기여기요]HSBC은행:1234568768</option>
+                                                        <option value="1" selected="">'.$pay_online_account.'</option>
                                                     </select> 
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td height="30" class="fs11 dotum ls1"> 입금예정일</td>
                                                 <td>
-                                                    <input type="text" id="pay_pre_date" name="pay_pre_date" value="2015-03-20" class="inputbox" style="width:68px;" readonly="">
+                                                    <input type="text" class="inp" id="pay_pre_date" name="pay_pre_date" value="'.$pay_pre_date.'" class="inputbox" style="width:68px;" readonly="">
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -363,7 +413,6 @@ if ($mod == "goods") {
                     </table> 
                     <div class="alignCenter"><input type="submit" class="memEleB" value="적용"></div>
                 </div>
-                <div></div>
                 <div>
                     <table cellpadding="0" cellspacing="0" border="0" width="100%" class="memberListTable tab-no-border">
                         <colgroup>
@@ -387,33 +436,33 @@ if ($mod == "goods") {
                                             </tr>
                                             <tr>
                                                 <td class="label">주문자명(아이디)</td>
-                                                <td class="box text"><strong><a href="#" ui_user="whoismall2">후이즈몰2(whoismall2)</a></strong></td>
+                                                <td class="box text"><strong><a href="#" ui_user="whoismall2">'.$buy_user_id.'( '.$buy_user_name.' )'.'</a></strong></td>
                                             </tr>
                                             <tr>
                                                 <td class="label">전화번호</td>
                                                 <td class="box text">
-                                                    <input type="text" id="buy_user_tel0" name="buy_user_tel[0]" value="032" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_user_tel0" name="buy_user_tel[0]" value="'.$buy_user_telArr[0].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_user_tel1" name="buy_user_tel[1]" value="2352" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_user_tel1" name="buy_user_tel[1]" value="'.$buy_user_telArr[1].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_user_tel2" name="buy_user_tel[2]" value="2352" class="inputbox" style="width:50px;">    
+                                                    <input type="text" class="inp" id="buy_user_tel2" name="buy_user_tel[2]" value="'.$buy_user_telArr[2].'" class="inputbox" style="width:50px;">    
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="label">휴대전화</td>
                                                 <td class="box text">
-                                                    <input type="text" id="buy_user_mobile0" name="buy_user_mobile[0]" value="010" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_user_mobile0" name="buy_user_mobile[0]" value="'.$buy_user_mobileArr[0].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_user_mobile1" name="buy_user_mobile[1]" value="1111" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_user_mobile1" name="buy_user_mobile[1]" value="'.$buy_user_mobileArr[1].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_user_mobile2" name="buy_user_mobile[2]" value="1111" class="inputbox" style="width:50px;"> 
+                                                    <input type="text" class="inp" id="buy_user_mobile2" name="buy_user_mobile[2]" value="'.$buy_user_mobileArr[2].'" class="inputbox" style="width:50px;"> 
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="label">이메일</td>
                                                 <td class="box text">
-                                                    <input type="text" id="buy_user_email0" name="buy_user_email[0]" value="56236236361361361" class="inputbox" style="width:75px;">@
-                                                    <input type="text" id="buy_user_email1" name="buy_user_email[1]" value="hanmir.com" class="inputbox" style="width:110px;">
+                                                    <input type="text" class="inp" id="buy_user_email0" name="buy_user_email[0]" value="'.$buy_user_emailArr[0].'" class="inputbox" style="width:75px;">@
+                                                    <input type="text" class="inp" id="buy_user_email1" name="buy_user_email[1]" value="'.$buy_user_emailArr[1].'" class="inputbox" style="width:110px;">
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -434,41 +483,39 @@ if ($mod == "goods") {
                                             </tr>
                                             <tr>
                                                 <td class="label">수령인명</td>
-                                                <td class="box text"><input type="text" id="buy_dlv_name" name="buy_dlv_name" value="후이즈몰2" class="inputbox" style="width:100px;"></td>
+                                                <td class="box text"><input type="text" class="inp" id="buy_dlv_name" name="buy_dlv_name" value="'.$buy_dlv_name.'" class="inputbox" style="width:100px;"></td>
                                             </tr>
                                             <tr>
                                                 <td class="label">전화번호</td>
                                                 <td class="box text">
-                                                    <input type="text" id="buy_dlv_tel0" name="buy_dlv_tel[0]" value="032" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_dlv_tel0" name="buy_dlv_tel[0]" value="'.$buy_dlv_telArr[0].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_dlv_tel1" name="buy_dlv_tel[1]" value="2352" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_dlv_tel1" name="buy_dlv_tel[1]" value="'.$buy_dlv_telArr[1].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_dlv_tel2" name="buy_dlv_tel[2]" value="2352" class="inputbox" style="width:50px;">    
+                                                    <input type="text" class="inp" id="buy_dlv_tel2" name="buy_dlv_tel[2]" value="'.$buy_dlv_telArr[2].'" class="inputbox" style="width:50px;">    
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="label">휴대전화</td>
                                                 <td class="box text">
-                                                    <input type="text" id="buy_dlv_mobile0" name="buy_dlv_mobile[0]" value="010" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_dlv_mobile0" name="buy_dlv_mobile[0]" value="'.$buy_dlv_mobileArr[0].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_dlv_mobile1" name="buy_dlv_mobile[1]" value="1111" class="inputbox" style="width:50px;">
+                                                    <input type="text" class="inp" id="buy_dlv_mobile1" name="buy_dlv_mobile[1]" value="'.$buy_dlv_mobileArr[1].'" class="inputbox" style="width:50px;">
                                                     -
-                                                    <input type="text" id="buy_dlv_mobile2" name="buy_dlv_mobile[2]" value="1111" class="inputbox" style="width:50px;"> 
+                                                    <input type="text" class="inp" id="buy_dlv_mobile2" name="buy_dlv_mobile[2]" value="'.$buy_dlv_mobileArr[2].'" class="inputbox" style="width:50px;"> 
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="label">배송지 주소</td>
                                                 <td class="box text">
-                                                    <input type="text" name="buy_dlv_zipcode1" value="152" class="inputbox" style="width:50px;" readonly="">
-                                                    -
-                                                    <input type="text" name="buy_dlv_zipcode2" value="050" class="inputbox" style="width:50px;" readonly="">
+                                                    <input type="text" class="inp" name="buy_dlv_zipcode1" value="'.$buy_dlv_zipcode.'" class="inputbox" style="width:100px;" readonly="">
                                                     <span id="buy_dlv_zipcode_div">
                                                     <a href="#" id="find_zipcode1" mode="buy_dlv"><input type="submit" class="memEleB" value="우편번호찾기"></a>
                                                     </span>
                                                     <br>
-                                                    <input type="text" name="buy_dlv_addr_base" value="서울특별시 구로구 구로동" class="inputbox" style="width:200px;" readonly="">
+                                                    <input type="text" class="inp" name="buy_dlv_addr_base" value="'.$buy_dlv_addr_base .'" class="inputbox" style="width:200px;" readonly="">
                                                     <br>
-                                                    <input type="text" name="buy_dlv_addr_etc" value="13251361361361" class="inputbox" style="width:200px;">
+                                                    <input type="text" class="inp" name="buy_dlv_addr_etc" value="'.$buy_dlv_addr_etc  .'" class="inputbox" style="width:200px;">
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -497,7 +544,7 @@ if ($mod == "goods") {
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <textarea id="buy_memo" name="buy_memo" class="inputbox" style="width:700px; height:100px"></textarea>
+                                                    <textarea id="buy_memo" name="buy_memo" class="inputbox" style="width:700px; height:100px">'.$buy_memo.'</textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -510,7 +557,7 @@ if ($mod == "goods") {
                                                     <a href="#" ui_buy_good="26">
                                                         <img src="/admin/images/button/btn_option.gif" alt="&nbsp;&nbsp;· 기본상품 / 1개  (35,000원) ">
                                                     </a>
-                                                    <input type="text" id="buy_good_memo" name="buy_good_memo[26]" value="" class="inputbox" style="width:300px;">
+                                                    <input type="text" class="inp" id="buy_good_memo" name="buy_good_memo[26]" value="" class="inputbox" style="width:300px;">
                                                 </td>
                                             </tr>
                                         </tbody>

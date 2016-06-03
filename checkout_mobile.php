@@ -905,26 +905,13 @@ if ($oname == "") {
                                                         <tr>
                                                             <td>입금 계좌</td>
                                                             <td>
-                                                                <select id="pay_online_account"
-                                                                        name="pay_online_account">
-                                                                    <option
-                                                                        value="신한은행|110-450-713612"> 신한은행
-                                                                    </option>
-                                                                    <option
-                                                                        value="NH농협은행|302-9691-9190-81"> NH농협은행
-                                                                    </option>
-                                                                    <option
-                                                                        value="우리은행|1005-802-973145"> 우리은행
-                                                                    </option>
-                                                                    <option
-                                                                        value="하나은행|1005-802-973145"> 하나은행
-                                                                    </option>
-                                                                    <option
-                                                                        value="외환은행|1005-802-973145"> 외환은행
-                                                                    </option>
-                                                                    <option
-                                                                        value="KB국민은행|1005-802-973145"> KB국민은행
-                                                                    </option>
+                                                                <select id="pay_online_account" name="pay_online_account">
+                                                                    <option value="신한은행|110-461-191371"> 신한은행 </option>
+                                                                    <option value="NH농협은행|302-9691-9190-81"> NH농협은행 </option>
+                                                                    <option value="우리은행|1005-802-973145"> 우리은행 </option>
+                                                                    <option value="하나은행|1005-802-973145"> 하나은행 </option>
+                                                                    <option value="외환은행|1005-802-973145"> 외환은행 </option>
+                                                                    <option value="KB국민은행|1005-802-973145"> KB국민은행 </option>
                                                                 </select>
                                                             </td>
                                                         </tr>

@@ -89,14 +89,14 @@ buy_user_tel = 주문인_전화
 buy_user_mobile = 주문인_휴대폰
 buy_user_email = 주문인_이메일
 buy_user_ip = 주문인_IP
-buy_dlv_name = 배송지_이름
-buy_dlv_tel = 배송지_전화
-buy_dlv_mobile = 배송지_휴대폰
-buy_dlv_email = 배송지_이메일
-buy_dlv_zipcode = 배송지_우편번호
-buy_dlv_addr_base = 배송지_주소_기본
-buy_dlv_addr_etc = 배송지_주소_상세
-buy_dlv_pre_date = 배송지_희망배송일
+buy_dlv_name = 수령인_이름
+buy_dlv_tel = 수령인_전화
+buy_dlv_mobile = 수령인_휴대폰
+buy_dlv_email = 수령인_이메일
+buy_dlv_zipcode = 수령인_우편번호
+buy_dlv_addr_base = 수령인_주소_기본
+buy_dlv_addr_etc = 수령인_주소_상세
+buy_dlv_pre_date = 수령인_희망배송일
 coupon_data_seq = 사용 쿠폰 목록 일련번호
 buy_bill_type = 영수증/증빙서류 종류(table:buy_bill) 0:미신청 1:현금영수증신청 2:세금계산서신청
 buy_instant_discount = 상품 즉시할인 금액
@@ -117,6 +117,7 @@ if($new_add == "y"){
 }
 
 $buy_goods_add_query = "";
+$buy_dlv_name = $user_id;//수령인
 $user_id = $uname;
 $buy_code = $app_oid;
 $buy_date = $date;
@@ -133,7 +134,7 @@ $buy_user_tel = $ophone;
 $buy_user_mobile = $ophone;
 $buy_user_email = $oemail;
 $buy_user_ip = $app_ip;
-$buy_dlv_name = "";
+
 $buy_dlv_tel = $phone1."-".$phone2."-".$phone3;
 $buy_dlv_mobile = $phone1."-".$phone2."-".$phone3;
 $buy_dlv_email = $buy_user_email;
@@ -154,7 +155,7 @@ $db->query("INSERT INTO buy (
                             ,buy_dlv_email,buy_dlv_zipcode,buy_dlv_addr_base,buy_dlv_addr_etc,buy_dlv_pre_date,coupon_data_seq,buy_bill_type,buy_instant_discount,buy_mile_amount)
                             VALUES
                             ('$user_id','$buy_code','$buy_status','$goods_type','$buy_date','$buy_total_price','$buy_expect_mile','$pay_seq','$pay_method','$pay_price_normal','$pay_dlv_fee','$pay_price_mile','$pay_pre_date',
-                            '$pay_date','$pay_online_name','$pay_online_account','$pay_info_no','$buy_memo','$buy_user_name','$buy_user_tel','$buy_user_mobile','$buy_dlv_email','$buy_user_ip',''$buy_dlv_name,'$buy_dlv_tel','$buy_dlv_mobile',
+                            '$pay_date','$pay_online_name','$pay_online_account','$pay_info_no','$buy_memo','$buy_user_name','$buy_user_tel','$buy_user_mobile','$buy_dlv_email','$buy_user_ip','$buy_dlv_name','$buy_dlv_tel','$buy_dlv_mobile',
                             '$buy_dlv_email','$buy_dlv_zipcode','$buy_dlv_addr_base','$buy_dlv_addr_etc','$buy_dlv_pre_date','$coupon_data_seq','$buy_bill_type','$buy_instant_discount','$buy_mile_amount')");
 
 $db->query("SELECT buy_seq FROM buy WHERE user_id='$uname' AND buy_code='$buy_code'");

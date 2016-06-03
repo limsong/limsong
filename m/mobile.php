@@ -62,6 +62,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
     $bid = $db_basket_query[0]["v_oid"];
     $zipcode = $db_basket_query[0]["zipcode"];
     $user_id = $db_basket_query[0]["user_id"];
+    $buy_dlv_name = $user_id;
     $phone = $db_basket_query[0]["phone"];
     $oldadd = $db_basket_query[0]["add1"];
     $newadd = $db_basket_query[0]["add2"];
@@ -210,7 +211,6 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
     $buy_memo = $ship_message;
     $buy_user_name = $P_UNAME;
     $buy_user_ip = $app_ip;
-    $buy_dlv_name = "";
     $buy_dlv_tel = $phone;
     $buy_dlv_mobile = $phone;
     $buy_dlv_email = $buy_user_email;
@@ -230,7 +230,7 @@ if ($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25")    //PG에서 보냈
                     ,buy_dlv_email,buy_dlv_zipcode,buy_dlv_addr_base,buy_dlv_addr_etc,buy_dlv_pre_date,coupon_data_seq,buy_bill_type,buy_instant_discount,buy_mile_amount,buy_mobile)
                     VALUES
                     ('$user_id','$buy_code','$buy_status','$buy_date','$buy_total_price','$buy_expect_mile','$pay_seq','$pay_method','$pay_price_normal','$pay_dlv_fee','$pay_price_mile','$pay_pre_date',
-                    '$pay_date','$pay_online_name','$pay_online_account','$pay_info_no','$buy_memo','$buy_user_name','$buy_user_tel','$buy_user_mobile','$buy_dlv_email','$buy_user_ip',''$buy_dlv_name,'$buy_dlv_tel','$buy_dlv_mobile',
+                    '$pay_date','$pay_online_name','$pay_online_account','$pay_info_no','$buy_memo','$buy_user_name','$buy_user_tel','$buy_user_mobile','$buy_dlv_email','$buy_user_ip','$buy_dlv_name','$buy_dlv_tel','$buy_dlv_mobile',
                     '$buy_dlv_email','$buy_dlv_zipcode','$buy_dlv_addr_base','$alladd','$buy_dlv_pre_date','$coupon_data_seq','$buy_bill_type','$buy_instant_discount','$buy_mile_amount','$buy_mobile')");
 
     $db->query("SELECT buy_seq FROM buy WHERE user_id='$uname' AND buy_code='$buy_code'");
