@@ -442,6 +442,21 @@ if ($detect->isMobile()) {
                 }
                 ?>
             </ul>
+            <div class="table-responsive mobile-menu2">
+                <table class="table">
+                    <tr>
+                        <?php
+                        for ($i = 0; $i < $db_sortCode_count; $i++) {
+                            $uxName = $db_sortCode[$i]["sortName"];
+                            $uxCode = $db_sortCode[$i]["sortCode"];
+                            ?>
+                            <td><a href="<?= $shop ?>?code1=<?= $uxCode ?>&code2=&name1=<?= urlencode($uxName) ?>"><?= $uxName ?></a></td>
+                            <?php
+                        }
+                        ?>
+                    </tr>
+                </table>
+            </div>
         </nav>
     </div>
     <!--MOBILE MENU END-->

@@ -51,10 +51,10 @@
 html, body {
     height: 100%;
     color: #6e6e6e;
-    /*font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
     /*font-size: 14px;*/
     background-image: url("../img/bg.png");
-    font-family: '돋움', dotum, sans-serif;
+    /*font-family: '돋움', dotum, sans-serif;*/
     font-size: 12px;
     font-weight: normal;
 }
@@ -1259,6 +1259,15 @@ a.nivo-nextNav {
 
 .width-hun {
     width: 100%
+}
+
+/* ------------- mobile-menu2 ---------------- */
+.mobile-menu2 {
+    border: 0px !important;
+    margin-bottom: 0px !important;
+}
+.mobile-menu2 >.table a {
+    color:#fff !important;
 }
 
 /*-----2.7 owl carousel---------*/
