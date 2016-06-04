@@ -526,7 +526,7 @@ if ($detect->isMobile()) {
                 ?>
             </ul>
             <div class="table-responsive mobile-menu2">
-                <table class="table">
+                <table class="table" style="margin-bottom:0px;">
                     <tr>
                         <?php
                         for ($i = 0; $i < $db_sortCode_count; $i++) {

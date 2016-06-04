@@ -265,7 +265,7 @@ if ($mod == "goods") {
                             </tr>';
                         }
                     }
-        $html .=        '</tbody>    
+                    $html .= '</tbody>    
                     </table>
                 </div>
                 <div style="margin-top:40px;"></div>
