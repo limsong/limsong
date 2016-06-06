@@ -637,72 +637,50 @@ $name2 = $_GET["name2"];
                         </ul>
                         <div class="con tab-content">
                             <!-- 상품 상세정보 -->
-                            <div id="pr-description">
+                            <ul>
+                            <li id="pr-description">
                                 <h4>상품상세설명</h4><br>
                                 <?= $db_goodsArr[0]["comment"] ?>
-                            </div>
-                            <div id="pr-reviews">
+                            </li>
+                            <li id="pr-reviews">
                                 <!-- 유저 리뷰어 -->
                                 <br><br><br><br><br><h4>상품리뷰어</h4><br>
-                                <?php
-                                for ($i = 0; $i < $count; $i++) {
-                                    $bbs_ext1 = $db_tbl_qna_query[$i]["bbs_ext1"];
-                                    $user_id = $db_tbl_qna_query[$i]["user_id"];
-                                    $comment = $db_tbl_qna_query[$i]["comment"];
-                                    $qna_reg_date = date("Y.m.d", strtotime($db_tbl_qna_query[$i]["qna_reg_date"]));
-                                    ?>
-                                    <div class="comment-a">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="col-md-3">평가</th>
-                                                    <th class="col-md-3">작성자/작성일</th>
-                                                    <th class="col-md-6">구매후기</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <?php
-                                                        for ($j = 0; $j < $bbs_ext1; $j++) {
-                                                            echo '<i class="fa fa-star"></i>';
-                                                        }
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <strong><?= $user_id ?></strong> &ndash; <?= $qna_reg_date ?>
-                                                    </td>
-                                                    <td>
-                                                        <?=$comment?>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <!--<img src="img/user-1.jpg" alt="">
-                                        <div class="comment-text">
-                                            <div class="rating">
+                                <div class="comment-a">
+                                    <table class="table">
+                                        <tr>
+                                            <td width="100">평가</td>
+                                            <td width="200">작성자/작성일</td>
+                                            <td width="*">구매후기</td>
+                                        </tr>
+                                        <?php
+                                        for ($i = 0; $i < $count; $i++) {
+                                            $bbs_ext1 = $db_tbl_qna_query[$i]["bbs_ext1"];
+                                            $user_id = $db_tbl_qna_query[$i]["user_id"];
+                                            $comment = $db_tbl_qna_query[$i]["comment"];
+                                            $qna_reg_date = date("Y.m.d", strtotime($db_tbl_qna_query[$i]["qna_reg_date"]));
+                                        ?>
+                                        <tr>
+                                            <td>
                                                 <?php
-/*                                                    for ($j = 0; $j < $bbs_ext1; $j++) {
+                                                for ($j = 0; $j < $bbs_ext1; $j++) {
                                                     echo '<i class="fa fa-star"></i>';
                                                 }
-                                                */?>
-                                            </div>
-                                            <p class="meta">
-                                                <strong><?/*= $user_id */?></strong> &ndash; <?/*= $qna_reg_date */?>
-                                            </p>
-                                            <div class="pro-com-des">
-                                                <p>
-                                                    <?/*= nl2br($comment) */?>
-                                                </p>
-                                            </div>
-                                        </div>-->
-                                    </div>
-                                    <?
-                                }
-                                ?>
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <strong><?= $user_id ?></strong> &ndash; <?= $qna_reg_date ?>
+                                            </td>
+                                            <td>
+                                                <div class="review-msg"><?=$comment?></div>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </table>
+                                </div>
                                 <div class="add-review">
-                                    <form name="form-review" method="post" class="form-review"
-                                          action="goodsReview.php" target="action_frame">
+                                    <form name="form-review" method="post" class="form-review" action="goodsReview.php" target="action_frame">
                                         <input type="hidden" name="goods_code" value="<?= $goods_code ?>">
                                         <p class="comment-form-rating">
                                         <fieldset class="rating">
@@ -727,8 +705,8 @@ $name2 = $_GET["name2"];
                                         </p>
                                     </form>
                                 </div>
-                            </div>
-                            <div id="pr-qna">
+                            </li>
+                            <li id="pr-qna">
                                 <!-- 상품Q&A -->
                                 <br><br><br><br><br><h4>상품Q&A</h4><br>
                                 <div style="float: right;">
@@ -780,8 +758,8 @@ $name2 = $_GET["name2"];
                                     }
                                     ?>
                                 </table>
-                            </div>
-                            <div id="pr-info">
+                            </li>
+                            <li id="pr-info">
                                 <!-- 교환/반품/배송안내 -->
                                 <br><br><br><br><br><h4>교환/반품/배송안내</h4><br>
                                 <dl class="prdt_detail_list">
@@ -886,7 +864,8 @@ $name2 = $_GET["name2"];
                                         </ul>
                                     </dd>
                                 </dl>
-                            </div>
+                            </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -1419,7 +1398,7 @@ $name2 = $_GET["name2"];
             $( window ).scroll( function() {
                 if ( $( document ).scrollTop() > jbOffset.top ) {
                     $( '#header' ).addClass( 'jbFixed' );
-                    if($( document ).scrollTop() >= (pr_description.top - 50) && $( document ).scrollTop() < pr_reviews.top){
+                    /*if($( document ).scrollTop() >= (pr_description.top - 50) && $( document ).scrollTop() < pr_reviews.top){
                         $("#header").find(".jbmenu").each(function(){
                             $(this).removeClass("active");
                         });
@@ -1442,7 +1421,7 @@ $name2 = $_GET["name2"];
                             $(this).removeClass("active");
                         });
                         $(".pr-info").addClass("active");
-                    }
+                    }*/
                 }
                 else {
                     $( '#header' ).removeClass( 'jbFixed' );
