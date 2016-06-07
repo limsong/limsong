@@ -5,8 +5,8 @@
  * Date: 16. 4. 28
  * Time: 오후 12:12
  */
-include_once ("session.php");
-include_once ("include/check.php");
+include_once("session.php");
+include_once("include/check.php");
 include_once("include/config.php");
 include_once("include/sqlcon.php");
 
@@ -21,9 +21,14 @@ $goods_code = $db_goods[0]["goods_code"];
 $db->query("SELECT ImageName FROM upload_timages WHERE goods_code='$goods_code'");
 $db_upload_timages = $db->loadRows();
 $tImageName = $db_upload_timages[0]["ImageName"];
+if ($tImageName == "") {
+    $db->query("SELECT ImageName FROM upload_simages WHERE goods_code='$goods_code'");
+    $db_upload_timages = $db->loadRows();
+    $tImageName = $db_upload_timages[0]["ImageName"];
+}
 //<script src="js/tinymce/tinymce.min.js"></script>
 if ($tdata != "goods_review") {
-        $html = '
+    $html = '
     <div class="cart-area-wrapper table-responsive">
     <form name="cancelForm" class="cancelForm" action="bbsPost.php" method="post">
         <input type="hidden" name="mod" value="' . $mod . '">
@@ -66,40 +71,40 @@ if ($tdata != "goods_review") {
                 <tr>
                     <td style="border-left:0px;">선택사항</td>
                     <td style="border-right:0px;text-align:left;">
-                        <input type="checkbox" value="1" name="bbs_secret"><lable>비공개</lable>
+                        <lable for="se1"><input type="checkbox" value="1" name="bbs_secret" id="se1">비공개</lable>
                     </td>
                 </tr>
             </tbody>
         </table>
     </form>';
-/*        $html .= "
-<script>
-        tinymce.init({
-            selector: \"textarea#elm1\",
-            language : \"ko_KR\",
-            theme: \"modern\",
-            menubar: false, 
-            height:300,
-            plugins: [
-                \"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker\",
-                \"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking\",
-                \"save table contextmenu directionality emoticons template paste textcolor\"
-            ],
-            toolbar: \"insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | preview\",
-            style_formats: [
-                {title: 'Bold text', inline: 'b'},
-                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-                {title: 'Example 1', inline: 'span', classes: 'example1'},
-                {title: 'Example 2', inline: 'span', classes: 'example2'},
-                {title: 'Table styles'},
-                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-            ]
-    });
-    </script>
-";*/
+    /*        $html .= "
+    <script>
+            tinymce.init({
+                selector: \"textarea#elm1\",
+                language : \"ko_KR\",
+                theme: \"modern\",
+                menubar: false,
+                height:300,
+                plugins: [
+                    \"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker\",
+                    \"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking\",
+                    \"save table contextmenu directionality emoticons template paste textcolor\"
+                ],
+                toolbar: \"insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | preview\",
+                style_formats: [
+                    {title: 'Bold text', inline: 'b'},
+                    {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                    {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                    {title: 'Example 1', inline: 'span', classes: 'example1'},
+                    {title: 'Example 2', inline: 'span', classes: 'example2'},
+                    {title: 'Table styles'},
+                    {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                ]
+        });
+        </script>
+    ";*/
 } else {
-        $html = '
+    $html = '
     <div class="cart-area-wrapper table-responsive">
     <form name="cancelForm" class="cancelForm" action="bbsreviewPost.php" method="post">
         <input type="hidden" name="mod" value="' . $mod . '">

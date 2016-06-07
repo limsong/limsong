@@ -19,15 +19,15 @@ $qna_reg_date = date("Y-m-d H:i:s", time());
 $db->query("SELECT uid FROM tbl_bbs WHERE user_id='$uname' AND goods_code='$goods_code'");
 $db_tbl_bbs_query = $db->loadRows();
 $count = count($db_tbl_bbs_query);
-//if ($count > 0) {
+if ($count > 0) {
     ?>
-    <!--<body class="home-1 shop-page sin-product-page">
+    <body class="home-1 shop-page sin-product-page">
         <script>
             alert("리뷰어는 한번만 등록 가능합니다.");
         </script>
-    </body></html>-->
-    <?php
-//} else {
+    </body></html>
+<?php
+} else {
     $db->query("INSERT INTO tbl_bbs (goods_code,user_id,qna_mod,bbs_ext1,comment,qna_reg_date,ipinfo) VALUES ('$goods_code','$uname','2','$rating','$review_com','$qna_reg_date','$ipinfo')");
     ?>
     <body class="home-1 shop-page sin-product-page">
@@ -37,6 +37,6 @@ $count = count($db_tbl_bbs_query);
         </script>
     </body></html>
     <?
-//}
+}
 $db->disconnect();
 ?>

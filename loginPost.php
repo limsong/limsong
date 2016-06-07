@@ -18,19 +18,17 @@ if(!empty($in_uname) && !empty($in_upasswd)){
         //mysql_query($query) or die(mysql_error());
         $db->query("UPDATE shopMembers SET lastlogin='$lastlogin' WHERE id='$in_uname'");
         //mysql_query($query) or die(mysql_error());
+        include_once("get_cookie.php");
         $db->disconnect();
-        //echo("success");
-        //echo $url;
         echo '<script language="javascript">window.top.document.location.href="'.$url.'";</script>';
         header("Location:$url");
     }else{
-        //echo "1";
         echo "<script language='javascript'>window.top.document.location.href='login.php';</script>";
         header("Location: /login.php");
     }
 }else{
-    echo "2";
     echo "<script language='javascript'>window.top.document.location.href='login.php';</script>";
     header("Location: /login.php");
 }
+
 ?>

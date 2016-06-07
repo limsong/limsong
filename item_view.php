@@ -47,7 +47,7 @@ $name2 = $_GET["name2"];
             position: fixed;
             top: 0px;
             left: 0px;
-            z-index: 2000;
+            z-index: 1049;
         }
     </style>
     <!--HEADER AREA END-->
@@ -166,7 +166,7 @@ $name2 = $_GET["name2"];
                             <?
                             }else{
                             ?>
-                                <div class="single-zoom-thumb">
+                                <div class="single-zoom-thumb hidden-sm hidden-xs hidden-md">
                                     <ul class="zoom-slider" id="gallery_01">
                                         <?php
                                         $count = count($db_upload_timagesArr);
@@ -429,8 +429,7 @@ $name2 = $_GET["name2"];
                                         $count = count($goods_optionQuery);
                                         if ($count > 0) {
                                             ?>
-                                            <div class="col-md-12"
-                                                 style="border-bottom:1px dotted #aaa;margin:5px 0px;"></div>
+                                            <div class="col-md-12" style="border-bottom:1px dotted #aaa;margin:5px 0px;"></div>
                                             <div class="col-md-12" style="padding: 0px;">
                                                 -추가구매를 원하시면 추가옵션을 선택하세요
                                             </div>
@@ -612,10 +611,10 @@ $name2 = $_GET["name2"];
                 <div class="col-md-12">
                     <div class="review-wrapper">
                         <ul id="header" class="review-menu">
-                            <li class="active col-md-3 pr-description jbmenu">
+                            <li class="active col-xs-4 col-md-3 pr-description jbmenu">
                                 <a data-toggle="tab" href="#pr-description">상품상세정보</a>
                             </li>
-                            <li class="col-md-3 pr-reviews jbmenu">
+                            <li class="col-xs-4 col-md-3 pr-reviews jbmenu">
                                 <?php
                                 $db->query("SElECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='2'");
                                 $db_tbl_qna_query = $db->loadRows();
@@ -623,7 +622,7 @@ $name2 = $_GET["name2"];
                                 ?>
                                 <a data-toggle="tab" href="#pr-reviews">상품리뷰(<?= $count ?>)</a>
                             </li>
-                            <li class="col-md-3 pr-qna jbmenu">
+                            <li class="col-xs-4 col-md-3 pr-qna jbmenu">
                                 <?php
                                 $db->query("SELECT * FROM tbl_bbs WHERE goods_code='$goods_code' AND qna_mod='0'");
                                 $dbdata = $db->loadRows();
@@ -631,7 +630,7 @@ $name2 = $_GET["name2"];
                                 ?>
                                 <a data-toggle="tab" href="#pr-qna">상품 Q&A(<?=$qna_count?>)</a>
                             </li>
-                            <li class="col-md-3 pr-info jbmenu">
+                            <li class="hidden-md hidden-xs hidden-sm col-md-3 pr-info jbmenu">
                                 <a data-toggle="tab" href="#pr-info">교환/반품/배송안내</a>
                             </li>
                         </ul>
@@ -646,6 +645,9 @@ $name2 = $_GET["name2"];
                                 <!-- 유저 리뷰어 -->
                                 <br><br><br><br><br><h4>상품리뷰어</h4><br>
                                 <div class="comment-a">
+                                    <?php
+                                    if($device == "pc"){
+                                    ?>
                                     <table class="table">
                                         <tr>
                                             <td width="100">평가</td>
@@ -678,6 +680,45 @@ $name2 = $_GET["name2"];
                                         }
                                         ?>
                                     </table>
+                                    <?php
+                                    }elseif($device=="mobile"){
+                                    ?>
+                                    <table class="table">
+                                        <colgroup>
+                                            <col width="100">
+                                            <col width="*">
+                                        </colgroup>
+                                        <?php
+                                        for ($i = 0; $i < $count; $i++) {
+                                            $bbs_ext1 = $db_tbl_qna_query[$i]["bbs_ext1"];
+                                            $user_id = $db_tbl_qna_query[$i]["user_id"];
+                                            $comment = $db_tbl_qna_query[$i]["comment"];
+                                            $qna_reg_date = date("Y.m.d", strtotime($db_tbl_qna_query[$i]["qna_reg_date"]));
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <?php
+                                                    for ($j = 0; $j < $bbs_ext1; $j++) {
+                                                        echo '<i class="fa fa-star"></i>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <strong><?= $user_id ?></strong> &ndash; <?= $qna_reg_date ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="review-msg"><?=$comment?></div>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
+                                    </table>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
                                 <div class="add-review">
                                     <form name="form-review" method="post" class="form-review" action="goodsReview.php" target="action_frame">
@@ -712,6 +753,9 @@ $name2 = $_GET["name2"];
                                 <div style="float: right;">
                                     <button type="button" class="btn btn-sm btn-default waves-effect waves-light bbs" mod="buy_goods" data="goods_qna" goods-seq="<?=$goods_seq_main?>" buy-goods-seq="">상품문의</button>
                                 </div>
+                                <?php
+                                if($device=="pc"){
+                                ?>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -758,6 +802,44 @@ $name2 = $_GET["name2"];
                                     }
                                     ?>
                                 </table>
+                                <?php
+                                }elseif($device=="mobile"){
+                                ?>
+                                <table class="table">
+                                    <?php
+                                    for ($i = 0; $i < $qna_count; $i++) {
+                                    $uid = $dbdata[$i]["uid"];
+                                    $buy_goods_seq = $dbdata[$i]["buy_goods_seq"];
+                                    $goods_seq = $dbdata[$i]["goods_seq"];
+                                    $user_id = $dbdata[$i]["user_id"];
+                                    $title = $dbdata[$i]["title"];
+                                    $comment = $dbdata[$i]["comment"];
+                                    $qna_reg_date = date("Y-m-d",strtotime($dbdata[$i]["qna_reg_date"]));
+                                    $cate_code = $dbdata[$i]["cate_code"];//배송관련,모델지원,환불관련,상품문의
+                                    $qna_status = $dbdata[$i]["qna_status"];
+                                    $qna_user_id = hideStr($dbdata[$i]["user_id"],2,4);
+                                    $bbs_secret = $dbdata[$i]["bbs_secret"];
+                                    if($bbs_secret=="0"){
+                                        $alink = '<a href="javascript:;" class="qna" data="'.$uid.'" buy-goods-seq="'.$buy_goods_seq.'" goods-seq="'.$goods_seq.'" data-mod="goods_qna">'.$title.'</a>';
+                                    }else{
+                                        $alink = "비밀글입니다.";
+                                    }
+
+                                    if($qna_status == 0){
+                                        $btn = '미답변';
+                                    }else{
+                                        $btn = '답변완료';
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?=$user_id?> <?= $qna_reg_date ?></td>
+                                        <td class="txt_ag_left"><?= $btn ?> <?=$alink?></td>
+                                    </tr>
+                                </table>
+                                <?php
+                                    }
+                                }
+                                ?>
                             </li>
                             <li id="pr-info">
                                 <!-- 교환/반품/배송안내 -->
@@ -1398,19 +1480,19 @@ $name2 = $_GET["name2"];
             $( window ).scroll( function() {
                 if ( $( document ).scrollTop() > jbOffset.top ) {
                     $( '#header' ).addClass( 'jbFixed' );
-                    /*if($( document ).scrollTop() >= (pr_description.top - 50) && $( document ).scrollTop() < pr_reviews.top){
+                    if($( document ).scrollTop() >= pr_description.top){
                         $("#header").find(".jbmenu").each(function(){
                             $(this).removeClass("active");
                         });
                         $(".pr-description").addClass("active");
                     }
-                    if($( document ).scrollTop() >= (pr_reviews.top - 50) && $( document ).scrollTop() < pr_qna.top){
+                    if($( document ).scrollTop() >= (pr_reviews.top - 50)){
                         $("#header").find(".jbmenu").each(function(){
                             $(this).removeClass("active");
                         });
                         $(".pr-reviews").addClass("active");
                     }
-                    if($( document ).scrollTop() >= (pr_qna.top - 50) && $( document ).scrollTop() < pr_info.top){
+                    if($( document ).scrollTop() >= (pr_qna.top - 54)){
                         $("#header").find(".jbmenu").each(function(){
                             $(this).removeClass("active");
                         });
@@ -1421,7 +1503,7 @@ $name2 = $_GET["name2"];
                             $(this).removeClass("active");
                         });
                         $(".pr-info").addClass("active");
-                    }*/
+                    }
                 }
                 else {
                     $( '#header' ).removeClass( 'jbFixed' );
@@ -1515,7 +1597,7 @@ $name2 = $_GET["name2"];
         }
 
         $("#header a").click(function(){
-            $("body").scrollTo($(this).attr("href"), 100);
+            $("body").scrollTo($(this).attr("href"), 0);
         });
     </script>
 </body>
