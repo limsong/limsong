@@ -319,10 +319,10 @@ if ($in_mode == 'modify') {
             $num2 = count($arropValue1_1);
             for ($k = 0; $k < $num2; $k++) {
                 if ($mod == false) {
-                    @$sql .= "('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
+                    @$sql = "('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
                     $mod = true;
                 } else {
-                    @$sql .= ",('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
+                    $sql .=",('$in_goods_code','$opName3Arr[$i]','$arropName4_1[$k]','$arropValue1_1[$k]','$arropValue2_2[$k]','$arrqt1[$k]','$in_good_opt_reg_date')";
                 }
             }
         }

@@ -178,7 +178,7 @@ if($total_record==0) {
                 </li>
                 <li>
                     <input type="button" value=" 상품추가 " class="memEleB" onclick="parent.location.href='brandWrite.php'" />
-                    <input type="button" value=" 상품삭제  " class="memEleB" onclick="parent.brandListDel(document.brandForm)" />
+                    <input type="button" value=" 상품삭제 " class="memEleB" onclick="parent.brandListDel(document.brandForm)" />
                 </li>
                 <!--
                 <li>

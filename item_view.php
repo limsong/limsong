@@ -229,7 +229,7 @@ $name2 = $_GET["name2"];
                             *적립금형태 (mileage type) - 0:% ,1:원
                             * goods_mile_flag
                             */
-                            $db->query("SELECT id,goods_code,goods_opt_Num,goods_name,commonPrice,sellPrice,sb_sale,summary,comment,goods_opt_type,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_dlv_unit,goods_dlv_value,goods_mile,goods_mile_flag FROM goods WHERE goods_code='$goods_code'");
+                            $db->query("SELECT id,goods_code,goods_opt_Num,goods_name,commonPrice,sellPrice,sb_sale,summary,comment,goods_opt_type,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_dlv_unit,goods_dlv_value,goods_mile,goods_mile_flag,goods_stock_type,goods_stock FROM goods WHERE goods_code='$goods_code'");
                             $db_goodsArr = $db->loadRows();
                             $goods_seq_main = $db_goodsArr[0]["id"];
                             $goods_dlv_special = $db_goodsArr[0]["goods_dlv_special"];
@@ -238,6 +238,8 @@ $name2 = $_GET["name2"];
                             $goods_mile = $db_goodsArr[0]["goods_mile"];//적립금
                             $goods_mile_flag = $db_goodsArr[0]["goods_mile_flag"];//적립금형태 (mileage type) - 0:% ,1:원
                             $sb_sale = (100 - $db_goodsArr[0]["sb_sale"]) / 100;
+                            $goods_stock_type= $db_goodsArr[0]["goods_stock_type"];
+                            $goods_stock = $db_goodsArr[0]["goods_stock"];
                             if ($goods_mile_flag == "0") {
                                 $goods_mile_flag = "%";
                             } else {
@@ -517,66 +519,84 @@ $name2 = $_GET["name2"];
                                         <?
                                     }
                                     if ($db_goodsArr[0]["goods_opt_type"] == "0") {
-                                        ?>
-                                        <div class="col-md-12 m-item">
-                                            <div class="col-md-12 cm12 option_box">
-                                                <div class="col-md-12" style="margin:5px 0px;"></div>
-                                                <input type="hidden" name="itemid"
-                                                       value="<?php echo $db_goodsArr[0]["id"] ?>">
-                                                <div class="col-md-6 cm12" style="padding:0px;"></div>
-                                                <div class="col-md-3 cm6" style="padding:0px;">
-                                                    <div class="col-md-4 cm4"
-                                                         style="background-color:white;padding:0px;text-align:center;">
-                                                        <i class="fa fa-minus item-minus"></i>
-                                                    </div>
-                                                    <div class="col-md-4 cm4" style="padding:0px;text-align:center;">
-                                                        <input type="text" name="itemnum" class="item_num" value="1">
-                                                    </div>
-                                                    <div class="col-md-4 cm4"
-                                                         style="background-color:white;padding:0px;text-align:center;">
-                                                        <i class="fa fa-plus item-plus"></i>
+                                        if($goods_stock_type !="1"){
+                                            if($goods_stock>0 || $goods_stock_type=="0") {
+                                                ?>
+                                                <div class="col-md-12 m-item">
+                                                    <div class="col-md-12 cm12 option_box">
+                                                        <div class="col-md-12" style="margin:5px 0px;"></div>
+                                                        <input type="hidden" name="itemid"
+                                                               value="<?php echo $db_goodsArr[0]["id"] ?>">
+                                                        <div class="col-md-6 cm12" style="padding:0px;"></div>
+                                                        <div class="col-md-3 cm6" style="padding:0px;">
+                                                            <div class="col-md-4 cm4"
+                                                                 style="background-color:white;padding:0px;text-align:center;">
+                                                                <i class="fa fa-minus item-minus"></i>
+                                                            </div>
+                                                            <div class="col-md-4 cm4"
+                                                                 style="padding:0px;text-align:center;">
+                                                                <input type="text" name="itemnum" class="item_num"
+                                                                       value="1">
+                                                            </div>
+                                                            <div class="col-md-4 cm4"
+                                                                 style="background-color:white;padding:0px;text-align:center;">
+                                                                <i class="fa fa-plus item-plus"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 cm6" style="text-align:right;padding:0px;">
+                                                            <span data="<?= $db_goodsArr[0]["sellPrice"] * $sb_sale ?>"
+                                                                  class="sub_pric"><?= number_format($db_goodsArr[0]["sellPrice"] * $sb_sale) ?></span>
+                                                            <span style="color:#e26a6a;">원</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 cm6" style="text-align:right;padding:0px;">
-                                                    <span data="<?= $db_goodsArr[0]["sellPrice"] * $sb_sale ?>"
-                                                          class="sub_pric"><?= number_format($db_goodsArr[0]["sellPrice"] * $sb_sale) ?></span>
-                                                    <span style="color:#e26a6a;">원</span>
+
+                                                <div class="col-xs-12 col-md-12 total" style="display: inline;">
+                                                    <div class="col-md-6 cm6">
+                                                        <span
+                                                            style="font-size:12px;font-weight:bold;color:#333;">총 합계금액
+                                                        </span>
+                                                        <span style="font-size:12px;color:#000;">(수량)</span>
+                                                    </div>
+                                                    <div class="col-md-6 cm6" style="text-align:right;">
+                                                        <span class="totalSum"
+                                                              data="<?= $db_goodsArr[0]["sellPrice"] * $sb_sale ?>"
+                                                              style="font-size:17px;color:#e26a6a;font-weight:bold;"><?= number_format($db_goodsArr[0]["sellPrice"] * $sb_sale) ?></span>
+                                                        <span style="color:#e26a6a;">원(
+                                                            <span class="totalNum">1</span>
+                                                            개)
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-xs-12 col-md-12 total" style="display: inline;">
-                                            <div class="col-md-6 cm6">
-                                                <span style="font-size:12px;font-weight:bold;color:#333;">총 합계금액</span>
-                                                <span style="font-size:12px;color:#000;">(수량)</span>
-                                            </div>
-                                            <div class="col-md-6 cm6" style="text-align:right;">
-                                                <span class="totalSum"
-                                                      data="<?= $db_goodsArr[0]["sellPrice"] * $sb_sale ?>"
-                                                      style="font-size:17px;color:#e26a6a;font-weight:bold;"><?= number_format($db_goodsArr[0]["sellPrice"] * $sb_sale) ?></span>
-                                                <span style="color:#e26a6a;">원(
-                                                    <span class="totalNum">1</span>
-                                                    개)
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="actions" style="text-align: right;">
-                                            <span class="pro-add-to-cart">
-                                                <button type="button"
-                                                        class="addbasket btn btn-danger waves-effect waves-light"
-                                                        data="item_<?= $goods_code ?>">Add To Cart
-                                                </button>
-                                            </span>
-                                            <span class="pro-buy-no">
-                                                <? if($uname==""){$str='onclick="location.href=\'login.php\'"';$class="";} else {$class="addbasket";} ?>
-                                                <button type="button" <?=$str?>
-                                                        class="<?=$class?> btn btn-purple waves-effect waves-light"
-                                                        data="item_<?php echo $goods_code ?>" data-mod="buynow">Buy Now
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <?
+                                                <div class="actions" style="text-align: right;">
+                                                    <span class="pro-add-to-cart">
+                                                        <button type="button"
+                                                                class="addbasket btn btn-danger waves-effect waves-light"
+                                                                data="item_<?= $goods_code ?>">Add To Cart
+                                                        </button>
+                                                    </span>
+                                                    <span class="pro-buy-no">
+                                                        <? if ($uname == "") {
+                                                            $str = 'onclick="location.href=\'login.php\'"';
+                                                            $class = "";
+                                                        } else {
+                                                            $class = "addbasket";
+                                                        } ?>
+                                                        <button type="button" <?= $str ?>
+                                                                class="<?= $class ?> btn btn-purple waves-effect waves-light"
+                                                                data="item_<?php echo $goods_code ?>"
+                                                                data-mod="buynow">Buy Now
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                                <?
+                                            }else{
+                                                echo '<div class="col-md-12 m-item"><h3 style="text-align: center;" class="no-margin no-padding">품절</h3></div>';
+                                            }
+                                        }else{
+                                            echo '<div class="col-md-12 m-item"><h3 style="text-align: center;" class="no-margin no-padding">품절</h3></div>';
+                                        }
                                     }
                                     ?>
                                     <div class="actions product-wish-compare" style="text-align: right;">

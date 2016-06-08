@@ -1,6 +1,6 @@
 .sortBigBox {
 	float:left;
-	margin:2px;
+	/*margin:2px;*/
 	display:inline;
 	width:100%;
 }
@@ -20,10 +20,13 @@
 }
 .sortBigBox .depth1 {
 	float:left;
-	width:33%;
-	margin:0px 1px 0px 0px;
+	width:33.233%;
+	/*margin:0px 1px 0px 0px;*/
 	display:inline;
-	border:1px solid #98C0F4;
+	border-right:1px solid #98C0F4;
+	height:150px;
+	overflow: hidden;
+	overflow-y: auto;
 }
 .sortMidBox .depth2 {
 	clear:both;

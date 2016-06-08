@@ -16,7 +16,7 @@ TRUNCATE TABLE `goods_option`;
 $debug = true;
 //0 옵션 없음 1일반옵션 2 가격선택 옵션
 $goods_option_type = 2;
-$optNum = "2";
+$optNum = "3";
 if ($debug == true) {
     $goods_name = "옵션없음";
     if ($goods_option_type == 0) {
@@ -49,11 +49,11 @@ if ($debug == true) {
         }
 
     }
-    $optionName1 = "신끈/깔창";
-    $optionName2 = "블루;블랙/5mm;10mm";
-    $optionValue1 = "2500;2500/12000;13000";
-    $optionValue2 = "2500;2500/12000;13000";
-    $optionQt = "200;200/200;200";
+    $optionName1 = "aaaaaaa/bbbbbbb/cccccc/dddddd/eeeeeee/fffffff/ggggggg/hhhhhhhh";
+    $optionName2 = "aaaaa1;aaaaa2/bbbbbb1;bbbbbb2/ccccc1;ccccc2/dddd1;ddddd2/eeeeee1;eeeeee2/fffff1;fffff2/ggggg1;ggggg2/hhhhh1;hhhhh2";
+    $optionValue1 = "1111;1111/222;222/333;3333/4444;4444/5555;5555/66666;66666/77777;777777/88888;88888";
+    $optionValue2 = "1111;1111/222;222/333;3333/4444;4444/5555;5555/66666;66666/77777;777777/88888;88888";
+    $optionQt = "1111;1111/222;222/333;3333/4444;4444/5555;5555/66666;66666/77777;777777/88888;88888";
 }
 ?>
 <!DOCTYPE html>
@@ -66,7 +66,6 @@ if ($debug == true) {
         <link rel="stylesheet" type="text/css" href="css/goodsSortManageBrand.css"/>
         <link rel="stylesheet" type="text/css" href="css/brandWrite.css"/>
         <link rel="stylesheet" type="text/css" href="css/mask.css"/>
-        <script type="text/javascript" src="assets/plugins/jquery-1.10.2.min.js"></script>
         <!--
         <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="ckfinder/ckfinder.js"></script>
@@ -78,8 +77,7 @@ if ($debug == true) {
             <div id="main" style="width: 100%;">
                 <div id="loading-mask" style="background-color: #191919;"></div>
                 <div id="loading" style="top:80%;">
-                    <img src="img/extanim32.gif" width="32" height="32"
-                         style="margin-right:8px;float:left;vertical-align:top;"/>
+                    <img src="img/extanim32.gif" width="32" height="32" style="margin-right:8px;float:left;vertical-align:top;"/>
                 </div>
                 <h4 id="mainTitle">상품 정보 입력</h4>
                 <ul class="sortBigBox" id="sortBox">
@@ -165,45 +163,38 @@ if ($debug == true) {
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" value="<?= @$goods_name ?>" name="goods_name" id="goods_name"
-                                   class="inputItem" style="width:100%;"/>
+                            <input type="text" value="<?= @$goods_name ?>" name="goods_name" id="goods_name" class="inputItem" style="width:100%;"/>
                         </dd>
                         <dt class="option_name">옵션명1
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd option_name">
-                            <input type="text" value="<?= @$goods_opName1 ?>" name="opName1" id="opName1"
-                                   class="inputItem goods_option_inp" style="width:100%;"/>
+                            <input type="text" value="<?= @$goods_opName1 ?>" name="opName1" id="opName1" class="inputItem goods_option_inp" style="width:100%;"/>
                         </dd>
                         <dt class="option_name">옵션명2
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd option_name">
-                            <input type="text" value="<?= @$goods_opName2 ?>" name="opName2" id="opName2"
-                                   class="inputItem goods_option_inp" style="width:100%;"/>
+                            <input type="text" value="<?= @$goods_opName2 ?>" name="opName2" id="opName2" class="inputItem goods_option_inp" style="width:100%;"/>
                         </dd>
                         <dt>시장가/정찰가
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" value="<?= @$commonPrice ?>" name="commonPrice" id="commonPrice"
-                                   class="inputItem goods_option_inp" style="width:100%;"/>
+                            <input type="text" value="<?= @$commonPrice ?>" name="commonPrice" id="commonPrice" class="inputItem goods_option_inp" style="width:100%;"/>
                         </dd>
                         <dt>판매가격
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" value="<?= @$sellPrice ?>" name="sellPrice" id="sellPrice"
-                                   class="inputItem goods_option_inp" style="width:100%;"/>
+                            <input type="text" value="<?= @$sellPrice ?>" name="sellPrice" id="sellPrice" class="inputItem goods_option_inp" style="width:100%;"/>
                         </dd>
                         <dt>재고
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" name="qta" value="<?= @$qta ?>" id="qta"
-                                   class="inputItem goods_option_inp" style="width:80%;"/>
-                            <input type="Button" class="memEleB DateBoxa" data="option1" style="width:150px;"
-                                   value="가격.재고 설정하기"/>
+                            <input type="text" name="qta" value="<?= @$qta ?>" id="qta" class="inputItem goods_option_inp" style="width:80%;"/>
+                            <input type="Button" class="memEleB DateBoxa" data="option1" style="width:150px;" value="가격.재고 설정하기"/>
                             <div id="qtBoxa"></div>
                         </dd>
                         <dt>재고처리 종류</dt>

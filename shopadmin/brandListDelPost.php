@@ -1,7 +1,7 @@
 <?
 include("common/config.shop.php");
 $arrgoods_code=explode("|",$_GET["goods_codeGroup"]);
-$tabArr = array("goods","goods_option","optionName","optionValue","upload_timages","upload_simages","upload_mimages","upload_bimages");
+$tabArr = array("goods","goods_option","goods_option_grid_name","goods_option_grid_value","goods_option_single_name","goods_option_single_value","upload_timages","upload_simages","upload_mimages","upload_bimages");
 $tabArrCount = count($tabArr);
 $tabImgArr = array("upload_timages","upload_simages","upload_mimages","upload_bimages");
 $tabImgArrCount = count($tabImgArr);

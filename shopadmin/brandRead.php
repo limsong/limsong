@@ -64,7 +64,7 @@ if ($ou_goods_opt_type == "0") {
 
         }
     }
-    $goods_option_single_value_Query = "SELECT * FROM goods_option_single_value WHERE goods_code='$ou_goods_code'";
+    $goods_option_single_value_Query = "SELECT * FROM goods_option_single_value WHERE goods_code='$ou_goods_code' order by id asc";
     $goods_option_single_value_Result = mysql_query($goods_option_single_value_Query) or die($goods_option_single_value_Query);
     $i = 0;
     while ($goods_option_single_value_Rows = mysql_fetch_array($goods_option_single_value_Result)) {
@@ -111,7 +111,7 @@ if ($ou_goods_opt_type == "0") {
             }
         }
     }
-    $goods_option_grid_value_Query = "SELECT * FROM goods_option_grid_value WHERE goods_code='$ou_goods_code'";
+    $goods_option_grid_value_Query = "SELECT * FROM goods_option_grid_value WHERE goods_code='$ou_goods_code' order by id asc";
     $goods_option_grid_value_Result = mysql_query($goods_option_grid_value_Query) or die($goods_option_grid_value_Query);
     $i = 0;
     while ($goods_option_grid_value_Rows = mysql_fetch_array($goods_option_grid_value_Result)) {
@@ -131,7 +131,7 @@ if ($ou_goods_opt_type == "0") {
     $readonly = "";
 }
 
-$goods_option_Query = "SELECT opName1,opName2,opValue1,opValue2,quantity  FROM goods_option WHERE goods_code = '$ou_goods_code'";
+$goods_option_Query = "SELECT opName1,opName2,opValue1,opValue2,quantity  FROM goods_option WHERE goods_code = '$ou_goods_code' order by id asc";
 $goods_option_Result = mysql_query($goods_option_Query) or die($goods_option_Result);
 $i = 0;
 while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
@@ -770,7 +770,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         <input type="button" value=" 목록 " class="memEleB" onclick="location.href='brandList.php?key=<?= $key ?>&xcode=<?= $xcode ?>&mcode=<?= $mcode ?>&scode=<?= $scode ?>&keyfield=<?= $keyfield ?>'"/>
                     </div>
                 </form>
-                <iframe name="action_frame" width="99%" height="200" style="display:block;"></iframe>
+                <iframe name="action_frame" width="99%" height="200" style="display:none;"></iframe>
             </div>
         </div>
         <div id="light" class="white_content" onclick="closeBox()">asdadsa</div>
@@ -1062,11 +1062,13 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                     });
                                 });
                                 $(".del_single_op").click(function () {
+                                    var ccTmp = cc;
                                     if (moda == false) {
                                         var mod = $(this).attr("data");
                                         if (mod == "all") {
                                             var del_box = $(this).parent().parent().attr("class");
                                             $("." + del_box).remove();
+                                            return false;
                                         } else {
                                             $(this).parent().parent().remove();
                                         }
@@ -1077,8 +1079,10 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                             $(".transQn").trigger("click");
                                             $(".DateBox").trigger("click");
                                         }
+
                                         moda = true;
                                     }
+                                    cc = ccTmp;
                                 });
                                 ins_htm = "";
                                 if (mod == "a") {
@@ -1151,6 +1155,13 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             $("#commonPrice").val("");
                             $("#sellPrice").val("");
                             $("#qta").val("");
+                        }
+                        if ($("#DateBox_add tr").length == 1) {
+                            $("#opName3").val("");
+                            $("#opName4").val("");
+                            $("#opValue1").val("");
+                            $("#opValue2").val("");
+                            $("#qt").val("");
                         }
                         if (str == "a") {
                             var num = cc;

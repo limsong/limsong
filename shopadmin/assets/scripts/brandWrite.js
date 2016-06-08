@@ -227,6 +227,7 @@ $(document).ready(function () {
                         });
                     });
                     $(".del_single_op").click(function () {
+                        var ccTmp = cc;
                         if (moda == false) {
                             var mod = $(this).attr("data");
                             if (mod == "all") {
@@ -246,6 +247,7 @@ $(document).ready(function () {
 
                             moda = true;
                         }
+                        cc = ccTmp;
                     });
                     ins_htm = "";
                     if (mod == "a") {
