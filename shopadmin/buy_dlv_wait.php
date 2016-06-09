@@ -200,7 +200,6 @@
                         <option value="buy_code">주문번호</option>
                   </select>
                   <input type="submit" class="memEleB" value="검색"/>
-                  <input type="button" class="memEleB" value="삭제" name="delete" onclick="orderListDel(document.orderListForm)"/>
             </li>
       </ul>
 </form>

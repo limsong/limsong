@@ -151,7 +151,6 @@
                           <option value="buy_goods_dlv_tag_no">송장번호</option>
                   </select>
                   <input type="submit" class="memEleB" value="검색"/>
-                  <input type="button" class="memEleB" value="삭제" name="delete" onclick="orderListDel(document.orderListForm)"/>
             </li>
       </ul>
 </form>

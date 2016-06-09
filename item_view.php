@@ -49,6 +49,9 @@ $name2 = $_GET["name2"];
             left: 0px;
             z-index: 1049;
         }
+        .jbmenu a{
+            font-size:12px;
+        }
     </style>
     <!--HEADER AREA END-->
     <!--BREADCRUMB AREA START-->
