@@ -1,5 +1,6 @@
 <?php
 //header('Content-Type: text/html; charset=utf-8');
+include_once ("session.php");
 include("common/config.shop.php");
 include("check.php");
 $debug = false;

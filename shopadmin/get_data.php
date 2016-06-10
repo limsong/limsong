@@ -151,7 +151,7 @@ if ($mod == "goods") {
                                                 <td width="55" rowspan="2"><img src="' . $imgSrc . '" class="imgborder" width="50" height="50"></td>
                                                 <td align="left">
                                                     <span style="color:gray;">&nbsp;' . $ordernum . '<br></span>
-                                                    &nbsp;<a href="/item_view.php?code=" target="_blank"><u>' . $goods_name . '</u></a>';
+                                                    &nbsp;<a href="/item_view.php?code='.$goods_code.'" target="_blank"><u>' . $goods_name . '</u></a>';
                                                     $buy_goods_query2="select * from buy_goods where buy_goods_code='$goods_code' and buy_seq='$buy_seq'";
                                                     $buy_goods_result2 = mysql_query($buy_goods_query2) or die("get_data buy_goods_query2");
                                                     $total_buy_count="";
@@ -160,6 +160,7 @@ if ($mod == "goods") {
                                                     while ($buy_goods_row2=mysql_fetch_array($buy_goods_result2)) {
                                                         $buy_goods_code = $buy_goods_row2["buy_goods_code"];
                                                         $buy_goods_count = $buy_goods_row2["buy_goods_count"];//구매상품 개수
+                                                        $buy_goods_option = $buy_goods_row2["buy_goods_option"];
                                                         if($total_buy_count==""){
                                                             $total_buy_count = $buy_goods_count;
                                                         }else{
@@ -171,52 +172,80 @@ if ($mod == "goods") {
                                                         if ($goods_opt_type == "0") {
                                                             //옵션없음
                                                             //기본상품 / 사이즈 : S / 색상 : 연두 / 1개(30, 000원
-                                                            $goods_info = "기본상품 ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
-                                                            $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
-                                                            $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                            if($buy_goods_option=="0") {
+                                                                $goods_info = "기본상품 " . $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";
+                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                $total_buy_goods_sale += ($buy_goods_price - $buy_goods_price_total) * $buy_goods_count;
+                                                            } else {
+                                                                //추가 옵션상품
+                                                                $goods_info = "추가옵션 / $buy_goods_name : $buy_goods_prefix / ". $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";;
+                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                            }
                                                         }elseif($goods_opt_type=="1"){
                                                             //일반옵션
-                                                            $buy_goods_name = $buy_goods_row2["buy_goods_name"];
-                                                            $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
-                                                            $goods_info = "기본상품 / $buy_goods_name : $buy_goods_prefix ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
-                                                            $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
-                                                            $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                            if($buy_goods_option == "0") {
+                                                                $buy_goods_name = $buy_goods_row2["buy_goods_name"];
+                                                                $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
+                                                                $goods_info = "기본상품 / $buy_goods_name : $buy_goods_prefix " . $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";
+                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                $total_buy_goods_sale += ($buy_goods_price - $buy_goods_price_total) * $buy_goods_count;
+                                                            } else {
+                                                                //추가 옵션상품
+                                                                $goods_info = "추가옵션 / $buy_goods_name : $buy_goods_prefix / ". $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";;
+                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                            }
                                                         }elseif($goods_opt_type=="2"){
                                                             //가격선택옵션
                                                             if($goods_opt_Num=="2"){
                                                                 //가격선택옵션2
-                                                                $buy_goods_name = $buy_goods_row2["buy_goods_name"];
-                                                                $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
-                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_name'";
-                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
-                                                                $opName1 = mysql_result($db_goods_grid_name_result,0,0);
+                                                                if($buy_goods_option == "0") {
+                                                                    $buy_goods_name = $buy_goods_row2["buy_goods_name"];
+                                                                    $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
+                                                                    $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_name'";
+                                                                    $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                    $opName1 = mysql_result($db_goods_grid_name_result, 0, 0);
 
-                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_prefix'";
-                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
-                                                                $opName2 = mysql_result($db_goods_grid_name_result,0,0);
-                                                                $goods_info = "기본상품 / $opName1 : $buy_goods_name / $opName2 : $buy_goods_prefix ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
-                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
-                                                                $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                                    $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_prefix'";
+                                                                    $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                    $opName2 = mysql_result($db_goods_grid_name_result, 0, 0);
+                                                                    $goods_info = "기본상품 / $opName1 : $buy_goods_name / $opName2 : $buy_goods_prefix " . $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";
+                                                                    $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                    $total_buy_goods_sale += ($buy_goods_price - $buy_goods_price_total) * $buy_goods_count;
+                                                                } else {
+                                                                    //추가 옵션상품
+                                                                    $goods_info = "추가옵션 / $buy_goods_name : $buy_goods_prefix / ". $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";;
+                                                                    $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                    $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                                }
                                                             }elseif($goods_opt_Num=="3"){
                                                                 //가격선택옵션3
-                                                                $buy_goods_name = $buy_goods_row2["buy_goods_name"];
-                                                                $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
-                                                                $buy_goods_suffix = $buy_goods_row2["buy_goods_suffix"];
-                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_name'";
-                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
-                                                                $opName1 = mysql_result($db_goods_grid_name_result,0,0);
+                                                                if($buy_goods_option == "0") {
+                                                                    $buy_goods_name = $buy_goods_row2["buy_goods_name"];
+                                                                    $buy_goods_prefix = $buy_goods_row2["buy_goods_prefix"];
+                                                                    $buy_goods_suffix = $buy_goods_row2["buy_goods_suffix"];
+                                                                    $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_name'";
+                                                                    $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                    $opName1 = mysql_result($db_goods_grid_name_result, 0, 0);
 
-                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_prefix'";
-                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
-                                                                $opName2 = mysql_result($db_goods_grid_name_result,0,0);
+                                                                    $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_prefix'";
+                                                                    $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                    $opName2 = mysql_result($db_goods_grid_name_result, 0, 0);
 
-                                                                $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_suffix'";
-                                                                $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
-                                                                $opName3 = mysql_result($db_goods_grid_name_result,0,0);
+                                                                    $db_goods_grid_name_query = "select opName1 from goods_option_grid_name where opName2='$buy_goods_suffix'";
+                                                                    $db_goods_grid_name_result = mysql_query($db_goods_grid_name_query) or die("get_data db_goods_grid_name_query");
+                                                                    $opName3 = mysql_result($db_goods_grid_name_result, 0, 0);
 
-                                                                $goods_info = "기본상품 / $opName1 : $buy_goods_name / $opName2 : $buy_goods_prefix / $opName3 : $buy_goods_suffix ".$buy_goods_count."개 (".number_format($buy_goods_price)."원)";
-                                                                $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
-                                                                $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                                    $goods_info = "기본상품 / $opName1 : $buy_goods_name / $opName2 : $buy_goods_prefix / $opName3 : $buy_goods_suffix " . $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";
+                                                                    $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                    $total_buy_goods_sale += ($buy_goods_price - $buy_goods_price_total) * $buy_goods_count;
+                                                                } else {
+                                                                    //추가 옵션상품
+                                                                    $goods_info = "추가옵션 / $buy_goods_name : $buy_goods_prefix / ". $buy_goods_count . "개 (" . number_format($buy_goods_price) . "원)";;
+                                                                    $total_buy_goods_price += $buy_goods_price_total * $buy_goods_count;
+                                                                    $total_buy_goods_sale += ($buy_goods_price-$buy_goods_price_total)*$buy_goods_count;
+                                                                }
                                                             }
                                                         }
                                                         $html.='<span style = "color:gray;margin-left:5px;" ><br >&nbsp;&nbsp;· '.$goods_info.' </span >';
