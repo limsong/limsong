@@ -215,6 +215,7 @@ $objWriter=PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel2007');
 header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
 header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');*/
-
 $objWriter->save('php://output');
+
+$db->query("UPDATE FROM buy set buy_status='4' WHERE $buy_addQuery");
 ?>

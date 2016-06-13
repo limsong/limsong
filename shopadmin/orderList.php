@@ -114,6 +114,7 @@ if ($total_record == 0) {
         <link rel="stylesheet" type="text/css" href="css/orderList.css"/>
         <link rel="stylesheet" type="text/css" href="css/mask.css"/>
         <link rel="stylesheet" type="text/css" href="layer/skin/layer.css"/>
+        <link rel="stylesheet" href="assets/css/font-awesome.css">
         <script type="text/javascript" src="common/jslb_ajax.js"></script>
         <script type="text/javascript" src="common/brandList.js"></script>
         <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
@@ -344,6 +345,7 @@ if ($total_record == 0) {
             </div>
         </div>
     </body>
+
     <script>
         ;
         !function () {

@@ -74,6 +74,24 @@
                 <?php
             }
             ?>
+            <style type="text/css">
+                .ace-file-input input[type=file] {
+                    width: 1px;
+                    height: 1px;
+                    overflow: hidden;
+                    opacity: 0;
+                    filter: alpha(opacity=0);
+                }
+                .ace-file-input .ace-file-container:before {
+                    content: attr(data-title);
+                }
+                .memEleBDown{
+                    background: #1d6fa6;
+                    background-image: linear-gradient(to bottom, #267eb8 0%, #136194 100%);
+                    border-color: #1d6fa6;
+                    color:#fff;
+                }
+            </style>
             <tr>
                 <td colspan="10" style="text-align: right;">
                     주문상태변경
@@ -84,12 +102,28 @@
                         <option value="16">배송완료</option>
                     </select>
                     <input type="button" class="memEleB btn_buy_status" value="확인">
-                    <input type="button" class="memEleB excelupload" value="송장번호 일괄등록"/>
-                    <input type="button" class="memEleB exceldown" value="Excel 다운로드"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select class="pageNum" name="view_pageNum">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                    </select>
                 </td>
             </tr>
         </table>
     </form>
+    <table width="100%" border="0" cellspacing="0" ellpadding="0">
+        <tr>
+            <td align="right" class="ace-file-input">
+                <span class="ace-file-container memEleB memEleBDown exceldown" data-title="Excel 다운로드">
+                    <span><i class="ace-icon fa fa-cloud-download bigger-200"></i></span>
+                </span>
+            </td>
+        </tr>
+    </table>
 </div>
 <div class="pageNavi" style="text-align: center;">
     <?php
@@ -209,6 +243,16 @@
                 $(".orderListForm").submit();
 
             } else {
+                return false;
+            }
+        });
+        //change
+        $("#id-input-file-2").on("change",function () {
+            var r = confirm("송장번호를 업로드 하시겠습니까?");
+            if (r == true) {
+                $(".excelupbtn").trigger("click");
+            } else {
+                alert("송장번호 업로드를 취소하였습니다.");
                 return false;
             }
         });
