@@ -312,4 +312,14 @@
             $("form[name='orderListForm']").submit();
         });
     });
+    //change
+    $("#id-input-file-2").on("change",function () {
+        var r = confirm("송장번호를 업로드 하시겠습니까?");
+        if (r == true) {
+            $(".excelupbtn").trigger("click");
+        } else {
+            alert("송장번호 업로드를 취소하였습니다.");
+            return false;
+        }
+    });
 </script>

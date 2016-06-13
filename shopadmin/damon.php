@@ -7,8 +7,10 @@ include_once ("common/sqlcon.php");
 //error_reporting(E_ALL);
 //date_default_timezone_set('Asia/Seoul');
 require_once 'execel/Classes/PHPExcel.php';
-$in_buy_seq = $_POST["check"];
-foreach ($in_buy_seq as $item => $item_val) {
+//$in_buy_seq = $_POST["check"];
+$in_buy_seq = $_POST["check_item"];
+$in_buy_seqrr = explode("-",$in_buy_seq);
+foreach ($in_buy_seqrr as $item => $item_val) {
     if($buy_addQuery==""){
         $buy_addQuery = " buy_seq IN ('$item_val'";
     } else {
@@ -217,5 +219,5 @@ header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');*/
 $objWriter->save('php://output');
 
-$db->query("UPDATE FROM buy set buy_status='4' WHERE $buy_addQuery");
+$db->query("UPDATE buy set buy_status='4' $addQuery");
 ?>
