@@ -7,10 +7,9 @@ include_once ("common/sqlcon.php");
 //error_reporting(E_ALL);
 //date_default_timezone_set('Asia/Seoul');
 require_once 'execel/Classes/PHPExcel.php';
-//$in_buy_seq = $_POST["check"];
-$in_buy_seq = $_POST["check_item"];
-$in_buy_seqrr = explode("-",$in_buy_seq);
-foreach ($in_buy_seqrr as $item => $item_val) {
+$in_buy_seq = $_POST["check"];
+
+foreach ($in_buy_seq as $item => $item_val) {
     if($buy_addQuery==""){
         $buy_addQuery = " buy_seq IN ('$item_val'";
     } else {
@@ -39,6 +38,7 @@ for($i=0;$i<$count;$i++){
     $buy_goods_buy_goods_code = $db_buy_goods_rows[$i]["buy_goods_code"];
     $buy_goods_count = $db_buy_goods_rows[$i]["buy_goods_count"];
     $buy_goods_option = $db_buy_goods_rows[$i]["buy_goods_option"];
+
     $db_goods_query = $db->query("SELECT goods_name,goods_opt_type,goods_opt_Num FROM goods WHERE goods_code='$buy_goods_buy_goods_code'");
     $db_goods_rows = $db->loadRows();
     $goods_name = $db_goods_rows[0]["goods_name"];
@@ -126,6 +126,8 @@ for($i=0;$i<$count;$i++){
         $j++;
     }
     $array = array(
+        '상품일련번호'=>$db_buy_rows[$j]["buy_seq"],
+        '송장번호'=>'',
         '상품명'=>$goods_name,
         '옵션명'=>$goods_info,
         '수량'=>$buy_goods_count,
@@ -178,26 +180,30 @@ $objPHPExcel->getProperties()->setCreator('http://www.phpernote.com')
     ->setKeywords('office 2007 openxml php')
     ->setCategory('Result file');
 $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('A1','상품명')
-    ->setCellValue('B1','옵션명')
-    ->setCellValue('C1','수량')
-    ->setCellValue('D1','수취인')
-    ->setCellValue('E1','핸드폰번호')
-    ->setCellValue('F1','우편번호')
-    ->setCellValue('G1','주소')
-    ->setCellValue('H1','배송메모');
+    ->setCellValue('A1','상품일련번호')
+    ->setCellValue('B1','송장번호')
+    ->setCellValue('C1','상품명')
+    ->setCellValue('D1','옵션명')
+    ->setCellValue('E1','수량')
+    ->setCellValue('F1','수취인')
+    ->setCellValue('G1','핸드폰번호')
+    ->setCellValue('H1','우편번호')
+    ->setCellValue('I1','주소')
+    ->setCellValue('J1','배송메모');
 
 $i=2;
 foreach($data as $k=>$v){
     $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A'.$i,$v['상품명'])
-        ->setCellValue('B'.$i,$v['옵션명'])
-        ->setCellValue('C'.$i,$v['수량'])
-        ->setCellValue('D'.$i,$v['수취인'])
-        ->setCellValue('E'.$i,$v['핸드폰번호'])
-        ->setCellValue('F'.$i,$v['우편번호'])
-        ->setCellValue('G'.$i,$v['주소'])
-        ->setCellValue('H'.$i,$v['배송메모']);
+        ->setCellValue('A'.$i,$v['상품일련번호'])
+        ->setCellValue('B'.$i,$v['송장번호'])
+        ->setCellValue('C'.$i,$v['상품명'])
+        ->setCellValue('D'.$i,$v['옵션명'])
+        ->setCellValue('E'.$i,$v['수량'])
+        ->setCellValue('F'.$i,$v['수취인'])
+        ->setCellValue('G'.$i,$v['핸드폰번호'])
+        ->setCellValue('H'.$i,$v['우편번호'])
+        ->setCellValue('I'.$i,$v['주소'])
+        ->setCellValue('J'.$i,$v['배송메모']);
     $i++;
 }
 $objPHPExcel->getActiveSheet()->setTitle('뉴엔에스');

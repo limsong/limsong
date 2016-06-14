@@ -14,7 +14,7 @@ include("common/config.shop.php");
 include("check.php");
 foreach ($_POST as $key => $value) {
       ${$key} = $value;
-      echo $key ." = ".print_r($value)."<br>";
+      //echo $key ." = ".print_r($value)."<br>";
 }
 //$check  = buy_seq
 //buy_good_dlv_tag_no[]       송장번호
@@ -25,7 +25,7 @@ $sdate = date("Y-m-d H:i:s",time());
 for ($i = 0; $i < $count; $i++) {
       $buy_seq = $check[$i];
       $ou_buy_goods_dlv_tag_no = ${"buy_good_dlv_tag_no" . $buy_seq};
-      $dlv_company = ${"dlv_company" . $buy_seq};
+      $dlv_company = $dlv_company3;
       if($pay_buy_status == ""){
             $query = "UPDATE buy_goods SET buy_goods_dlv_tag_no='$ou_buy_goods_dlv_tag_no',dlv_com_seq='$dlv_company' WHERE buy_seq='$buy_seq'";
             mysql_query($query) or die("buyDlvPost");

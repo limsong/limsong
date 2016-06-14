@@ -51,10 +51,9 @@
 html, body {
     height: 100%;
     color: #6e6e6e;
-    font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /*font-size: 14px;*/
-    background-image: url("../img/bg.png");
-    /*font-family: '돋움', dotum, sans-serif;*/
+    /*font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: arial,돋움,Dotum,AppleGothic,sans-serif;
+    background-image: url(../img/bg.png);
     font-size: 12px;
     font-weight: normal;
 }

@@ -177,7 +177,7 @@
         <tr>
             <td align="right">
                 <label class="ace-file-input">
-                    <form name="excelUploadForm" class="excelUploadForm" method="post" action="readexcel.php">
+                    <form name="excelUploadForm" class="excelUploadForm" method="post" action="readexcel.php" enctype="multipart/form-data">
                         <input type="file" name="excelup" id="id-input-file-2" single accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
                         <input type="submit" class="excelupbtn" value="excelup" style="display: none;">
                     </form>
