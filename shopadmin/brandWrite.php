@@ -13,7 +13,7 @@ TRUNCATE TABLE `opName`;
 TRUNCATE TABLE `goods`;
 TRUNCATE TABLE `goods_option`;
 */
-$debug = true;
+$debug = false;
 //0 옵션 없음 1일반옵션 2 가격선택 옵션
 $goods_option_type = 2;
 $optNum = "3";
@@ -165,37 +165,33 @@ if ($debug == true) {
                         <dd class="inputDd">
                             <input type="text" value="<?= @$goods_name ?>" name="goods_name" id="goods_name" class="inputItem" style="width:100%;"/>
                         </dd>
-                        <dt class="option_name">옵션명1
+                        <input type="hidden" value="<?= @$goods_opName1 ?>" name="opName1" id="opName1" class="inputItem goods_option_inp" style="width:100%;"/>
+                        <input type="hidden" value="<?= @$goods_opName2 ?>" name="opName2" id="opName2" class="inputItem goods_option_inp" style="width:100%;"/>
+                        <dt class="moption">
+                            <span class="option_txt"></span>
                             <span class="fontCol">*</span>
                         </dt>
-                        <dd class="inputDd option_name">
-                            <input type="text" value="<?= @$goods_opName1 ?>" name="opName1" id="opName1" class="inputItem goods_option_inp" style="width:100%;"/>
-                        </dd>
-                        <dt class="option_name">옵션명2
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd option_name">
-                            <input type="text" value="<?= @$goods_opName2 ?>" name="opName2" id="opName2" class="inputItem goods_option_inp" style="width:100%;"/>
-                        </dd>
-                        <dt>시장가/정찰가
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" value="<?= @$commonPrice ?>" name="commonPrice" id="commonPrice" class="inputItem goods_option_inp" style="width:100%;"/>
-                        </dd>
-                        <dt>판매가격
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" value="<?= @$sellPrice ?>" name="sellPrice" id="sellPrice" class="inputItem goods_option_inp" style="width:100%;"/>
-                        </dd>
-                        <dt>재고
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" name="qta" value="<?= @$qta ?>" id="qta" class="inputItem goods_option_inp" style="width:80%;"/>
+                        <dd class="moption">
                             <input type="Button" class="memEleB DateBoxa" data="option1" style="width:150px;" value="가격.재고 설정하기"/>
                             <div id="qtBoxa"></div>
+                        </dd>
+                        <dt class="option_name">시장가/정찰가
+                            <span class="fontCol">*</span>
+                        </dt>
+                        <dd class="inputDd option_name">
+                            <input type="text" value="<?= @$commonPrice ?>" name="commonPrice" id="commonPrice" class="inputItem goods_option_inp" style="width:100%;"/>
+                        </dd>
+                        <dt class="option_name">판매가격
+                            <span class="fontCol">*</span>
+                        </dt>
+                        <dd class="inputDd option_name">
+                            <input type="text" value="<?= @$sellPrice ?>" name="sellPrice" id="sellPrice" class="inputItem goods_option_inp" style="width:100%;"/>
+                        </dd>
+                        <dt class="option_name">재고
+                            <span class="fontCol">*</span>
+                        </dt>
+                        <dd class="inputDd option_name">
+                            <input type="text" name="qta" value="<?= @$qta ?>" id="qta" class="inputItem goods_option_inp" style="width:80%;"/>
                         </dd>
                         <dt>재고처리 종류</dt>
                         <dd>
@@ -411,51 +407,21 @@ if ($debug == true) {
                     </dl>
                     <dl class="readContent">
                         <dt style="background-color:#3a5795;color:white;">추가옵션</dt>
-                        <dd class="inputDd" style="background-color: #3a5795;padding-left:9px;height:17px;"></dd>
-                        <dt>옵션명1
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" value="<?= @$optionName1 ?>" name="opName3" id="opName3" readonly
-                                   class="inputItem" style="width:100%;"/>
+                        <dd class="inputDd" style="background-color: #3a5795;padding-left:9px;height:17px;">
                         </dd>
-                        <dt>옵션명2
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" value="<?= @$optionName2 ?>" name="opName4" id="opName4" readonly
-                                   class="inputItem" style="width:100%;"/>
-                        </dd>
-                        <dt>옵션값1
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" value="<?= @$optionValue1 ?>" name="opValue1" id="opValue1" readonly
-                                   class="inputItem" style="width:100%;"/>
-                        </dd>
-                        <!--
-                        <dt>옵션명2 [-로 구분]</dt>
-                        <dd class="inputDd"><input type="text" name="opName2" id="opName2" value="" class="inputItem" style="width:100%;" /></dd>
-                    -->
-                        <dt>옵션값2
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" value="<?= @$optionValue2 ?>" name="opValue2" id="opValue2" readonly
-                                   class="inputItem" style="width:100%;"/>
-                        </dd>
-                        <dt>재고
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" name="qt" value="<?= @$optionQt ?>" id="qt" class="inputItem" readonly
-                                   style="width:80%;"/>
-                            <input type="Button" class="memEleB DateBox" data="option2"
-                                   style="width:150px;display: inline;" value="가격.재고 설정하기"/>
+                        <dt>추가옵션</dt>
+                        <dd>
+                            <input type="Button" class="memEleB DateBox" data="option2" style="width:150px;display: inline;" value="가격.재고 설정하기"/>
                             <div id="qtBox"></div>
                         </dd>
-                        <dt>상세정보</dt>
-                        <dd class="contentDd"></dd>
+                            <input type="hidden" value="<?= @$optionName1 ?>" name="opName3" id="opName3" readonly class="inputItem" style="width:100%;"/>
+                            <input type="hidden" value="<?= @$optionName2 ?>" name="opName4" id="opName4" readonly class="inputItem" style="width:100%;"/>
+                            <input type="hidden" value="<?= @$optionValue1 ?>" name="opValue1" id="opValue1" readonly class="inputItem" style="width:100%;"/>
+                            <input type="hidden" value="<?= @$optionValue2 ?>" name="opValue2" id="opValue2" readonly class="inputItem" style="width:100%;"/>
+                            <input type="hidden" name="qt" value="<?= @$optionQt ?>" id="qt" class="inputItem" readonly style="width:80%;"/>
+                        </dd>
+                        <dt style="background-color:#3a5795;color:white;">상세정보</dt>
+                        <dd class="inputDd" style="background-color: #3a5795;padding-left:9px;height:17px;">
                     </dl>
                     <div style="float:left;padding:5px 8px 5px 5px;">
                         <!--

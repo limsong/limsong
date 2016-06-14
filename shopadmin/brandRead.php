@@ -215,8 +215,8 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     <input type="hidden" name="mode"/>
                     <input type="hidden" name="optNum" value="<?= $ou_goods_opt_Num ?>"/>
                     <dl id="readContent" class="readContent">
-                        <dt style="background-color:#3a5795;color:white;">분류</dt>
-                        <dd class="textDd" style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"><?= $sortText ?></dd>
+                        <dt style="">분류</dt>
+                        <dd class="textDd" style="padding-left:9px;height:17px;"><?= $sortText ?></dd>
                         <dt>상품구분 <span class="fontCol">*</span></dt>
                         <dd>
                             <select name="goods_type">
@@ -254,45 +254,74 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             <input type="text" name="goods_name" value="<?= @$ou_goods_name ?>" id="goods_name"
                                    class="inputItem" style="width:100%;"/>
                         </dd>
+                        <?
+                        if ($ou_goods_opt_type == "2"){
+                        ?>
+                        <dt>가격선택옵션
+                            <span class="fontCol">*</span>
+                        </dt>
+                        <dd class="inputDd">
+                            <input type="hidden" name="opName1" value="<?= @$goods_option_name_opName1 ?>" id="opName1" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="opName2" value="<?= @$goods_option_name_opName2 ?>" id="opName2" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="commonPrice" value="<?= @$goods_option_value_commonPrice ?>" id="commonPrice" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="sellPrice" value="<?= @$goods_option_value_sellPrice ?>" id="sellPrice" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="qta" value="<?= @$goods_option_value_quantity ?>" id="qta" class="inputItem goods_option_inp" style="width:91%;" <?= @$readonly ?> />
+                            <input type="Button" class="memEleB DateBoxa <?= @$show ?>" data="option1" value="상품 입력"/>
+                            <div id="qtBoxa"></div>
+                        </dd>
+                        <?
+                        }elseif ($ou_goods_opt_type == "1"){
+                        ?>
+                        <dt>일반옵션
+                            <span class="fontCol">*</span>
+                        </dt>
+                        <dd class="inputDd">
+                            <input type="hidden" name="opName1" value="<?= @$goods_option_name_opName1 ?>" id="opName1" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="opName2" value="<?= @$goods_option_name_opName2 ?>" id="opName2" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="commonPrice" value="<?= @$goods_option_value_commonPrice ?>" id="commonPrice" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="sellPrice" value="<?= @$goods_option_value_sellPrice ?>" id="sellPrice" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="hidden" name="qta" value="<?= @$goods_option_value_quantity ?>" id="qta" class="inputItem goods_option_inp" style="width:91%;" <?= @$readonly ?> />
+                            <input type="Button" class="memEleB DateBoxa <?= @$show ?>" data="option1" value="상품 입력"/>
+                            <div id="qtBoxa"></div>
+                        </dd>
+                        <?
+                        }else{
+                        ?>
                         <dt class="option_name <?= @$show ?>">옵션명1
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd option_name <?= @$show ?>">
-                            <input type="text" name="opName1" value="<?= @$goods_option_name_opName1 ?>" id="opName1"
-                                   class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="text" name="opName1" value="<?= @$goods_option_name_opName1 ?>" id="opName1" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
                         </dd>
                         <dt class="option_name <?= @$show ?>">옵션명2
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd option_name <?= @$show ?>">
-                            <input type="text" name="opName2" value="<?= @$goods_option_name_opName2 ?>" id="opName2"
-                                   class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                            <input type="text" name="opName2" value="<?= @$goods_option_name_opName2 ?>" id="opName2" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
                         </dd>
                         <dt>시장가/정찰가
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" name="commonPrice" value="<?= @$goods_option_value_commonPrice ?>"
-                                   id="commonPrice" class="inputItem goods_option_inp"
-                                   style="width:100%;" <?= @$readonly ?> />
+                            <input type="text" name="commonPrice" value="<?= @$goods_option_value_commonPrice ?>" id="commonPrice" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
                         </dd>
                         <dt>판매가격
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" name="sellPrice" value="<?= @$goods_option_value_sellPrice ?>"
-                                   id="sellPrice" class="inputItem goods_option_inp"
-                                   style="width:100%;" <?= @$readonly ?> />
+                            <input type="text" name="sellPrice" value="<?= @$goods_option_value_sellPrice ?>" id="sellPrice" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
                         </dd>
                         <dt>재고
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" name="qta" value="<?= @$goods_option_value_quantity ?>" id="qta"
-                                   class="inputItem goods_option_inp" style="width:91%;" <?= @$readonly ?> />
+                            <input type="text" name="qta" value="<?= @$goods_option_value_quantity ?>" id="qta" class="inputItem goods_option_inp" style="width:91%;" <?= @$readonly ?> />
                             <input type="Button" class="memEleB DateBoxa <?= @$show ?>" data="option1" value="상품 입력"/>
                             <div id="qtBoxa"></div>
                         </dd>
+                        <?
+                        }
+                        ?>
                         <dt>재고처리 종류</dt>
                         <dd>
                             <select name="goods_stock_type">
@@ -466,8 +495,8 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         </dd>
                     </dl>
                     <dl class="readContent">
-                        <dt style="background-color:#3a5795;color:white;">특수코드</dt>
-                        <dd class="inputDd" style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
+                        <dt style="">특수코드</dt>
+                        <dd class="inputDd" style="padding-left:9px;height:17px;"></dd>
                         <?
                         $i = 0;
                         $query = "SELECT name,img FROM sp";
@@ -492,9 +521,9 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         ?>
                     </dl>
                     <dl class="readContent dlbimg">
-                        <dt style="background-color:#3a5795;color:white;">이미지</dt>
+                        <dt style="">이미지</dt>
                         <dd class="inputDd"
-                            style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
+                            style="padding-left:9px;height:17px;"></dd>
                         <dt>대이미지
                             <span class="fontCol">*</span>
                         </dt>
@@ -696,46 +725,16 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         ?>
                     </dl>
                     <dl class="readContent">
-                        <dt style="background-color:#3a5795;color:white;">추가옵션</dt>
-                        <dd class="inputDd" style="background-color: #3a5795;padding-left:9px;height:17px;"></dd>
-                        <dt>옵션명1
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" name="opName3" value="<?= $goods_option_opName1 ?>" id="opName3" readonly
-                                   class="inputItem" style="width:100%;"/>
-                        </dd>
-                        <dt>옵션명2
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" name="opName4" value="<?= $goods_option_opName2 ?>" id="opName4" readonly
-                                   class="inputItem" style="width:100%;"/>
-                        </dd>
-                        <dt>옵션값1
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" name="opValue1" value="<?= $goods_option_opValue1 ?>" id="opValue1"
-                                   readonly class="inputItem" style="width:100%;"/>
-                        </dd>
-                        <dt>옵션값2
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" name="opValue2" value="<?= $goods_option_opValue2 ?>" id="opValue2"
-                                   readonly class="inputItem" style="width:100%;"/>
-                        </dd>
-                        <dt>재고
-                            <span class="fontCol">*</span>
-                        </dt>
-                        <dd class="inputDd">
-                            <input type="text" name="qt" value="<?= $goods_option_quantity ?>" id="qt" class="inputItem"
-                                   readonly style="width:91%;"/>
-                            <input type="Button" class="memEleB DateBox" data="option2" style="display: inline;"
-                                   value="상품 입력"/>
+                        <dt style="">추가옵션</dt>
+                        <dd class="inputDd" style="height:17px;">
+                            <input type="Button" class="memEleB DateBox" data="option2" style="display: inline;" value="옵션추가"/>
                             <div id="qtBox"></div>
                         </dd>
+                        <input type="hidden" name="opName3" value="<?= $goods_option_opName1 ?>" id="opName3" readonly class="inputItem" style="width:100%;"/>
+                        <input type="hidden" name="opName4" value="<?= $goods_option_opName2 ?>" id="opName4" readonly class="inputItem" style="width:100%;"/>
+                        <input type="hidden" name="opValue1" value="<?= $goods_option_opValue1 ?>" id="opValue1" readonly class="inputItem" style="width:100%;"/>
+                        <input type="hidden" name="opValue2" value="<?= $goods_option_opValue2 ?>" id="opValue2" readonly class="inputItem" style="width:100%;"/>
+                        <input type="hidden" name="qt" value="<?= $goods_option_quantity ?>" id="qt" class="inputItem" readonly style="width:91%;"/>
                         <dt>상세정보</dt>
                         <dd class="contentDd"></dd>
                     </dl>
@@ -797,7 +796,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     e.preventDefault();
                     var cls = $(this).attr("data");
                     $("." + cls).append(
-                        '<dt style="background-color:white;"></dt>'
+                        '<dt style="background-"></dt>'
                         + '<dd class="inputDd">'
                         + '<img src="images/i_del.gif" class="remove_project_file" data="dlt" />'
                         + '<input type="file" name="thumImage[]" class="inputItem fileHeight" />'
@@ -830,7 +829,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     e.preventDefault();
                     var cls = $(this).attr("data");
                     $("." + cls).append(
-                        '<dt style="background-color:white;"></dt>'
+                        '<dt style="background-"></dt>'
                         + '<dd class="inputDd">'
                         + '<img src="images/i_del.gif" class="remove_project_file" data="dlt" />'
                         + '<input type="file" name="smImage[]" class="inputItem fileHeight" />'
@@ -862,7 +861,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     e.preventDefault();
                     var cls = $(this).attr("data");
                     $("." + cls).append(
-                        '<dt style="background-color:white;"></dt>'
+                        '<dt style="background-"></dt>'
                         + '<dd class="inputDd">'
                         + '<img src="images/i_del.gif" class="remove_project_file" data="dlt" />'
                         + '<input type="file" name="mdImage[]" class="inputItem fileHeight" />'
@@ -892,7 +891,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     e.preventDefault();
                     var cls = $(this).attr("data");
                     $("." + cls).append(
-                        '<dt style="background-color:white;"></dt>'
+                        '<dt style="background-"></dt>'
                         + '<dd class="inputDd">'
                         + '<img src="images/i_del.gif" class="remove_project_file" data="dlt" />'
                         + '<input type="file" name="bigImage[]" class="inputItem fileHeight" />'
@@ -1022,38 +1021,38 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
 
                                 for (var j = 0; j < itemLen2; j++) {
                                     if (j == 0) {
-                                        ins_htm += '<tr style="background-color:#3a5795" class="op_box' + str + num + '">' +
+                                        ins_htm += '<tr class="op_box' + str + num + '">' +
                                             '<td>' + (i + 1) + '</td>' +
-                                            '<td><input class="border opName1' + str + i + '" style="width:99%;background-color:#3a5795;color:white;" value="' + opName1Arr[i] + '"></td>' +
-                                            '<td><input class="border opName2' + str + i + '" style="width:99%;background-color:#3a5795;color:white;" value="' + opName2Arr2[j] + '"></td>' +
-                                            '<td><input class="border opValue1' + str + i + '" style="width:97%;background-color:#3a5795;color:white;" value="' + commonPriceArr2[j] + '"></td>' +
-                                            '<td><input class="border opValue2' + str + i + '" style="width:97%;background-color:#3a5795;color:white;" value="' + sellPriceArr2[j] + '"></td>' +
-                                            '<td><input class="border opN' + str + i + '" style="width:97%;background-color:#3a5795;color:white;" value="' + qtaArr2[j] + '"></td>' +
+                                            '<td><input class="border opName1' + str + i + '" style="width:99%;" value="' + opName1Arr[i] + '"></td>' +
+                                            '<td><input class="border opName2' + str + i + '" style="width:99%;" value="' + opName2Arr2[j] + '"></td>' +
+                                            '<td><input class="border opValue1' + str + i + '" style="width:97%;" value="' + commonPriceArr2[j] + '"></td>' +
+                                            '<td><input class="border opValue2' + str + i + '" style="width:97%;" value="' + sellPriceArr2[j] + '"></td>' +
+                                            '<td><input class="border opN' + str + i + '" style="width:97%;" value="' + qtaArr2[j] + '"></td>' +
                                             '<td><span class="del_single_op" data="all"> 삭제 </span></td>' +
                                             '</tr>';
                                     } else {
-                                        ins_htm += '<tr style="background-color:#3a5795" class="op_box' + str + num + '">' +
-                                            '<td colspan="2" style="background-color:#4A74BC;"></td>' +
-                                            '<td><input class="border opName2' + str + i + '" style="width:99%;background-color:#3a5795;color:white;" value="' + opName2Arr2[j] + '"></td>' +
-                                            '<td><input class="border opValue1' + str + i + '" style="width:97%;background-color:#3a5795;color:white;" value="' + commonPriceArr2[j] + '"></td>' +
-                                            '<td><input class="border opValue2' + str + i + '" style="width:97%;background-color:#3a5795;color:white;" value="' + sellPriceArr2[j] + '"></td>' +
-                                            '<td><input class="border opN' + str + i + '" style="width:97%;background-color:#3a5795;color:white;" value="' + qtaArr2[j] + '"></td>' +
+                                        ins_htm += '<tr class="op_box' + str + num + '">' +
+                                            '<td colspan="2" style=""></td>' +
+                                            '<td><input class="border opName2' + str + i + '" style="width:99%;" value="' + opName2Arr2[j] + '"></td>' +
+                                            '<td><input class="border opValue1' + str + i + '" style="width:97%;" value="' + commonPriceArr2[j] + '"></td>' +
+                                            '<td><input class="border opValue2' + str + i + '" style="width:97%;" value="' + sellPriceArr2[j] + '"></td>' +
+                                            '<td><input class="border opN' + str + i + '" style="width:97%;" value="' + qtaArr2[j] + '"></td>' +
                                             '<td><span class="del_single_op" data="one"> 삭제 </span></td>' +
                                             '</tr>';
                                     }
                                 }
 
-                                ins_htm += '<tr style="background-color:#3a5795" class="op_box' + str + num + '">' +
+                                ins_htm += '<tr class="op_box' + str + num + '">' +
                                     '<td colspan="7"><span class="option add_option' + str + num + '" data="op_box' + str + num + '"> + 옵션추가</span></td></tr>';
                                 $("#DateBox" + str + "_add thead").append(ins_htm).find("span.add_option" + str + num).bind("click", function () {
                                     var strData = $(this).attr("data");
                                     var num = strData.split("op_box" + str);
-                                    var ins_htm = '<tr style="background-color:#3a5795">' +
-                                        '<td colspan="2" style="background-color:#4A74BC;"></td>' +
-                                        '<td><input class="border opName2' + str + num[1] + '" style="width:99%;background-color:#3a5795;color:white;"></td>' +
-                                        '<td><input class="border opValue1' + str + num[1] + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
-                                        '<td><input class="border opValue2' + str + num[1] + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
-                                        '<td><input class="border opN' + str + num[1] + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
+                                    var ins_htm = '<tr>' +
+                                        '<td colspan="2" style=""></td>' +
+                                        '<td><input class="border opName2' + str + num[1] + '" style="width:99%;"></td>' +
+                                        '<td><input class="border opValue1' + str + num[1] + '" style="width:97%;"></td>' +
+                                        '<td><input class="border opValue2' + str + num[1] + '" style="width:97%;"></td>' +
+                                        '<td><input class="border opN' + str + num[1] + '" style="width:97%;"></td>' +
                                         '<td><span class="del_single_op"> 삭제 </span></td>' +
                                         '</tr>';
                                     $(this).parent().parent().before(ins_htm);
@@ -1101,37 +1100,37 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     //메인 top 옵션 열추가
                     //head
                     if (str == "a" && strVal == "2") {
-                        resHtml += '<div style="width:100%;float:left;background-color:#3a5795"><span style="float:right;color:white;line-height: 35px;;padding:0px 10px;">옵션갯수 : <select class="optNum"><option>옵션갯수선택</option><option value="2">2</option><option value="3">3</option></select></span><span class="add_box' + str + '" style="width:170px;vertical-align: middle;padding: 7px 0px;background-color:#4A74BC;cursor: pointer;color:white;font-size:12px;float:right;text-align:center;display: none;;"> + 열추가</span></div>';
+                        resHtml += '<div style="width:100%;float:left;background-color:#fff;"><span style="float:right;line-height: 35px;;padding:0px 10px;">옵션갯수 : <select class="optNum"><option>옵션갯수선택</option><option value="2">2</option><option value="3">3</option></select></span><span class="add_box' + str + '" style="display: none;;"></span></div>';
                         resHtml += '<div style="width:970px;">';
-                        resHtml += '<table width="100%" border="0" cellspacing="1" cellpadding="3" style="background-color:#4A74BC;text-align:center;box-shadow: 10px 10px 5px #888;color:white;" id="DateBox' + str + '_add">';
-                        resHtml += '<thead><tr style="background-color:#bfc4dd;font-weight:bold;font-size:12px;color:#333;">' +
-                            '<td width="26">#</td>' +
-                            '<td width="405" height="25">옵션명1</td>' +
-                            '<td width="435" height="25">옵션명2</td>' +
-                            '<td width="60">삭제</td>' +
+                        resHtml += '<table width="100%" border="0" cellspacing="1" cellpadding="3" style="text-align:center;" class="DateBox" id="DateBox' + str + '_add">';
+                        resHtml += '<thead><tr style="font-weight:bold;color:#333;">' +
+                            '<td width="26" style="background-color:#bfc4dd;">#</td>' +
+                            '<td width="405" style="background-color:#bfc4dd;" height="25">옵션명1</td>' +
+                            '<td width="415" style="background-color:#bfc4dd;" height="25">옵션명2</td>' +
+                            '<td width="80" style="background-color:#bfc4dd;">삭제</td>' +
                             '</tr></thead>';
                         resHtml += '</table></div>' +
-                            '<div style="width:100%;float:left;background-color:#3a5795;">' +
-                            '<input type="button" value="확인" style="margin-left:400px;" class="memEleB grid_box" />' +
-                            ' <input type="button" value="닫기" class="memEleB closeQn' + str + '" />' +
+                            '<div style="width:100%;float:left;">' +
+                            '<input type="button" value="확인" class="memEleB grid_box" />' +
+                            ' <input type="button" value="취소" class="memEleB closeQn' + str + '" />' +
                             '</div>';
                     } else {
-                        resHtml += '<div style="width:100%;float:left;background-color:#3a5795"><span class="add_box' + str + '" style="width:170px;vertical-align: middle;padding: 7px 0px;background-color:#4A74BC;cursor: pointer;color:white;font-size:12px;float:right;text-align:center;"> + 열추가</span></div>';
+                        resHtml += '<div style="width:100%;float:left;background-color:#fff;"><span class="add_box' + str + '" style="width:170px;vertical-align: middle;padding: 7px 0px;cursor: pointer;float:right;text-align:center;"> + 열추가</span></div>';
                         resHtml += '<div style="width:970px;">';
-                        resHtml += '<table width="100%" border="0" cellspacing="1" cellpadding="3" style="background-color:#4A74BC;text-align:center;box-shadow: 10px 10px 5px #888;color:white;" id="DateBox' + str + '_add">';
-                        resHtml += '<thead><tr style="background-color:#bfc4dd;font-weight:bold;font-size:12px;color:#333;">' +
-                            '<td width="26">#</td>' +
-                            '<td width="195" height="25">옵션명1</td>' +
-                            '<td width="195" height="25">옵션명2</td>' +
-                            '<td width="170">시장가/정찰가</td>' +
-                            '<td width="170">판매가</td>' +
-                            '<td width="70">재고</td>' +
-                            '<td width="80">삭제</td>' +
+                        resHtml += '<table width="100%" border="0" cellspacing="1" cellpadding="3" style="text-align:center;" class="DateBox" id="DateBox' + str + '_add">';
+                        resHtml += '<thead><tr style="background-color:#bfc4dd;font-weight:bold;color:#333;">' +
+                            '<td width="26" style="background-color:#bfc4dd;">#</td>' +
+                            '<td width="195" style="background-color:#bfc4dd;" height="25">옵션명1</td>' +
+                            '<td width="195" style="background-color:#bfc4dd;" height="25">옵션명2</td>' +
+                            '<td width="170" style="background-color:#bfc4dd;">시장가/정찰가</td>' +
+                            '<td width="170" style="background-color:#bfc4dd;">판매가</td>' +
+                            '<td width="70" style="background-color:#bfc4dd;">재고</td>' +
+                            '<td width="80" style="background-color:#bfc4dd;">삭제</td>' +
                             '</tr></thead>';
                         resHtml += '</table></div>' +
-                            '<div style="width:100%;float:left;background-color:#3a5795;text-align: center;">' +
-                            '<input type="button" value="확인" style="margin-left:400px;" class="memEleB transQn' + str + '" />' +
-                            ' <input type="button" value="닫기" class="memEleB closeQn' + str + '" />' +
+                            '<div style="width:100%;float:left;text-align: center;margin:10px 0px;">' +
+                            '<input type="button" value="확인" class="memEleB transQn' + str + '" />' +
+                            ' <input type="button" value="취소" class="memEleB closeQn' + str + '" />' +
                             '</div>';
                     }
                     var pObj = $("#qtBox" + str);
@@ -1307,43 +1306,43 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             var num = c;
                         }
 
-                        var ins_htm = '<tr style="background-color:#3a5795" class="op_box' + str + num + '">';
+                        var ins_htm = '<tr class="op_box' + str + num + '">';
                         if (str == "a" && strVal == "2") {
                             ins_htm += '<td>' + (num + 1) + '</td>' +
-                                '<td><input class="border opName1' + str + num + '" style="width:99%;background-color:#3a5795;color:white;"></td>' +
-                                '<td><input class="border opName2' + str + num + '" style="width:99%;background-color:#3a5795;color:white;"></td>'
+                                '<td><input class="border opName1' + str + num + '" style="width:99%;"></td>' +
+                                '<td><input class="border opName2' + str + num + '" style="width:99%;"></td>'
                             '</tr>';
-                            ins_htm += '<tr style="background-color:#3a5795" class="op_box' + str + num + '">' +
+                            ins_htm += '<tr class="op_box' + str + num + '">' +
                                 '<td colspan="4"><span class="option add_option' + str + num + '" data="op_box' + str + num + '"> + 옵션추가</span></td></tr>';
                         } else {
                             ins_htm += '<td>' + (num + 1) + '</td>' +
-                                '<td><input class="border opName1' + str + num + '" style="width:99%;background-color:#3a5795;color:white;"></td>' +
-                                '<td><input class="border opName2' + str + num + '" style="width:99%;background-color:#3a5795;color:white;"></td>' +
-                                '<td><input class="border opValue1' + str + num + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
-                                '<td><input class="border opValue2' + str + num + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
-                                '<td><input class="border opN' + str + num + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
+                                '<td><input class="border opName1' + str + num + '" style="width:99%;"></td>' +
+                                '<td><input class="border opName2' + str + num + '" style="width:99%;"></td>' +
+                                '<td><input class="border opValue1' + str + num + '" style="width:97%;"></td>' +
+                                '<td><input class="border opValue2' + str + num + '" style="width:97%;"></td>' +
+                                '<td><input class="border opN' + str + num + '" style="width:97%;"></td>' +
                                 '<td><span class="del_single_op" data="op_box' + str + num + '"> 삭제 </span></td>' +
                                 '</tr>';
-                            ins_htm += '<tr style="background-color:#3a5795" class="op_box' + str + num + '">' +
+                            ins_htm += '<tr class="op_box' + str + num + '">' +
                                 '<td colspan="7"><span class="option add_option' + str + num + '" data="op_box' + str + num + '"> + 옵션추가</span></td></tr>';
                         }
                         $("#DateBox" + str + "_add thead").append(ins_htm).find("span.add_option" + str + num).bind("click", function () {
                             var strData = $(this).attr("data");
                             var num = strData.split("op_box" + str);
                             var data_num = $("." + $(this).attr("data")).length - 1;
-                            var ins_htm = '<tr style="background-color:#3a5795" class="' + $(this).attr("data") + '">';
+                            var ins_htm = '<tr class="' + $(this).attr("data") + '">';
                             if (str == "a" && strVal == "2") {
-                                ins_htm += '<td colspan="2" style="background-color:#4A74BC;"></td>' +
-                                    '<td><input class="border opName2' + str + num[1] + '" style="width:99%;background-color:#3a5795;color:white;"></td>' +
+                                ins_htm += '<td colspan="2" style=""></td>' +
+                                    '<td><input class="border opName2' + str + num[1] + '" style="width:99%;"></td>' +
                                     '<td><span class="del_op" data-row="' + num[1] + '" data-num="' + data_num + '"> 삭제 </span></td>' +
                                     '</tr>';
                                 $(".grid_div_box").empty();
                             } else {
-                                ins_htm += '<td colspan="2" style="background-color:#4A74BC;"></td>' +
-                                    '<td><input class="border opName2' + str + num[1] + '" style="width:99%;background-color:#3a5795;color:white;"></td>' +
-                                    '<td><input class="border opValue1' + str + num[1] + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
-                                    '<td><input class="border opValue2' + str + num[1] + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
-                                    '<td><input class="border opN' + str + num[1] + '" style="width:97%;background-color:#3a5795;color:white;"></td>' +
+                                ins_htm += '<td colspan="2" style=""></td>' +
+                                    '<td><input class="border opName2' + str + num[1] + '" style="width:99%;"></td>' +
+                                    '<td><input class="border opValue1' + str + num[1] + '" style="width:97%;"></td>' +
+                                    '<td><input class="border opValue2' + str + num[1] + '" style="width:97%;"></td>' +
+                                    '<td><input class="border opN' + str + num[1] + '" style="width:97%;"></td>' +
                                     '<td><span class="del_op"> 삭제 </span></td>' +
                                     '</tr>';
                             }
@@ -1412,26 +1411,24 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
 
                             for (var i = 0; i < Len1; i++) {
                                 for (var j = 0; j < Len2; j++) {
-                                    tr_html += '<tr style="background-color:#3a5795">';
+                                    tr_html += '<tr>';
                                     tr_html += '<td>' + k + '</td>';
                                     if (j == 0) {
                                         tr_html += '<td rowspan="' + Len2 + '">' + opName1Arr[i] + '</td>';
                                     }
                                     tr_html += '<td>' + opName2Arr[j] + '</td>';
-                                    tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>' +
-                                        '<td><input class="border op_sellPrice op_sellPrice' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>' +
-                                        '<td><input class="border op_qta op_qta' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>';
+                                    tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k + '" style="width:99%;" type="text"></td>' +
+                                        '<td><input class="border op_sellPrice op_sellPrice' + k + '" style="width:99%;" type="text"></td>' +
+                                        '<td><input class="border op_qta op_qta' + k + '" style="width:99%;" type="text"></td>';
                                     k++;
                                     tr_html += '</tr>';
                                 }
 
                             }
-                            tr_html += '<tr style="background-color:#3a5795">' +
-                                '<td colspan="3">' +
-                                '<span class="op_ok"  style="width:100%;vertical-align: middle;padding: 3px 0px;background-color:#4A74BC;cursor: pointer;color:white;font-size:12px;float:left;"> 확인 </span>' +
-                                '</td>' +
-                                '<td colspan="3">' +
-                                '<span class="op_cancel"  style="width:100%;vertical-align: middle;padding: 3px 0px;background-color:#4A74BC;cursor: pointer;color:white;font-size:12px;float:left;"> 취소 </span>' +
+                            tr_html += '<tr>' +
+                                '<td colspan="6">' +
+                                '<span class="op_ok"  style="width:50%;vertical-align: middle;padding: 3px 0px;cursor: pointer;float:left;"> 확인 </span>' +
+                                '<span class="op_cancel"  style="width:50%;vertical-align: middle;padding: 3px 0px;cursor: pointer;float:left;"> 취소 </span>' +
                                 '</td>' +
                                 '</tr>';
                         } else {
@@ -1503,7 +1500,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             for (var i = 0; i < Len1; i++) {
                                 for (var j = 0; j < Len2; j++) {
                                     for (var n = 0; n < Len3; n++) {
-                                        tr_html += '<tr style="background-color:#3a5795">';
+                                        tr_html += '<tr>';
                                         tr_html += '<td>' + k + '</td>';
                                         if (j == 0 && n == 0) {
                                             tr_html += '<td rowspan="' + Len2 * Len3 + '">' + opName1Arr[i] + '</td>';
@@ -1516,54 +1513,52 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                         if (people != undefined) {
                                             var TrHtml = json_each("3", opName1Arr[i], opName2Arr[j], opName3Arr[n], k);
                                             if (TrHtml == "") {
-                                                tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>' +
-                                                    '<td><input class="border op_sellPrice op_sellPrice' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>' +
-                                                    '<td><input class="border op_qta op_qta' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>';
+                                                tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k + '" style="width:99%;" type="text"></td>' +
+                                                    '<td><input class="border op_sellPrice op_sellPrice' + k + '" style="width:99%;" type="text"></td>' +
+                                                    '<td><input class="border op_qta op_qta' + k + '" style="width:99%;" type="text"></td>';
                                             } else {
                                                 tr_html += TrHtml;
                                             }
                                         } else {
-                                            tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>' +
-                                                '<td><input class="border op_sellPrice op_sellPrice' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>' +
-                                                '<td><input class="border op_qta op_qta' + k + '" style="width:99%;background-color:#3a5795;color:white;" type="text"></td>';
+                                            tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k + '" style="width:99%;" type="text"></td>' +
+                                                '<td><input class="border op_sellPrice op_sellPrice' + k + '" style="width:99%;" type="text"></td>' +
+                                                '<td><input class="border op_qta op_qta' + k + '" style="width:99%;" type="text"></td>';
                                         }
                                         k++;
                                         tr_html += '</tr>';
                                     }
                                 }
                             }
-                            tr_html += '<tr style="background-color:#3a5795">' +
-                                '<td colspan="4">' +
-                                '<span class="op_ok"  style="width:100%;vertical-align: middle;padding: 3px 0px;background-color:#4A74BC;cursor: pointer;color:white;font-size:12px;float:left;"> 확인 </span>' +
-                                '</td>' +
-                                '<td colspan="3">' +
-                                '<span class="op_cancel"  style="width:100%;vertical-align: middle;padding: 3px 0px;background-color:#4A74BC;cursor: pointer;color:white;font-size:12px;float:left;"> 취소 </span>' +
+                            tr_html += '<tr>' +
+                                '<td colspan="7">' +
+                                '<span class="op_ok"  style="width:50%;vertical-align: middle;padding: 3px 0px;cursor: pointer;float:left;"> 확인 </span>' +
+                                '<span class="op_cancel"  style="width:50%;vertical-align: middle;padding: 3px 0px;cursor: pointer;float:left;"> 취소 </span>' +
                                 '</td>' +
                                 '</tr>';
                         }
-                        var in_html = '<div style="width:100%;float:left;background-color:#3a5795;" class="grid_div_box">';
-                        in_html += '<table border="0" cellspacing="1" cellpadding="3" style="width:100%;background-color:#4A74BC;text-align:center;box-shadow: 10px 10px 5px #888;color:white;">' +
+                        var in_html = '<div style="width:100%;float:left;" class="grid_div_box">';
+                        in_html += '<table border="0" cellspacing="1" cellpadding="3" style="width:100%;text-align:center;background-color:#bfc4dd;">' +
                             '<tr>' +
-                            '<td>시장가/정찰가</td>' +
-                            '<td><input type="text" class="border commonPriceAll" style="width:99%;background-color:#3a5795;color:white;"></td>' +
-                            '<td>판매가</td>' +
-                            '<td><input type="text" class="border sellPriceAll" style="width:99%;background-color:#3a5795;color:white;"></td>' +
-                            '<td>재고</td>' +
-                            '<td><input type="text" class="border qtaAll" style="width:99%;background-color:#3a5795;color:white;"></td>' +
+                            '<td align="right" style="background-color:#bfc4dd;">시장가/정찰가</td>' +
+                            '<td><input type="text" class="border commonPriceAll" style="width:99%;"></td>' +
+                            '<td align="right" style="background-color:#bfc4dd;">판매가</td>' +
+                            '<td><input type="text" class="border sellPriceAll" style="width:99%;"></td>' +
+                            '<td align="right" style="background-color:#bfc4dd;">재고</td>' +
+                            '<td><input type="text" class="border qtaAll" style="width:99%;"></td>' +
                             '<td><span class="option AllPrice_check">일괄입력 </span></td>' +
                             '</tr>' +
                             '</table>';
-                        in_html += '<table border="0" cellspacing="1" cellpadding="3" style="background-color:#4A74BC;text-align:center;box-shadow: 10px 10px 5px #888;color:white;" id="DateBoxb_add">' + '' +
+                        in_html += '<table border="0" cellspacing="1" cellpadding="3" style="text-align:center;" id="DateBoxb_add">' + '' +
                             '<thead>' +
-                            '<tr style="background-color:#bfc4dd;font-weight:bold;font-size:12px;color:#333;">' +
-                            '<td width="26">#</td>';
+                            '<tr style="font-weight:bold;color:#333;">' +
+                            '<td width="26" style="background-color:#bfc4dd;">#</td>';
                         for (var i = 0; i < Fnum; i++) {
                             var opName = $(".opName1a" + i).val();
-                            in_html += '<td width="' + (390 / parseInt(Fnum)) + '" height="25">' + opName + '</td>';
+                            in_html += '<td style="background-color:#bfc4dd;" width="' + (390 / parseInt(Fnum)) + '" height="25">' + opName + '</td>';
                         }
-                        in_html += '<td width="170">시장가/정찰가</td>' +
-                            '<td width="170">판매가</td>' +
-                            '<td width="170">재고</td>' +
+                        in_html += '<td width="170" style="background-color:#bfc4dd;">시장가/정찰가</td>' +
+                            '<td width="170" style="background-color:#bfc4dd;">판매가</td>' +
+                            '<td width="170" style="background-color:#bfc4dd;">재고</td>' +
                             '</tr>' +
                             '</thead>' +
                             '<tbody>' +
@@ -1589,6 +1584,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         //op취소qtBoxa 내용 비움
                         $(".op_cancel").click(function () {
                             $("#qtBoxa").empty();
+                            $("#qtBoxa").hide();
                         });
                         $(".op_ok").click(function () {
                             //가격선택옵션 갯수
@@ -1689,6 +1685,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             $("#sellPrice").val(op_sellPrice);
                             $("#qta").val(op_qta);
                             $("#qtBoxa").empty();
+                            $("#qtBoxa").hide();
                         });
                     });
 
@@ -1890,11 +1887,11 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                                                 $.each(v5, function (k6, v6) {
                                                     if (opName1 == name1 && opName2 == name2 && opName3 == name3 && v6 != undefined) {
                                                         if (i == 0) {
-                                                            tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k7 + '" style="width:99%;background-color:#3a5795;color:white;" type="text" value="' + v6 + '"></td>';
+                                                            tr_html += '<td><input class="border op_commonPrice op_commonPrice' + k7 + '" style="width:99%;" type="text" value="' + v6 + '"></td>';
                                                         } else if (i == 1) {
-                                                            tr_html += '<td><input class="border op_sellPrice op_sellPrice' + k7 + '" style="width:99%;background-color:#3a5795;color:white;" type="text" value="' + v6 + '"></td>';
+                                                            tr_html += '<td><input class="border op_sellPrice op_sellPrice' + k7 + '" style="width:99%;" type="text" value="' + v6 + '"></td>';
                                                         } else {
-                                                            tr_html += '<td><input class="border op_qta op_qta' + k7 + '" style="width:99%;background-color:#3a5795;color:white;" type="text" value="' + v6 + '"></td>';
+                                                            tr_html += '<td><input class="border op_qta op_qta' + k7 + '" style="width:99%;" type="text" value="' + v6 + '"></td>';
                                                         }
                                                     }
                                                     i++;

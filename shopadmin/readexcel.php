@@ -63,5 +63,6 @@ echo "</pre>";*/
 if(!unlink($fileDest)) {
     die("파일 업로드 실패 관리자에게 문의하세요");
 }
+
 header('Location: /shopadmin/orderList.php?code=buy&delivery=4');
 ?>
