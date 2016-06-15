@@ -7,13 +7,13 @@
 				<div class="col-md-12">
 					<ul class="tab-button area-heading" role="tablist">
 						<li role="presentation" class="active">
-							<a href="#laptop" aria-controls="laptop" role="tab"  data-toggle="tab">주간 베스트 상품</a>
+							<a href="#laptop" aria-controls="laptop" role="tab"  data-toggle="tab">베스트 상품</a>
 						</li>
 						<li role="presentation">
-							<a href="#smartphone" aria-controls="smartphone" role="tab"  data-toggle="tab">월간 베스트 상품</a>
+							<a href="#smartphone" aria-controls="smartphone" role="tab"  data-toggle="tab">인기 상품</a>
 						</li>
 						<li role="presentation">
-							<a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">이달의 특가할인 상품</a>
+							<a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">특가할인 상품</a>
 						</li>
 					</ul>
 				</div>

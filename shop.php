@@ -26,11 +26,11 @@ $page=@$_GET["page"];
 if(empty($page))
 	$page=1;
 if($serch_key != ""){
-	$db->query("SELECT goods_code  FROM goods WHERE goods_tag LIKE '$serch_key%'");
+	$db->query("SELECT goods_code  FROM goods WHERE goods_tag LIKE '$serch_key%'  AND goods_display='1'");
 }else{
-	$db->query("SELECT goods_code  FROM goods WHERE goods_code LIKE '$code%' $addQuery");
+	$db->query("SELECT goods_code  FROM goods WHERE goods_code LIKE '$code%' AND goods_display='1'");
 }
-$db->query("SELECT goods_code  FROM goods WHERE goods_code LIKE '$code%' $addQuery");
+$db->query("SELECT goods_code  FROM goods WHERE goods_code LIKE '$code%' AND goods_display='1'");
 $total_record=$db->countRows();
 
 if($total_record==0) {
@@ -109,9 +109,9 @@ if($total_record==0) {
 												$tFirst = $first;
 											}
 											if($serch_key != ""){
-												$db->query("SELECT goods_code,goods_name,commonPrice,sellPrice,sb_sale,shipping FROM goods WHERE goods_tag LIKE '$serch_key%' ORDER BY id ASC LIMIT $tFirst,$gnum_per_page");
+												$db->query("SELECT goods_code,goods_name,commonPrice,sellPrice,sb_sale,shipping FROM goods WHERE goods_tag LIKE '$serch_key%' AND goods_display='1' ORDER BY id ASC LIMIT $tFirst,$gnum_per_page");
 											}else{
-												$db->query("SELECT goods_code,goods_name,commonPrice,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '$code%' ORDER BY id ASC LIMIT $tFirst,$gnum_per_page");
+												$db->query("SELECT goods_code,goods_name,commonPrice,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '$code%' AND goods_display='1' ORDER BY id ASC LIMIT $tFirst,$gnum_per_page");
 											}
 
 											$db_shop = $db->loadRows();

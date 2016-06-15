@@ -24,9 +24,11 @@ include("check.php");
             }
             .td-info{
                 background-color:#eee;
+                padding:10px;
             }
             .td-val{
                 background-color:#fff;
+                padding:10px;
             }
             .fc_blue{
                 color: #09a0f7;
@@ -189,7 +191,7 @@ include("check.php");
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="no-border-right no-border-left">
+                            <td colspan="2" class="no-border-right no-border-left" align="center" style="padding:10px 0px;">
                                 <input type="submit" class="memEleB" value="적용">
                             </td>
                         </tr>
@@ -199,14 +201,13 @@ include("check.php");
             <div id="left" style="float:left;">
                 <ul id="x">
                     <li class="TitleLi1">기본설정</li>
-
                     <li class="ml10"> <a href="shop.php">쇼핑몰 기본정보</a> </li>
                     <li class="ml10"> <a href="shop_biz.php" class="active">사업자 정보</a> </li>
-                    <li class="ml10"> <a href="shop.php">고객 상담 안내</a> </li>
-                    <li class="ml10"> <a href="shop.php">주문기본정보 설정</a> </li>
-                    <li class="ml10"> <a href="shop.php">적립금 설정</a> </li>
-                    <li class="ml10"> <a href="shop.php">회원약관 설정</a> </li>
-                    <li class="ml10"> <a href="shop.php">개인정보취급방침</a> </li>
+                    <li class="ml10"> <a href="shop_info.php">고객 상담 안내</a> </li>
+                    <li class="ml10"> <a href="shop_buy_setup_modify.php">주문기본정보 설정</a> </li>
+                    <li class="ml10"> <a href="shop_service_mile.php">적립금 설정</a> </li>
+                    <li class="ml10"> <a href="shop_user_policy_provision.php">회원약관 설정</a> </li>
+                    <li class="ml10"> <a href="shop_user_policy_privacy.php">개인정보취급방침</a> </li>
 
                 </ul>
             </div>

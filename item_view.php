@@ -16,6 +16,13 @@ if ($detect->isMobile()) {
 $goods_code = $_GET["code"];
 $name1 = $_GET["name1"];
 $name2 = $_GET["name2"];
+$db->query("SELECT id FROM goods WHERE goods_code='$goods_code' AND goods_display='1'");
+$db_goods_display_query = $db->countRows();
+if($db_goods_display_query=="0"){
+    echo '<script language="javascript">window.top.document.location.href="index.php";</script>';
+    header("Location: index.php");
+    exit;
+}
 ?>
 <body class="home-1 shop-page sin-product-page">
     <!--[if lt IE 8]>
@@ -232,7 +239,7 @@ $name2 = $_GET["name2"];
                             *적립금형태 (mileage type) - 0:% ,1:원
                             * goods_mile_flag
                             */
-                            $db->query("SELECT id,goods_code,goods_opt_Num,goods_name,commonPrice,sellPrice,sb_sale,summary,comment,goods_opt_type,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_dlv_unit,goods_dlv_value,goods_mile,goods_mile_flag,goods_stock_type,goods_stock FROM goods WHERE goods_code='$goods_code'");
+                            $db->query("SELECT id,goods_code,goods_opt_Num,goods_name,commonPrice,sellPrice,sb_sale,summary,comment,goods_opt_type,goods_dlv_special,goods_dlv_type,goods_dlv_fee,goods_dlv_unit,goods_dlv_value,goods_mile,goods_mile_flag,goods_stock_type,goods_stock FROM goods WHERE goods_code='$goods_code' AND goods_display='1'");
                             $db_goodsArr = $db->loadRows();
                             $goods_seq_main = $db_goodsArr[0]["id"];
                             $goods_dlv_special = $db_goodsArr[0]["goods_dlv_special"];

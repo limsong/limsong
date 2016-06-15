@@ -499,12 +499,12 @@ if ($detect->isMobile()) {
                             <li>
                                 <i class="fa fa-envelope-o"></i>
                                 <strong>Email:</strong>
-                                admin@bootexperts.com
+                                nohseong21@naver.com
                             </li>
                             <li>
                                 <i class="fa fa-phone"></i>
                                 <strong>Hotline:</strong>
-                                +001 555 801
+                                031-2380-9898
                             </li>
                         </ul>
                     </div>

@@ -1,15 +1,15 @@
-<h4 id="mainTitle">게시글 관리</h4>
 <form name="boardListForm" method="post"
       action="boardListDelPost.php?code=<?= $code ?>&page=<?= $page ?>&key=<?= $key ?>&keyfiled=<?= $keyfiled ?>"
       target="action_frame">
+    <input type="hidden" name="tbl" value="tbl_notice">
     <table align="center" width="100%" class="memberListTable">
         <tr class="menuTr">
             <th width="5%">선택</th>
             <th width="5%">#</th>
-            <th width="40%">제목</th>
-            <th width="15%">작성자</th>
-            <th width="25%">날짜</th>
-            <th width="10%">조회수</th>
+            <th width="65%">제목</th>
+            <th width="10%">작성자</th>
+            <th width="10%">날짜</th>
+            <th width="5%">조회수</th>
         </tr>
         <?
         $total_page = ceil($total_record / $bnum_per_page); //젠체 페이지수
@@ -43,7 +43,7 @@
                     <input type="checkbox" value="<?= $ou_uid ?>" name="check[]"/>
                 </td>
                 <td class="num" align="center"><?=$ou_uid?></td>
-                <td class="memId">
+                <td class="memId" style="padding-left:10px;">
                     <a href="noticeRead.php?code=q&number=<?= $ou_uid ?>&page=<?= $page ?>&keyfield=<?= $keyfield ?>&key=<?= $key ?>"><?= $ou_subject ?></a>
                 </td>
                 <td class="memName" align="center"><?= $ou_name ?></td>

@@ -79,7 +79,7 @@ if ($debug == true) {
                 <div id="loading" style="top:80%;">
                     <img src="img/extanim32.gif" width="32" height="32" style="margin-right:8px;float:left;vertical-align:top;"/>
                 </div>
-                <h4 id="mainTitle">상품 정보 입력</h4>
+                <h4 id="mainTitle">새상품 추가</h4>
                 <ul class="sortBigBox" id="sortBox">
                     <li class="depth1">
                         <h5 class="sortTitle">대분류</h5>
@@ -330,27 +330,22 @@ if ($debug == true) {
                         -->
                     </dl>
                     <dl class="readContent">
-                        <dt style="background-color:#3a5795;color:white;">특수코드</dt>
-                        <dd class="inputDd"
-                            style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
-                        <?
-                        $query = "SELECT name,img FROM sp";
-                        $result = mysql_query($query) or die($query);
-                        while ($rows = mysql_fetch_assoc($result)) {
-                            # code...
-                            ?>
-                            <dt>특수코드</dt>
-                            <dd class="inputDd">
-                                <label>
-                                    <input type="checkbox" name="sp[]" value="<?= $rows['name'] ?>"/>
-                                    <span>
-                                        <img src="<? echo $brandImagesWebDir . $rows['img']; ?>"/>
-                                    </span>
-                                </label>
-                            </dd>
+                        <dt>상품아이콘</dt>
+                        <dd class="inputDd" style="height: auto;">
                             <?
-                        }
-                        ?>
+                            $i = 0;
+                            $query = "SELECT name,img FROM sp";
+                            $result = mysql_query($query) or die($query);
+                            while ($rows = mysql_fetch_assoc($result)) {
+                                if (@$ou_sp_optionArr[$i] == $rows["name"]) {
+                                    echo '<label style="float:left;margin-bottom:5px;" for="item_'.$i.'"><input type="checkbox" id="item_'.$i.'" name="sp[]" style="float: left;" checked="checked" value="' . $rows['name'] . '" /><img style="margin-right:10px;" src="'.$brandImagesWebDir . $rows["img"].'"/></label>';
+                                } else {
+                                    echo '<label style="float:left;margin-bottom:5px;" for="item_'.$i.'"><input type="checkbox" id="item_'.$i.'" name="sp[]" style="float: left;" value="' . $rows['name'] . '" /><img style="margin-right:10px;" src="'.$brandImagesWebDir . $rows["img"].'"/></label>';
+                                }
+                                $i++;
+                            }
+                            ?>
+                        </dd>
                     </dl>
 
 
@@ -358,7 +353,7 @@ if ($debug == true) {
                         <dt style="background-color:#3a5795;color:white;">이미지</dt>
                         <dd class="inputDd"
                             style="background-color: #3a5795;padding-left:9px;height:17px;color:white;"></dd>
-                        <dt>대이미지
+                        <dt>확대 이미지
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
@@ -370,7 +365,7 @@ if ($debug == true) {
                         </dd>
                     </dl>
                     <dl class="readContent dlmimg">
-                        <dt>중이미지
+                        <dt>상세 이미지
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
@@ -382,7 +377,7 @@ if ($debug == true) {
                         </dd>
                     </dl>
                     <dl class="readContent dlsimg">
-                        <dt>소이미지
+                        <dt>목록 이미지
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">

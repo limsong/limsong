@@ -26,15 +26,15 @@ if ($detect->isMobile()) {
         //slider.php banner.php bottom_bannert.php category_one two three four five
         $db->query("SELECT imgName FROM banner order by id asc");
         $dbdata = $db->loadRows();
-        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '01%' ORDER BY id ASC LIMIT 0,10");
+        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '01%' AND goods_display='1' ORDER BY id ASC LIMIT 0,10");
         $dbdata_goods_ELECTRONICS = $db->loadRows();
-        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '02%' ORDER BY id ASC LIMIT 0,10");
+        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '02%' AND goods_display='1' ORDER BY id ASC LIMIT 0,10");
         $dbdata_goods_FASHION = $db->loadRows();
-        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '03%' ORDER BY id ASC LIMIT 0,10");
+        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '03%' AND goods_display='1' ORDER BY id ASC LIMIT 0,10");
         $dbdata_goods_HEALTHBEAUTY = $db->loadRows();
-        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '04%' ORDER BY id ASC LIMIT 0,10");
+        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '04%' AND goods_display='1' ORDER BY id ASC LIMIT 0,10");
         $dbdata_goods_FURNITURE = $db->loadRows();
-        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '05%' ORDER BY id ASC LIMIT 0,10");
+        $db->query("SELECT goods_code,goods_name,sellPrice,sb_sale,shipping FROM goods WHERE goods_code LIKE '05%' AND goods_display='1' ORDER BY id ASC LIMIT 0,10");
         $dbdata_goods_TOYSGIFTS = $db->loadRows();
         $db->query("SELECT sortName FROM sortCodes WHERE uxCode='00' and umCode='00' ORDER BY sortCode ASC");
         $dbdata_sortCode_sortName = $db->loadRows();

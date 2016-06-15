@@ -14,19 +14,19 @@ if ($vXcode != '00') {
     $query = "select sortName from sortCodes where uxCode='00' and umCode='00' and sortCode='$vXcode'";
     $result = mysql_query($query) or die($query);
     $xcodeName = mysql_result($result, 0, 0);
-    $sortText = $xcodeName . "[" . $vXcode . "]";
+    $sortText = $xcodeName ;
 }
 if ($vMcode != '00') {
     $query = "select sortName from sortCodes where uxCode='$vXcode' and umCode='00' and sortCode='$vMcode'";
     $result = mysql_query($query) or die($query);
     $mcodeName = mysql_result($result, 0, 0);
-    $sortText .= " -> " . $mcodeName . "[" . $vMcode . "]";
+    $sortText .= " -> " . $mcodeName;
 }
 if ($vScode != '00') {
     $query = "select sortName from sortCodes where uxCode='$vXcode' and umCode='$vMcode' and sortCode='$vScode'";
     $result = mysql_query($query) or die($query);
     $scodeName = mysql_result($result, 0, 0);
-    $sortText .= " -> " . $scodeName . "[" . $vScode . "]";
+    $sortText .= " -> " . $scodeName;
 }
 $query = "SELECT * FROM goods WHERE goods_code='$goods_code'";
 $result = mysql_query($query) or die($query);
@@ -199,7 +199,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                     <img src="img/extanim32.gif" width="32" height="32"
                          style="margin-right:8px;float:left;vertical-align:top;"/>
                 </div>
-                <h4 id="mainTitle">상품 정보 읽기</h4>
+                <h4 id="mainTitle">상품 수정</h4>
                 <form name="brandForm" id="brandForm" method="post" target="action_frame"
                       action="brandChangePost.php?xcode=<?= $xcode ?>&mcode=<?= $mcode ?>&scode=<?= $scode ?>&key=<?= $key ?>&keyfield=<?= $keyfield ?>"
                       enctype="multipart/form-data">
@@ -287,18 +287,18 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         <?
                         }else{
                         ?>
-                        <dt class="option_name <?= @$show ?>">옵션명1
+                        <!--<dt class="option_name <?/*= @$show */?>">옵션명1
                             <span class="fontCol">*</span>
                         </dt>
-                        <dd class="inputDd option_name <?= @$show ?>">
-                            <input type="text" name="opName1" value="<?= @$goods_option_name_opName1 ?>" id="opName1" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
+                        <dd class="inputDd option_name <?/*= @$show */?>">
+                            <input type="text" name="opName1" value="<?/*= @$goods_option_name_opName1 */?>" id="opName1" class="inputItem goods_option_inp" style="width:100%;" <?/*= @$readonly */?> />
                         </dd>
-                        <dt class="option_name <?= @$show ?>">옵션명2
+                        <dt class="option_name <?/*= @$show */?>">옵션명2
                             <span class="fontCol">*</span>
                         </dt>
-                        <dd class="inputDd option_name <?= @$show ?>">
-                            <input type="text" name="opName2" value="<?= @$goods_option_name_opName2 ?>" id="opName2" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
-                        </dd>
+                        <dd class="inputDd option_name <?/*= @$show */?>">
+                            <input type="text" name="opName2" value="<?/*= @$goods_option_name_opName2 */?>" id="opName2" class="inputItem goods_option_inp" style="width:100%;" <?/*= @$readonly */?> />
+                        </dd>-->
                         <dt>시장가/정찰가
                             <span class="fontCol">*</span>
                         </dt>
@@ -315,9 +315,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
-                            <input type="text" name="qta" value="<?= @$goods_option_value_quantity ?>" id="qta" class="inputItem goods_option_inp" style="width:91%;" <?= @$readonly ?> />
-                            <input type="Button" class="memEleB DateBoxa <?= @$show ?>" data="option1" value="상품 입력"/>
-                            <div id="qtBoxa"></div>
+                            <input type="text" name="qta" value="<?= @$goods_option_value_quantity ?>" id="qta" class="inputItem goods_option_inp" style="width:100%;" <?= @$readonly ?> />
                         </dd>
                         <?
                         }
@@ -495,36 +493,28 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         </dd>
                     </dl>
                     <dl class="readContent">
-                        <dt style="">특수코드</dt>
-                        <dd class="inputDd" style="padding-left:9px;height:17px;"></dd>
-                        <?
-                        $i = 0;
-                        $query = "SELECT name,img FROM sp";
-                        $result = mysql_query($query) or die($query);
-                        while ($rows = mysql_fetch_assoc($result)) {
-                            ?>
-                            <dt>특수코드</dt>
-                            <dd class="inputDd">
-                                <?
-                                if (@$ou_sp_optionArr[$i] == $rows["name"]) {
-                                    $i++;
-                                    echo '<input type="checkbox" name="sp[]" checked="checked" value="' . $rows['name'] . '" />';
-                                } else {
-                                    echo '<input type="checkbox" name="sp[]" value="' . $rows['name'] . '" />';
-                                }
-                                ?>
-                                <img style="float:left;margin-right:10px;"
-                                     src="<? echo $brandImagesWebDir . $rows['img']; ?>"/>
-                            </dd>
+                        <dt>상품아이콘</dt>
+                        <dd class="inputDd" style="height: auto;">
                             <?
-                        }
-                        ?>
+                            $i = 0;
+                            $query = "SELECT name,img FROM sp";
+                            $result = mysql_query($query) or die($query);
+                            while ($rows = mysql_fetch_assoc($result)) {
+                                if (@$ou_sp_optionArr[$i] == $rows["name"]) {
+                                    echo '<label style="float:left;margin-bottom:5px;" for="item_'.$i.'"><input type="checkbox" id="item_'.$i.'" name="sp[]" style="float: left;" checked="checked" value="' . $rows['name'] . '" /><img style="margin-right:10px;" src="'.$brandImagesWebDir . $rows["img"].'"/></label>';
+                                } else {
+                                    echo '<label style="float:left;margin-bottom:5px;" for="item_'.$i.'"><input type="checkbox" id="item_'.$i.'" name="sp[]" style="float: left;" value="' . $rows['name'] . '" /><img style="margin-right:10px;" src="'.$brandImagesWebDir . $rows["img"].'"/></label>';
+                                }
+                                $i++;
+                            }
+                            ?>
+                        </dd>
                     </dl>
                     <dl class="readContent dlbimg">
                         <dt style="">이미지</dt>
                         <dd class="inputDd"
                             style="padding-left:9px;height:17px;"></dd>
-                        <dt>대이미지
+                        <dt>확대 이미지
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
@@ -576,7 +566,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         ?>
                     </dl>
                     <dl class="readContent dlmimg">
-                        <dt>중이미지
+                        <dt>상세 이미지
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
@@ -629,7 +619,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                         ?>
                     </dl>
                     <dl class="readContent dlsimg">
-                        <dt>소이미지
+                        <dt>목록 이미지
                             <span class="fontCol">*</span>
                         </dt>
                         <dd class="inputDd">
@@ -772,7 +762,7 @@ while ($goods_option_Rows = mysql_fetch_array($goods_option_Result)) {
                 <iframe name="action_frame" width="99%" height="200" style="display:none;"></iframe>
             </div>
         </div>
-        <div id="light" class="white_content" onclick="closeBox()">asdadsa</div>
+        <div id="light" class="white_content" onclick="closeBox()"></div>
         <div id="fade" class="black_overlay"></div>
         <script type="text/javascript" src="assets/plugins/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>

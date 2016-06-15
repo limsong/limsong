@@ -6,10 +6,10 @@
         <tr class="menuTr">
             <th width="5%">선택</th>
             <th width="5%">#</th>
-            <th width="40%">제목</th>
-            <th width="15%">작성자</th>
-            <th width="25%">날짜</th>
-            <th width="10%">조회수</th>
+            <th width="60%">제목</th>
+            <th width="10%">작성자</th>
+            <th width="15%">날짜</th>
+            <th width="5%">조회수</th>
         </tr>
         <?
         $total_page = ceil($total_record / $bnum_per_page); //젠체 페이지수

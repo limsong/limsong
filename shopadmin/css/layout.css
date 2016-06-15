@@ -151,3 +151,15 @@ font-size:16px;
 .contentTable td {
 color:#585858;
 }
+.review-msg {
+	dclear: both;
+	word-break: break-word;
+	word-wrap: break-word;
+	white-space: -moz-pre-wrap;
+	white-space: -hp-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: pre;
+	white-space: pre-wrap;
+	white-space: pre-line;
+}
