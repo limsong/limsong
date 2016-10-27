@@ -1267,7 +1267,7 @@ if ($oname == "") {
                 alert("주소를 입력해주세요.");
                 return false;
             }
-            
+
             $.ajax({
                 url: 'upcheck.php',
                 type: 'POST',
