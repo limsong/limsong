@@ -1,7 +1,7 @@
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
-    <div class="page-header-inner container">
+    <div class="page-header-inner ">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="index.html">
@@ -19,32 +19,32 @@
         <div class="page-actions">
             <div class="btn-group">
                 <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                    <span class="hidden-sm hidden-xs">Actions&nbsp;</span>
+                    <span class="hidden-sm hidden-xs">메뉴&nbsp;</span>
                     <i class="fa fa-angle-down"></i>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
                         <a href="javascript:;">
-                            <i class="icon-docs"></i> New Post </a>
+                            <i class="icon-diamond"></i> 상점관리 </a>
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="icon-tag"></i> New Comment </a>
+                            <i class="icon-user"></i> 회원관리 </a>
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="icon-share"></i> Share </a>
+                            <i class="icon-tag"></i> 상품관리 </a>
                     </li>
-                    <li class="divider"> </li>
+                    <!--<li class="divider"> </li>-->
                     <li>
                         <a href="javascript:;">
-                            <i class="icon-flag"></i> Comments
+                            <i class="icon-basket"></i> 주문관리
                             <span class="badge badge-success">4</span>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="icon-users"></i> Feedbacks
+                            <i class="icon-note"></i> 게시판관리
                             <span class="badge badge-danger">2</span>
                         </a>
                     </li>
@@ -366,7 +366,7 @@
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <span class="username username-hide-on-mobile"> Nick </span>
+                            <span class="username username-hide-on-mobile"> 관리자 </span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                             <img alt="" class="img-circle" src="../assets/layouts/layout4/img/avatar9.jpg" /> </a>
                         <ul class="dropdown-menu dropdown-menu-default">

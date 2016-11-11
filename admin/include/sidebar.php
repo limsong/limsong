@@ -2,7 +2,7 @@
     <!-- BEGIN SIDEBAR -->
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-    <div class="page-sidebar navbar-collapse collapse">
+    <div class="page-sidebar navbar-collapse">
         <!-- BEGIN SIDEBAR MENU -->
         <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
         <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
@@ -10,8 +10,8 @@
         <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
         <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
         <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-        <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-            <li class="nav-item start active open">
+        <ul class="page-sidebar-menu  " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+            <li class="nav-item start active ZX">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-home"></i>
                     <span class="title">Dashboard</span>
@@ -20,27 +20,736 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item start active open">
-                        <a href="index.html" class="nav-link ">
+                        <a href="../index.html" class="nav-link ">
                             <i class="icon-bar-chart"></i>
                             <span class="title">Dashboard 1</span>
                             <span class="selected"></span>
                         </a>
                     </li>
                     <li class="nav-item start ">
-                        <a href="dashboard_2.html" class="nav-link ">
+                        <a href="../dashboard_2.html" class="nav-link ">
                             <i class="icon-bulb"></i>
                             <span class="title">Dashboard 2</span>
                             <span class="badge badge-success">1</span>
                         </a>
                     </li>
                     <li class="nav-item start ">
-                        <a href="dashboard_3.html" class="nav-link ">
+                        <a href="../dashboard_3.html" class="nav-link ">
                             <i class="icon-graph"></i>
                             <span class="title">Dashboard 3</span>
                             <span class="badge badge-danger">5</span>
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="heading">
+                <h3 class="uppercase">상점관리</h3>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">상점 기본설정</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ui_colors.html" class="nav-link ">
+                            <span class="title">쇼핑몰 기본정보</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_colors.html" class="nav-link ">
+                            <span class="title">사업자 정보</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_general.html" class="nav-link ">
+                            <span class="title">고객 상담 안내</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_general.html" class="nav-link ">
+                            <span class="title">도메인 정보</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_general.html" class="nav-link ">
+                            <span class="title">로고/타이틀/주소</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_general.html" class="nav-link ">
+                            <span class="title">보안설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">주문기본정보 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons_spinner.html" class="nav-link ">
+                            <span class="title">적립금 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_confirmations.html" class="nav-link ">
+                            <span class="title">회원약관 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_sweetalert.html" class="nav-link ">
+                            <span class="title">개인정보취급방침</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">운영/정책/설정</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">쇼핑몰 운영방식</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons_spinner.html" class="nav-link ">
+                            <span class="title">운영자 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_confirmations.html" class="nav-link ">
+                            <span class="title">거래처 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_sweetalert.html" class="nav-link ">
+                            <span class="title">배송관련 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_sweetalert.html" class="nav-link ">
+                            <span class="title">적립금 설정</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">상품관련 설정</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">상품기본정보 설정</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">주문관련 설정</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">주문기본정보 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">주문서 추가항목 관리</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">회원관련 설정</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">기본 가입 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">기타 가입 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">탈퇴 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">회원가입 항목설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">회원약관 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">개인정보처리방침 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">회원인증방 설정</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">결제 및 연동 서비스</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">결제 기본 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">PG결제 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ui_buttons.html" class="nav-link ">
+                            <span class="title">휴대폰 결제 설정</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="heading">
+                <h3 class="uppercase">회원관리</h3>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">회원관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1.html" class="nav-link ">
+                            <i class="icon-user"></i>
+                            <span class="title">회원리스트</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">회원등급 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_help.html" class="nav-link ">
+                            <i class="icon-user-following"></i>
+                            <span class="title">휴면회원 리스트</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_2.html" class="nav-link ">
+                            <i class="icon-users"></i>
+                            <span class="title">탈퇴회원 리스트</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">마케팅그룹 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1.html" class="nav-link ">
+                            <i class="icon-user"></i>
+                            <span class="title">마케팅그룹 리스트</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">마케팅그룹 등록</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">메일/문자</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1.html" class="nav-link ">
+                            <i class="icon-user"></i>
+                            <span class="title">메일 발송</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">문자 발송</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">자동 메일 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">자동 문자 설정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">메일 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">문자 관리</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">회원이용도</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1.html" class="nav-link ">
+                            <i class="icon-user"></i>
+                            <span class="title">적립금 로그</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">적립금 순위</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">추천인 순위</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">쿠폰 로그</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_user_profile_1_account.html" class="nav-link ">
+                            <i class="icon-user-female"></i>
+                            <span class="title">쿠폰 순위</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="heading">
+                <h3 class="uppercase">상품관리</h3>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-tag"></i>
+                    <span class="title">상품등록 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ecommerce_index.html" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">상품 리스트</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders.html" class="nav-link ">
+                            <i class="icon-basket"></i>
+                            <span class="title">상품 등록</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders_view.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">상품 재고관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">옵션세트 관리</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-tag"></i>
+                    <span class="title">상품 분류 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ecommerce_index.html" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">상품 분류 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders.html" class="nav-link ">
+                            <i class="icon-basket"></i>
+                            <span class="title">분류별 할인 설정</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-tag"></i>
+                    <span class="title">상품 진열 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ecommerce_index.html" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">메인상품 진열</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders.html" class="nav-link ">
+                            <i class="icon-basket"></i>
+                            <span class="title">일반상품 진열</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders_view.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">분류별 추천상품 진열</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">관련상품 진열</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-tag"></i>
+                    <span class="title">상품 일괄 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ecommerce_index.html" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">일반정보 일괄 수정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders.html" class="nav-link ">
+                            <i class="icon-basket"></i>
+                            <span class="title">가격 일괄 수정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders_view.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">옵션정보 일관 수정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">즉시할인가 일괄 수정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">적립금 일괄 수정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">배송비 일괄 수정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">단위판매 일괄 수정</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">상품 이동/복사/삭제</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="heading">
+                <h3 class="uppercase">주문관리</h3>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-basket"></i>
+                    <span class="title">주문 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ecommerce_index.html" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">입금대기</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders.html" class="nav-link ">
+                            <i class="icon-basket"></i>
+                            <span class="title">입금완료</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders_view.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">배송준비</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">배송중</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">배송완료</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">주문리스트(전체)</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-basket"></i>
+                    <span class="title">주문취소 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ecommerce_index.html" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">입금전 교환/취소</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders.html" class="nav-link ">
+                            <i class="icon-basket"></i>
+                            <span class="title">배송전 교환/환불</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders_view.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">배송후 반품</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">배송후 교환</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">미처리 주문 리스트</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-basket"></i>
+                    <span class="title">거래증빙 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="ecommerce_index.html" class="nav-link ">
+                            <i class="icon-home"></i>
+                            <span class="title">현금영수증 발행 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders.html" class="nav-link ">
+                            <i class="icon-basket"></i>
+                            <span class="title">세금계산서 발행 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_orders_view.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">전자세금계산서 관리</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="ecommerce_products.html" class="nav-link ">
+                            <i class="icon-graph"></i>
+                            <span class="title">전자세금계산서 로그</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-basket"></i>
+                    <span class="title">장바구니 관리</span>
+                </a>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-basket"></i>
+                    <span class="title">주문관련 설정</span>
+                </a>
+            </li>
+            <li class="heading">
+                <h3 class="uppercase">게시판관리</h3>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-note"></i>
+                    <span class="title">게시판 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="page_general_about.html" class="nav-link ">
+                            <i class="icon-info"></i>
+                            <span class="title">게시판 리스트</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_general_contact.html" class="nav-link ">
+                            <i class="icon-call-end"></i>
+                            <span class="title">게시판 등록</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item  ">
+                        <a href="page_general_pricing.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">게시판 일괄 드록</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-note"></i>
+                    <span class="title">상점 게시물 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="page_general_about.html" class="nav-link ">
+                            <i class="icon-info"></i>
+                            <span class="title">상품문의</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_general_contact.html" class="nav-link ">
+                            <i class="icon-call-end"></i>
+                            <span class="title">사용후기</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item  ">
+                        <a href="page_general_pricing.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">FAQ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_general_pricing.html" class="nav-link ">
+                            <i class="icon-tag"></i>
+                            <span class="title">1:1상담 관리</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-note"></i>
+                    <span class="title">일반 게시물 관리</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="page_general_about.html" class="nav-link ">
+                            <i class="icon-info"></i>
+                            <span class="title">공지사항</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="page_general_contact.html" class="nav-link ">
+                            <i class="icon-call-end"></i>
+                            <span class="title">자유게시판</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-note"></i>
+                    <span class="title">댓글관리</span>
+                </a>
             </li>
             <li class="heading">
                 <h3 class="uppercase">Features</h3>
