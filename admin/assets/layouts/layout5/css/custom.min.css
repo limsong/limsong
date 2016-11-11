@@ -1,0 +1,27 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+/*톰 메뉴 시작*/
+.page-header .navbar .navbar-nav>li>a {
+    font-weight:500;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-style: normal;
+    background: #39424a;
+}
+.page-header .navbar .navbar-nav li.open:hover>a, .page-header .navbar .navbar-nav li.open>a {
+    color: #2a3239;
+}
+.page-header .navbar .navbar-nav li.selected>a{
+	color: #636e77;
+}
+.page-header .navbar .navbar-nav>li>a:hover {
+	color:#fff;
+}
+/*톰 메뉴 끝*/
+/*shop*/
+.uppercase {
+	font-weight:500 !important;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-style: normal;
+}
+.breadcrumbs h1, .page-content-row .page-sidebar h3 {
+	font-family: 'Noto Sans KR', sans-serif;
+}
