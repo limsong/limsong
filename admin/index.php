@@ -1,4 +1,12 @@
-    <? include_once "head.php";?>
+<? include_once "head.php";?>
+    <?
+    /*
+     * $act => 페이지
+     * $ch => 폴더
+     * */
+    $act = $_GET["act"];
+    $ch = $_GET["ch"];
+    ?>
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
         <? include_once "../include/head.php";?>
         <div class="page-container">
