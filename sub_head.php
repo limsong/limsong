@@ -11,7 +11,7 @@ if ($detect->isMobile()) {
 }
 ?>
 <section class="header-area">
-    <div class="header-top hidden-sm hidden-xs hidden-md">
+    <!--<div class="header-top hidden-sm hidden-xs hidden-md">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
@@ -31,7 +31,7 @@ if ($detect->isMobile()) {
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!--<div class="header-middle hidden-sm hidden-xs hidden-md">-->
     <div class="header-middle">
         <div class="container-fluid">

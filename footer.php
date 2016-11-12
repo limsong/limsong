@@ -70,10 +70,6 @@
                         <div class="payment">
                             <img src="img/payment.png" alt="">
                         </div>
-                        <div class="payment" style="margin-top:10px;">
-                            <img src="img/positivessl-icon.png" width="43" height="43" alt="">&nbsp;&nbsp;
-                            <img src="img/inipay_43x43_color.png" width="43" height="43" alt="">
-                        </div>
                     </div>
                 </div>
             </div>

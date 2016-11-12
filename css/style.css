@@ -49,6 +49,7 @@
 /*  1.  Theme default CSS
 /*----------------------------------------*/
 html, body {
+    max-width:1600px;
     height: 100%;
     color: #6e6e6e;
     /*font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
@@ -5073,4 +5074,7 @@ td {
     white-space: pre; /* CSS2 */
     white-space: pre-wrap; /* CSS 2.1 */
     white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+}
+div.col-xs-8.col-sm-6.col-md-6.col-lg-3{
+    padding:0px;
 }
