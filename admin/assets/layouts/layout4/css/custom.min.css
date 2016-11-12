@@ -1,3 +1,11 @@
 .logo-default {
     width:106px;
 }
+.radio-list>label.radio-inline:first-child{
+    padding-left:20px;
+}
+.portlet.light.bordered {
+    border:0px !important;
+}
+.portlet.light.portlet-fit>.portlet-title{padding-left:0px;padding-right:0px;}
+.ms-container{width:100%;}

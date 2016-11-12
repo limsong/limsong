@@ -38,6 +38,11 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
         <link href="assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+
+        <link href="assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />

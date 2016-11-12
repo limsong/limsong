@@ -24,11 +24,11 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="?act=seller_info&ch=shop">
+                        <a href="?act=seller_info&ch=shop&title=기본설정&title_name=판매자 기본정보">
                             <i class="icon-diamond"></i> 기본설정 </a>
                     </li>
                     <li>
-                        <a href="?act=user_main&ch=user">
+                        <a href="?act=user_main&ch=user&title=회원관리&title_name=회원통계">
                             <i class="icon-user"></i> 회원관리 </a>
                     </li>
                     <li>
