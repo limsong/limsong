@@ -1,3 +1,4 @@
+<script type="text/javascript" src="se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
@@ -14,30 +15,62 @@
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">결제안내</label>
-                            <div class="col-md-4">
-                                <input class="form-control" id="mask_date" type="text" />
-                                <span class="help-block"> d/m/y </span>
+                            <div class="col-md-9">
+                                <textarea name="ir1" id="ir1" rows="15" class="col-md-11"></textarea>
+                                <script type="text/javascript">
+                                    var oEditors = [];
+                                    nhn.husky.EZCreator.createInIFrame({
+                                        oAppRef: oEditors,
+                                        elPlaceHolder: "ir1",
+                                        sSkinURI: "se2/SmartEditor2Skin.html",
+                                        fCreator: "createSEditor2"
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">배송안내</label>
-                            <div class="col-md-4">
-                                <input class="form-control" id="mask_date1" type="text" />
-                                <span class="help-block"> change the placeholder </span>
+                            <div class="col-md-9">
+                                <textarea name="ir2" id="ir2" rows="15" class="col-md-11"></textarea>
+                                <script type="text/javascript">
+                                    var oEditors = [];
+                                    nhn.husky.EZCreator.createInIFrame({
+                                        oAppRef: oEditors,
+                                        elPlaceHolder: "ir2",
+                                        sSkinURI: "se2/SmartEditor2Skin.html",
+                                        fCreator: "createSEditor2"
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">교환/반품안내</label>
-                            <div class="col-md-4">
-                                <input class="form-control" id="mask_date2" type="text" />
-                                <span class="help-block"> multi-char placeholder </span>
+                            <div class="col-md-9">
+                                <textarea name="ir3" id="ir3" rows="15" class="col-md-11"></textarea>
+                                <script type="text/javascript">
+                                    var oEditors = [];
+                                    nhn.husky.EZCreator.createInIFrame({
+                                        oAppRef: oEditors,
+                                        elPlaceHolder: "ir3",
+                                        sSkinURI: "se2/SmartEditor2Skin.html",
+                                        fCreator: "createSEditor2"
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">서비스문의안내</label>
-                            <div class="col-md-4">
-                                <input class="form-control" id="mask_phone" type="text" />
-                                <span class="help-block"> (999) 999-9999 </span>
+                            <div class="col-md-9">
+                                <textarea name="ir5" id="ir5" rows="15" class="col-md-11"></textarea>
+                                <script type="text/javascript">
+                                    var oEditors = [];
+                                    nhn.husky.EZCreator.createInIFrame({
+                                        oAppRef: oEditors,
+                                        elPlaceHolder: "ir5",
+                                        sSkinURI: "se2/SmartEditor2Skin.html",
+                                        fCreator: "createSEditor2"
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
