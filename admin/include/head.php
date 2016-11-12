@@ -24,27 +24,33 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="../?act=shop_main&ch=shop">
-                            <i class="icon-diamond"></i> 상점관리 </a>
+                        <a href="?act=seller_info&ch=shop">
+                            <i class="icon-diamond"></i> 기본설정 </a>
                     </li>
                     <li>
-                        <a href="../?act=user_main&ch=user">
+                        <a href="?act=user_main&ch=user">
                             <i class="icon-user"></i> 회원관리 </a>
                     </li>
                     <li>
-                        <a href="../?act=goods_main&ch=goods">
+                        <a href="?act=goods_main&ch=goods">
                             <i class="icon-tag"></i> 상품관리 </a>
                     </li>
                     <!--<li class="divider"> </li>-->
                     <li>
-                        <a href="../?act=buy_order_list&ch=order">
+                        <a href="?act=buy_order_list&ch=order">
                             <i class="icon-basket"></i> 주문관리
                             <span class="badge badge-success">4</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../?act=community_main&ch=community">
-                            <i class="icon-note"></i> 게시판관리
+                        <a href="?act=community_main&ch=community">
+                            <i class="icon-note"></i> 운영관리
+                            <span class="badge badge-danger">2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?act=event_main&ch=event">
+                            <i class="icon-note"></i> 포로모션
                             <span class="badge badge-danger">2</span>
                         </a>
                     </li>

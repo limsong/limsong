@@ -11,7 +11,8 @@
         <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
         <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
         <ul class="page-sidebar-menu  " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-            <li class="nav-item ">
+            <? if($ch==""){ ?>
+            <li class="nav-item start active open">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-home"></i>
                     <span class="title">Dashboard</span>
@@ -19,7 +20,7 @@
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item ">
+                    <li class="nav-item start active open">
                         <a href="../index.html" class="nav-link ">
                             <i class="icon-bar-chart"></i>
                             <span class="title">Dashboard 1</span>
@@ -42,8 +43,10 @@
                     </li>
                 </ul>
             </li>
+            <?}?>
+            <? if($ch=="shop"){ ?>
             <li class="heading">
-                <h3 class="uppercase">기본관리</h3>
+                <h3 class="uppercase">기본설정</h3>
             </li>
             <li class="nav-item start active open">
                 <a href="javascript:;" class="nav-link nav-toggle">
@@ -52,24 +55,171 @@
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item start active open">
-                        <a href="../shop/seller_info.php" class="nav-link ">
+                    <li class="nav-item <? if($act=='seller_info') echo 'start active open'; ?>">
+                        <a href="?act=seller_info&ch=shop&title=기본설정&title_name=판매자 기본정보" class="nav-link ">
                             <span class="title">판매자 기본정보</span>
-                            <span class="selected"></span>
+                            <? if($act=='seller_info') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ui_colors.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='shop_policy_delivery') echo 'start active open'; ?>">
+                        <a href="?act=shop_policy_delivery&ch=shop&title=기본설정&title_name=판매자 배송정책" class="nav-link ">
                             <span class="title">판매자 배송정책</span>
+                            <? if($act=='shop_policy_delivery') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ui_general.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='seller_policy_info') echo 'start active open'; ?>">
+                        <a href="?act=seller_policy_info&ch=shop&title=기본설정&title_name=판매자 안내문구" class="nav-link ">
                             <span class="title">판매자 안내문구</span>
+                            <? if($act=='seller_policy_info') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
                 </ul>
             </li>
+            <?}?>
+            <? if($ch=="user"){ ?>
+                <li class="heading">
+                    <h3 class="uppercase">회원관리</h3>
+                </li>
+                <li class="nav-item start active open">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-diamond"></i>
+                        <span class="title">회원관리</span>
+                        <span class="arrow open"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item <? if($act=='user_info_list') echo 'start active open'; ?>">
+                            <a href="?act=user_info_list&ch=user&title=회원관리&title_name=회원리스트" class="nav-link ">
+                                <span class="title">회원 리스트</span>
+                                <? if($act=='user_info_list') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_policy_leve') echo 'start active open'; ?>">
+                            <a href="?act=user_policy_leve&ch=user&title=회원관리&title_name=회원등급 관리" class="nav-link ">
+                                <span class="title">회원등급 관리</span>
+                                <? if($act=='user_policy_leve') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_info_sleep_list') echo 'start active open'; ?>">
+                            <a href="?act=user_info_sleep_list&ch=user&title=회원관리&title_name=휴면회원 리스트" class="nav-link ">
+                                <span class="title">휴면회원 리스트</span>
+                                <? if($act=='user_info_sleep_list') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_info_secede_list') echo 'start active open'; ?>">
+                            <a href="?act=user_info_secede_list&ch=user&title=회원관리&title_name=탈퇴회원 리스트" class="nav-link ">
+                                <span class="title">탈퇴회원 리스트</span>
+                                <? if($act=='user_info_secede_list') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item start active open">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-diamond"></i>
+                        <span class="title">마케팅그룹 관리</span>
+                        <span class="arrow open"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item <? if($act=='user_market_group_list') echo 'start active open'; ?>">
+                            <a href="?act=user_market_group_list&ch=user&title=회원관리&title_name=마케팅그룹리스트" class="nav-link ">
+                                <span class="title">마케팅그룹 리스트</span>
+                                <? if($act=='user_market_group_list') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_market_group_step1_write') echo 'start active open'; ?>">
+                            <a href="?act=user_market_group_step1_write&ch=user&title=회원관리&title_name=마케팅그룹 등록" class="nav-link ">
+                                <span class="title">마케팅그룹 등록</span>
+                                <? if($act=='user_market_group_step1_write') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item start active open">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-diamond"></i>
+                        <span class="title">메일/문자</span>
+                        <span class="arrow open"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item <? if($act=='user_mail_write') echo 'start active open'; ?>">
+                            <a href="?act=user_mail_write&ch=user&title=회원관리&title_name=메일 발송" class="nav-link ">
+                                <span class="title">메일 발송</span>
+                                <? if($act=='user_mail_write') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_sms_write') echo 'start active open'; ?>">
+                            <a href="?act=user_sms_write&ch=user&title=회원관리&title_name=문자 발송" class="nav-link ">
+                                <span class="title">문자 발송</span>
+                                <? if($act=='user_sms_write') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_mail_auto_setup') echo 'start active open'; ?>">
+                            <a href="?act=user_mail_auto_setup&ch=user&title=회원관리&title_name=자동 메일 설정" class="nav-link ">
+                                <span class="title">자동 메일 설정</span>
+                                <? if($act=='user_mail_auto_setup') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_sms_auto_setup') echo 'start active open'; ?>">
+                            <a href="?act=user_sms_auto_setup&ch=user&title=회원관리&title_name=자동 문자 설정" class="nav-link ">
+                                <span class="title">자동 문자 설정</span>
+                                <? if($act=='user_sms_auto_setup') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_mail_manage') echo 'start active open'; ?>">
+                            <a href="?act=user_mail_manage&ch=user&title=회원관리&title_name=메일 관리" class="nav-link ">
+                                <span class="title">메일 관리</span>
+                                <? if($act=='user_mail_manage') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_sms_manage') echo 'start active open'; ?>">
+                            <a href="?act=user_sms_manage&ch=user&title=회원관리&title_name=문자 관리" class="nav-link ">
+                                <span class="title">문자 관리</span>
+                                <? if($act=='user_sms_manage') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item start active open">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-diamond"></i>
+                        <span class="title">회원이용도</span>
+                        <span class="arrow open"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item <? if($act=='user_access_mile') echo 'start active open'; ?>">
+                            <a href="?act=user_access_mile&ch=user&title=회원관리&title_name=적립금 로그" class="nav-link ">
+                                <span class="title">적립금 로그</span>
+                                <? if($act=='user_access_mile') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_access_mile_keep') echo 'start active open'; ?>">
+                            <a href="?act=user_access_mile_keep&ch=user&title=회원관리&title_name=적립금 순위" class="nav-link ">
+                                <span class="title">적립금 순위</span>
+                                <? if($act=='user_access_mile_keep') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_access_recm_user') echo 'start active open'; ?>">
+                            <a href="?act=user_access_recm_user&ch=user&title=회원관리&title_name=추천인 순위" class="nav-link ">
+                                <span class="title">추천인 순위</span>
+                                <? if($act=='user_access_recm_user') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_access_coupon') echo 'start active open'; ?>">
+                            <a href="?act=user_access_coupon&ch=user&title=회원관리&title_name=쿠폰 로그" class="nav-link ">
+                                <span class="title">쿠폰 로그</span>
+                                <? if($act=='user_access_coupon') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='user_access_coupon_keep') echo 'start active open'; ?>">
+                            <a href="?act=user_access_coupon_keep&ch=user&title=회원관리&title_name=쿠폰 순위" class="nav-link ">
+                                <span class="title">쿠폰 순위</span>
+                                <? if($act=='user_access_coupon_keep') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            <?}?>
+            <? if($ch=="goods"){ ?>
             <!-- 상품 관리 -->
             <li class="heading">
                 <h3 class="uppercase">상품관리</h3>
@@ -81,19 +231,22 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="ecommerce_index.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='goods_lis') echo 'start active open'; ?>">
+                        <a href="?act=goods_lis&ch=goods&title=상품관리&title_name=상품 리스트" class="nav-link ">
                             <span class="title">상품 리스트</span>
+                            <? if($act=='goods_lis') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_index.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='goods_lis') echo 'start active open'; ?>">
+                        <a href="?act=goods_form&ch=goods&title=상품관리&title_name=상품 등록" class="nav-link ">
                             <span class="title">상품 등록</span>
+                            <? if($act=='goods_form') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
                 </ul>
             </li>
-
+            <?}?>
+            <? if($ch=="order"){ ?>
             <li class="heading">
                 <h3 class="uppercase">주문관리</h3>
             </li>
@@ -104,65 +257,74 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="ecommerce_index.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_pay_wait_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_pay_wait_list&ch=order&title=주문관리&title_name=입금대기" class="nav-link ">
                             <i class="icon-home"></i>
                             <span class="title">입금대기</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_pay_wait_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_orders.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_pay_ok_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_pay_ok_list=ch=order&title=주문관리&title_name=입금완료" class="nav-link ">
                             <i class="icon-basket"></i>
                             <span class="title">입금완료</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_pay_ok_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_orders_view.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_dlv_wait_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_dlv_wait_list&ch=order&title=주문관리&title_name=배송요청" class="nav-link ">
                             <i class="icon-tag"></i>
                             <span class="title">배송요청</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_dlv_wait_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_products.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_dlv_int_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_dlv_int_list&ch=order&title=주문관리&title_name=배송중" class="nav-link ">
                             <i class="icon-graph"></i>
                             <span class="title">배송중</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_dlv_int_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_products.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_dlv_ok_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_dlv_ok_list&ch=order&title=주문관리&title_name=구매확정" class="nav-link ">
                             <i class="icon-graph"></i>
                             <span class="title">구매확정</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_dlv_ok_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_products.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_return_wait_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_return_wait_list&ch=order&title=주문관리&title_name=배송후 반품" class="nav-link ">
                             <i class="icon-graph"></i>
                             <span class="title">배송후 반품</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_return_wait_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_products.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_exch_wait_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_exch_wait_list&ch=order&title=주문관리&title_name=베송후 교환" class="nav-link ">
                             <i class="icon-graph"></i>
                             <span class="title">베송후 교환</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_exch_wait_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="ecommerce_products.html" class="nav-link ">
+                    <li class="nav-item <? if($act=='buy_order_list') echo 'start active open'; ?>">
+                        <a href="?act=buy_order_list&ch=order&title=상품관리&title_name=주문리스트(전체)" class="nav-link ">
                             <i class="icon-graph"></i>
                             <span class="title">주문리스트(전체)</span>
                             <span class="badge badge-danger">0</span>
+                            <? if($act=='buy_order_list') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
                 </ul>
             </li>
-            
+            <?}?>
+            <? if($ch=="community"){ ?>
             <li class="heading">
                 <h3 class="uppercase">운영관리</h3>
             </li>
@@ -173,46 +335,102 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="page_general_contact.html" class="nav-link ">
+                    <li class="nav-item  <? if($act=='notice') echo 'start active open'; ?>">
+                        <a href="?act=notice&ch=community&title=운영관리&title_name=공지사항" class="nav-link ">
                             <i class="icon-call-end"></i>
                             <span class="title">공지사항</span>
+                            <? if($act=='notice') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="page_general_pricing.html" class="nav-link ">
+                    <li class="nav-item  <? if($act=='faq') echo 'start active open'; ?>">
+                        <a href="?act=faq&ch=community&title=운영관리&title_name=FAQ" class="nav-link ">
                             <i class="icon-tag"></i>
                             <span class="title">FAQ</span>
+                            <? if($act=='faq') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="page_general_contact.html" class="nav-link ">
+                    <li class="nav-item  <? if($act=='board_free') echo 'start active open'; ?>">
+                        <a href="?act=board_free&ch=community&title=운영관리&title_name=자유게시판" class="nav-link ">
                             <i class="icon-call-end"></i>
                             <span class="title">자유게시판</span>
+                            <? if($act=='board_free') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="page_general_contact.html" class="nav-link ">
+                    <li class="nav-item  <? if($act=='board_onetoone') echo 'start active open'; ?>">
+                        <a href="?act=board_onetoone&ch=community&title=운영관리&title_name=1:1상담 관리" class="nav-link ">
                             <i class="icon-call-end"></i>
                             <span class="title">1:1상담 관리</span>
+                            <? if($act=='board_onetoone') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
 
-                    <li class="nav-item  ">
-                        <a href="page_general_pricing.html" class="nav-link ">
+                    <li class="nav-item  <? if($act=='goods_qna') echo 'start active open'; ?>">
+                        <a href="?act=goods_qna&ch=community&title=운영관리&title_name=상품문의" class="nav-link ">
                             <i class="icon-tag"></i>
                             <span class="title">상품문의</span>
+                            <? if($act=='goods_qna') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="page_general_pricing.html" class="nav-link ">
+                    <li class="nav-item  <? if($act=='user_review') echo 'start active open'; ?>">
+                        <a href="?act=user_review&ch=community&title=운영관리&title_name=사용후기" class="nav-link ">
                             <i class="icon-tag"></i>
                             <span class="title">사용후기</span>
+                            <? if($act=='user_review') echo '<span class="selected"></span>'; ?>
                         </a>
                     </li>
                 </ul>
             </li>
+            <?}?>
+            <? if($ch=="event"){ ?>
+                <li class="heading">
+                    <h3 class="uppercase">프로모션</h3>
+                </li>
+                <li class="nav-item start active open">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-note"></i>
+                        <span class="title">이벤트 관리</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item <? if($act=='event_list') echo 'start active open'; ?>">
+                            <a href="?act=event_list&ch=event&title=프로모션&title_name=공지사항" class="nav-link ">
+                                <i class="icon-call-end"></i>
+                                <span class="title">이벤트 관리</span>
+                                <? if($act=='event_list') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='popup_list') echo 'start active open'; ?>">
+                            <a href="?act=popup_list&ch=event&title=프로모션&title_name=팝업창 관리" class="nav-link ">
+                                <i class="icon-tag"></i>
+                                <span class="title">팝업창 관리</span>
+                                <? if($act=='popup_list') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='banner_list') echo 'start active open'; ?>">
+                            <a href="?act=banner_list&ch=event&title=프로모션&title_name=배너 관리" class="nav-link ">
+                                <i class="icon-call-end"></i>
+                                <span class="title">배너 관리</span>
+                                <? if($act=='banner_list') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item <? if($act=='poll_manage') echo 'start active open'; ?>">
+                            <a href="?act=poll_manage&ch=event&title=프로모션&title_name=온라인 설문 관리" class="nav-link ">
+                                <i class="icon-call-end"></i>
+                                <span class="title">온라인 설문 관리</span>
+                                <? if($act=='poll_manage') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
 
+                        <li class="nav-item <? if($act=='attendance_event') echo 'start active open'; ?>">
+                            <a href="?act=attendance_event&ch=event&title=프로모션&title_name=출석체크 설정" class="nav-link ">
+                                <i class="icon-tag"></i>
+                                <span class="title">출석체크 설정</span>
+                                <? if($act=='attendance_event') echo '<span class="selected"></span>'; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            <?}?>
             <li class="heading">
                 <h3 class="uppercase">Features</h3>
             </li>
